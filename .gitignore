@@ -16,7 +16,7 @@ gen/
 local.properties
 
 *.pydevproject
-.project
+#.project
 .metadata
 bin/**
 tmp/**
