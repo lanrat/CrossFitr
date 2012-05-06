@@ -1,7 +1,5 @@
 package com.vorsk.crossfitr;
 
-import org.example.sudoku.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,5 +39,6 @@ public class CrossFitrActivity extends Activity implements OnClickListener{
 		case R.id.main_button_profile:
 			;
 			break;
+	}
 	}
 }
