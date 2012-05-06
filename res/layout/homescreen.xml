@@ -34,7 +34,7 @@ android:orientation="horizontal" >
     	android:layout_height="70dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button-profile"/>
+    	android:background="@drawable/button_profile"/>
 
 			<Button 
 			android:id="@+id/main_button_workout"
@@ -42,7 +42,7 @@ android:orientation="horizontal" >
     	android:layout_height="70dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button-workout"/>
+    	android:background="@drawable/button_workout"/>
 
 			<Button 
 			android:id="@+id/main_button_calendar"
@@ -50,7 +50,7 @@ android:orientation="horizontal" >
     	android:layout_height="70dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button-calendar"/>
+    	android:background="@drawable/button_calendar"/>
 
 		</TableLayout>
 	</LinearLayout>
