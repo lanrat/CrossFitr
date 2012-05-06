@@ -3,5 +3,15 @@
 
     <string name="hello">Hello World, CrossFitrActivity!</string>
     <string name="app_name">CrossFitr</string>
+    
+    
+    
+   
+    <string name="list_of_workout_title">Workouts</string>
+    <string name="wod_label">Workout of the Day</string>
+    <string name="girl_label">Girl Workouts</string>
+    <string name="hero_label">Hero Workouts</string>
+    <string name="all_label">All Workouts</string>
+    <string name="custom_label">Custom Workouts</string>
 
 </resources>
