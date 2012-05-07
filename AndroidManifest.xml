@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".WorkoutActivity"
+        <activity android:name=".WorkoutsActivity"
 			android:label="@drawable/button_workout" >
 		</activity>
 		<activity android:name=".AllActivity"

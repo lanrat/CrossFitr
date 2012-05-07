@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class WorkoutActivity extends Activity implements OnClickListener{
+public class WorkoutsActivity extends Activity implements OnClickListener{
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
