@@ -12,7 +12,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homescreen);
+        setContentView(R.layout.main);
         
         // workout button
         View workoutButton = findViewById(R.id.main_button_workout);
