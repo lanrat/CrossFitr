@@ -44,7 +44,7 @@ public class WorkoutActivity extends Activity implements OnClickListener{
     			startActivity(i);
     			break;
     		case R.id.hero_button:
-    			i = new Intent(this, HerosActivity.class);
+    			i = new Intent(this, HeroesActivity.class);
     			startActivity(i);
     			break;
     		case R.id.custom_button:
