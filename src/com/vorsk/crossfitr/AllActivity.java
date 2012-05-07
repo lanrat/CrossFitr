@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class AllActivity extends Activity
+abstract class AllActivity extends Activity
 {
 	public void onCreate(Bundle savedInstanceState)
 	{
