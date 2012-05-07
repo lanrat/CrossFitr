@@ -18,6 +18,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name=".WorkoutActivity"
+			android:label="@drawable/button_workout" >
+		</activity>
+		<activity android:name=".AllActivity"
+			android:label="@string/all_label" >
+		</activity>
+		<activity android:name=".WodActivity"
+			android:label="@string/wod_label" />
+		<activity android:name=".GirlsActivity"
+			android:label="@string/girl_label" />
+		<activity android:name=".HeroesActivity"
+			android:label="@string/hero_label" />
+		<activity android:name=".CustomActivity"
+			android:label="@string/custom_label" />
     </application>
 
 </manifest>
