@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="#ffffff"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:padding="15dip"
+android:orientation="horizontal" >
+
+	<LinearLayout
+	android:orientation="vertical"
+	android:layout_height="wrap_content"
+	android:layout_width="fill_parent"
+	android:layout_gravity="center"
+	android:paddingLeft="20dip"
+	android:paddingRight="20dip" >
+		<TextView
+		android:text="@string/main_title"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginBottom="20dip"
+		android:textSize="50sp" />
+	
+		<TableLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_gravity="center"
+		android:stretchColumns="*" >
+
+			<Button
+    	android:id="@+id/main_button_profile"
+    	android:layout_width="70dp"
+    	android:layout_height="70dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:background="@drawable/button_profile"/>
+
+			<Button 
+			android:id="@+id/main_button_workout"
+    	android:layout_width="70dp"
+    	android:layout_height="70dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:background="@drawable/button_workout"/>
+
+			<Button 
+			android:id="@+id/main_button_calendar"
+    	android:layout_width="70dp"
+    	android:layout_height="70dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:background="@drawable/button_calendar"/>
+
+		</TableLayout>
+	</LinearLayout>
+</LinearLayout>
