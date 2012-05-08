@@ -14,5 +14,6 @@
     <string name="hero_label">Hero Workouts</string>
     <string name="all_label">All Workouts</string>
     <string name="custom_label">Custom Workouts</string>
+    <string name="user_label">User Profile</string>
 
 </resources>

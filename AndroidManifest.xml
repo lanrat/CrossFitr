@@ -33,6 +33,8 @@
 			android:label="@string/hero_label" />
 		<activity android:name=".CustomActivity"
 			android:label="@string/custom_label" />
+		<activity android:name=".UserProfileActivity"
+		    android:label="@string/user_label" />
     </application>
 
 </manifest>
