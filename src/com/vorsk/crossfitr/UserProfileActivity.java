@@ -15,7 +15,7 @@ public class UserProfileActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.user_profile);
 	}
 
-	@Override
+	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
