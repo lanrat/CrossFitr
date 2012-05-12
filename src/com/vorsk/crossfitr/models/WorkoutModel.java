@@ -4,33 +4,43 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+/**
+ * DAO for "workout" table.
+ * 
+ * Create a new instance and use the methods to interact with the database.
+ * Data is returned as instances of WorkoutModel.Row where each column is a
+ * publicly accessible property.
+ * 
+ * @author Vivek
+ * @since 1.0
+ */
 public class WorkoutModel extends SQLiteDAO
 {
 	//// Constants
+	
+	// Table-specific columns
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
 	
-	//// Context struct
-	public class Row
+	/**
+	 * Workout entry struct
+	 * 
+	 * This is a customized data container to hold an entry from the workout
+	 * table. Every DAO Model will have its own Row class definition.
+	 */
+	public class Row extends SQLiteDAO.Row
 	{
 		// Cols
-		public long   _id;
-		public String name;
-		public String description;
 		public long   workout_type_id;
 		public int    record;
 		public long   record_type_id;
 		
-		public Row() {
-			// TODO Auto-generated constructor stub
-		}
+		public Row() {}
 		
 		public Row(ContentValues vals)
 		{
-			_id             = vals.getAsLong(COL_ID);
-			name            = vals.getAsString(COL_NAME);
-			description     = vals.getAsString(COL_DESC);
+			super(vals);
 			workout_type_id = vals.getAsLong(COL_WK_TYPE);
 			record          = vals.getAsInteger(COL_RECORD);
 			record_type_id  = vals.getAsLong(COL_REC_TYPE);
@@ -38,10 +48,7 @@ public class WorkoutModel extends SQLiteDAO
 
 		public ContentValues toContentValues()
 		{
-			ContentValues vals = new ContentValues();
-			vals.put(COL_ID,       _id);
-			vals.put(COL_NAME,     name);
-			vals.put(COL_DESC,     description);
+			ContentValues vals = super.toContentValues();
 			vals.put(COL_WK_TYPE,  workout_type_id);
 			vals.put(COL_RECORD,   record);
 			vals.put(COL_REC_TYPE, record_type_id);
@@ -49,23 +56,40 @@ public class WorkoutModel extends SQLiteDAO
 		}
 	}
 	
-	/***   Constructors   ***/
 	
+	/*****   Constructors   *****/
+	
+	/**
+	 * Init SQLiteDAO with table "workout"
+	 * 
+	 * @param ctx In the example they passed "this" from the calling class..
+	 *            I'm not really sure what this is yet.
+	 */
 	public WorkoutModel(Context ctx)
 	{
 		super("workout", ctx);
 	}
 	
-	/***   Private   ***/
+	/*****   Private   *****/
 	
+	/**
+	 * Utility method to grab all the rows from a cursor
+	 * 
+	 * @param cr result of a query
+	 * @return Array of entries
+	 */
 	private Row[] fetchRows(Cursor cr)
 	{
 		Row[] result = new Row[cr.getCount()];
-		if (result.length == 0) return result;
+		if (result.length == 0) {
+			return result;
+		}
 		
 		boolean valid = cr.moveToFirst();
 		int ii = 0;
 		
+		// Grab the cursor's column indices
+		// An error here indicates the COL constants aren't synced with the DB
 		int ind_id   = cr.getColumnIndexOrThrow(COL_ID);
 		int ind_name = cr.getColumnIndexOrThrow(COL_NAME);
 		int ind_desc = cr.getColumnIndexOrThrow(COL_DESC);
@@ -73,6 +97,7 @@ public class WorkoutModel extends SQLiteDAO
 		int ind_rec  = cr.getColumnIndexOrThrow(COL_RECORD);
 		int ind_rtid = cr.getColumnIndexOrThrow(COL_REC_TYPE);
 		
+		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new Row();
 			result[ii]._id             = cr.getLong(ind_id);
@@ -89,7 +114,7 @@ public class WorkoutModel extends SQLiteDAO
 		return result;
 	}
 	
-	/***   Public   ***/
+	/*****   Public   *****/
 	
 	/**
 	 * Inserts a new entry into the workout table

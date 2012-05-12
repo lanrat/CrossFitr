@@ -9,19 +9,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.Date;
 
+/**
+ * Abstract Base DAO for other Models to extend.
+ * 
+ * Each relation should have its own DAO. TECHNICALLY nothing in this class
+ * is abstract, so you could instantiate it to connect to any table. But that
+ * would involve a lot of type-checking on the user end, and probably create
+ * inconsistent DB access routines. So don't do it.
+ * 
+ * @author Vivek
+ * @since 1.0
+ */
 public abstract class SQLiteDAO
 {
 	//// Constants
 	
-	// Common column names
+	// Global column names
 	public static final String COL_ID    = "_id";
 	public static final String COL_NAME  = "name";
 	public static final String COL_DESC  = "description";
 	public static final String COL_CDATE = "date_created";
 	public static final String COL_MDATE = "date_modified";
-	
-	private static final String DB_NAME = "CrossFitr";
-	private static final int DB_VERSION = 1;
 	
 	// Pre-populated Type IDs
 	public static final int TYPE_WOD    = 1;
@@ -33,10 +41,21 @@ public abstract class SQLiteDAO
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;
 	
-	// Abstract
+	// Abstract - defined by arguments to the ctor
 	protected final String DB_TABLE;
 	
+	// DB Properties
+	private static final String DB_NAME = "CrossFitr";
+	private static final int DB_VERSION = 1;
 	
+	
+	/**
+	 * DB connection object, subclassed for the specific DB params we need
+	 * 
+	 * Though, not entirely sure regarding the necessity of this as well as its
+	 * wrapper class. Just referenced a google "common practices" doc to
+	 * make this helper. // TODO: Learn specifics of SQLiteOpenHelper
+	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper
 	{
 	
@@ -66,6 +85,42 @@ public abstract class SQLiteDAO
 		
 	} // END DatabaseHelper
 	
+	/**
+	 * Base class for the child DAOs' Row to extend.
+	 * 
+	 * This contains all of the global columns and implements them for each
+	 * method
+	 */
+	protected class Row
+	{
+		// Cols
+		public long   _id;
+		public String name;
+		public String description;
+		public int    date_modified;
+		public int    date_created;
+		
+		public Row() {}
+		public Row(ContentValues vals)
+		{
+			_id             = vals.getAsLong(COL_ID);
+			name            = vals.getAsString(COL_NAME);
+			description     = vals.getAsString(COL_DESC);
+			date_modified   = vals.getAsInteger(COL_MDATE);
+			date_created    = vals.getAsInteger(COL_CDATE);
+		}
+		
+		public ContentValues toContentValues()
+		{
+			ContentValues vals = new ContentValues();
+			vals.put(COL_ID,    _id);
+			vals.put(COL_NAME,  name);
+			vals.put(COL_DESC,  description);
+			vals.put(COL_MDATE, date_modified);
+			vals.put(COL_CDATE, date_created);
+			return vals;
+		}
+	}
 	
 	//// Private
 	private DatabaseHelper DBHelper;
