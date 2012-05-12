@@ -83,6 +83,16 @@ public abstract class SQLiteDAO
 			// TODO: This
 		}
 		
+		@Override
+		public void onOpen(SQLiteDatabase db)
+		{
+			super.onOpen(db);
+			if (!db.isReadOnly()) {
+				// This enables foreign keys (Android 2.2+ only)
+				db.execSQL("PRAGMA foreign_keys=ON;");
+			}
+		}
+		
 	} // END DatabaseHelper
 	
 	/**
