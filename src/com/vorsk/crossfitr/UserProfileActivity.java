@@ -12,7 +12,7 @@ public class UserProfileActivity extends Activity implements OnClickListener{
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.userprofile);
+		setContentView(R.layout.user_profile);
 	}
 
 	
