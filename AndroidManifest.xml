@@ -20,7 +20,7 @@
         </activity>
         
         <activity android:name=".WorkoutsActivity"
-			android:label="@drawable/button_workout" >
+			android:label="@drawable/button_workout1" >
 		</activity>
 		<activity android:name=".AllActivity"
 			android:label="@string/all_label" >
