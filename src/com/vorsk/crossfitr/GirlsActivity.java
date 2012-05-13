@@ -8,31 +8,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+
 
 public class GirlsActivity extends ListActivity
 {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.workout_list);
 		
-		String[] GIRLS = new String[5];
-
-		//setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, GIRLS));
-
-		  ListView lv = getListView();
-		  lv.setTextFilterEnabled(true);
-
-		  lv.setOnItemClickListener(new OnItemClickListener() {
-		    public void onItemClick(AdapterView<?> parent, View view,
-		        int position, long id) {
-		      // When clicked, show a toast with the TextView text
-		      //Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-		      //    Toast.LENGTH_SHORT).show();
-		    }
-		  });
+		String[] GIRLS = new String[] { "GirlA", "GirlB", "GirlC", "GirlD", "GirlE" };
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, GIRLS);
+		
+		setListAdapter(adapter);
 	}
-	
 }
