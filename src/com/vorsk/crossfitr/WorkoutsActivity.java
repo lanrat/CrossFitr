@@ -13,7 +13,7 @@ public class WorkoutsActivity extends Activity implements OnClickListener
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_workouts);
+        setContentView(R.layout.workouts);
         
         View wodButton = findViewById(R.id.wod_button);
         wodButton.setOnClickListener(this);
