@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 
-public class CrossFitrActivity extends Activity implements OnClickListener{
+public class CrossFitrActivity extends Activity implements OnClickListener
+{
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
@@ -25,23 +27,23 @@ public class CrossFitrActivity extends Activity implements OnClickListener{
         profileButton.setOnClickListener(this);
     }
 
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		// TODO Auto-generated method stub
-		switch (v.getId()) {
+		switch (v.getId())
+		{
 		case R.id.main_button_workout:
 			Intent i = new Intent(this, WorkoutsActivity.class);
 			startActivity(i);
 			break;
 			
-		case R.id.main_button_calendar:
-			
+		case R.id.main_button_calendar:	
 			break;
 			
 		case R.id.main_button_profile:
 			Intent p = new Intent(this, UserProfileActivity.class);
 			startActivity(p);
 			break;
-	}
-
+		}
 	}
 }

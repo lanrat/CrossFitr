@@ -13,5 +13,4 @@ public class HeroesActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.workout_list);
 	}
-	
 }

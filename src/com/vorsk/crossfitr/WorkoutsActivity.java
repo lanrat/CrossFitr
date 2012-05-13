@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class WorkoutsActivity extends Activity implements OnClickListener{
+public class WorkoutsActivity extends Activity implements OnClickListener
+{
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_workouts);
         
@@ -28,12 +30,10 @@ public class WorkoutsActivity extends Activity implements OnClickListener{
     	Intent i;
     	switch(v.getId())
     	{
-    			
     		case R.id.wod_button:
     			i = new Intent(this, WodActivity.class);
     			startActivity(i);
     			break;
-    			
     		case R.id.girl_button:
     			i = new Intent(this, GirlsActivity.class);
     			startActivity(i);
