@@ -14,13 +14,11 @@ public class HeroesActivity extends ListActivity
 	{
 		super.onCreate(savedInstanceState);
 		
-		String[] HEROES = new String[] { "captain", "hulk", "hero" }; 
+		String[] HEROES = new String[] { "HeroA", "HeroB", "HeroC", "HeroD", "HeroE" }; 
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, HEROES);
 		
-		setListAdapter(adapter);
-		
-		
+		setListAdapter(adapter);	
 	}
 }
