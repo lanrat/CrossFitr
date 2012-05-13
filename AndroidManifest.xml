@@ -20,7 +20,7 @@
         </activity>
         
         <activity android:name=".WorkoutsActivity"
-			android:label="@drawable/button_workout1" >
+			android:label="@string/list_of_workout_title" >
 		</activity>
 		<activity android:name=".AllActivity"
 			android:label="@string/all_label" >
@@ -39,6 +39,8 @@
 		    android:label="@string/user_label" />
 		<activity android:name=".EditUserProfileActivity"
 		    android:label="@string/edit_profile_label" />
+		<activity android:name=".AddCustomActivity"
+		    android:label="@string/add_custom_add" />
 		
     </application>
 
