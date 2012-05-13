@@ -2,11 +2,7 @@
 <resources>
 
     <string name="app_name">CrossFitr</string>
-<<<<<<< HEAD
     <string name="main_title">Crossfitr</string>  
-=======
-   
->>>>>>> branch 'master' of ssh://git@github.com/mrlanrat/CrossFitr.git
     <string name="list_of_workout_title">Workouts</string>
     <string name="wod_label">Workout of the Day</string>
     <string name="girl_label">Girl Workouts</string>
