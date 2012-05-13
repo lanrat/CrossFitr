@@ -6,7 +6,6 @@ android:background="@drawable/home"
 android:layout_height="fill_parent"
 android:layout_width="fill_parent"
 android:padding="5dip"
-android:paddingTOP="10dip"
 android:orientation="horizontal" 
 >
 		<TableLayout
