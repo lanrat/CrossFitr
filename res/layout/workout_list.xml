@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="24.5sp"
-        android:text="@string/list_of_workout_title" />    
+        android:text="@string/list_of_workout_title" />
+    
 
 </LinearLayout>
