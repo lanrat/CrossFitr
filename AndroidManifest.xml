@@ -39,6 +39,8 @@
 		    android:label="@string/user_label" />
 		<activity android:name=".EditUserProfileActivity"
 		    android:label="@string/edit_profile_label" />
+		<activity android:name=".AddCustomActivity"
+		    android:label="@string/add_custom_add" />
 		
     </application>
 
