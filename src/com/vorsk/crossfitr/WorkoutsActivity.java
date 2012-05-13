@@ -11,12 +11,10 @@ public class WorkoutsActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.workouts);
+        setContentView(R.layout.main_workouts);
         
         View wodButton = findViewById(R.id.wod_button);
         wodButton.setOnClickListener(this);
-        View allButton = findViewById(R.id.all_button);
-        allButton.setOnClickListener(this);
         View customButton = findViewById(R.id.custom_button);
         customButton.setOnClickListener(this);
         View heroButton = findViewById(R.id.hero_button);
@@ -27,12 +25,9 @@ public class WorkoutsActivity extends Activity implements OnClickListener{
     
     public void onClick(View v)
     {
+    	Intent i;
     	switch(v.getId())
     	{
-    		case R.id.all_button:
-    			Intent i = new Intent(this, AllActivity.class);
-    			startActivity(i);
-    			break;
     			
     		case R.id.wod_button:
     			i = new Intent(this, WodActivity.class);
