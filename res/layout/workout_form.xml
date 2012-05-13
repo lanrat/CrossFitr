@@ -8,18 +8,29 @@ android:layout_width="fill_parent"
 android:padding="5dip"
 android:orientation="horizontal" 
 >
-	<EditText android:id="@+id/editor"
-        android:layout_width="match_parent" android:layout_height="0dip"
-        android:autoText="true"
-        android:capitalize="sentences"
-        android:layout_weight="1"
-        android:freezesText="true" >
-        <requestFocus />
-   </EditText>
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="24.5sp"
+        android:text="@string/name_of_workout_add" />
 
+<Button
+    	android:id="@+id/button_workout_form_save"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:text="@string/button_save_add"/>
 
-    
-    
-    
+<Button
+    	android:id="@+id/button_workout_form_start"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:text="@string/button_start_add"
+    	/>
+
 
 </LinearLayout>
