@@ -29,7 +29,6 @@ public class CrossFitrActivity extends Activity implements OnClickListener
 
 	public void onClick(View v) 
 	{
-		// TODO Auto-generated method stub
 		switch (v.getId())
 		{
 		case R.id.main_button_workout:

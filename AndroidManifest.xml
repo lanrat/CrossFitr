@@ -22,7 +22,7 @@
         <activity android:name=".WorkoutsActivity"
 			android:label="@string/list_of_workout_title" >
 		</activity>
-		<activity android:name=".AllActivity"
+		<activity android:name=".AllWorkoutsActivity"
 			android:label="@string/all_label" >
 		</activity>
 		<activity android:name=".WodActivity"
