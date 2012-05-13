@@ -12,7 +12,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homescreen);
+        setContentView(R.layout.main);
         
         // workout button
         View workoutButton = findViewById(R.id.main_button_workout);
@@ -29,7 +29,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.main_button_workout:
-			Intent i = new Intent(this, WorkoutActivity.class);
+			Intent i = new Intent(this, WorkoutsActivity.class);
 			startActivity(i);
 			break;
 			
@@ -38,7 +38,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.main_button_profile:
-			;
+			Intent p = new Intent(this, UserProfileActivity.class);
+			startActivity(p);
 			break;
 	}
 

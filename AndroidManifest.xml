@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".WorkoutActivity"
+        <activity android:name=".WorkoutsActivity"
 			android:label="@drawable/button_workout" >
 		</activity>
 		<activity android:name=".AllActivity"
@@ -33,6 +33,10 @@
 			android:label="@string/hero_label" />
 		<activity android:name=".CustomActivity"
 			android:label="@string/custom_label" />
+		<activity android:name=".WorkoutProfileActivity"
+		    android:label="@string/workout_name" />
+		<activity android:name=".UserProfileActivity"
+		    android:label="@string/user_label" />
     </application>
 
 </manifest>

@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class WodActivity extends Activity
+public class WorkoutProfileActivity extends Activity
 {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.workout_list);
+		setContentView(R.layout.workout_profile);
 	}
 	
 }

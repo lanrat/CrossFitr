@@ -11,7 +11,7 @@ public class HeroesActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.workouts);
+		setContentView(R.layout.workout_list);
 	}
 	
 }
