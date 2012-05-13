@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">CrossFitr</string>
-   
+    <string name="main_title">Crossfitr</string>  
     <string name="list_of_workout_title">Workouts</string>
     <string name="wod_label">Workout of the Day</string>
     <string name="girl_label">Girl Workouts</string>
@@ -12,5 +12,13 @@
     <string name="user_label">User Profile</string>
     <string name="edit_profile_label">Edit Profile</string>
     <string name="workout_name">Workout</string>
+    
+    <!-- Working layout on Anthony table -->
+    <string name="name_of_workout_add">Name of Workout</string>
+    <string name="discription_of_workout_add">Discription of Workout</string>
+		<string name="workout_type_add">Workout Type</string>
+		<string name="record_type_add">Record Type</string>
+		<string name="add_custom_add">Add Custom Workout</string>
+		
 
 </resources>
