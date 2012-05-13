@@ -15,7 +15,7 @@
     <string name="all_label">All Workouts</string>
     <string name="custom_label">Custom Workouts</string>
     <string name="user_label">User Profile</string>
-    
+    <string name="edit_profile_label">Edit Profile</string>
     <string name="workout_name">Workout</string>
 
 </resources>

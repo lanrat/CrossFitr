@@ -13,11 +13,19 @@ public class UserProfileActivity extends Activity implements OnClickListener{
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_profile);
+		
+		 View user_profile_button = findViewById(R.id.edit_profile_button);
+	     user_profile_button.setOnClickListener(this);
 	}
 
 	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+		switch (v.getId()) {
+		case R.id.edit_profile_button:
+			Intent u = new Intent(this, EditUserProfileActivity.class);
+			startActivity(u);
+			break;
+		}
 	}
 }

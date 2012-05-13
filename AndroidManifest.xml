@@ -37,6 +37,9 @@
 		    android:label="@string/workout_name" />
 		<activity android:name=".UserProfileActivity"
 		    android:label="@string/user_label" />
+		<activity android:name=".EditUserProfileActivity"
+		    android:label="@string/edit_profile_label" />
+		
     </application>
 
 </manifest>
