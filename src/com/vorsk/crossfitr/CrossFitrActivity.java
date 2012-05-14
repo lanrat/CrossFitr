@@ -25,6 +25,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         // profile button
         View profileButton = findViewById(R.id.main_button_profile);
         profileButton.setOnClickListener(this);
+        
     }
 
 	public void onClick(View v) 
@@ -44,6 +45,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener
 			Intent p = new Intent(this, UserProfileActivity.class);
 			startActivity(p);
 			break;
+	
 		}
 	}
 }
