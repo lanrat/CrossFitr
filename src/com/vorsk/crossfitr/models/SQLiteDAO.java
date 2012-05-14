@@ -1,6 +1,5 @@
 package com.vorsk.crossfitr.models;
 
-import android.R;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.*;
 import java.util.Date;
+
+import com.vorsk.crossfitr.R;
 
 /**
  * Abstract Base DAO for other Models to extend.
@@ -75,10 +76,14 @@ public abstract class SQLiteDAO
 		public void onCreate(SQLiteDatabase db)
 		{
 			InputStream sqlfile = context.getResources().openRawResource(R.raw.db_create);
-			byte[] reader = new byte[sqlfile.available()];
-			while (sqlfile.read(reader) != -1){}
-			
-			db.execSQL(new String(reader));
+			byte[] reader;
+			try {
+				reader = new byte[sqlfile.available()];
+				while (sqlfile.read(reader) != -1){}
+				db.execSQL(new String(reader));
+			} catch (IOException e) {
+				// TODO: this
+			}
 		}
 		
 		@Override
