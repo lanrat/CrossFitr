@@ -10,8 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class WodActivity extends Activity {
-	public void onCreate(Bundle savedInstanceState) {
+public class WodActivity extends Activity 
+{
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.workout_list);
 

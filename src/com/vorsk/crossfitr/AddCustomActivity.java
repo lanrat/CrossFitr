@@ -49,6 +49,5 @@ public class AddCustomActivity extends Activity implements OnClickListener
 			case R.id.button_workout_form_start:				
 				break;
 		}
-
 	}
 }
