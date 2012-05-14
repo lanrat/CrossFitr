@@ -3,11 +3,16 @@ package com.vorsk.crossfitr;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.EventLogTags.Description;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 
 public class AddCustomActivity extends Activity implements OnClickListener 
 {
+	private EditText workoutTextField;
+	private EditText nameTextField;
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -21,11 +26,11 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		saveAndStartButton.setOnClickListener(this);
 		
         // text field for the workout discription to be added
-        View workoutTextField = findViewById(R.id.discription_edittext_add);
+        workoutTextField = (EditText) findViewById(R.id.discription_edittext_add);
         workoutTextField.setOnClickListener(this);
         
         // text field for the workout name to be added
-        View nameTextField = findViewById(R.id.nameofworkout_edittext_add);
+        nameTextField = (EditText) findViewById(R.id.nameofworkout_edittext_add);
         nameTextField.setOnClickListener(this);
         
         // drop down menu for the workout types to be added
@@ -44,10 +49,40 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		switch(v.getId())
 		{
 			case R.id.button_workout_form_save:
+				if(this.validateForm() == true)
+				{
+					
+				}
 				
-				break;
-			case R.id.button_workout_form_start:				
-				break;
+			break;
+				case R.id.button_workout_form_start:				
+				if(this.validateForm() == true)
+				{
+					
+				}
+					break;
 		}
 	}
+	
+	// method to make sure that input is valid, if false the save buttons should
+	// do nothing and prompt user to fill in all forms
+	// if true, buttons execute
+	private boolean validateForm()
+	{
+		// assume form is valid
+		boolean isValidForm = true;
+		// makes sure user inputed something in the name field
+		if(nameTextField.getText().length() <= 0)
+		{
+			isValidForm = false;
+		}
+		// makes sure user inputed something in the description field
+		if(workoutTextField.getText().length() <= 0)
+		{
+			isValidForm = false;
+		}
+		//TODO: add more two more validations for the dropdown.
+		return isValidForm;
+	}
 }
+
