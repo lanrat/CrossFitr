@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="ddm_default_workouttype_add">Choose a Custom Workout</string>
-
-    <string-array name="ddm_workouttype_array">
-        <item>item1</item>
-        <item>item2</item>
-        <item>item3</item>
-
+	<string name="ddm_default_workouttype_add">Please select a workout type</string>
+    <string-array name="workouttype_array">
+        <item>Please select a workout type</item>
+        <item>Custom</item>
+        <item>WoD</item>
+        <item>Girls</item>
+        <item>Heros</item>
     </string-array>
+    
+
 
 </resources>

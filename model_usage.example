@@ -29,7 +29,7 @@ for (int ii=0; ii<results.length(); ii++) {
 //      2. I want to add a workout session!
 ////
 
-WorkoutSessionModel model = new WorkoutSessionModel();
+WorkoutModel model = new WorkoutModel(this);
 model.open();
 
 try {

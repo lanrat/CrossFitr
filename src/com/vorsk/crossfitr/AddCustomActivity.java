@@ -1,21 +1,31 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.EventLogTags.Description;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class AddCustomActivity extends Activity implements OnClickListener 
 {
 	private EditText workoutTextField;
 	private EditText nameTextField;
+	Spinner workoutTypeDropDown;
+	Spinner recordTypeDropDown; 
+	WorkoutModel model = new WorkoutModel(this);
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.workout_form);
 
 		// button to save
 		View saveButton = findViewById(R.id.button_workout_form_save);
@@ -34,34 +44,83 @@ public class AddCustomActivity extends Activity implements OnClickListener
         nameTextField.setOnClickListener(this);
         
         // drop down menu for the workout types to be added
-        View workoutTypeDropDown = findViewById(R.id.workout_form_workouttype_spinner);
-        workoutTypeDropDown.setOnClickListener(this);
+        workoutTypeDropDown = (Spinner) findViewById(R.id.workout_form_workouttype_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.workouttype_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        workoutTypeDropDown.setAdapter(adapter);
+        workoutTypeDropDown.setOnItemSelectedListener(new MyOnItemSelectedListener());
+
         
         // drop down menu for the record type to be added
-        View recordTypeDropDown = findViewById(R.id.workout_form_recordtype_spinner);
-        recordTypeDropDown.setOnClickListener(this);
-
-		setContentView(R.layout.workout_form);
+        recordTypeDropDown = (Spinner) findViewById(R.id.workout_form_recordtype_spinner);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
+                this, R.array.recordtype_array, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        recordTypeDropDown.setAdapter(adapter2);
+        recordTypeDropDown.setOnItemSelectedListener(new MyOnItemSelectedListener());
 	}
 
+	// called by the onClickListener
 	public void onClick(View v) 
 	{
 		switch(v.getId())
 		{
+		    // if user clicks the save button
 			case R.id.button_workout_form_save:
 				if(this.validateForm() == true)
 				{
-					
+					model.open();
+					//TODO: uncomment after adding in spinners correctly, change type and rec_type params
+					/*model.insert(nameTextField.getText(), workoutTextField.getText(),
+								 type, rec_type);*/
+					model.close();
+					Intent i = new Intent(this, CustomActivity.class);
+					startActivity(i);
+				}
+				else
+				{
+					//TODO: error prompt
 				}
 				
 			break;
-				case R.id.button_workout_form_start:				
+			
+			// user clicks the save and start workout button
+			case R.id.button_workout_form_start:				
 				if(this.validateForm() == true)
 				{
+					model.open();
+					//TODO: uncomment after adding in spinners correctly, change type and rec_type params
+					/*model.insert(nameTextField.getText(), workoutTextField.getText(),
+								 type, rec_type);*/
+					model.close();
 					
+					//TODO: uncomment below after WorkoutsProfileActivity has been created.
+					/*Intent i = new Intent(this, WorkoutsProfileActivity.class);
+					startActivity(i);*/
 				}
-					break;
+				else
+				{
+					//TODO: error prompt
+				}
+			break;
 		}
+	}
+	
+	// listener for the spinner object
+	public class MyOnItemSelectedListener implements OnItemSelectedListener 
+	{
+	    public void onItemSelected(AdapterView<?> parent,
+	        View view, int pos, long id) 
+	    {
+	      // TODO: handle the different cases selected
+	    }
+
+	    public void onNothingSelected(AdapterView parent) 
+	    {
+	      // Do nothing.
+	    }			
+	
 	}
 	
 	// method to make sure that input is valid, if false the save buttons should
@@ -81,7 +140,8 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		{
 			isValidForm = false;
 		}
-		//TODO: add more two more validations for the dropdown.
+		
+		//TODO: add more two more validations for the dropdown menus.
 		return isValidForm;
 	}
 }
