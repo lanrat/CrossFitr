@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="ddm_default_recordtype_add">Choose a record type</string>
+
+    <string-array name="ddm_recordtype_array">
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+
+    </string-array>
+
+</resources>
