@@ -23,7 +23,15 @@ public class AddCustomActivity extends Activity implements OnClickListener
 	}
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		switch(v.getId())
+		{
+			case R.id.button_workout_form_save:
+				
+				break;
+			case R.id.button_workout_form_start:
+				
+				break;
+		}
 		
 	}
 }
