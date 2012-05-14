@@ -15,6 +15,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 
 		View user_profile_button = findViewById(R.id.edit_profile_button);
 		user_profile_button.setOnClickListener(this);
+		
+		View open_timer_button = findViewById(R.id.open_timer_button);
+		open_timer_button.setOnClickListener(this);
 	}
 
 	public void onClick(View v) 
@@ -25,6 +28,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		case R.id.edit_profile_button:
 			Intent u = new Intent(this, EditUserProfileActivity.class);
 			startActivity(u);
+			break;
+		case R.id.open_timer_button:
+			Intent t = new Intent(this, TimerTabWidget.class);
+			startActivity(t);
 			break;
 		}
 	}
