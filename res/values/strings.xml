@@ -21,6 +21,8 @@
 	<string name="add_custom_add">Add Custom Workout</string>
 	<string name="button_save_add">Save</string>
 	<string name="button_start_add">Start Workout</string>
+		<string name="ddm_default_workouttype_add">Custom Workout</string>
+			<string name="button_default_recordtype_add">Timer</string>
 		
 
 </resources>
