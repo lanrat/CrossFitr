@@ -23,10 +23,16 @@ public class WODModel {
         Element item =  itemlist.getChild("item");
                
         item.getChild("title").setEndTextElementListener(new EndTextElementListener(){
-                public void end(String body) {
-                        list.add(body);
+                public void end(String title) {
+                        list.add(title.substring(0,title.indexOf(' ')));
                 }
         });
+        
+        item.getChild("description").setEndTextElementListener(new EndTextElementListener(){
+            public void end(String title) {
+                    list.add(title.substring(0,title.indexOf(' ')));
+            }
+    });
                
         try {
                 url = new URL(feed_url);
