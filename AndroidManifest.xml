@@ -5,6 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
+    
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -20,9 +22,9 @@
         </activity>
         
         <activity android:name=".WorkoutsActivity"
-			android:label="@drawable/button_workout" >
+			android:label="@string/list_of_workout_title" >
 		</activity>
-		<activity android:name=".AllActivity"
+		<activity android:name=".AllWorkoutsActivity"
 			android:label="@string/all_label" >
 		</activity>
 		<activity android:name=".WodActivity"
@@ -37,6 +39,11 @@
 		    android:label="@string/workout_name" />
 		<activity android:name=".UserProfileActivity"
 		    android:label="@string/user_label" />
+		<activity android:name=".EditUserProfileActivity"
+		    android:label="@string/edit_profile_label" />
+		<activity android:name=".AddCustomActivity"
+		    android:label="@string/add_custom_add" />
+		
     </application>
 
 </manifest>

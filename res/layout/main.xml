@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-android:background="#ffffff"
+android:background="@drawable/home"
 android:layout_height="fill_parent"
 android:layout_width="fill_parent"
-android:padding="15dip"
-android:orientation="horizontal" >
-
-	<LinearLayout
-	android:orientation="vertical"
-	android:layout_height="wrap_content"
-	android:layout_width="fill_parent"
-	android:layout_gravity="center"
-	android:paddingLeft="20dip"
-	android:paddingRight="20dip" >
-		<TextView
-		android:text="@string/main_title"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center"
-		android:layout_marginBottom="20dip"
-		android:textSize="50sp" />
-	
+android:padding="5dip"
+android:orientation="horizontal" 
+>
 		<TableLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
@@ -30,28 +16,27 @@ android:orientation="horizontal" >
 
 			<Button
     	android:id="@+id/main_button_profile"
-    	android:layout_width="70dp"
-    	android:layout_height="70dp"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button_profile"/>
+    	android:background="@drawable/button_profile1"/>
 
 			<Button 
 			android:id="@+id/main_button_workout"
-    	android:layout_width="70dp"
-    	android:layout_height="70dp"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button_workout"/>
+    	android:background="@drawable/button_workout1"/>
 
 			<Button 
 			android:id="@+id/main_button_calendar"
-    	android:layout_width="70dp"
-    	android:layout_height="70dp"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button_calendar"/>
+    	android:background="@drawable/button_calendar1"/>
 
 		</TableLayout>
 	</LinearLayout>
-</LinearLayout>

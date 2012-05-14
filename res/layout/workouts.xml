@@ -2,40 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:background="@drawable/home"
+    android:orientation="horizontal" >
+   
+    <TableLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_gravity="center"
+		android:stretchColumns="*" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24.5sp"
-        android:text="@string/list_of_workout_title" />
     <Button
 		android:id="@+id/wod_button"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/wod_label" />
+	  android:layout_width="40dp"
+    android:layout_height="80dp"
+		android:layout_gravity="center"
+		android:background="@drawable/button_wodworkout1"/>
     <Button
 		android:id="@+id/girl_button"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/girl_label" />
+		android:layout_width="40dp"
+    	android:layout_height="80dp"
+		android:layout_gravity="center"
+		android:background="@drawable/button_girlsworkout1"/>
     <Button
 		android:id="@+id/hero_button"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/hero_label" />
+		android:layout_width="40dp"
+    	android:layout_height="80dp"
+		android:layout_gravity="center"
+		android:background="@drawable/button_heroesworkout1"/>
     <Button
-		android:id="@+id/all_button"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/all_label" />
-    <Button
-        android:id="@+id/custom_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/custom_label" />
-    
+    android:id="@+id/custom_button"
+    android:layout_width="40dp"
+    android:layout_height="80dp"
+    android:background="@drawable/button_customworkout1"/>
+		</TableLayout>
+       
     
 
 </LinearLayout>
