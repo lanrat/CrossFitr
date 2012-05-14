@@ -1,0 +1,41 @@
+/*
+* Here is an example of how to use the Database Models
+*/
+
+
+/////
+//       1. I want to get a list of all girl workouts
+/////
+
+WorkoutModel model = new WorkoutModel();
+
+// Always open before any DB query
+model.open();
+
+WorkoutModel.Row[] results = model.getAllByType(WorkoutModel.TYPE_GIRL);
+
+// Always close after finished with the DB
+model.close();
+
+// Iterate over the results!
+for (int ii=0; ii<results.length(); ii++) {
+	showTitle(results[ii].name);
+	doSomethingWithRow(results[ii]);
+	showDesc(results[ii].description);
+}
+
+
+////
+//      2. I want to add a workout session!
+////
+
+WorkoutSessionModel model = new WorkoutSessionModel();
+model.open();
+
+try {
+	long entry_id = model.insert("some_field", 123, "blah blah");
+} catch (SQLException e) {
+	iDerpedUp(e);
+}
+
+model.close();

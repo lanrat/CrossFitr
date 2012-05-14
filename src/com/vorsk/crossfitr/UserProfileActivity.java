@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class UserProfileActivity extends Activity implements OnClickListener {
-	public void onCreate(Bundle savedInstanceState) {
+public class UserProfileActivity extends Activity implements OnClickListener 
+{
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile);
 
@@ -18,9 +20,11 @@ public class UserProfileActivity extends Activity implements OnClickListener {
 		open_timer_button.setOnClickListener(this);
 	}
 
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		// TODO Auto-generated method stub
-		switch (v.getId()) {
+		switch (v.getId()) 
+		{
 		case R.id.edit_profile_button:
 			Intent u = new Intent(this, EditUserProfileActivity.class);
 			startActivity(u);

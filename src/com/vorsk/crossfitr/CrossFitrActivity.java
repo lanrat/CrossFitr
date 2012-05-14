@@ -29,7 +29,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener
     }
 
 
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		switch (v.getId()) {
 		case R.id.main_button_workout:
 			Intent i = new Intent(this, WorkoutsActivity.class);
@@ -43,7 +44,6 @@ public class CrossFitrActivity extends Activity implements OnClickListener
 			Intent p = new Intent(this, UserProfileActivity.class);
 			startActivity(p);
 			break;
-	
 		}
 	}
 }

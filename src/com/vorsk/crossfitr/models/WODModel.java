@@ -20,6 +20,7 @@ public class WODModel {
 	public WODModel() {
 		RootElement root = new RootElement("rss");
 		Element itemlist = root.getChild("channel");
+		
 		Element item = itemlist.getChild("item");
 
 		item.getChild("title").setEndTextElementListener(
@@ -32,7 +33,7 @@ public class WODModel {
 		item.getChild("description").setEndTextElementListener(
 				new EndTextElementListener() {
 					public void end(String title) {
-						list.add(title.substring(0, title.indexOf(' ')));
+						//list.add(title.substring(0, title.indexOf(' ')));
 					}
 				});
 
