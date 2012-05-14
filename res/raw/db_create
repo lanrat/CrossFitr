@@ -1,3 +1,9 @@
+--
+-- DB Creation script for CrossFitr
+--
+-- @author Vivek
+--
+
 CREATE TABLE score_type
 (
 	_id           INTEGER PRIMARY KEY,
@@ -78,6 +84,10 @@ CREATE TABLE achievement_type
 );
 
 
+--
+--    Prepopulate Tables
+--
+
 INSERT INTO workout_type (_id, name, description) VALUES
 	(1, 'WOD', 'Workout of the Day'),
 	(2, 'Girl', 'Girl Workout'),
@@ -125,4 +135,5 @@ INSERT INTO workout (name, description, workout_type_id, record_type_id) VALUES
 	('Joshie', '40lb R Dumbbell snatch x21, 21 L Pull-ups, 40lb L Dumbbell snatch x21, 21 L pull-ups, 3 rounds', 3, 1),
 	('Nate', '2 muscle-ups, 4 Handstand Push-ups, 8 2 ppd KB swing, 20 min', 3, 2),
 	('Randy', '75 power snatch, 75 reps', 3, 1);
+	-- TODO: More of these
 	

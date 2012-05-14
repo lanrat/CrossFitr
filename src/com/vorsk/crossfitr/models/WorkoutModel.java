@@ -32,6 +32,8 @@ public class WorkoutModel extends SQLiteDAO
 	public class Row extends SQLiteDAO.Row
 	{
 		// Cols
+		public String name;
+		public String description;
 		public long   workout_type_id;
 		public int    record;
 		public long   record_type_id;
@@ -41,6 +43,8 @@ public class WorkoutModel extends SQLiteDAO
 		public Row(ContentValues vals)
 		{
 			super(vals);
+			name            = vals.getAsString(COL_NAME);
+			description     = vals.getAsString(COL_DESC);
 			workout_type_id = vals.getAsLong(COL_WK_TYPE);
 			record          = vals.getAsInteger(COL_RECORD);
 			record_type_id  = vals.getAsLong(COL_REC_TYPE);
@@ -49,6 +53,8 @@ public class WorkoutModel extends SQLiteDAO
 		public ContentValues toContentValues()
 		{
 			ContentValues vals = super.toContentValues();
+			vals.put(COL_NAME,  name);
+			vals.put(COL_DESC,  description);
 			vals.put(COL_WK_TYPE,  workout_type_id);
 			vals.put(COL_RECORD,   record);
 			vals.put(COL_REC_TYPE, record_type_id);
@@ -132,8 +138,8 @@ public class WorkoutModel extends SQLiteDAO
 	 * 
 	 * @param name
 	 * @param desc
-	 * @param type
-	 * @param rec_type
+	 * @param type Type of the workout (this.TYPE_GIRL, etc)
+	 * @param rec_type Type of scoring used (this.SCORE_TIME, etc)
 	 * @return ID of newly added entry, -1 on failure
 	 */
 	public long insert(String name, String desc, int type, int rec_type)
@@ -147,20 +153,24 @@ public class WorkoutModel extends SQLiteDAO
 	 * 
 	 * @param name
 	 * @param desc
-	 * @param type
-	 * @param rec_type
-	 * @param record
+	 * @param type Type of the workout (this.TYPE_GIRL, etc)
+	 * @param rec_type Type of scoring used (this.SCORE_TIME, etc)
+	 * @param record Best score received on this workout or this.NOT_SCORED
 	 * @return ID of newly added entry, -1 on failure
 	 */
 	public long insert(String name, String desc, int type, int rec_type,
 	                   int record)
 	{
+		String srtype = (rec_type == SCORE_NONE) 
+				? null : String.valueOf(rec_type);
+		String srec = (record == NOT_SCORED) ? null : String.valueOf(record);
+		
 		ContentValues cv = new ContentValues();
 		cv.put(name, COL_NAME);
 		cv.put(desc, COL_DESC);
-		cv.put(String.valueOf(type), COL_WK_TYPE);
-		cv.put(String.valueOf(rec_type), COL_REC_TYPE);
-		cv.put(String.valueOf(record), COL_RECORD);
+		cv.put(String.valueOf(srtype), COL_WK_TYPE);
+		cv.put(srtype, COL_REC_TYPE);
+		cv.put(srec, COL_RECORD);
 		return super.insert(cv);
 	}
 	

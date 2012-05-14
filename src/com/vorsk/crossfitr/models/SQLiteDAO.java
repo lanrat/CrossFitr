@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr.models;
 
+import android.R;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.*;
 import java.util.Date;
 
 /**
@@ -37,9 +39,12 @@ public abstract class SQLiteDAO
 	public static final int TYPE_HERO   = 3;
 	public static final int TYPE_CUSTOM = 4;
 	
+	public static final int SCORE_NONE   = 0;
 	public static final int SCORE_TIME   = 1;
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;
+	
+	public static final int NOT_SCORED = -1;
 	
 	// Abstract - defined by arguments to the ctor
 	protected final String DB_TABLE;
@@ -58,23 +63,22 @@ public abstract class SQLiteDAO
 	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper
 	{
-	
-		// Constants
-		
-		
-		// The creation script should be stored here
-		private static final String db_create_file = "db_create.sql";
+		private Context context;
 		
 		public DatabaseHelper(Context context)
 		{
 			super(context, DB_NAME, null, DB_VERSION);
+			this.context = context;
 		}
 		
 		@Override
 		public void onCreate(SQLiteDatabase db)
 		{
-			// TODO: Read db_create_file
-			db.execSQL("");
+			InputStream sqlfile = context.getResources().openRawResource(R.raw.db_create);
+			byte[] reader = new byte[sqlfile.available()];
+			while (sqlfile.read(reader) != -1){}
+			
+			db.execSQL(new String(reader));
 		}
 		
 		@Override
@@ -105,8 +109,6 @@ public abstract class SQLiteDAO
 	{
 		// Cols
 		public long   _id;
-		public String name;
-		public String description;
 		public int    date_modified;
 		public int    date_created;
 		
@@ -114,8 +116,6 @@ public abstract class SQLiteDAO
 		public Row(ContentValues vals)
 		{
 			_id             = vals.getAsLong(COL_ID);
-			name            = vals.getAsString(COL_NAME);
-			description     = vals.getAsString(COL_DESC);
 			date_modified   = vals.getAsInteger(COL_MDATE);
 			date_created    = vals.getAsInteger(COL_CDATE);
 		}
@@ -124,8 +124,6 @@ public abstract class SQLiteDAO
 		{
 			ContentValues vals = new ContentValues();
 			vals.put(COL_ID,    _id);
-			vals.put(COL_NAME,  name);
-			vals.put(COL_DESC,  description);
 			vals.put(COL_MDATE, date_modified);
 			vals.put(COL_CDATE, date_created);
 			return vals;
