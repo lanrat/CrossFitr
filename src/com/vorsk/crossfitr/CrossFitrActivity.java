@@ -28,19 +28,17 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         
     }
 
-	public void onClick(View v) 
-	{
-		// TODO Auto-generated method stub
-		switch (v.getId())
-		{
+
+	public void onClick(View v) {
+		switch (v.getId()) {
 		case R.id.main_button_workout:
 			Intent i = new Intent(this, WorkoutsActivity.class);
 			startActivity(i);
 			break;
-			
-		case R.id.main_button_calendar:	
+
+		case R.id.main_button_calendar:
 			break;
-			
+
 		case R.id.main_button_profile:
 			Intent p = new Intent(this, UserProfileActivity.class);
 			startActivity(p);

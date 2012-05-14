@@ -2,24 +2,69 @@
 
 <LinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-android:background="@drawable/home"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:padding="5dip"
+android:orientation="vertical" 
+>
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_of_workout_add" />    
+<EditText
+        android:id="@+id/nameofworkout_edittext_add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discription_of_workout_add" />    
+<EditText
+        android:id="@+id/discription_edittext_add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discription_of_workout_add" />
+<Spinner 
+        android:id="@+id/workout_form_workouttype_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/ddm_default_workouttype_add"/>
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/record_type_add" /> 
+<Spinner 
+        android:id="@+id/workout_form_recordtype_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/button_default_recordtype_add"/> 
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_height="fill_parent"
 android:layout_width="fill_parent"
 android:padding="5dip"
 android:orientation="horizontal" 
 >
-	<EditText android:id="@+id/editor"
-        android:layout_width="match_parent" android:layout_height="0dip"
-        android:autoText="true"
-        android:capitalize="sentences"
-        android:layout_weight="1"
-        android:freezesText="true" >
-        <requestFocus />
-   </EditText>
+<Button
+    	android:id="@+id/button_workout_form_save"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:text="@string/button_save_add"/>
 
-
-    
-    
-    
+<Button
+    	android:id="@+id/button_workout_form_start"
+    	android:layout_width="50dp"
+    	android:layout_height="80dp"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp" 
+    	android:text="@string/button_start_add"
+    	/>
+</LinearLayout>
 
 </LinearLayout>
