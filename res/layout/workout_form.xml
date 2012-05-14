@@ -12,7 +12,7 @@ android:orientation="vertical"
         android:layout_height="wrap_content"
         android:text="@string/name_of_workout_add" />    
 <EditText
-        android:id="@+id/nameofworkout_edittex_add"
+        android:id="@+id/nameofworkout_edittext_add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 
