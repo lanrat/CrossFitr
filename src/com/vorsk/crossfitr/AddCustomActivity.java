@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class AddCustomActivity extends Activity implements OnClickListener {
-	public void onCreate(Bundle savedInstanceState) {
+public class AddCustomActivity extends Activity implements OnClickListener 
+{
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 
 		// button to save
@@ -20,7 +22,8 @@ public class AddCustomActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.workout_form);
 	}
 
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		// TODO Auto-generated method stub
 
 	}
