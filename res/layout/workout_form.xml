@@ -27,16 +27,21 @@ android:orientation="vertical"
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/discription_of_workout_add" />  
-
-        
-
+        android:text="@string/discription_of_workout_add" />
+<Spinner 
+        android:id="@+id/workout_form_workouttype_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/ddm_default_workouttype_add"/>
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/record_type_add" />  
-
-
+        android:text="@string/record_type_add" /> 
+<Spinner 
+        android:id="@+id/workout_form_recordtype_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/button_default_recordtype_add"/> 
 
 <Button
     	android:id="@+id/button_workout_form_save"
