@@ -46,8 +46,8 @@ public class WorkoutModel extends SQLiteDAO
 			name            = vals.getAsString(COL_NAME);
 			description     = vals.getAsString(COL_DESC);
 			workout_type_id = vals.getAsLong(COL_WK_TYPE);
-			record          = vals.getAsInteger(COL_RECORD);
-			record_type_id  = vals.getAsLong(COL_REC_TYPE);
+			record = vals.getAsInteger(COL_RECORD);
+			record_type_id = vals.getAsLong(COL_REC_TYPE);
 		}
 
 		public ContentValues toContentValues()
@@ -100,23 +100,23 @@ public class WorkoutModel extends SQLiteDAO
 		int ind_name = cr.getColumnIndexOrThrow(COL_NAME);
 		int ind_desc = cr.getColumnIndexOrThrow(COL_DESC);
 		int ind_wtid = cr.getColumnIndexOrThrow(COL_WK_TYPE);
-		int ind_rec  = cr.getColumnIndexOrThrow(COL_RECORD);
+		int ind_rec = cr.getColumnIndexOrThrow(COL_RECORD);
 		int ind_rtid = cr.getColumnIndexOrThrow(COL_REC_TYPE);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new Row();
-			result[ii]._id             = cr.getLong(ind_id);
-			result[ii].name            = cr.getString(ind_name);
-			result[ii].description     = cr.getString(ind_desc);
+			result[ii]._id = cr.getLong(ind_id);
+			result[ii].name = cr.getString(ind_name);
+			result[ii].description = cr.getString(ind_desc);
 			result[ii].workout_type_id = cr.getLong(ind_wtid);
-			result[ii].record          = cr.getInt(ind_rec);
-			result[ii].record_type_id  = cr.getLong(ind_rtid);
-		
+			result[ii].record = cr.getInt(ind_rec);
+			result[ii].record_type_id = cr.getLong(ind_rtid);
+
 			valid = cr.moveToNext();
-			ii ++;
+			ii++;
 		}
-		
+
 		return result;
 	}
 	
@@ -125,14 +125,14 @@ public class WorkoutModel extends SQLiteDAO
 	/**
 	 * Inserts a new entry into the workout table
 	 * 
-	 * @param row Add this entry to the DB
+	 * @param row
+	 *            Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(Row row)
-	{
+	public long insert(Row row) {
 		return super.insert(row.toContentValues());
 	}
-	
+
 	/**
 	 * Inserts a new entry into the workout table, defaults record to 0
 	 * 
@@ -142,12 +142,11 @@ public class WorkoutModel extends SQLiteDAO
 	 * @param rec_type Type of scoring used (this.SCORE_TIME, etc)
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(String name, String desc, int type, int rec_type)
-	{
+	public long insert(String name, String desc, int type, int rec_type) {
 		// Default COL_RECORD to 0
 		return insert(name, desc, type, rec_type, 0);
 	}
-	
+
 	/**
 	 * Inserts a new entry into the workout table
 	 * 
@@ -173,33 +172,32 @@ public class WorkoutModel extends SQLiteDAO
 		cv.put(srec, COL_RECORD);
 		return super.insert(cv);
 	}
-	
+
 	/**
 	 * Fetch an entry via the ID
 	 * 
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public Row getByID(long id)
-	{
+	public Row getByID(long id) {
 		Cursor cr = selectByID(id);
-		
+
 		if (cr.getCount() > 1) {
 			return null; // TODO: Throw exception
 		}
-		
+
 		Row[] rows = fetchRows(cr);
 		return (rows.length == 0) ? null : rows[1];
 	}
-	
+
 	/**
 	 * Fetch all workouts of a specific type (girl, hero, custom, wod)
 	 * 
-	 * @param type The workout type; use constants (TYPE_GIRL, etc)
+	 * @param type
+	 *            The workout type; use constants (TYPE_GIRL, etc)
 	 * @return
 	 */
-	public Row[] getAllByType(int type)
-	{
+	public Row[] getAllByType(int type) {
 		String[] col = new String[] { COL_WK_TYPE };
 		String[] val = new String[] { String.valueOf(type) };
 		Cursor cr = select(col, val);

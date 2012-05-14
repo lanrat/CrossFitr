@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class TimerActivity extends Activity{
+public class TimerActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
-	     super.onCreate(savedInstanceState);
-	     TextView textview = new TextView(this);
-	     textview.setText("This is the Timer tab");
-	     setContentView(textview);
+		super.onCreate(savedInstanceState);
+		TextView textview = new TextView(this);
+		textview.setText("This is the Timer tab");
+		setContentView(textview);
 	}
 }
