@@ -13,16 +13,16 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		
 		//button to save
-		View saveButton = findViewById(R.id.);
+		View saveButton = findViewById(R.id.button_workout_form_save);
 		saveButton.setOnClickListener(this);
 		
 		//button to save and start workout
-		View saveAndStartButton = findViewById(R.id.);
+		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
 		setContentView(R.layout.workout_form);
 	}
 
-	public void onClick(View arg0) {
+	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
 	}
