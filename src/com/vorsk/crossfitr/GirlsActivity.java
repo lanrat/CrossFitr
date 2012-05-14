@@ -46,7 +46,6 @@ public class GirlsActivity extends ListActivity
 	}
 	*/
 	
-	Static List Implementation
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
