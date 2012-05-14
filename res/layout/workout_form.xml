@@ -63,7 +63,7 @@ android:orientation="horizontal"
     	android:layout_height="80dp"
     	android:layout_gravity="center"
     	android:layout_marginBottom="10dp" 
-    	android:text="@string/button_start_add"/>
+    	android:text="@string/button_start_add"  	/>
 </LinearLayout>
 
 </LinearLayout>
