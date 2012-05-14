@@ -8,15 +8,15 @@ import android.view.View.OnClickListener;
 
 public class AddCustomActivity extends Activity implements OnClickListener 
 {
-	public void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		
-		//button to save
+
+		// button to save
 		View saveButton = findViewById(R.id.button_workout_form_save);
 		saveButton.setOnClickListener(this);
-		
-		//button to save and start workout
+
+		// button to save and start workout
 		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
 		
@@ -39,16 +39,16 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		setContentView(R.layout.workout_form);
 	}
 
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
 		switch(v.getId())
 		{
 			case R.id.button_workout_form_save:
 				
 				break;
-			case R.id.button_workout_form_start:
-				
+			case R.id.button_workout_form_start:				
 				break;
 		}
-		
+
 	}
 }

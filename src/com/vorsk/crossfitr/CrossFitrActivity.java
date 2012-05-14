@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-
 public class CrossFitrActivity extends Activity implements OnClickListener
 {
     /** Called when the activity is first created. */
@@ -25,13 +24,10 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         // profile button
         View profileButton = findViewById(R.id.main_button_profile);
         profileButton.setOnClickListener(this);
-        
     }
 
-	public void onClick(View v) 
-	{
-		switch (v.getId())
-		{
+	public void onClick(View v) {
+		switch (v.getId()) {
 			case R.id.main_button_workout:
 				Intent i = new Intent(this, WorkoutsActivity.class);
 				startActivity(i);
@@ -39,7 +35,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener
 			
 			case R.id.main_button_calendar:	
 				break;
-			
+
 			case R.id.main_button_profile:
 				Intent p = new Intent(this, UserProfileActivity.class);
 				startActivity(p);
