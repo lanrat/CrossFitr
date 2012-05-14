@@ -19,6 +19,23 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		//button to save and start workout
 		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
+		
+        // text field for the workout discription to be added
+        View workoutTextField = findViewById(R.id.discription_edittext_add);
+        workoutTextField.setOnClickListener(this);
+        
+        // text field for the workout name to be added
+        View nameTextField = findViewById(R.id.nameofworkout_edittext_add);
+        nameTextField.setOnClickListener(this);
+        
+        // drop down menu for the workout types to be added
+        View workoutTypeDropDown = findViewById(R.id.workout_form_workouttype_spinner);
+        workoutTypeDropDown.setOnClickListener(this);
+        
+        // drop down menu for the record type to be added
+        View recordTypeDropDown = findViewById(R.id.workout_form_recordtype_spinner);
+        recordTypeDropDown.setOnClickListener(this);
+
 		setContentView(R.layout.workout_form);
 	}
 

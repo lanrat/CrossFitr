@@ -26,11 +26,6 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         View profileButton = findViewById(R.id.main_button_profile);
         profileButton.setOnClickListener(this);
         
-        // text field for the workout discription to be added
-        View workoutTextField = findViewById(R.id.discription_edittext_add);
-        
-        View nameTextField = findViewById(R.id.nameofworkout_edittext_add);
-        
     }
 
 	public void onClick(View v) 
