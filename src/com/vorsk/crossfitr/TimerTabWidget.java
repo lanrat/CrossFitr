@@ -10,8 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-// Tab Activity is a depreciated method, but we'll still use it
-@SuppressWarnings("deprecation")
+
 public class TimerTabWidget extends TabActivity{
 
 	public void onCreate(Bundle savedInstanceState) {

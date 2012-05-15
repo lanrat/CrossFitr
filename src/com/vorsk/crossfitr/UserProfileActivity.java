@@ -16,6 +16,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		View user_profile_button = findViewById(R.id.edit_profile_button);
 		user_profile_button.setOnClickListener(this);
 		
+		// Temporary button to access and debug the timer
 		View open_timer_button = findViewById(R.id.open_timer_button);
 		open_timer_button.setOnClickListener(this);
 	}
