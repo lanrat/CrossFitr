@@ -12,17 +12,20 @@
     <string name="user_label">User Profile</string>
     <string name="edit_profile_label">Edit Profile</string>
     <string name="workout_name">Workout</string>
+    <string name="timer_tab_label">Timer Tab</string>
+    <string name="timer_label">Timer</string>
+    <string name="tabata_label">Tabata</string>
+    <string name="stopwatch_label">Stopwatch</string>
     
     <!-- Working layout on Anthony table -->
     <string name="name_of_workout_add">Name of Workout</string>
-    <string name="discription_of_workout_add">Discription of Workout</string>
+    <string name="discription_of_workout_add">Description of Workout</string>
 	<string name="workout_type_add">Workout Type</string>
 	<string name="record_type_add">Record Type</string>
 	<string name="add_custom_add">Add Custom Workout</string>
 	<string name="button_save_add">Save</string>
 	<string name="button_start_add">Start Workout</string>
-		<string name="ddm_default_workouttype_add">Custom Workout</string>
-			<string name="button_default_recordtype_add">Timer</string>
 		
 
+	
 </resources>

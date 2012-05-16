@@ -11,4 +11,10 @@
         android:layout_gravity="center"
         android:text="Edit Profile" />
 
+    <Button
+        android:id="@+id/open_timer_button"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Open Timer" />
 </LinearLayout>

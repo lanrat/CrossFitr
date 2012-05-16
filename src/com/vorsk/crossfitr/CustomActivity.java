@@ -10,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
-public class CustomActivity extends ListActivity {
-	public void onCreate(Bundle savedInstanceState) {
+public class CustomActivity extends ListActivity 
+{
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 
 		String[] CUSTOM = new String[] { "CustomA", "CustomB", "CustomC",

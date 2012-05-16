@@ -15,37 +15,31 @@ import android.widget.SimpleCursorAdapter;
 
 import com.vorsk.crossfitr.models.WorkoutModel;
 
-public class GirlsActivity extends ListActivity {
+public class GirlsActivity extends ListActivity
+{
 	/*
-	 * Database List Work in Progress public void onCreate(Bundle
-	 * savedInstanceState) { super.onCreate(savedInstanceState); Cursor mCursor
-	 * = getGirlWorkouts(); startManagingCursor(mCursor); ListAdapter adapter =
-	 * new SimpleCursorAdapter(this, android.R.layout.two_line_list_item,
-	 * mCursor, new String[] { ContactsContract.Contacts._ID,
-	 * ContactsContract.Contacts.DISPLAY_NAME }, new int[] { android.R.id.text1,
-	 * android.R.id.text2 }); setListAdapter(adapter); }
-	 * 
-	 * private Cursor getGirlWorkouts() { // Run query Uri uri =
-	 * ContactsContract.Contacts.CONTENT_URI; String[] projection = new String[]
-	 * { ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME
-	 * }; String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '"
-	 * + ("1") + "'"; String[] selectionArgs = null; String sortOrder =
-	 * ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
-	 * 
-	 * return managedQuery(uri, projection, selection, selectionArgs,
-	 * sortOrder); }
-	 */
-
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
-
-		String[] GIRLS = new String[] { "GirlA", "GirlB", "GirlC", "GirlD",
-				"GirlE" };
-
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, GIRLS);
-
+		Cursor mCursor = getContentResolver().query(WorkoutModel.Row.workout_type_id);
+		startManagingCursor(mCursor);
+		ListAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item, mCursor, 
+												      WorkoutModel.Row.name);
 		setListAdapter(adapter);
 	}
-
+	*/
+	// Static List Implementation
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		
+		String[] GIRLS = new String[] { "GirlA", "GirlB", "GirlC", "GirlD", "GirlE" };
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, GIRLS);
+		
+		setListAdapter(adapter);
+	}
+	
+	
 }
