@@ -11,6 +11,10 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile_form);
+		
+		// button to save
+		View saveButton = findViewById(R.id.button_userprofile_form_save);
+		saveButton.setOnClickListener(this);
 
 	}
 
