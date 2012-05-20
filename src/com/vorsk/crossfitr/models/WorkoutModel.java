@@ -60,6 +60,14 @@ public class WorkoutModel extends SQLiteDAO
 			vals.put(COL_REC_TYPE, record_type_id);
 			return vals;
 		}
+		
+		/**
+		 * Returns the String to represent the row item
+		 */
+		public String toString()
+		{
+			return this.name;
+		}
 	}
 	
 	
