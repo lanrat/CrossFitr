@@ -17,4 +17,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Open Timer" />
+    
+    <Button
+        android:id="@+id/workout_add_form_button"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add Custom Form" />
 </LinearLayout>
