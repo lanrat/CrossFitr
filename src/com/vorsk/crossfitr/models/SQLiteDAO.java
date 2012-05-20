@@ -103,38 +103,6 @@ public abstract class SQLiteDAO
 		
 	} // END DatabaseHelper
 	
-	/**
-	 * Base class for the child DAOs' Row to extend.
-	 * 
-	 * This contains all of the global columns and implements them for each
-	 * method
-	 */
-	protected class Row
-	{
-		// Cols
-		public long   _id;
-		public int    date_modified;
-		public int    date_created;
-		
-		public Row() {}
-		public Row(ContentValues vals)
-		{
-			_id             = vals.getAsLong(COL_ID);
-			date_modified   = vals.getAsInteger(COL_MDATE);
-			date_created    = vals.getAsInteger(COL_CDATE);
-		}
-		
-		public ContentValues toContentValues()
-		{
-			ContentValues vals = new ContentValues();
-			vals.put(COL_ID,    _id);
-			vals.put(COL_MDATE, date_modified);
-			vals.put(COL_CDATE, date_created);
-			return vals;
-		}
-		
-	} // END Row
-	
 	
 	private DatabaseHelper DBHelper;
 	private SQLiteDatabase db;

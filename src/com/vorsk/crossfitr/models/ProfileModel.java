@@ -8,7 +8,7 @@ import android.database.Cursor;
  * DAO for "profile" table.
  * 
  * Create a new instance and use the methods to interact with the database.
- * Data is returned as instances of ProfileModel.Row where each column
+ * Data is returned as instances of ProfileRow where each column
  * is a publicly accessible property.
  * 
  * @author Vivek
@@ -21,36 +21,6 @@ public class ProfileModel extends SQLiteDAO
 	// Table-specific columns
 	public static final String COL_ATTR  = "attribute";
 	public static final String COL_VALUE = "value";
-	
-	/**
-	 * Profile entry struct
-	 * 
-	 * This is a customized data container to hold an entry from the
-	 * table. Every DAO Model will have its own Row class definition.
-	 */
-	public class Row extends SQLiteDAO.Row
-	{
-		// Cols
-		public String attribute;
-		public String value;
-		
-		public Row() {}
-		
-		public Row(ContentValues vals)
-		{
-			super(vals);
-			attribute = vals.getAsString(COL_ATTR);
-			value = vals.getAsString(COL_VALUE);
-		}
-
-		public ContentValues toContentValues()
-		{
-			ContentValues vals = super.toContentValues();
-			vals.put(COL_ATTR,  attribute);
-			vals.put(COL_VALUE, value);
-			return vals;
-		}
-	}
 	
 	
 	/*****   Constructors   *****/
@@ -74,9 +44,9 @@ public class ProfileModel extends SQLiteDAO
 	 * @param cr result of a query
 	 * @return Array of entries
 	 */
-	private Row[] fetchRows(Cursor cr)
+	private ProfileRow[] fetchProfileRows(Cursor cr)
 	{
-		Row[] result = new Row[cr.getCount()];
+		ProfileRow[] result = new ProfileRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
 		}
@@ -92,7 +62,7 @@ public class ProfileModel extends SQLiteDAO
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
-			result[ii] = new Row();
+			result[ii] = new ProfileRow();
 			result[ii]._id       = cr.getLong(ind_id);
 			result[ii].attribute = cr.getString(ind_attr);
 			result[ii].value     = cr.getString(ind_val);
@@ -112,7 +82,7 @@ public class ProfileModel extends SQLiteDAO
 	 * @param row Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(Row row)
+	public long insert(ProfileRow row)
 	{
 		return super.insert(row.toContentValues());
 	}
@@ -138,7 +108,7 @@ public class ProfileModel extends SQLiteDAO
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public Row getByID(long id)
+	public ProfileRow getByID(long id)
 	{
 		Cursor cr = selectByID(id);
 		
@@ -146,7 +116,7 @@ public class ProfileModel extends SQLiteDAO
 			return null; // TODO: Throw exception
 		}
 		
-		Row[] rows = fetchRows(cr);
+		ProfileRow[] rows = fetchProfileRows(cr);
 		return (rows.length == 0) ? null : rows[1];
 	}
 

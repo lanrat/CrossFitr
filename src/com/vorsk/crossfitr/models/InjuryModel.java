@@ -8,7 +8,7 @@ import android.database.Cursor;
  * DAO for "injury" table.
  * 
  * Create a new instance and use the methods to interact with the database.
- * Data is returned as instances of injuryModel.Row where each column
+ * Data is returned as instances of InjuryRow where each column
  * is a publicly accessible property.
  * 
  * @author Vivek
@@ -22,39 +22,6 @@ public class InjuryModel extends SQLiteDAO
 	public static final String COL_DESC  = "description";
 	public static final String COL_BDATE = "date_begin";
 	public static final String COL_EDATE = "date_end";
-	
-	/**
-	 * injury entry struct
-	 * 
-	 * This is a customized data container to hold an entry from the
-	 * table. Every DAO Model will have its own Row class definition.
-	 */
-	public class Row extends SQLiteDAO.Row
-	{
-		// Cols
-		public String description;
-		public int date_begin;
-		public int date_end;
-		
-		public Row() {}
-		
-		public Row(ContentValues vals)
-		{
-			super(vals);
-			description = vals.getAsString(COL_DESC);
-			date_begin  = vals.getAsInteger(COL_BDATE);
-			date_end    = vals.getAsInteger(COL_EDATE);
-		}
-
-		public ContentValues toContentValues()
-		{
-			ContentValues vals = super.toContentValues();
-			vals.put(COL_DESC,  description);
-			vals.put(COL_BDATE, date_begin);
-			vals.put(COL_EDATE, date_end);
-			return vals;
-		}
-	}
 	
 	
 	/*****   Constructors   *****/
@@ -78,9 +45,9 @@ public class InjuryModel extends SQLiteDAO
 	 * @param cr result of a query
 	 * @return Array of entries
 	 */
-	private Row[] fetchRows(Cursor cr)
+	private InjuryRow[] fetchInjuryRows(Cursor cr)
 	{
-		Row[] result = new Row[cr.getCount()];
+		InjuryRow[] result = new InjuryRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
 		}
@@ -97,7 +64,7 @@ public class InjuryModel extends SQLiteDAO
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
-			result[ii] = new Row();
+			result[ii] = new InjuryRow();
 			result[ii]._id         = cr.getLong(ind_id);
 			result[ii].description = cr.getString(ind_desc);
 			result[ii].date_begin  = cr.getInt(ind_bd);
@@ -118,7 +85,7 @@ public class InjuryModel extends SQLiteDAO
 	 * @param row Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(Row row)
+	public long insert(InjuryRow row)
 	{
 		return super.insert(row.toContentValues());
 	}
@@ -146,7 +113,7 @@ public class InjuryModel extends SQLiteDAO
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public Row getByID(long id)
+	public InjuryRow getByID(long id)
 	{
 		Cursor cr = selectByID(id);
 		
@@ -154,7 +121,7 @@ public class InjuryModel extends SQLiteDAO
 			return null; // TODO: Throw exception
 		}
 		
-		Row[] rows = fetchRows(cr);
+		InjuryRow[] rows = fetchInjuryRows(cr);
 		return (rows.length == 0) ? null : rows[1];
 	}
 

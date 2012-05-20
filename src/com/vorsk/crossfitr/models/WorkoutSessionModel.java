@@ -8,7 +8,7 @@ import android.database.Cursor;
  * DAO for "workout_session" table.
  * 
  * Create a new instance and use the methods to interact with the database.
- * Data is returned as instances of WorkoutSessionModel.Row where each column
+ * Data is returned as instances of WorkoutSessionRow where each column
  * is a publicly accessible property.
  * 
  * @author Vivek
@@ -22,39 +22,6 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public static final String COL_WORKOUT    = "workout_id";
 	public static final String COL_SCORE      = "score";
 	public static final String COL_SCORE_TYPE = "score_type_id";
-	
-	/**
-	 * Workout Session entry struct
-	 * 
-	 * This is a customized data container to hold an entry from the
-	 * table. Every DAO Model will have its own Row class definition.
-	 */
-	public class Row extends SQLiteDAO.Row
-	{
-		// Cols
-		public long   workout_id;
-		public int    score;
-		public long   score_type_id;
-		
-		public Row() {}
-		
-		public Row(ContentValues vals)
-		{
-			super(vals);
-			workout_id     = vals.getAsLong(COL_WORKOUT);
-			score          = vals.getAsInteger(COL_SCORE);
-			score_type_id  = vals.getAsLong(COL_SCORE_TYPE);
-		}
-
-		public ContentValues toContentValues()
-		{
-			ContentValues vals = super.toContentValues();
-			vals.put(COL_WORKOUT,    workout_id);
-			vals.put(COL_SCORE,      score);
-			vals.put(COL_SCORE_TYPE, score_type_id);
-			return vals;
-		}
-	}
 	
 	
 	/*****   Constructors   *****/
@@ -78,9 +45,9 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 * @param cr result of a query
 	 * @return Array of entries
 	 */
-	private Row[] fetchRows(Cursor cr)
+	private WorkoutSessionRow[] fetchWorkoutSessionRows(Cursor cr)
 	{
-		Row[] result = new Row[cr.getCount()];
+		WorkoutSessionRow[] result = new WorkoutSessionRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
 		}
@@ -97,7 +64,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
-			result[ii] = new Row();
+			result[ii] = new WorkoutSessionRow();
 			result[ii]._id           = cr.getLong(ind_id);
 			result[ii].workout_id    = cr.getLong(ind_wid);
 			result[ii].score         = cr.getInt(ind_score);
@@ -118,7 +85,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 * @param row Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(Row row)
+	public long insert(WorkoutSessionRow row)
 	{
 		return super.insert(row.toContentValues());
 	}
@@ -151,7 +118,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public Row getByID(long id)
+	public WorkoutSessionRow getByID(long id)
 	{
 		Cursor cr = selectByID(id);
 		
@@ -159,7 +126,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 			return null; // TODO: Throw exception
 		}
 		
-		Row[] rows = fetchRows(cr);
+		WorkoutSessionRow[] rows = fetchWorkoutSessionRows(cr);
 		return (rows.length == 0) ? null : rows[1];
 	}
 
