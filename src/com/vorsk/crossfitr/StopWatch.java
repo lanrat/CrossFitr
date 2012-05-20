@@ -22,19 +22,19 @@ public class StopWatch {
 	 */
 	public enum State { PAUSED, RUNNING };
 
-	private GetTime m_time;
-	private long m_startTime;
-	private long m_stopTime;
-	private long m_pauseOffset;
+	private GetTime time;
+	private long startTime;
+	private long stopTime;
+	private long pauseOffset;
 
-	private State m_state;
+	private State runState;
 
 	public StopWatch() {
-		m_time = SystemTime;
+		time = SystemTime;
 		reset();
 	}
-	public StopWatch(GetTime time) {
-		m_time = time;
+	public StopWatch(GetTime sTime) {
+		time = sTime;
 		reset();
 	}
 
@@ -43,11 +43,11 @@ public class StopWatch {
 	 * does nothing. 
 	 */
 	public void start() {
-		if ( m_state == State.PAUSED ) {
-			m_pauseOffset = getElapsedTime();
-			m_stopTime = 0;
-			m_startTime = m_time.now();
-			m_state = State.RUNNING;
+		if ( runState == State.PAUSED ) {
+			pauseOffset = getElapsedTime();
+			stopTime = 0;
+			startTime = time.now();
+			runState = State.RUNNING;
 		}
 	}
 
@@ -55,9 +55,9 @@ public class StopWatch {
 	 * Pause the stopwatch. If the stopwatch is already running, do nothing.
 	 */
 	public void pause() {
-		if ( m_state == State.RUNNING ) {
-			m_stopTime = m_time.now();
-			m_state = State.PAUSED;
+		if ( runState == State.RUNNING ) {
+			stopTime = time.now();
+			runState = State.PAUSED;
 		}
 	}
 
@@ -65,20 +65,20 @@ public class StopWatch {
 	 * Reset the stopwatch to the initial state, clearing all stored times. 
 	 */
 	public void reset() {
-		m_state = State.PAUSED;
-		m_startTime 	= 0;
-		m_stopTime 		= 0;
-		m_pauseOffset 	= 0;
+		runState = State.PAUSED;
+		startTime = 0;
+		stopTime = 0;
+		pauseOffset	= 0;
 	}
 
 	/***
 	 * @return The amount of time recorded by the stopwatch, in milliseconds
 	 */
 	public long getElapsedTime() {
-		if ( m_state == State.PAUSED ) {
-			return (m_stopTime - m_startTime) + m_pauseOffset;
+		if ( runState == State.PAUSED ) {
+			return (stopTime - startTime) + pauseOffset;
 		} else {
-			return (m_time.now() - m_startTime) + m_pauseOffset;
+			return (time.now() - startTime) + pauseOffset;
 		}
 	}
 
@@ -88,6 +88,6 @@ public class StopWatch {
 	 * 		   time, false otherwise.
 	 */
 	public boolean isRunning() {
-		return (m_state == State.RUNNING);
+		return (runState == State.RUNNING);
 	}
 }
