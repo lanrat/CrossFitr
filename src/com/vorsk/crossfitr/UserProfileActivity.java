@@ -19,6 +19,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// Temporary button to access and debug the timer
 		View open_timer_button = findViewById(R.id.open_timer_button);
 		open_timer_button.setOnClickListener(this);
+		
+		// Temporary button to access and debug the form
+		View workout_add_form_button = findViewById(R.id.workout_add_form_button);
+		workout_add_form_button.setOnClickListener(this);
+		
 	}
 
 	public void onClick(View v) 
@@ -34,6 +39,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			Intent t = new Intent(this, TimerTabWidget.class);
 			startActivity(t);
 			break;
+		case R.id.workout_add_form_button:
+			Intent x = new Intent(this, AddCustomActivity.class);
+			startActivity(x);
 		}
 	}
 }
