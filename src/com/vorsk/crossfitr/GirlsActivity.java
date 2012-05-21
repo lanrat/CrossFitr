@@ -26,23 +26,23 @@ public class GirlsActivity extends ListActivity
 		
 		WorkoutModel model = new WorkoutModel(this);
 
-		/*
+		
 		//Access the database and retrieve all girl workouts
 		model.open();	
 		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_GIRL);
 		model.close();
-		*/
+		
 		
 		String[] results2 = new String[] {"GIRLS"};
 		
-		/*
-		ArrayAdapter<Row> adapter = new ArrayAdapter<Row>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, results);
-		*/
 		
+		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, results);
+		
+		/*
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, results2);
-		
+		*/
 		setListAdapter(adapter);
 	}
 	

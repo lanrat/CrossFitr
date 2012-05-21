@@ -33,7 +33,11 @@
 	<string name="user_goal_weight">Goal Weight</string>
 	<string name="button_save_profile">Save</string>
 	<string name="button_cancel_profile">Cancel</string>
-			
+	
+	<!-- Strings for custom timer popup. -->
+	<string name="dialog_set_number">Set</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_picker_title">Set Timer</string>
 
 	
 </resources>

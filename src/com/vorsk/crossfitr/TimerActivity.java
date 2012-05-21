@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.content.Context;
 /*
  * This is contains a very rudimentary implementation of the timer popup. 
  * Jason: Feel free to change any of this. All variables are just there to make it work.
@@ -22,7 +23,7 @@ public class TimerActivity extends Activity
 	 private int mSec = 0;
 	 private int mMinute = 0;
 
-	 static final int TIME_DIALOG_ID = 0; // Dialog variable
+	 static final int NUMBER_DIALOG_ID = 0; // Dialog variable
 	    
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -37,13 +38,15 @@ public class TimerActivity extends Activity
 		{
 			public void onClick(View v) 
 			{
-	            showDialog(TIME_DIALOG_ID);
+				NumberPicker dialog = new NumberPicker(getBaseContext());
+				dialog.setRange(0,59);
+				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
 	}
 
 	// Sets the variables after the user selects a time. Updates text field 
-	private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+/*	private TimePickerDialog.OnTimeSetListener mTimeSetListener =
 		    new TimePickerDialog.OnTimeSetListener() {
 		        public void onTimeSet(TimePicker view, int minute, int seconds) {
 		            mSec = seconds;
@@ -58,7 +61,7 @@ public class TimerActivity extends Activity
 	        return String.valueOf(c);
 	    else
 	        return "0" + String.valueOf(c);
-	}
+	}*/
 	
 	// Creates the Dialog
 	@Override
@@ -66,8 +69,8 @@ public class TimerActivity extends Activity
 	{
 		switch (id) 
 		{
-			case TIME_DIALOG_ID:
-		    return new TimePickerDialog(this, mTimeSetListener, mMinute, mSec, false);
+			case NUMBER_DIALOG_ID:
+		    return new NumberPickerDialog(this, 1, 0);
 		 }
 		 return null;
 	}
