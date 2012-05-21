@@ -1,6 +1,9 @@
 package com.vorsk.crossfitr.models;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +40,8 @@ public class WODModel {
 				item = it.next();
 				row = new WorkoutRow();
 				
-				row.name = item.getTitle();
+				
+				row.name = parseTitle(item.getTitle(), item.getPubDate());
 				row.description = item.getDescription();
 				row.workout_type_id = SQLiteDAO.TYPE_WOD;
 				row.record = WorkoutModel.NOT_SCORED;
@@ -51,6 +55,12 @@ public class WODModel {
 			row.name = "Error Loading RSS";
 			list.add(row);
 		}
+	}
+	
+	private static String parseTitle(String rssTitle, Date pubDate){
+		// currently I don't use the actual title...
+		Format formatter = new SimpleDateFormat("EEEE, dd MMM yyyy");
+		return formatter.format(pubDate);
 	}
 	
 	public String getTitle(){
