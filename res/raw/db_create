@@ -3,8 +3,8 @@ CREATE TABLE score_type
 	_id           INTEGER PRIMARY KEY,
 	name          TEXT UNIQUE NOT NULL,
 	description   TEXT,
-	date_created  INTEGER NOT NULL,
-	date_modified INTEGER NOT NULL
+	date_created  INTEGER,
+	date_modified INTEGER
 );
 --###--
 CREATE TABLE workout_type
@@ -12,8 +12,8 @@ CREATE TABLE workout_type
 	_id           INTEGER PRIMARY KEY,
 	name          TEXT UNIQUE NOT NULL,
 	description   TEXT,
-	date_created  INTEGER NOT NULL,
-	date_modified INTEGER NOT NULL
+	date_created  INTEGER,
+	date_modified INTEGER
 );
 --###--
 CREATE TABLE workout
@@ -24,8 +24,8 @@ CREATE TABLE workout
 	workout_type_id  INTEGER REFERENCES workout_type ON DELETE RESTRICT NOT NULL,
 	record           INTEGER,
 	record_type_id   INTEGER REFERENCES score ON DELETE RESTRICT,
-	date_created     INTEGER NOT NULL,
-	date_modified    INTEGER NOT NULL
+	date_created     INTEGER,
+	date_modified    INTEGER
 );
 --###--
 CREATE TABLE workout_session

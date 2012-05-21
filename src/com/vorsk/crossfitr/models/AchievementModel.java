@@ -114,12 +114,12 @@ public class AchievementModel extends SQLiteDAO
 			int threshold, int progress, int count)
 	{
 		ContentValues cv = new ContentValues();
-		cv.put(name,                             COL_NAME);
-		cv.put(description,                      COL_DESC);
-		cv.put(String.valueOf(achievement_type), COL_ACH_TYPE);
-		cv.put(String.valueOf(threshold),        COL_THRESH);
-		cv.put(String.valueOf(progress),         COL_PROG);
-		cv.put(String.valueOf(count),            COL_COUNT);
+		cv.put(COL_NAME, name);
+		cv.put(COL_DESC, description);
+		cv.put(COL_ACH_TYPE, achievement_type);
+		cv.put(COL_THRESH, threshold);
+		cv.put(COL_PROG, progress);
+		cv.put(COL_COUNT, count);
 		return super.insert(cv);
 	}
 	

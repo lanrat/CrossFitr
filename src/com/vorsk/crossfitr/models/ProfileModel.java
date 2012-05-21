@@ -97,8 +97,8 @@ public class ProfileModel extends SQLiteDAO
 	public long insert(String attr, String value)
 	{
 		ContentValues cv = new ContentValues();
-		cv.put(attr,  COL_ATTR);
-		cv.put(value, COL_VALUE);
+		cv.put(COL_ATTR, attr);
+		cv.put(COL_VALUE, value);
 		return super.insert(cv);
 	}
 	

@@ -135,48 +135,40 @@ public class AddCustomActivity extends Activity implements OnClickListener
 	    {
 	    	//handles the first dropdown menu
 	    	//update the workoutConstant, which keeps track of what is selected in the workout dropdown.
-	    	if( parent.getItemAtPosition(pos).toString().equals("Please select a workout type"))
+	    	if(parent.getItemAtPosition(pos).toString().equals( "Custom" ))
 	    	{
-	    		workoutConstant = 0;
-	    	}
-	    	else if(parent.getItemAtPosition(pos).toString().equals( "Custom" ))
-	    	{
-	    		workoutConstant = 4;
+	    		workoutConstant = WorkoutModel.TYPE_CUSTOM;
 	    	}
 	    	else if(parent.getItemAtPosition(pos).toString().equals("WoD"))
 	    	{
-	    		workoutConstant = 1;
+	    		workoutConstant = WorkoutModel.TYPE_WOD;
 	    	}
 	    	else if(parent.getItemAtPosition(pos).toString().equals( "Girls"))
 	    	{
-	    		workoutConstant = 2;
+	    		workoutConstant = WorkoutModel.TYPE_GIRL;
 	    	}
 	    	else if(parent.getItemAtPosition(pos).toString().equals( "Heroes" ))
 	    	{
-	    		workoutConstant = 3;
+	    		workoutConstant = WorkoutModel.TYPE_HERO;
 	    	}
 	    
 	    	//handles when the second dropdown menu
 	    	//update the workoutConstant, which keeps track of what is selected in the record dropdown.
-	    	if( parent.getItemAtPosition(pos).toString().equals("Please select a record type"))
+	    	if(parent.getItemAtPosition(pos).toString().equals( "Timer" ))
 	    	{
-	    		recordConstant = 0;
-	    	}
-	    	else if(parent.getItemAtPosition(pos).toString().equals( "Timer" ))
-	    	{
-	    		recordConstant = 1;
+	    		recordConstant = WorkoutModel.SCORE_TIME;
 	    	}
 	    	else if( parent.getItemAtPosition(pos).toString().equals("Weight"))
 	    	{
-	    		recordConstant = 3;
+	    		recordConstant = WorkoutModel.SCORE_WEIGHT;
 	    	}
 	    	else if(parent.getItemAtPosition(pos).toString().equals( "Reps"))
 	    	{
-	    		recordConstant = 2;
+	    		recordConstant = WorkoutModel.SCORE_REPS;
 	    	}
 	    	else if(parent.getItemAtPosition(pos).toString().equals( "None" ))
 	    	{
-	    		recordConstant = 4;
+	    		recordConstant = WorkoutModel.SCORE_NONE;
 	    	}
 	    }
 	    public void onNothingSelected(AdapterView parent) 
@@ -203,7 +195,8 @@ public class AddCustomActivity extends Activity implements OnClickListener
 			isValidForm = false;
 		}
 		// makes sure that the user selected something from the dropdown menu
-		if(workoutConstant == 0 || recordConstant == 0)
+		if(workoutConstant == 0 || recordConstant == 0
+				|| workoutConstant == WorkoutModel.TYPE_NONE)
 		{
 			isValidForm = false;
 		}

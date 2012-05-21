@@ -101,9 +101,9 @@ public class InjuryModel extends SQLiteDAO
 	public long insert(String description, int date_begin, int date_end)
 	{
 		ContentValues cv = new ContentValues();
-		cv.put(description, COL_DESC);
-		cv.put(String.valueOf(date_begin),  COL_BDATE);
-		cv.put(String.valueOf(date_end),    COL_EDATE);
+		cv.put(COL_DESC, description);
+		cv.put(COL_BDATE, date_begin);
+		cv.put(COL_EDATE, date_end);
 		return super.insert(cv);
 	}
 	

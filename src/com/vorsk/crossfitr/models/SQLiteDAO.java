@@ -36,12 +36,13 @@ public abstract class SQLiteDAO
 	public static final String COL_MDATE = "date_modified";
 	
 	// Pre-populated Type IDs
+	public static final int TYPE_NONE = -1;
 	public static final int TYPE_WOD = 1;
 	public static final int TYPE_GIRL = 2;
 	public static final int TYPE_HERO = 3;
 	public static final int TYPE_CUSTOM = 4;
 	
-	public static final int SCORE_NONE   = 4;
+	public static final int SCORE_NONE   = -1;
 	public static final int SCORE_TIME   = 1;
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;
@@ -153,9 +154,9 @@ public abstract class SQLiteDAO
 		long time = now.getTime(); // Milliseconds
 
 		// Automated input for global columns
-		cv.put(null, COL_ID); // Always let this autoincrement
-		cv.put(String.valueOf(time), COL_MDATE);
-		cv.put(String.valueOf(time), COL_CDATE);
+		cv.put(COL_ID, (Integer)null); // Always let this autoincrement
+		cv.put(COL_MDATE, time);
+		cv.put(COL_CDATE, time);
 
 		return db.insert(DB_TABLE, null, cv);
 	}

@@ -99,16 +99,15 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 *                   this.SCORE_NONE if no score is recorded
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(long workout, int score, long score_type)
+	public long insert(long workout, int score, int score_type)
 	{
-		String ssc = (score == NOT_SCORED) ? null : String.valueOf(score);
-		String sst = (score_type == SCORE_NONE)
-				? null : String.valueOf(score_type);
+		Integer isc = (score == NOT_SCORED) ? null : score;
+		Integer ist = (score_type == SCORE_NONE) ? null : score_type;
 		
 		ContentValues cv = new ContentValues();
-		cv.put(String.valueOf(workout), COL_WORKOUT);
-		cv.put(ssc,                     COL_SCORE);
-		cv.put(sst,                     COL_SCORE_TYPE);
+		cv.put(COL_WORKOUT, workout);
+		cv.put(COL_SCORE, isc);
+		cv.put(COL_SCORE_TYPE, ist);
 		return super.insert(cv);
 	}
 	

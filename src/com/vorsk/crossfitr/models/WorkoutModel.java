@@ -104,8 +104,8 @@ public class WorkoutModel extends SQLiteDAO
 	 * @return ID of newly added entry, -1 on failure
 	 */
 	public long insert(String name, String desc, int type, int rec_type) {
-		// Default COL_RECORD to 0
-		return insert(name, desc, type, rec_type, 0);
+		// Default COL_RECORD to NOT_SCORED
+		return insert(name, desc, type, rec_type, NOT_SCORED);
 	}
 
 	/**
@@ -121,16 +121,16 @@ public class WorkoutModel extends SQLiteDAO
 	public long insert(String name, String desc, int type, int rec_type,
 	                   int record)
 	{
-		String srtype = (rec_type == SCORE_NONE) 
-				? null : String.valueOf(rec_type);
-		String srec = (record == NOT_SCORED) ? null : String.valueOf(record);
+		Integer wtype = (type == TYPE_NONE) ? null : type;
+		Integer rtype = (rec_type == SCORE_NONE) ? null : rec_type;
+		Integer rec = (record == NOT_SCORED) ? null : record;
 		
 		ContentValues cv = new ContentValues();
-		cv.put(name, COL_NAME);
-		cv.put(desc, COL_DESC);
-		cv.put(String.valueOf(srtype), COL_WK_TYPE);
-		cv.put(srtype, COL_REC_TYPE);
-		cv.put(srec, COL_RECORD);
+		cv.put(COL_NAME, name);
+		cv.put(COL_DESC, desc);
+		cv.put(COL_WK_TYPE, wtype);
+		cv.put(COL_REC_TYPE, rtype);
+		cv.put(COL_RECORD, rec);
 		return super.insert(cv);
 	}
 
