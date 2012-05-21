@@ -19,7 +19,7 @@ public class WodActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.workout_list);
 
-		ListView listView = (ListView) findViewById(R.id.workout_list);
+		ListView listView = (ListView) findViewById(R.id.workout_list_view);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1,
