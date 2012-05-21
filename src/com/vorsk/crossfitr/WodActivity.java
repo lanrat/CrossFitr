@@ -6,10 +6,13 @@ import com.vorsk.crossfitr.models.WODModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class WodActivity extends Activity 
 {
@@ -43,14 +46,13 @@ public class WodActivity extends Activity
 	}
 	
 	/*public void onListItemClick(ListView list, View view, int position, long id) {
-		String item = (String) getListAdapter().getItem(position);
+		String item = (String) listView.getAdapter().getItem(position);
 		Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
 	}*/
 	
 	/**
 	 * ASync task for loading the RSS
 	 * @author Ian
-	 *
 	 */
 	 private class DownloadWOD extends AsyncTask<WODModel, Integer, ArrayList<WorkoutRow>> {
 	     protected ArrayList<WorkoutRow> doInBackground(WODModel... models) {
