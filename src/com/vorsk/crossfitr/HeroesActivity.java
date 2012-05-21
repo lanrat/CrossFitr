@@ -1,7 +1,9 @@
 package com.vorsk.crossfitr;
 
-import android.app.Activity;
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -18,12 +20,16 @@ public class HeroesActivity extends ListActivity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+		WorkoutModel model = new WorkoutModel(this);
 
-		String[] HEROES = new String[] { "HeroA", "HeroB", "HeroC", "HeroD",
-				"HeroE" };
-
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, HEROES);
+		//Access the database and retrieve all heroes workouts
+		model.open();	
+		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_HERO);
+		model.close();
+		
+		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, results);
 
 		setListAdapter(adapter);
 	}

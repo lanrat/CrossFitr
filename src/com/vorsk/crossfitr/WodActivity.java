@@ -15,12 +15,13 @@ public class WodActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.workout_list);
 
-		ListView listView = (ListView) findViewById(R.id.workout_list);
 		
 		WODModel model = new WODModel();
 
 		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1,model.getWodRows() );
+
+		ListView listView = (ListView) findViewById(R.id.workout_list_view);
 
 
 		listView.setAdapter(adapter);
