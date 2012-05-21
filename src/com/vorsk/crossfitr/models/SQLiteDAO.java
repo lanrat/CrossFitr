@@ -41,7 +41,7 @@ public abstract class SQLiteDAO
 	public static final int TYPE_HERO = 3;
 	public static final int TYPE_CUSTOM = 4;
 	
-	public static final int SCORE_NONE   = 0;
+	public static final int SCORE_NONE   = 4;
 	public static final int SCORE_TIME   = 1;
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;

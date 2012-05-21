@@ -4,6 +4,7 @@ import com.vorsk.crossfitr.models.WorkoutModel;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.content.Context;
 import android.content.Intent;
 import android.util.EventLogTags.Description;
 import android.view.View;
@@ -13,15 +14,20 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddCustomActivity extends Activity implements OnClickListener 
 {
+	//text fields
 	private EditText workoutTextField;
 	private EditText nameTextField;
+	private int workoutConstant = 0;
+	private int recordConstant = 0;
 	Spinner workoutTypeDropDown;
 	Spinner recordTypeDropDown; 
 	WorkoutModel model = new WorkoutModel(this);
 	
+	//onCreate method called at the beginning of activity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -51,7 +57,6 @@ public class AddCustomActivity extends Activity implements OnClickListener
         workoutTypeDropDown.setAdapter(adapter);
         workoutTypeDropDown.setOnItemSelectedListener(new MyOnItemSelectedListener());
 
-        
         // drop down menu for the record type to be added
         recordTypeDropDown = (Spinner) findViewById(R.id.workout_form_recordtype_spinner);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
@@ -68,19 +73,27 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		{
 		    // if user clicks the save button
 			case R.id.button_workout_form_save:
+				//validate that inputs are not junk
 				if(this.validateForm() == true)
 				{
 					model.open();
-					//TODO: uncomment after adding in spinners correctly, change type and rec_type params
-					/*model.insert(nameTextField.getText(), workoutTextField.getText(),
-								 type, rec_type);*/
+					//save data into database, saves data from textfields, and selected workout in dropdowns
+					model.insert(nameTextField.getText().toString(), workoutTextField.getText().toString(),
+								 workoutConstant, recordConstant);
 					model.close();
+					//go back into the custom activity class
 					Intent i = new Intent(this, CustomActivity.class);
 					startActivity(i);
 				}
 				else
 				{
-					//TODO: error prompt
+					//error prompt
+					Context context = getApplicationContext();
+					CharSequence text = "Please fill out all fields!";
+					int duration = Toast.LENGTH_SHORT;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
 				}
 				
 			break;
@@ -90,9 +103,9 @@ public class AddCustomActivity extends Activity implements OnClickListener
 				if(this.validateForm() == true)
 				{
 					model.open();
-					//TODO: uncomment after adding in spinners correctly, change type and rec_type params
-					/*model.insert(nameTextField.getText(), workoutTextField.getText(),
-								 type, rec_type);*/
+					//save data into database, saves data from textfields, and selected workout in dropdowns
+					model.insert(nameTextField.getText().toString(), workoutTextField.getText().toString(),
+								 workoutConstant, recordConstant);
 					model.close();
 					
 					//TODO: uncomment below after WorkoutsProfileActivity has been created.
@@ -101,8 +114,15 @@ public class AddCustomActivity extends Activity implements OnClickListener
 				}
 				else
 				{
-					//TODO: error prompt
+					//error prompt
+					Context context = getApplicationContext();
+					CharSequence text = "Please fill out all fields!";
+					int duration = Toast.LENGTH_SHORT;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
 				}
+				
 			break;
 		}
 	}
@@ -113,14 +133,56 @@ public class AddCustomActivity extends Activity implements OnClickListener
 	    public void onItemSelected(AdapterView<?> parent,
 	        View view, int pos, long id) 
 	    {
-	      // TODO: handle the different cases selected
+	    	//handles the first dropdown menu
+	    	//update the workoutConstant, which keeps track of what is selected in the workout dropdown.
+	    	if( parent.getItemAtPosition(pos).toString().equals("Please select a workout type"))
+	    	{
+	    		workoutConstant = 0;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "Custom" ))
+	    	{
+	    		workoutConstant = 4;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals("WoD"))
+	    	{
+	    		workoutConstant = 1;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "Girls"))
+	    	{
+	    		workoutConstant = 2;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "Heroes" ))
+	    	{
+	    		workoutConstant = 3;
+	    	}
+	    
+	    	//handles when the second dropdown menu
+	    	//update the workoutConstant, which keeps track of what is selected in the record dropdown.
+	    	if( parent.getItemAtPosition(pos).toString().equals("Please select a record type"))
+	    	{
+	    		recordConstant = 0;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "Timer" ))
+	    	{
+	    		recordConstant = 1;
+	    	}
+	    	else if( parent.getItemAtPosition(pos).toString().equals("Weight"))
+	    	{
+	    		recordConstant = 3;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "Reps"))
+	    	{
+	    		recordConstant = 2;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "None" ))
+	    	{
+	    		recordConstant = 4;
+	    	}
 	    }
-
 	    public void onNothingSelected(AdapterView parent) 
 	    {
 	      // Do nothing.
 	    }			
-	
 	}
 	
 	// method to make sure that input is valid, if false the save buttons should
@@ -140,8 +202,11 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		{
 			isValidForm = false;
 		}
-		
-		//TODO: add more two more validations for the dropdown menus.
+		// makes sure that the user selected something from the dropdown menu
+		if(workoutConstant == 0 || recordConstant == 0)
+		{
+			isValidForm = false;
+		}
 		return isValidForm;
 	}
 }

@@ -4,11 +4,65 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	<Button
-    	android:id="@+id/button_userprofile_form_save"
-    	android:layout_width="150dp"
-    	android:layout_height="60dp"
-    	android:layout_gravity="center"
-    	android:layout_marginBottom="10dp" 
-    	android:text="@string/button_save_add"/>
+    <!-- User Name -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name" />    
+	<EditText
+        android:id="@+id/user_name_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+	
+	 <!-- User Height -->
+	 <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_height" />    
+	<EditText
+        android:id="@+id/user_height_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+	
+	<!-- User Weight -->
+	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_weight" />    
+	<EditText
+        android:id="@+id/user_weight_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+	
+	<!-- User Goal Weight -->
+	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_goal_weight" />    
+	<EditText
+        android:id="@+id/user_goal_weight_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+	
+	<LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" >
+    	
+		<Button
+	    	android:id="@+id/button_userprofile_form_save"
+	    	android:layout_width="150dp"
+	    	android:layout_height="60dp"
+	    	android:layout_gravity="left"
+	    	android:layout_marginBottom="10dp" 
+	    	android:text="@string/button_save_profile"/>
+		
+		<Button
+	    	android:id="@+id/button_userprofile_form_cancel"
+	    	android:layout_width="150dp"
+	    	android:layout_height="60dp"
+	    	android:layout_gravity="right"
+	    	android:layout_marginBottom="10dp" 
+	    	android:text="@string/button_cancel_profile"/>
+	</LinearLayout>
 </LinearLayout>
