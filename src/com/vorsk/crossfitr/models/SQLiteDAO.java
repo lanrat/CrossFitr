@@ -146,18 +146,6 @@ public abstract class SQLiteDAO
 
 	/*** Private ***/
 
-	public void open() throws SQLException {
-		if (db == null) {
-			db = DBHelper.getWritableDatabase();
-		}
-	}
-
-	// TODO: Decide whether to auto-call or force programmer
-	public void close() {
-		DBHelper.close();
-		db = null;
-	}
-
 	/*** Protected ***/
 
 	protected long insert(ContentValues cv) {
@@ -209,5 +197,17 @@ public abstract class SQLiteDAO
 	}
 
 	/*** Public ***/
+
+	public void open() throws SQLException {
+		if (db == null) {
+			db = DBHelper.getWritableDatabase();
+		}
+	}
+
+	public void close() {
+		db.close();
+		DBHelper.close();
+		db = null;
+	}
 
 }
