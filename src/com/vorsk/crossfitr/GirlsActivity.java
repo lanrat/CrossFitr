@@ -26,10 +26,12 @@ public class GirlsActivity extends ListActivity
 		
 		WorkoutModel model = new WorkoutModel(this);
 
+		/*
 		//Access the database and retrieve all girl workouts
 		model.open();	
 		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_GIRL);
 		model.close();
+		*/
 		
 		String[] results2 = new String[] {"GIRLS"};
 		
