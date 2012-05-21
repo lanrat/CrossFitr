@@ -60,7 +60,7 @@ public class WODModel {
 	private static String parseTitle(String rssTitle, Date pubDate){
 		// currently I don't use the actual title...
 		Format formatter = new SimpleDateFormat("EEEE, dd MMM yyyy");
-		return formatter.format(pubDate);
+		return "WOD "+formatter.format(pubDate);
 	}
 	
 	public String getTitle(){
