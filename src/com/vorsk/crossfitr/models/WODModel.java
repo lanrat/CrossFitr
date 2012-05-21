@@ -15,7 +15,12 @@ public class WODModel {
 	private ArrayList<WorkoutRow> list = new ArrayList<WorkoutRow>();
 
 	public WODModel() {
-		
+	}
+	
+	/**
+	 * Run this to get results
+	 */
+	public void fetch(){
 		try{
 			RssFeed feed = rss.load(feed_url);
 			
@@ -46,7 +51,6 @@ public class WODModel {
 			row.name = "Error Loading RSS";
 			list.add(row);
 		}
-
 	}
 	
 	public String getTitle(){
