@@ -26,8 +26,14 @@
 	<string name="button_save_add">Save</string>
 	<string name="button_start_add">Start Workout</string>
 	
-	<!-- Layout for user profile. -->
-		
+	<!-- Strings for user profile. -->
+	<string name="user_name">Name</string>
+	<string name="user_height">Height</string>
+	<string name="user_weight">Weight</string>
+	<string name="user_goal_weight">Goal Weight</string>
+	<string name="button_save_profile">Save</string>
+	<string name="button_cancel_profile">Cancel</string>
+			
 
 	
 </resources>
