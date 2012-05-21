@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.*;
 import java.util.Date;
@@ -75,15 +76,44 @@ public abstract class SQLiteDAO
 		@Override
 		public void onCreate(SQLiteDatabase db)
 		{
-			InputStream sqlfile = context.getResources().openRawResource(R.raw.db_create);
+			Log.v("DB", "DB onCreate BEGIN");
+			
+			InputStream sqlfile =
+					context.getResources().openRawResource(R.raw.db_create);
+			InputStream insfile =
+					context.getResources().openRawResource(R.raw.db_create_inserts);
 			byte[] reader;
+			String sqltext;
+			String[] statements;
+			
 			try {
 				reader = new byte[sqlfile.available()];
 				while (sqlfile.read(reader) != -1){}
-				db.execSQL(new String(reader));
+				sqltext = new String(reader);
+				statements = sqltext.split("--###--");
+				
+				Log.v("DB", "Creating database...");
+				for (int ii=0; ii<statements.length; ii++) {
+					db.execSQL(statements[ii]);
+				}
+				Log.v("DB", "Done creating database");
+				
+				reader = new byte[insfile.available()];
+				while (insfile.read(reader) != -1) {}
+				sqltext = new String(reader);
+				statements = sqltext.split("--###--");
+				
+				Log.v("DB", "Inserting data...");
+				for (int ii=0; ii<statements.length; ii++) {
+					db.execSQL(statements[ii]);
+				}
+				Log.v("DB", "Done inserting data");
 			} catch (IOException e) {
 				// TODO: this
+				Log.e("DB", "Error occurred during creation");
 			}
+			
+			Log.v("DB", "DB onCreate END");
 		}
 
 		@Override
@@ -117,7 +147,7 @@ public abstract class SQLiteDAO
 	/*** Private ***/
 
 	public void open() throws SQLException {
-		if (db != null) {
+		if (db == null) {
 			db = DBHelper.getWritableDatabase();
 		}
 	}

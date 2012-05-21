@@ -25,7 +25,6 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         // profile button
         View profileButton = findViewById(R.id.main_button_profile);
         profileButton.setOnClickListener(this);
-        
     }
 
 
