@@ -1,16 +1,12 @@
 package com.vorsk.crossfitr;
 
 import com.vorsk.crossfitr.models.WODModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
-import android.content.Intent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class WodActivity extends Activity 
 {
@@ -20,10 +16,12 @@ public class WodActivity extends Activity
 		setContentView(R.layout.workout_list);
 
 		ListView listView = (ListView) findViewById(R.id.workout_list);
+		
+		WODModel model = new WODModel();
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				new WODModel().list);
+		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,model.getWodRows() );
+
 
 		listView.setAdapter(adapter);
 	}
