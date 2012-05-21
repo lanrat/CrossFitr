@@ -8,7 +8,7 @@ import android.database.Cursor;
  * DAO for "workout" table.
  * 
  * Create a new instance and use the methods to interact with the database.
- * Data is returned as instances of WorkoutModel.Row where each column is a
+ * Data is returned as instances of WorkoutRow where each column is a
  * publicly accessible property.
  * 
  * @author Vivek
@@ -22,45 +22,6 @@ public class WorkoutModel extends SQLiteDAO
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
-	
-	/**
-	 * Workout entry struct
-	 * 
-	 * This is a customized data container to hold an entry from the workout
-	 * table. Every DAO Model will have its own Row class definition.
-	 */
-	public class Row extends SQLiteDAO.Row
-	{
-		// Cols
-		public String name;
-		public String description;
-		public long   workout_type_id;
-		public int    record;
-		public long   record_type_id;
-		
-		public Row() {}
-		
-		public Row(ContentValues vals)
-		{
-			super(vals);
-			name            = vals.getAsString(COL_NAME);
-			description     = vals.getAsString(COL_DESC);
-			workout_type_id = vals.getAsLong(COL_WK_TYPE);
-			record = vals.getAsInteger(COL_RECORD);
-			record_type_id = vals.getAsLong(COL_REC_TYPE);
-		}
-
-		public ContentValues toContentValues()
-		{
-			ContentValues vals = super.toContentValues();
-			vals.put(COL_NAME,  name);
-			vals.put(COL_DESC,  description);
-			vals.put(COL_WK_TYPE,  workout_type_id);
-			vals.put(COL_RECORD,   record);
-			vals.put(COL_REC_TYPE, record_type_id);
-			return vals;
-		}
-	}
 	
 	
 	/*****   Constructors   *****/
@@ -84,9 +45,9 @@ public class WorkoutModel extends SQLiteDAO
 	 * @param cr result of a query
 	 * @return Array of entries
 	 */
-	private Row[] fetchRows(Cursor cr)
+	private WorkoutRow[] fetchWorkoutRows(Cursor cr)
 	{
-		Row[] result = new Row[cr.getCount()];
+		WorkoutRow[] result = new WorkoutRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
 		}
@@ -105,7 +66,7 @@ public class WorkoutModel extends SQLiteDAO
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
-			result[ii] = new Row();
+			result[ii] = new WorkoutRow();
 			result[ii]._id = cr.getLong(ind_id);
 			result[ii].name = cr.getString(ind_name);
 			result[ii].description = cr.getString(ind_desc);
@@ -129,7 +90,7 @@ public class WorkoutModel extends SQLiteDAO
 	 *            Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(Row row) {
+	public long insert(WorkoutRow row) {
 		return super.insert(row.toContentValues());
 	}
 
@@ -179,14 +140,14 @@ public class WorkoutModel extends SQLiteDAO
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public Row getByID(long id) {
+	public WorkoutRow getByID(long id) {
 		Cursor cr = selectByID(id);
 
 		if (cr.getCount() > 1) {
 			return null; // TODO: Throw exception
 		}
 
-		Row[] rows = fetchRows(cr);
+		WorkoutRow[] rows = fetchWorkoutRows(cr);
 		return (rows.length == 0) ? null : rows[1];
 	}
 
@@ -197,11 +158,11 @@ public class WorkoutModel extends SQLiteDAO
 	 *            The workout type; use constants (TYPE_GIRL, etc)
 	 * @return
 	 */
-	public Row[] getAllByType(int type) {
+	public WorkoutRow[] getAllByType(int type) {
 		String[] col = new String[] { COL_WK_TYPE };
 		String[] val = new String[] { String.valueOf(type) };
 		Cursor cr = select(col, val);
-		return fetchRows(cr);
+		return fetchWorkoutRows(cr);
 	}
 
 }

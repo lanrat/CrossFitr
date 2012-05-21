@@ -8,7 +8,7 @@ import android.database.Cursor;
  * DAO for "Achievement" table.
  * 
  * Create a new instance and use the methods to interact with the database.
- * Data is returned as instances of AchievementModel.Row where each column
+ * Data is returned as instances of AchievementRow where each column
  * is a publicly accessible property.
  * 
  * @author Vivek
@@ -25,48 +25,6 @@ public class AchievementModel extends SQLiteDAO
 	public static final String COL_THRESH   = "progress_thresh";
 	public static final String COL_PROG     = "progress";
 	public static final String COL_COUNT    = "count";
-	
-	/**
-	 * Achievement entry struct
-	 * 
-	 * This is a customized data container to hold an entry from the
-	 * table. Every DAO Model will have its own Row class definition.
-	 */
-	public class Row extends SQLiteDAO.Row
-	{
-		// Cols
-		public String name;
-		public String description;
-		public long achievement_type_id;
-		public int progress_thresh;
-		public int progress;
-		public int count;
-		
-		public Row() {}
-		
-		public Row(ContentValues vals)
-		{
-			super(vals);
-			name                = vals.getAsString(COL_NAME);
-			description         = vals.getAsString(COL_DESC);
-			achievement_type_id = vals.getAsLong(COL_ACH_TYPE);
-			progress_thresh     = vals.getAsInteger(COL_THRESH);
-			progress            = vals.getAsInteger(COL_PROG);
-			count               = vals.getAsInteger(COL_COUNT);
-		}
-
-		public ContentValues toContentValues()
-		{
-			ContentValues vals = super.toContentValues();
-			vals.put(COL_NAME,     name);
-			vals.put(COL_DESC,     description);
-			vals.put(COL_ACH_TYPE, achievement_type_id);
-			vals.put(COL_THRESH,   progress_thresh);
-			vals.put(COL_PROG,     progress);
-			vals.put(COL_COUNT,    count);
-			return vals;
-		}
-	}
 	
 	
 	/*****   Constructors   *****/
@@ -90,9 +48,9 @@ public class AchievementModel extends SQLiteDAO
 	 * @param cr result of a query
 	 * @return Array of entries
 	 */
-	private Row[] fetchRows(Cursor cr)
+	private AchievementRow[] fetchAchievementRows(Cursor cr)
 	{
-		Row[] result = new Row[cr.getCount()];
+		AchievementRow[] result = new AchievementRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
 		}
@@ -112,7 +70,7 @@ public class AchievementModel extends SQLiteDAO
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
-			result[ii] = new Row();
+			result[ii] = new AchievementRow();
 			result[ii]._id                 = cr.getLong(ind_id);
 			result[ii].name                = cr.getString(ind_name);
 			result[ii].description         = cr.getString(ind_desc);
@@ -136,7 +94,7 @@ public class AchievementModel extends SQLiteDAO
 	 * @param row Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(Row row)
+	public long insert(AchievementRow row)
 	{
 		return super.insert(row.toContentValues());
 	}
@@ -171,7 +129,7 @@ public class AchievementModel extends SQLiteDAO
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public Row getByID(long id)
+	public AchievementRow getByID(long id)
 	{
 		Cursor cr = selectByID(id);
 		
@@ -179,7 +137,7 @@ public class AchievementModel extends SQLiteDAO
 			return null; // TODO: Throw exception
 		}
 		
-		Row[] rows = fetchRows(cr);
+		AchievementRow[] rows = fetchAchievementRows(cr);
 		return (rows.length == 0) ? null : rows[1];
 	}
 

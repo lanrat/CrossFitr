@@ -42,6 +42,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		case R.id.workout_add_form_button:
 			Intent x = new Intent(this, AddCustomActivity.class);
 			startActivity(x);
+			break;
 		}
 	}
 }
