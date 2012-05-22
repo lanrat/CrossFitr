@@ -34,7 +34,7 @@ public class TimerActivity extends Activity
 		mTimerDisplay = (TextView) findViewById(R.id.timer_label);
 		
 		// Opens Dialog on click
-		mPickTime.setOnClickListener(new View.OnClickListener()
+/*		mPickTime.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v) 
 			{
@@ -43,6 +43,7 @@ public class TimerActivity extends Activity
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
+*/	
 	}
 
 	// Sets the variables after the user selects a time. Updates text field 
@@ -64,7 +65,7 @@ public class TimerActivity extends Activity
 	}*/
 	
 	// Creates the Dialog
-	@Override
+/*	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
 		switch (id) 
@@ -74,4 +75,6 @@ public class TimerActivity extends Activity
 		 }
 		 return null;
 	}
+	*/
+	
 }
