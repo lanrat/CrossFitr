@@ -24,17 +24,17 @@ public class TimerActivity extends Activity
 	 private int mMinute = 0;
 
 	 static final int NUMBER_DIALOG_ID = 0; // Dialog variable
-	    
+
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
-		
+
 		mPickTime = (Button) findViewById(R.id.pickTime);
 		mTimerDisplay = (TextView) findViewById(R.id.timer_label);
-		
+
 		// Opens Dialog on click
-		mPickTime.setOnClickListener(new View.OnClickListener()
+/*		mPickTime.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v) 
 			{
@@ -43,6 +43,7 @@ public class TimerActivity extends Activity
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
+*/	
 	}
 
 	// Sets the variables after the user selects a time. Updates text field 
@@ -62,9 +63,9 @@ public class TimerActivity extends Activity
 	    else
 	        return "0" + String.valueOf(c);
 	}*/
-	
+
 	// Creates the Dialog
-	@Override
+/*	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
 		switch (id) 
@@ -74,4 +75,6 @@ public class TimerActivity extends Activity
 		 }
 		 return null;
 	}
+	*/
+
 }
