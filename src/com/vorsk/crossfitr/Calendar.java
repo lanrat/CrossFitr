@@ -1,3 +1,10 @@
+/**
+ * Calendar
+ * 
+ * @author Darren Seung Won
+ * @Process: In development 
+ */
+
 package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
@@ -15,62 +22,77 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class Calendar extends Activity implements OnClickListener,
-		OnItemClickListener {
+public class Calendar extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	ArrayList<String> mItems;
 	ArrayAdapter<String> adapter;
-	EditText textYear, textMon;
-	TextView current_year, current_month;
+	TextView string_year, string_month;
+	int current_year, current_month;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar);
 		
-		textYear = (EditText) findViewById(R.id.yEdit);
-		textMon = (EditText) findViewById(R.id.mEdit);
-		current_year = (TextView) findViewById(R.id.current_year);
-		current_month = (TextView) findViewById(R.id.current_month);
-
+		string_year = (TextView) findViewById(R.id.current_year);
+		string_month = (TextView) findViewById(R.id.current_month);
 		
 		mItems = new ArrayList<String>();
 
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mItems);
 
-		GridView grid = (GridView) findViewById(R.id.grid1);
+		GridView grid = (GridView) findViewById(R.id.calendar_grid);
 		grid.setAdapter(adapter);
-		grid.setOnItemClickListener(this);
 
 		Date date = new Date();
-		int year = date.getYear() + 1900;
-		int mon = date.getMonth() + 1;
+		current_year = date.getYear() + 1900;
+		current_month = date.getMonth() + 1;
+	
 
-		current_year.setText(year + "");
-		current_month.setText(mon+"");
+		string_year.setText(current_year + "");
+		string_month.setText(current_month + "");
+
+		fillDate(current_year, current_month);
 		
-		textYear.setText(year + "");
-		textMon.setText(mon + "");
-
-		fillDate(year, mon);
-
-		Button btnmove = (Button) findViewById(R.id.move);
-		btnmove.setOnClickListener(this);
+		// pre button control
+		Button b_pre_move = (Button) findViewById(R.id.go_pre_month);
+		b_pre_move.setOnClickListener(this);
+		
+		// post button control 
+		Button b_post_move = (Button) findViewById(R.id.go_post_month);
+		b_post_move.setOnClickListener(this);
+		
 	}
 
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
-		switch (view.getId()) {
-		case R.id.move:
-			String sYear = textYear.getText().toString();
-			String sMon = textMon.getText().toString();
-			int year = Integer.valueOf(sYear);
-			int mon = Integer.valueOf(sMon);
-			fillDate(year, mon);
+		switch (view.getId()) {		
+			
+		case R.id.go_pre_month:
+			current_month -= 1;
+			if(current_month == 0){
+				current_month += 12;
+				current_year -= 1;
+			}
+			//TODO: what about the case, year < 1900?? 
+			fillDate(current_year, current_month);
 			break;
+		
+		case R.id.go_post_month:
+		
+			current_month += 1;
+			if(current_month == 13){
+				current_month = 1;
+				current_year += 1;
+			}
+		//TODO: No limitation of the year going up? 			
+			fillDate(current_year, current_month);
+			break;			
 		}
 	}
 
 	private void fillDate(int year, int mon) {
+		string_year.setText(current_year + "");
+		string_month.setText(current_month + "");
 		mItems.clear();
 
 		mItems.add("Sun");
@@ -94,21 +116,8 @@ public class Calendar extends Activity implements OnClickListener,
 		for (int i = 1; i <= last; i++) {
 			mItems.add(i + "");
 		}
-
 		adapter.notifyDataSetChanged();
-
 	}
 
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
-		// TODO Auto-generated method stub
-		if (mItems.get(position).equals("")) {
-			;
-		} else {
-			Intent intent = new Intent(this, Calendar_ExToday.class);
-			intent.putExtra("Param1", textYear.getText().toString() + "/"
-					+ textMon.getText().toString() + "/" + mItems.get(position));
-			startActivity(intent);
-		}
-	}
+
 }

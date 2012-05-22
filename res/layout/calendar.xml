@@ -17,7 +17,7 @@
 		    android:orientation="horizontal" >
 
 		    <Button
-		        android:id="@+id/go_premonth"
+		        android:id="@+id/go_pre_month"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="pre" />
@@ -44,7 +44,7 @@
 <!-- Calendar Grid  -->
 
 	<GridView
-	    android:id="@+id/grid1"
+	    android:id="@+id/calendar_grid"
 	    android:layout_width="fill_parent"
 	    android:layout_height="286dp"
 	    android:layout_weight="3.06"
@@ -53,40 +53,5 @@
 
 	</LinearLayout>
 
-<!-- Quick go button -->	
-	<LinearLayout 
-	android:orientation="horizontal"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:layout_weight="0"
-	android:gravity="center_horizontal"
-	>
-		<EditText 
-		android:id = "@+id/yEdit"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text = "       "/>
-		<TextView 
-		android:id = "@+id/yText"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text = "year"/>
-		<EditText 
-		android:id = "@+id/mEdit"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text = "     "/>
-		<TextView 
-		android:id = "@+id/mText"
-		android:layout_width = "wrap_content"
-		android:layout_height="wrap_content"
-		android:text="month"
-		/>
-		<Button 
-		android:id = "@+id/move"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text = "Move"/>
-	</LinearLayout>
 	
 </LinearLayout>
