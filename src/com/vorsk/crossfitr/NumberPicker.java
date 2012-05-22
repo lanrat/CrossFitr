@@ -308,7 +308,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
     }
 
-    @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (v == mText) {
             validateInput(v);
