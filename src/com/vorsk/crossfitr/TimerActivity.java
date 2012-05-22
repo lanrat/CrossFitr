@@ -45,19 +45,8 @@ public class TimerActivity extends Activity
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
-
 	}
 
-	// Sets the variables after the user selects a time. Updates text field 
-	private TimePickerDialog.OnTimeSetListener mTimeSetListener =
-		    new TimePickerDialog.OnTimeSetListener() {
-		        public void onTimeSet(TimePicker view, int minute, int seconds) {
-		            mSec = seconds;
-		            mMinute = minute;
-		            mTimerDisplay.setText("You chose: " +  new StringBuilder().append(pad(mMinute)).append(".").append(pad(mSec)));
-		        }
-	};
-	
 	// Appends a 0 to the front of a single character 
 	private static String pad(int c) {
 	    if (c >= 10)
@@ -70,14 +59,13 @@ public class TimerActivity extends Activity
 	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
-		
 		switch (id) 
 		{
 			case NUMBER_DIALOG_ID:
 		    return new NumberPickerDialog(this, 1, 0);
 		 }
+
 		 
 		 return null;
 	}
-
 }

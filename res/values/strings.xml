@@ -38,6 +38,11 @@
 	<string name="dialog_set_number">Set</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_picker_title">Set Timer</string>
+    
+  <!-- Strings for Calendar -->
+  <string name="CexToday">Calendar_ExToday</string>
+  <string name="CDetail">Calendar_Detail</string>
+  <string name="Cmain">Calendar_main</string>
 
 	
 </resources>

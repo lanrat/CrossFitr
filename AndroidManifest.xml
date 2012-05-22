@@ -16,7 +16,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,6 +50,12 @@
 		    android:label="@string/stopwatch_label" />
 		<activity android:name=".TabataActivity"
 		    android:label="@string/tabata_label" />
-    </application>
 
+		<activity android:name="Calendar_ExToday"
+		    android:label="@string/CexToday" />
+    <activity android:name="Calendar_Detail"
+        android:label="@string/CDetail"/>
+     <activity android:name="Crossfitr_Calendar"
+        android:label="@string/Cmain"/>
+    </application>
 </manifest>

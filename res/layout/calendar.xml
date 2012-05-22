@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<LinearLayout 
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="0"
+	android:gravity="center_horizontal"
+	>
+		<EditText 
+		android:id = "@+id/yEdit"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text = "       "/>
+		<TextView 
+		android:id = "@+id/yText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text = "year"/>
+		<EditText 
+		android:id = "@+id/mEdit"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text = "     "/>
+		<TextView 
+		android:id = "@+id/mText"
+		android:layout_width = "wrap_content"
+		android:layout_height="wrap_content"
+		android:text="month"
+		/>
+		<Button 
+		android:id = "@+id/move"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text = "Move"/>
+	</LinearLayout>
+	<LinearLayout 
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="1">
+		<GridView 
+		android:id = "@+id/grid1"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:numColumns="7"
+		android:gravity="center"/>
+	</LinearLayout>
+</LinearLayout>
