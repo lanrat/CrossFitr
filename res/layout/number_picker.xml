@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright 2010-2011, Mike Novak <michael.novakjr@gmail.com>
+ * Copyright 2008, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="top" >
+
+    <!-- Buttons for hour -->
+
+    <com.vorsk.crossfitr.NumberPickerButton
+        android:id="@+id/increment_hour"
+        style="@style/NumberPickerUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/timepicker_input_hour"
+        style="@style/NumberPickerInputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/increment_hour" />
+  
+    <com.vorsk.crossfitr.NumberPickerButton
+        android:id="@+id/decrement_hour"
+        style="@style/NumberPickerDownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timepicker_input_hour" />
+   
+    
+    <!-- Buttons for minutes -->
+
+    <com.vorsk.crossfitr.NumberPickerButton
+        android:id="@+id/increment_min"
+        style="@style/NumberPickerUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/increment_hour" />
+
+    <EditText
+        android:id="@+id/timepicker_input_min"
+        style="@style/NumberPickerInputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/increment_min"
+        android:layout_toRightOf="@+id/timepicker_input_hour"
+         />
+
+    <com.vorsk.crossfitr.NumberPickerButton
+        android:id="@+id/decrement_min"
+        style="@style/NumberPickerDownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/decrement_hour"
+        android:layout_below="@+id/timepicker_input_min"
+        android:layout_marginLeft="18dp" />
+
+
+
+    <!-- Buttons for seconds -->
+    <com.vorsk.crossfitr.NumberPickerButton
+        android:id="@+id/increment_sec"
+        style="@style/NumberPickerUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/increment_min" />
+
+    <EditText
+        android:id="@+id/timepicker_input_sec"
+        style="@style/NumberPickerInputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/increment_sec"
+        android:layout_toRightOf="@+id/timepicker_input_min"
+        android:ems="10" />
+
+    <com.vorsk.crossfitr.NumberPickerButton
+        android:id="@+id/decrement_sec"
+        style="@style/NumberPickerDownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/decrement_min"
+        android:layout_below="@+id/timepicker_input_sec" />
+</RelativeLayout>

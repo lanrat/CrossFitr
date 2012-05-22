@@ -34,20 +34,22 @@ public class TimerActivity extends Activity
 		mTimerDisplay = (TextView) findViewById(R.id.timer_label);
 
 		// Opens Dialog on click
-/*		mPickTime.setOnClickListener(new View.OnClickListener()
+		mPickTime.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v) 
 			{
+				/*
 				NumberPicker dialog = new NumberPicker(getBaseContext());
 				dialog.setRange(0,59);
+				*/
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
-*/	
+
 	}
 
 	// Sets the variables after the user selects a time. Updates text field 
-/*	private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+	private TimePickerDialog.OnTimeSetListener mTimeSetListener =
 		    new TimePickerDialog.OnTimeSetListener() {
 		        public void onTimeSet(TimePicker view, int minute, int seconds) {
 		            mSec = seconds;
@@ -62,18 +64,20 @@ public class TimerActivity extends Activity
 	        return String.valueOf(c);
 	    else
 	        return "0" + String.valueOf(c);
-	}*/
+	}
 
 	// Creates the Dialog
-/*	@Override
+	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
+		
 		switch (id) 
 		{
 			case NUMBER_DIALOG_ID:
 		    return new NumberPickerDialog(this, 1, 0);
 		 }
+		 
 		 return null;
 	}
-	*/
+
 }
