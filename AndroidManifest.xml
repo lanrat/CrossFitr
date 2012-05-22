@@ -55,7 +55,7 @@
 		    android:label="@string/CexToday" />
     <activity android:name="Calendar_Detail"
         android:label="@string/CDetail"/>
-     <activity android:name="Crossfitr_Calendar"
+     <activity android:name=".Calendar"
         android:label="@string/Cmain"/>
     </application>
 </manifest>

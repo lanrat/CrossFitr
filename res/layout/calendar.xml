@@ -5,6 +5,56 @@
     android:layout_height="fill_parent"
     >
 	<LinearLayout 
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="1">
+
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="2"
+		    android:orientation="horizontal" >
+
+		    <Button
+		        android:id="@+id/go_premonth"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="pre" />
+
+		    <TextView
+		        android:id="@+id/current_year"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="year" />
+
+		    <TextView
+		        android:id="@+id/current_month"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="year" />
+
+		    <Button
+		        android:id="@+id/go_post_month"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="post" />
+		</LinearLayout>
+
+<!-- Calendar Grid  -->
+
+	<GridView
+	    android:id="@+id/grid1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="286dp"
+	    android:layout_weight="3.06"
+	    android:gravity="center"
+	    android:numColumns="7" />
+
+	</LinearLayout>
+
+<!-- Quick go button -->	
+	<LinearLayout 
 	android:orientation="horizontal"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
@@ -38,16 +88,5 @@
 		android:layout_height="wrap_content"
 		android:text = "Move"/>
 	</LinearLayout>
-	<LinearLayout 
-	android:orientation="vertical"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:layout_weight="1">
-		<GridView 
-		android:id = "@+id/grid1"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:numColumns="7"
-		android:gravity="center"/>
-	</LinearLayout>
+	
 </LinearLayout>
