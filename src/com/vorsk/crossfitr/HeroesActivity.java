@@ -23,22 +23,13 @@ public class HeroesActivity extends ListActivity
 		
 		WorkoutModel model = new WorkoutModel(this);
 
-		/*
 		//Access the database and retrieve all heroes workouts
 		model.open();	
 		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_HERO);
 		model.close();
-		*/
-		
-		String[] results2 = new String[] {"HEROES"};
-		
-		/*
-		ArrayAdapter<Row> adapter = new ArrayAdapter<Row>(this,
+
+		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, results);
-		*/
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, results2);
 
 		setListAdapter(adapter);
 	}

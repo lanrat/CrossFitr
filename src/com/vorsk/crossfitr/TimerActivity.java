@@ -76,5 +76,4 @@ public class TimerActivity extends Activity
 		 return null;
 	}
 	*/
-
 }

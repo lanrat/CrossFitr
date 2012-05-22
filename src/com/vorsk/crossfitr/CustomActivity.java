@@ -1,6 +1,7 @@
 package com.vorsk.crossfitr;
 
 import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -31,22 +32,13 @@ public class CustomActivity extends Activity implements OnClickListener
 		
 		WorkoutModel model = new WorkoutModel(this);
 
-		/*
 		//Access the database and retrieve all custom workouts
 		model.open();	
-		WorkoutModel.Row[] results = model.getAllByType(WorkoutModel.TYPE_CUSTOM);
+		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_CUSTOM);
 		model.close();
-		*/
-		
-		String[] results2 = new String[] {"CUSTOM"};
-		
-		/*
-		ArrayAdapter<Row> adapter = new ArrayAdapter<Row>(this,
+
+		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, results);
-		*/
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, results2);
 
 		lv.setAdapter(adapter);
 		
