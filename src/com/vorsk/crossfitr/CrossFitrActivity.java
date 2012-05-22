@@ -39,6 +39,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener
 			break;
 
 		case R.id.main_button_calendar:
+			Intent c = new Intent(this, UserProfileActivity.class);
+			startActivity(c);
 			break;
 
 		case R.id.main_button_profile:
