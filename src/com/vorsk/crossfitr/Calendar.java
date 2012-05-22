@@ -22,10 +22,12 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class Calendar extends Activity implements OnClickListener {
+public class Calendar extends Activity implements OnClickListener,
+		OnItemClickListener {
 	/** Called when the activity is first created. */
 	ArrayList<String> mItems;
 	ArrayAdapter<String> adapter;
+	EditText textYear, textMon;
 	TextView string_year, string_month;
 	int current_year, current_month;
 
@@ -42,6 +44,7 @@ public class Calendar extends Activity implements OnClickListener {
 
 		GridView grid = (GridView) findViewById(R.id.calendar_grid);
 		grid.setAdapter(adapter);
+		grid.setOnItemClickListener(this);
 
 		Date date = new Date();
 		current_year = date.getYear() + 1900;
@@ -119,5 +122,15 @@ public class Calendar extends Activity implements OnClickListener {
 		adapter.notifyDataSetChanged();
 	}
 
-
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		// TODO Auto-generated method stub
+		if (mItems.get(position).equals("")) { ;
+		} else {
+			Intent intent = new Intent(this, Calendar_ExToday.class);
+			
+			intent.putExtra("Param1", string_year.getText().toString() + "/"
+					+ string_month.getText().toString() + "/" + mItems.get(position));
+			startActivity(intent);
+		}
+	}
 }
