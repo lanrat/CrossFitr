@@ -28,10 +28,18 @@
 	<string name="button_start_add">Start Workout</string>
 	
 	<!-- Strings for user profile. -->
-	<string name="user_name">Name</string>
-	<string name="user_height">Height</string>
-	<string name="user_weight">Weight</string>
-	<string name="user_goal_weight">Goal Weight</string>
+	<string name="user_name">Name:</string>
+	<string name="user_bmi">BMI:</string>
+	<string name="user_height">Height(ft):</string>
+	<string name="user_weight">Current Weight(lbs):</string>
+	<string name="user_goal_weight">Goal Weight(lbs):</string>
+	<string name="user_total_workouts">Total Workouts:</string>
+	<string name="user_last_workout">Last Workout:</string>
+	<string name="user_total_achievements">Total Achievements:</string>
+	
+	<string name="button_edit_profile">Edit Profile</string>
+	<string name="button_injuries">Injuries</string>
+	<string name="button_achievements">Achievements</string>
 	<string name="button_save_profile">Save</string>
 	<string name="button_cancel_profile">Cancel</string>
 	

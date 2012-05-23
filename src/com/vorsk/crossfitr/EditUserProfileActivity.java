@@ -1,6 +1,9 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.ProfileModel;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,12 +16,15 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	private EditText weightTextField;
 	private EditText heightTextField;
 	private EditText goalWeightTextField;
+	ProfileModel model = new ProfileModel(this);
+	
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile_form);
-		
+	
+
 		// Save button
 		View saveButton = findViewById(R.id.button_userprofile_form_save);
 		saveButton.setOnClickListener(this);
@@ -44,9 +50,20 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
         heightTextField.setOnClickListener(this);
 	}
 
-	public void onClick(View arg0) 
+	public void onClick(View v) 
 	{
-		// TODO Auto-generated method stub
-
+		model.open();
+		switch(v.getId())
+		{
+		case R.id.button_userprofile_form_save:
+			long name_id = model.insert("name", nameTextField.getText().toString());
+			weightTextField.setText(String.valueOf(name_id));
+			break;
+		case R.id.button_userprofile_form_cancel:
+			Intent u = new Intent(this, UserProfileActivity.class);
+			startActivity(u);
+			break;
+		}
+		model.close();
 	}
 }

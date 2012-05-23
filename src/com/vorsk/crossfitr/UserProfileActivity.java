@@ -13,6 +13,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile);
 
+		// Edit Profile button
 		View user_profile_button = findViewById(R.id.edit_profile_button);
 		user_profile_button.setOnClickListener(this);
 		
@@ -20,9 +21,13 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		View open_timer_button = findViewById(R.id.open_timer_button);
 		open_timer_button.setOnClickListener(this);
 		
-		// Temporary button to access and debug the form
-		View workout_add_form_button = findViewById(R.id.workout_add_form_button);
-		workout_add_form_button.setOnClickListener(this);
+		// Injuries button
+		View injuries_button = findViewById(R.id.injuries_button);
+		injuries_button.setOnClickListener(this);
+		
+		// Achievements button
+		View achievements_button = findViewById(R.id.achievements_button);
+		injuries_button.setOnClickListener(this);
 		
 	}
 
@@ -39,9 +44,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			Intent t = new Intent(this, TimerTabWidget.class);
 			startActivity(t);
 			break;
-		case R.id.workout_add_form_button:
-			Intent x = new Intent(this, AddCustomActivity.class);
-			startActivity(x);
+		case R.id.injuries_button:
+			// TODO add injuries intent
+			break;
+		case R.id.achievements_button:
+			// TODO add achievements intent
 			break;
 		}
 	}
