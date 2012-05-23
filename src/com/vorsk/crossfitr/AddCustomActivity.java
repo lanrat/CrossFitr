@@ -110,9 +110,8 @@ public class AddCustomActivity extends Activity implements OnClickListener
 								 workoutConstant, recordConstant);
 					model.close();
 					
-					//TODO: uncomment below after WorkoutsProfileActivity has been created.
-					/*Intent i = new Intent(this, WorkoutsProfileActivity.class);
-					startActivity(i);*/
+					Intent i = new Intent(this, WorkoutProfileActivity.class);
+					startActivity(i);
 				}
 				else
 				{

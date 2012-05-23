@@ -25,7 +25,14 @@
 	<string name="record_type_add">Record Type</string>
 	<string name="add_custom_add">Add Custom Workout</string>
 	<string name="button_save_add">Save</string>
-	<string name="button_start_add">Start Workout</string>
+	<string name="button_start_add">Save and Start Workout</string>
+	
+	<!--  Strings used in workout profile(description page) -->
+	<string name="button_begin_workout">Begin Workout</string>
+	<string name="workout_profile_title">Workout Profile</string>
+	<string name="description_header">Description</string>
+	<string name="record_type_header">Record Type</string>
+	<string name="record_header">Personal Record</string>
 	
 	<!-- Strings for user profile. -->
 	<string name="user_name">Name:</string>

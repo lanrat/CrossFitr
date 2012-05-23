@@ -52,28 +52,33 @@ android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/ddm_default_recordtype_add"/> 
+
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="fill_parent"
-android:layout_width="fill_parent"
-android:padding="5dip"
-android:orientation="horizontal" 
->
-<Button
-    	android:id="@+id/button_workout_form_save"
-    	android:layout_width="50dp"
-    	android:layout_height="80dp"
-    	android:layout_gravity="center"
-    	android:layout_marginBottom="10dp" 
-    	android:text="@string/button_save_add"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="bottom"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="5dip" >
 
-<Button
-    	android:id="@+id/button_workout_form_start"
-    	android:layout_width="50dp"
-    	android:layout_height="80dp"
-    	android:layout_gravity="center"
-    	android:layout_marginBottom="10dp" 
-    	android:text="@string/button_start_add"  	/>
+    <Button
+        android:id="@+id/button_workout_form_save"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:text="@string/button_save_add" />
+
+    <Button
+        android:id="@+id/button_workout_form_start"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:text="@string/button_start_add" />
 </LinearLayout>
 
 </LinearLayout>
