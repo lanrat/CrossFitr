@@ -11,61 +11,32 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.content.Context;
-/*
- * This is contains a very rudimentary implementation of the timer popup. 
- * Jason: Feel free to change any of this. All variables are just there to make it work.
- */
+
 public class TimerActivity extends Activity 
-{
-	 private Button mPickTime;
-	 private TextView mTimerDisplay;
-
-	 private int mSec = 0;
-	 private int mMinute = 0;
-
-	 static final int NUMBER_DIALOG_ID = 0; // Dialog variable
+{	
+    static final int NUMBER_DIALOG_ID = 0; // Dialog variable
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 
-		mPickTime = (Button) findViewById(R.id.pickTime);
-		mTimerDisplay = (TextView) findViewById(R.id.timer_label);
-
+		Button mPickTime = (Button) findViewById(R.id.pickTime);
+		
 		// Opens Dialog on click
 		mPickTime.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v) 
 			{
-				/*
-				NumberPicker dialog = new NumberPicker(getBaseContext());
-				dialog.setRange(0,59);
-				*/
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
 	}
 
-	// Appends a 0 to the front of a single character 
-	private static String pad(int c) {
-	    if (c >= 10)
-	        return String.valueOf(c);
-	    else
-	        return "0" + String.valueOf(c);
-	}
-
-	// Creates the Dialog
+	// Override creating the Dialog
 	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
-		switch (id) 
-		{
-			case NUMBER_DIALOG_ID:
-		    return new NumberPickerDialog(this, 1, 0);
-		 }
-
-		 
-		 return null;
+		return new NumberPickerDialog(this, 0, 0);
 	}
 }
