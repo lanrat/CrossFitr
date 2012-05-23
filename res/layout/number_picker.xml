@@ -21,9 +21,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center" >
-
+    
     <!-- Buttons for hour -->
-
+    
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/increment_hour"
         style="@style/NumberPickerUpButton"
@@ -51,7 +51,7 @@
         style="@style/NumberPickerUpButton"
         android:layout_width="50dp"
         android:layout_height="30dp"
-        android:layout_toRightOf="@+id/increment_hour" />
+        android:layout_toRightOf="@+id/increment_hour"/>
 
     <EditText
         android:id="@+id/timepicker_input_min"
@@ -76,7 +76,7 @@
         style="@style/NumberPickerUpButton"
         android:layout_width="50dp"
         android:layout_height="30dp"
-        android:layout_toRightOf="@+id/increment_min" />
+        android:layout_toRightOf="@+id/increment_min"/>
 
     <EditText
         android:id="@+id/timepicker_input_sec"

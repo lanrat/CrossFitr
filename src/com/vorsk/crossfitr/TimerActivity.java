@@ -14,7 +14,7 @@ import android.content.Context;
 
 public class TimerActivity extends Activity 
 {	
-    static final int NUMBER_DIALOG_ID = 0; // Dialog variable
+    static final int NUMBER_DIALOG_ID = 3; // Dialog variable
 
 	public void onCreate(Bundle savedInstanceState) 
 	{

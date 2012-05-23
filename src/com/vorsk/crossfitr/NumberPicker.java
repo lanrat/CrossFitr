@@ -83,31 +83,57 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final Handler mHandler;
     private final Runnable mRunnable = new Runnable() {
         public void run() {
-            if (mIncrement) {
-                changeCurrent(mCurrent + 1);
+            if (mIncrementSec) {
+                changeCurrent(mCurrentSec + 1);
                 mHandler.postDelayed(this, mSpeed);
-            } else if (mDecrement) {
-                changeCurrent(mCurrent - 1);
+            } 
+            if (mDecrementSec) {
+                changeCurrent(mCurrentSec - 1);
+                mHandler.postDelayed(this, mSpeed);
+            }
+            if (mIncrementMin) {
+                changeCurrent(mCurrentMin + 1);
+                mHandler.postDelayed(this, mSpeed);
+            } 
+            if (mDecrementMin) {
+                changeCurrent(mCurrentMin - 1);
+                mHandler.postDelayed(this, mSpeed);
+            } 
+            if (mIncrementHour) {
+                changeCurrent(mCurrentHour + 1);
+                mHandler.postDelayed(this, mSpeed);
+            } 
+            if (mDecrementHour) {
+                changeCurrent(mCurrentHour - 1);
                 mHandler.postDelayed(this, mSpeed);
             }
         }
     };
 
-    private final EditText mText;
+    private final EditText mTextSec;
+    private final EditText mTextMin;
+    private final EditText mTextHour;
     private final InputFilter mNumberInputFilter;
 
     private String[] mDisplayedValues;
     protected int mStart;
     protected int mEnd;
-    protected int mCurrent;
+    protected int mCurrentMin = 0;
+    protected int mCurrentSec = 0;
+    protected int mCurrentHour = 0;
+    
     protected int mPrevious;
     protected OnChangedListener mListener;
     protected Formatter mFormatter;
     protected boolean mWrap;
     protected long mSpeed = 300;
 
-    private boolean mIncrement;
-    private boolean mDecrement;
+    private boolean mIncrementSec;
+    private boolean mDecrementSec;
+    private boolean mIncrementMin;
+    private boolean mDecrementMin;
+    private boolean mIncrementHour;
+    private boolean mDecrementHour;
 
     public NumberPicker(Context context) {
         this(context, null);
@@ -125,22 +151,56 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mHandler = new Handler();
         InputFilter inputFilter = new NumberPickerInputFilter();
         mNumberInputFilter = new NumberRangeKeyListener();
-        mIncrementButton = (NumberPickerButton) findViewById(R.id.increment_sec);
-        mIncrementButton.setOnClickListener(this);
-        mIncrementButton.setOnLongClickListener(this);
-        mIncrementButton.setNumberPicker(this);
-        mDecrementButton = (NumberPickerButton) findViewById(R.id.decrement_sec);
-        mDecrementButton.setOnClickListener(this);
-        mDecrementButton.setOnLongClickListener(this);
-        mDecrementButton.setNumberPicker(this);
+        mIncrementSecButton = (NumberPickerButton) findViewById(R.id.increment_sec);
+        mIncrementSecButton.setOnClickListener(this);
+        mIncrementSecButton.setOnLongClickListener(this);
+        mIncrementSecButton.setNumberPicker(this);
+        mDecrementSecButton = (NumberPickerButton) findViewById(R.id.decrement_sec);
+        mDecrementSecButton.setOnClickListener(this);
+        mDecrementSecButton.setOnLongClickListener(this);
+        mDecrementSecButton.setNumberPicker(this);
 
-        mText = (EditText) findViewById(R.id.timepicker_input_sec);
-        mText.setOnFocusChangeListener(this);
-        mText.setOnEditorActionListener(this);
-        mText.setFilters(new InputFilter[] {inputFilter});
-        mText.setRawInputType(InputType.TYPE_CLASS_NUMBER);
-        mText.setInputType(0); //See http://code.google.com/p/android/issues/detail?id=7115
-        mText.setEnabled(false); 
+        mIncrementMinButton = (NumberPickerButton) findViewById(R.id.increment_min);
+        mIncrementMinButton.setOnClickListener(this);
+        mIncrementMinButton.setOnLongClickListener(this);
+        mIncrementMinButton.setNumberPicker(this);
+        mDecrementMinButton = (NumberPickerButton) findViewById(R.id.decrement_min);
+        mDecrementMinButton.setOnClickListener(this);
+        mDecrementMinButton.setOnLongClickListener(this);
+        mDecrementMinButton.setNumberPicker(this);
+        
+        mIncrementHourButton = (NumberPickerButton) findViewById(R.id.increment_hour);
+        mIncrementHourButton.setOnClickListener(this);
+        mIncrementHourButton.setOnLongClickListener(this);
+        mIncrementHourButton.setNumberPicker(this);
+        mDecrementHourButton = (NumberPickerButton) findViewById(R.id.decrement_hour);
+        mDecrementHourButton.setOnClickListener(this);
+        mDecrementHourButton.setOnLongClickListener(this);
+        mDecrementHourButton.setNumberPicker(this);
+
+        mTextSec = (EditText) findViewById(R.id.timepicker_input_sec);
+        mTextSec.setOnFocusChangeListener(this);
+        mTextSec.setOnEditorActionListener(this);
+        mTextSec.setFilters(new InputFilter[] {inputFilter});
+        mTextSec.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        mTextSec.setInputType(0); //See http://code.google.com/p/android/issues/detail?id=7115
+        mTextSec.setEnabled(false); 
+        
+        mTextMin = (EditText) findViewById(R.id.timepicker_input_min);
+        mTextMin.setOnFocusChangeListener(this);
+        mTextMin.setOnEditorActionListener(this);
+        mTextMin.setFilters(new InputFilter[] {inputFilter});
+        mTextMin.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        mTextMin.setInputType(0); //See http://code.google.com/p/android/issues/detail?id=7115
+        mTextMin.setEnabled(false); 
+        
+        mTextHour = (EditText) findViewById(R.id.timepicker_input_hour);
+        mTextHour.setOnFocusChangeListener(this);
+        mTextHour.setOnEditorActionListener(this);
+        mTextHour.setFilters(new InputFilter[] {inputFilter});
+        mTextHour.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        mTextHour.setInputType(0); //See http://code.google.com/p/android/issues/detail?id=7115
+        mTextHour.setEnabled(false); 
 
         if (!isEnabled()) {
             setEnabled(false);
@@ -150,17 +210,29 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mStart = a.getInt( R.styleable.numberpicker_startRange, DEFAULT_MIN );
         mEnd = a.getInt( R.styleable.numberpicker_endRange, DEFAULT_MAX );
         mWrap = a.getBoolean( R.styleable.numberpicker_wrap, DEFAULT_WRAP );
-        mCurrent = 	a.getInt( R.styleable.numberpicker_defaultValue, DEFAULT_VALUE );
-        mCurrent = Math.max( mStart, Math.min( mCurrent, mEnd ) );
-        mText.setText( "" + mCurrent );
+        mCurrentSec = a.getInt( R.styleable.numberpicker_defaultValue, DEFAULT_VALUE );
+        mCurrentSec = Math.max( mStart, Math.min( mCurrentSec, mEnd ) );
+        mCurrentMin = a.getInt( R.styleable.numberpicker_defaultValue, DEFAULT_VALUE );
+        mCurrentMin = Math.max( mStart, Math.min( mCurrentMin, mEnd ) );
+        mCurrentHour = a.getInt( R.styleable.numberpicker_defaultValue, DEFAULT_VALUE );
+        mCurrentHour = Math.max( mStart, Math.min( mCurrentHour, mEnd ) );
+        mTextSec.setText( "" + mCurrentSec );
+        mTextMin.setText( "" + mCurrentMin );
+        mTextHour.setText( "" + mCurrentHour );
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        mIncrementButton.setEnabled(enabled);
-        mDecrementButton.setEnabled(enabled);
-        mText.setEnabled(enabled);
+        mIncrementSecButton.setEnabled(enabled);
+        mDecrementSecButton.setEnabled(enabled);
+        mIncrementMinButton.setEnabled(enabled);
+        mDecrementMinButton.setEnabled(enabled);
+        mIncrementHourButton.setEnabled(enabled);
+        mDecrementHourButton.setEnabled(enabled);
+        mTextSec.setEnabled(enabled);
+        mTextMin.setEnabled(enabled);
+        mTextHour.setEnabled(enabled);
     }
 
     public void setOnChangeListener(OnChangedListener listener) {
@@ -181,7 +253,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     public void setRange(int start, int end) {
         mStart = start;
         mEnd = end;
-        mCurrent = start;
+        mCurrentMin = start;
+        mCurrentSec = start;
+        mCurrentHour = start;
         updateView();
     }
 
@@ -207,19 +281,44 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mDisplayedValues = displayedValues;
         mStart = start;
         mEnd = end;
-        mCurrent = start;
+        mCurrentMin = start;
+        mCurrentSec = start;
+        mCurrentHour = start;
         updateView();
     }
 
-    public void setCurrent(int current) {
+    public void setCurrentSec(int current) {
         if (mEnd < current) throw new IllegalArgumentException("Current value cannot be greater than the range end.");
-
-        mCurrent = current;
+        mCurrentSec = current;
         updateView();
     }
 
-    public void setCurrentAndNotify(int current) {
-        mCurrent = current;
+    public void setCurrentMin(int current) {
+        if (mEnd < current) throw new IllegalArgumentException("Current value cannot be greater than the range end.");
+        mCurrentMin = current;
+        updateView();
+    }
+    
+    public void setCurrentHour(int current) {
+        if (mEnd < current) throw new IllegalArgumentException("Current value cannot be greater than the range end.");
+        mCurrentHour = current;
+        updateView();
+    }
+    
+    public void setCurrentSecAndNotify(int current) {
+        mCurrentSec = current;
+        notifyChange();
+        updateView();
+    }
+    
+    public void setCurrentMinAndNotify(int current) {
+        mCurrentMin = current;
+        notifyChange();
+        updateView();
+    }
+    
+    public void setCurrentHourAndNotify(int current) {
+        mCurrentHour = current;
         notifyChange();
         updateView();
     }
@@ -234,14 +333,28 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     public void onClick(View v) {
-        validateInput(mText);
-        if (!mText.hasFocus()) mText.requestFocus();
+        validateInput(mTextSec);
+        validateInput(mTextMin);
+        validateInput(mTextHour);
+        if (!mTextSec.hasFocus()) mTextSec.requestFocus();
+        if (!mTextMin.hasFocus()) mTextMin.requestFocus();
+        if (!mTextHour.hasFocus()) mTextHour.requestFocus();
 
         // now perform the increment/decrement
-        if (R.id.increment == v.getId()) {
-            changeCurrent(mCurrent + 1);
-        } else if (R.id.decrement == v.getId()) {
-            changeCurrent(mCurrent - 1);
+        if (R.id.increment_sec == v.getId()) {
+            changeCurrent(mCurrentSec + 1);
+        } else if (R.id.decrement_sec == v.getId()) {
+            changeCurrent(mCurrentSec - 1);
+        }
+        if (R.id.increment_min == v.getId()) {
+            changeCurrent(mCurrentMin + 1);
+        } else if (R.id.decrement_min == v.getId()) {
+            changeCurrent(mCurrentMin - 1);
+        }
+        if (R.id.increment_hour == v.getId()) {
+            changeCurrent(mCurrentHour + 1);
+        } else if (R.id.decrement_hour == v.getId()) {
+            changeCurrent(mCurrentHour - 1);
         }
     }
 
@@ -258,8 +371,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         } else if (current < mStart) {
             current = mWrap ? mEnd : mStart;
         }
-        mPrevious = mCurrent;
-        mCurrent = current;
+        mPrevious = mCurrentSec;
+        mCurrentSec = current;
+        mCurrentMin = current;
+        mCurrentHour = current;
 
         notifyChange();
         updateView();
@@ -267,7 +382,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     protected void notifyChange() {
         if (mListener != null) {
-            mListener.onChanged(this, mPrevious, mCurrent);
+            mListener.onChanged(this, mPrevious, mCurrentSec);
         }
     }
 
@@ -278,19 +393,25 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
          * displayed values for the current number.
          */
         if (mDisplayedValues == null) {
-            mText.setText(formatNumber(mCurrent));
+            mTextSec.setText(formatNumber(mCurrentSec));
+            mTextMin.setText(formatNumber(mCurrentMin));
+            mTextHour.setText(formatNumber(mCurrentHour));
         } else {
-            mText.setText(mDisplayedValues[mCurrent - mStart]);
+            mTextSec.setText(mDisplayedValues[mCurrentSec - mStart]);
+            mTextMin.setText(mDisplayedValues[mCurrentMin - mStart]);
+            mTextHour.setText(mDisplayedValues[mCurrentHour - mStart]);
         }
-        mText.setSelection(mText.getText().length());
+        mTextSec.setSelection(mTextSec.getText().length());
+        mTextMin.setSelection(mTextMin.getText().length());
+        mTextHour.setSelection(mTextHour.getText().length());
     }
 
     private void validateCurrentView(CharSequence str) {
         int val = getSelectedPos(str.toString());
         if ((val >= mStart) && (val <= mEnd)) {
-            if (mCurrent != val) {
-                mPrevious = mCurrent;
-                mCurrent = val;
+            if (mCurrentSec != val) {
+                mPrevious = mCurrentSec;
+                mCurrentSec = val;
                 notifyChange();
             }
         }
@@ -308,7 +429,15 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (v == mText) {
+        if (v == mTextSec) {
+            validateInput(v);
+            // Don't return true, let Android handle the soft keyboard
+        }
+        if (v == mTextMin) {
+            validateInput(v);
+            // Don't return true, let Android handle the soft keyboard
+        }
+        if (v == mTextHour) {
             validateInput(v);
             // Don't return true, let Android handle the soft keyboard
         }
@@ -337,13 +466,38 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         /* The text view may still have focus so clear it's focus which will
          * trigger the on focus changed and any typed values to be pulled.
          */
-        mText.clearFocus();
-        mText.requestFocus();
-        if (R.id.increment == v.getId()) {
-            mIncrement = true;
+        mTextSec.clearFocus();
+        mTextSec.requestFocus();
+     
+        if (R.id.increment_sec == v.getId()) {
+            mIncrementSec = true;
             mHandler.post(mRunnable);
-        } else if (R.id.decrement == v.getId()) {
-            mDecrement = true;
+        } 
+        if (R.id.decrement_sec == v.getId()) {
+            mDecrementSec = true;
+            mHandler.post(mRunnable);
+        }
+        
+        mTextMin.clearFocus();
+        mTextMin.requestFocus();
+        if (R.id.increment_min == v.getId()) {
+            mIncrementMin = true;
+            mHandler.post(mRunnable);
+        } 
+        if (R.id.decrement_min == v.getId()) {
+            mDecrementMin = true;
+            mHandler.post(mRunnable);
+        }
+        
+        
+        mTextHour.clearFocus();
+        mTextHour.requestFocus();
+        if (R.id.increment_hour == v.getId()) {
+            mIncrementHour = true;
+            mHandler.post(mRunnable);
+        } 
+        if (R.id.decrement_hour == v.getId()) {
+            mDecrementHour = true;
             mHandler.post(mRunnable);
         }
 
@@ -351,19 +505,27 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     public void cancelIncrement() {
-        mIncrement = false;
+        mIncrementSec = false;
+        mIncrementMin = false;
+        mIncrementHour = false;
     }
 
     public void cancelDecrement() {
-        mDecrement = false;
+        mDecrementSec = false;
+        mDecrementMin = false;
+        mDecrementHour = false;
     }
 
     private static final char[] DIGIT_CHARACTERS = new char[] {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
     };
 
-    private NumberPickerButton mIncrementButton;
-    private NumberPickerButton mDecrementButton;
+    private NumberPickerButton mIncrementSecButton;
+    private NumberPickerButton mDecrementSecButton;
+    private NumberPickerButton mIncrementMinButton;
+    private NumberPickerButton mDecrementMinButton;
+    private NumberPickerButton mIncrementHourButton;
+    private NumberPickerButton mDecrementHourButton;
 
     private class NumberPickerInputFilter implements InputFilter {
         public CharSequence filter(CharSequence source, int start, int end,
@@ -459,7 +621,15 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     /**
      * @return the current value.
      */
-    public int getCurrent() {
-        return mCurrent;
+    public int getCurrentSec() {
+        return mCurrentSec;
+    }
+    
+    public int getCurrentMin() {
+        return mCurrentMin;
+    }
+    
+    public int getCurrentHour() {
+        return mCurrentHour;
     }
 }
