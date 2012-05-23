@@ -75,9 +75,22 @@ public class NumberPickerButton extends ImageButton {
     }
 
     private void cancelLongpress() {
-        if (R.id.increment == getId()) {
+        if (R.id.increment_sec == getId()) {
             mNumberPicker.cancelIncrement();
-        } else if (R.id.decrement == getId()) {
+        } 
+        if (R.id.decrement_sec == getId()) {
+            mNumberPicker.cancelDecrement();
+        }
+        if (R.id.increment_min == getId()) {
+            mNumberPicker.cancelIncrement();
+        } 
+        if (R.id.decrement_min == getId()) {
+            mNumberPicker.cancelDecrement();
+        }
+        if (R.id.increment_hour == getId()) {
+            mNumberPicker.cancelIncrement();
+        } 
+        if (R.id.decrement_hour == getId()) {
             mNumberPicker.cancelDecrement();
         }
     }
