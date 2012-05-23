@@ -148,7 +148,7 @@ public class WorkoutModel extends SQLiteDAO
 		}
 
 		WorkoutRow[] rows = fetchWorkoutRows(cr);
-		return (rows.length == 0) ? null : rows[1];
+		return (rows.length == 0) ? null : rows[0];
 	}
 
 	/**

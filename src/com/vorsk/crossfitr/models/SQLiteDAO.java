@@ -118,7 +118,8 @@ public abstract class SQLiteDAO
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase db, int over, int nver) {
+		public void onUpgrade(SQLiteDatabase db, int over, int nver)
+		{
 			// TODO: This
 		}
 		
@@ -140,7 +141,8 @@ public abstract class SQLiteDAO
 
 	/*** Constructors ***/
 
-	public SQLiteDAO(String table, Context ctx) {
+	public SQLiteDAO(String table, Context ctx)
+	{
 		DB_TABLE = table;
 		DBHelper = new DatabaseHelper(ctx);
 	}
@@ -149,7 +151,8 @@ public abstract class SQLiteDAO
 
 	/*** Protected ***/
 
-	protected long insert(ContentValues cv) {
+	protected long insert(ContentValues cv)
+	{
 		Date now = new Date();
 		long time = now.getTime(); // Milliseconds
 
@@ -161,7 +164,8 @@ public abstract class SQLiteDAO
 		return db.insert(DB_TABLE, null, cv);
 	}
 
-	protected int update(ContentValues cv, String where) {
+	protected int update(ContentValues cv, String where)
+	{
 		if (where == null)
 			return -1; // GTFO. You are not updating everything.
 
@@ -169,14 +173,16 @@ public abstract class SQLiteDAO
 	}
 
 	// TODO: Should just make a deleteByID and disable this...
-	protected int delete(String where) {
+	protected int delete(String where)
+	{
 		if (where == null)
 			return -1; // ... Really? GTFO x 99999
 
 		return db.delete(DB_TABLE, where, null);
 	}
 
-	protected Cursor select(String[] cols, String[] vals) throws SQLException {
+	protected Cursor select(String[] cols, String[] vals) throws SQLException
+	{
 		String sql = "SELECT * FROM " + DB_TABLE;
 
 		// Build the WHERE clause (append each col-val)
@@ -192,20 +198,36 @@ public abstract class SQLiteDAO
 		return db.rawQuery(sql, vals);
 	}
 
-	protected Cursor selectByID(long id) throws SQLException {
-		return db.rawQuery("SELECT * FROM " + DB_TABLE + " WHERE id = " + id,
-				null);
+	protected Cursor selectByID(long id) throws SQLException
+	{
+		return db.rawQuery(
+			"SELECT * FROM " + DB_TABLE + " WHERE " + COL_ID + " = " + id,
+			null);
 	}
 
 	/*** Public ***/
 
-	public void open() throws SQLException {
+	/**
+	 * This must be called prior to any DB access methods to open a connection
+	 * 
+	 * @throws SQLException
+	 */
+	public void open() throws SQLException
+	{
 		if (db == null) {
 			db = DBHelper.getWritableDatabase();
 		}
 	}
 
-	public void close() {
+	/**
+	 * Closes the DB connection if it is open
+	 * 
+	 * This should be called after all DB transactions are completed. Not
+	 * calling this can cause problems with hanging cursors if mulitple
+	 * threads are used.
+	 */
+	public void close()
+	{
 		db.close();
 		DBHelper.close();
 		db = null;

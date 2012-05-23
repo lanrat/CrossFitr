@@ -126,7 +126,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 		}
 		
 		WorkoutSessionRow[] rows = fetchWorkoutSessionRows(cr);
-		return (rows.length == 0) ? null : rows[1];
+		return (rows.length == 0) ? null : rows[0];
 	}
 
 }

@@ -122,7 +122,7 @@ public class InjuryModel extends SQLiteDAO
 		}
 		
 		InjuryRow[] rows = fetchInjuryRows(cr);
-		return (rows.length == 0) ? null : rows[1];
+		return (rows.length == 0) ? null : rows[0];
 	}
 
 }

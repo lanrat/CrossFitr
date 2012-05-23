@@ -23,7 +23,7 @@ CREATE TABLE workout
 	description      TEXT,
 	workout_type_id  INTEGER REFERENCES workout_type ON DELETE RESTRICT NOT NULL,
 	record           INTEGER,
-	record_type_id   INTEGER REFERENCES score ON DELETE RESTRICT,
+	record_type_id   INTEGER REFERENCES score_type ON DELETE RESTRICT,
 	date_created     INTEGER,
 	date_modified    INTEGER
 );
@@ -33,8 +33,9 @@ CREATE TABLE workout_session
 	_id            INTEGER PRIMARY KEY,
 	workout_id     INTEGER REFERENCES workout ON DELETE RESTRICT NOT NULL,
 	score          INTEGER,
-	score_type_id  INTEGER REFERENCES score ON DELETE RESTRICT,
-	date_created   INTEGER NOT NULL
+	score_type_id  INTEGER REFERENCES score_type ON DELETE RESTRICT,
+	date_created   INTEGER NOT NULL,
+	date_modified  INTEGER NOT NULL
 );
 --###--
 CREATE TABLE profile
@@ -42,6 +43,7 @@ CREATE TABLE profile
 	_id            INTEGER PRIMARY KEY,
 	attribute      TEXT UNIQUE NOT NULL,
 	value          TEXT NOT NULL,
+	date_created   INTEGER NOT NULL,
 	date_modified  INTEGER NOT NULL
 );
 --###--
@@ -51,6 +53,15 @@ CREATE TABLE injury
 	description    TEXT,
 	date_begin     INTEGER NOT NULL,
 	date_end       INTEGER NOT NULL,
+	date_created   INTEGER NOT NULL,
+	date_modified  INTEGER NOT NULL
+);
+--###--
+CREATE TABLE achievement_type
+(
+	_id            INTEGER PRIMARY KEY,
+	name           TEXT UNIQUE NOT NULL,
+	description    TEXT,
 	date_created   INTEGER NOT NULL,
 	date_modified  INTEGER NOT NULL
 );
@@ -66,13 +77,4 @@ CREATE TABLE achievement
 	count               INTEGER NOT NULL DEFAULT 0,
 	date_created        INTEGER NOT NULL,
 	date_modified       INTEGER NOT NULL
-);
---###--
-CREATE TABLE achievement_type
-(
-	_id            INTEGER PRIMARY KEY,
-	name           TEXT UNIQUE NOT NULL,
-	description    TEXT,
-	date_created   INTEGER NOT NULL,
-	date_modified  INTEGER NOT NULL
 );

@@ -8,6 +8,8 @@ import android.content.ContentValues;
  * This contains all of the global columns and implements them for each
  * method
  */
+// TODO: All *Row classes should be inner classes of the models
+//       and instantiated with a newRow method
 public class SQLiteRow
 {
 	// Cols
@@ -18,11 +20,18 @@ public class SQLiteRow
 	public SQLiteRow() {}
 	public SQLiteRow(ContentValues vals)
 	{
+		// These columns are present in EVERY table
 		_id             = vals.getAsLong(SQLiteDAO.COL_ID);
 		date_modified   = vals.getAsInteger(SQLiteDAO.COL_MDATE);
 		date_created    = vals.getAsInteger(SQLiteDAO.COL_CDATE);
 	}
 	
+	/**
+	 * Utility method for converting from this to android's expected format
+	 * when working with SQLiteDatabase objects
+	 * 
+	 * @return converted data
+	 */
 	public ContentValues toContentValues()
 	{
 		ContentValues vals = new ContentValues();

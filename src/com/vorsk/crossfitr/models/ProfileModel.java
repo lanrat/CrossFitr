@@ -112,12 +112,47 @@ public class ProfileModel extends SQLiteDAO
 	{
 		Cursor cr = selectByID(id);
 		
+		// ID should never return more than 1 row...
 		if (cr.getCount() > 1) {
 			return null; // TODO: Throw exception
 		}
 		
 		ProfileRow[] rows = fetchProfileRows(cr);
-		return (rows.length == 0) ? null : rows[1];
+		return (rows.length == 0) ? null : rows[0];
+	}
+	
+	/**
+	 * Fetch a specific profile attribute
+	 *
+	 * @param name Attribute name to retrieve
+	 * @return Associated entry or NULL on failure
+	 */
+	public ProfileRow getByAttribute(String attr)
+	{
+		Cursor cr = select(
+			new String[] { COL_ATTR },
+			new String[] { attr }
+		);
+		
+		// Name should be unique
+		/*if (cr.getCount() > 1) {
+			// TODO: Throw exception?
+		}*/
+		
+		ProfileRow[] rows = fetchProfileRows(cr);
+		return (rows.length == 0) ? null : rows[0];
+	}
+	
+	/**
+	 * Fetch all profile information
+	 *
+	 * @return List of each profile attribute and value
+	 */
+	public ProfileRow[] getAll()
+	{
+		Cursor cr = select(new String[] {}, new String[] {});
+		
+		return fetchProfileRows(cr);
 	}
 
 }

@@ -138,7 +138,7 @@ public class AchievementModel extends SQLiteDAO
 		}
 		
 		AchievementRow[] rows = fetchAchievementRows(cr);
-		return (rows.length == 0) ? null : rows[1];
+		return (rows.length == 0) ? null : rows[0];
 	}
 
 }
