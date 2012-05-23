@@ -26,12 +26,17 @@ android:orientation="vertical"
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/discription_of_workout_add" />
+        android:text="@string/add_to_custom_label" />
+
+
+<!--                    Commented out Spinner 
 <Spinner 
         android:id="@+id/workout_form_workouttype_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/ddm_default_workouttype_add"/>
+-->
+
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

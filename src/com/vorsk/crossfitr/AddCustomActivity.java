@@ -21,9 +21,9 @@ public class AddCustomActivity extends Activity implements OnClickListener
 	//text fields
 	private EditText workoutTextField;
 	private EditText nameTextField;
-	private int workoutConstant = 0;
+	private int workoutConstant = WorkoutModel.TYPE_CUSTOM;
 	private int recordConstant = 0;
-	Spinner workoutTypeDropDown;
+	//Spinner workoutTypeDropDown;  This constant belongs to commented out functionality
 	Spinner recordTypeDropDown; 
 	WorkoutModel model = new WorkoutModel(this);
 	
@@ -41,8 +41,8 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
 		
-        // text field for the workout discription to be added
-        workoutTextField = (EditText) findViewById(R.id.discription_edittext_add);
+        // text field for the workout discription to be added        
+		workoutTextField = (EditText) findViewById(R.id.discription_edittext_add);
         workoutTextField.setOnClickListener(this);
         
         // text field for the workout name to be added
@@ -50,12 +50,14 @@ public class AddCustomActivity extends Activity implements OnClickListener
         nameTextField.setOnClickListener(this);
         
         // drop down menu for the workout types to be added
+        /* !!!!! functionaly taken out, users can no longer add to WoD, heroes, girls workout lists
         workoutTypeDropDown = (Spinner) findViewById(R.id.workout_form_workouttype_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.workouttype_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         workoutTypeDropDown.setAdapter(adapter);
         workoutTypeDropDown.setOnItemSelectedListener(new MyOnItemSelectedListener());
+        */
 
         // drop down menu for the record type to be added
         recordTypeDropDown = (Spinner) findViewById(R.id.workout_form_recordtype_spinner);
@@ -135,6 +137,7 @@ public class AddCustomActivity extends Activity implements OnClickListener
 	    {
 	    	//handles the first dropdown menu
 	    	//update the workoutConstant, which keeps track of what is selected in the workout dropdown.
+	    	/*Commented out functionality
 	    	if(parent.getItemAtPosition(pos).toString().equals( "Custom" ))
 	    	{
 	    		workoutConstant = WorkoutModel.TYPE_CUSTOM;
@@ -150,11 +153,15 @@ public class AddCustomActivity extends Activity implements OnClickListener
 	    	else if(parent.getItemAtPosition(pos).toString().equals( "Heroes" ))
 	    	{
 	    		workoutConstant = WorkoutModel.TYPE_HERO;
-	    	}
+	    	}*/
 	    
 	    	//handles when the second dropdown menu
 	    	//update the workoutConstant, which keeps track of what is selected in the record dropdown.
-	    	if(parent.getItemAtPosition(pos).toString().equals( "Timer" ))
+	    	if(parent.getItemAtPosition(pos).toString().equals("Please select a record type"))
+	    	{
+	    		recordConstant = 0;
+	    	}
+	    	else if(parent.getItemAtPosition(pos).toString().equals( "Timer" ))
 	    	{
 	    		recordConstant = WorkoutModel.SCORE_TIME;
 	    	}
@@ -195,8 +202,7 @@ public class AddCustomActivity extends Activity implements OnClickListener
 			isValidForm = false;
 		}
 		// makes sure that the user selected something from the dropdown menu
-		if(workoutConstant == 0 || recordConstant == 0
-				|| workoutConstant == WorkoutModel.TYPE_NONE)
+		if(recordConstant == 0)
 		{
 			isValidForm = false;
 		}

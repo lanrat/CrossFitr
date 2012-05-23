@@ -21,6 +21,7 @@
     <string name="name_of_workout_add">Name of Workout</string>
     <string name="discription_of_workout_add">Description of Workout</string>
 	<string name="workout_type_add">Workout Type</string>
+	<string name="add_to_custom_label">Will add to Custom Workouts List</string>
 	<string name="record_type_add">Record Type</string>
 	<string name="add_custom_add">Add Custom Workout</string>
 	<string name="button_save_add">Save</string>
