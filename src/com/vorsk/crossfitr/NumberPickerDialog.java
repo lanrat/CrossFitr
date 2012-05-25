@@ -28,22 +28,23 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
 
     private int mInitialValue;
 
-    public NumberPickerDialog(Context context, int theme, int initialValue) {
+    public NumberPickerDialog(Context context, OnNumberSetListener listener, int theme, int initialValue) {
         super(context, theme);
         mInitialValue = initialValue;
-        
+        mListener = listener;
+
         setTitle("Set Timer:");
-        setButton(BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel), (OnClickListener) null);
         setButton(BUTTON_POSITIVE, context.getString(R.string.dialog_set_number), this);
-        
+        setButton(BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel), (OnClickListener) null);
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.dialog_number_picker, null);
         setView(view);
 
         mNumberPicker = (NumberPicker) view.findViewById(R.id.num_picker);
-        mNumberPicker.setCurrentSec(mInitialValue);
-        mNumberPicker.setCurrentMin(mInitialValue);
         mNumberPicker.setCurrentHour(mInitialValue);
+        mNumberPicker.setCurrentMin(mInitialValue);
+        mNumberPicker.setCurrentSec(mInitialValue);
     }
 
     public void setOnNumberSetListener(OnNumberSetListener listener) {
@@ -52,11 +53,11 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
 
     public void onClick(DialogInterface dialog, int which) {
         if (mListener != null) {
-            mListener.onNumberSet(mNumberPicker.getCurrentSec());
+            mListener.onNumberSet(mNumberPicker.getCurrentHour(), mNumberPicker.getCurrentMin(), mNumberPicker.getCurrentSec());
         }
     }
 
     public interface OnNumberSetListener {
-        public void onNumberSet(int selectedNumber);
+        public void onNumberSet(int selectedHour, int selectedMin, int selectedSec);
     }
 }
