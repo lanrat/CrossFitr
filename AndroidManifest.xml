@@ -54,5 +54,7 @@
 
      <activity android:name=".CalendarActivity"
         android:label="@string/Cmain"/>
+     <activity android:name=".CalendarListActivity"
+        android:label="@string/CList"/>
     </application>
 </manifest>

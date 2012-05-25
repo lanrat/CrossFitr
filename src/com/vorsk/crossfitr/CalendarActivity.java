@@ -3,9 +3,11 @@
  * 
  * @author Darren Seung Won
  * @Process: In development 
- * TODO: Make a list below the calendar
- *       Access to the database
- *       a little mark on the cell which has workout record
+ * TODO: 1. Make a list below the calendar
+ *       2. Access to the database
+ *       3. A little mark on the cell which has workout record
+ *          (got an idea. I will implement it soon)
+ *       4. Fix the layout of the grid adapter 
  * Last update: May 25 12
  */
 
@@ -55,6 +57,8 @@ public class CalendarActivity extends Activity implements OnClickListener,
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
+
+	private CalendarListActivity templist;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);

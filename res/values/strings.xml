@@ -56,8 +56,7 @@
     <string name="dialog_picker_title">Set Timer</string>
     
   <!-- Strings for Calendar -->
-  <string name="CexToday">Calendar_ExToday</string>
-  <string name="CDetail">Calendar_Detail</string>
+  <string name="CList">Calendar_listhelper</string>
   <string name="Cmain">Calendar_main</string>
 
 	

@@ -4,18 +4,19 @@
 	android:orientation="vertical"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content">
+	
+
 
 	<Button
-		android:id="@+id/calendar_day_gridcell"
-		android:layout_gravity="center"
-		android:textColor="#FFFFFF"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:background="@drawable/calendar_cellfiller">
-	</Button>
-	
-	<TextView
+	    android:id="@+id/calendar_day_gridcell"
+	    android:layout_width="40dip"
+	    android:layout_height="40dip"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:background="@drawable/calendar_cellfiller"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="#FFFFFF" />
+		<TextView
 		android:id="@+id/num_events_per_day"
 		android:layout_gravity="right"
 		android:layout_width="10dip"
