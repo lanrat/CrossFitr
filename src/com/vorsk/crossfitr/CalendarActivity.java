@@ -283,9 +283,6 @@ public class CalendarActivity extends Activity implements OnClickListener,
 			gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 			gridcell.setOnClickListener(this);
 
-			// ACCOUNT FOR SPACING
-
-			Log.d(tag, "Current Day: " + getCurrentDayOfMonth());
 			String[] day_color = list.get(position).split("-");
 			String theday = day_color[0];
 			String themonth = day_color[2];
