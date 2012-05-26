@@ -23,7 +23,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		switch (v.getId()) 
 		{
 			case R.id.button_begin_workout:
-				Intent i = new Intent(this, TimerTabWidget.class);
+				Intent i = new Intent(this, TimeTabWidget.class);
 				startActivity(i);
 				break;
 		}

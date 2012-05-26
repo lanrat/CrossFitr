@@ -11,11 +11,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 
-public class TimerTabWidget extends TabActivity{
+public class TimeTabWidget extends TabActivity{
 
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.timer);
+	    setContentView(R.layout.time_tab_widget);
 
 	    Resources res = getResources(); // Resource object to get Drawables
 	    TabHost tabHost = getTabHost();  // The activity TabHost

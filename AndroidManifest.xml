@@ -43,7 +43,7 @@
 		<activity android:name=".AddCustomActivity"
 		    android:label="@string/add_custom_add" 
 		    android:windowSoftInputMode="stateVisible|adjustResize"/>
-		<activity android:name=".TimerTabWidget"
+		<activity android:name=".TimeTabWidget"
 		    android:label="@string/timer_tab_label" />
 		<activity android:name=".TimerActivity"
 		    android:label="@string/timer_label" />

@@ -22,8 +22,8 @@
     android:layout_height="fill_parent"
     android:gravity="center" >
     
-    <!-- Buttons for hour -->
     
+    <!-- Buttons for hour -->
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/increment_hour"
         style="@style/NumberPickerUpButton"
@@ -49,15 +49,26 @@
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:layout_below="@+id/timepicker_input_hour" />
+    
+    
+    <!-- Colon inbetween -->
+    <TextView
+        android:id="@+id/colon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/timepicker_input_hour"
+        android:text=":"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    
     <!-- Buttons for minutes -->
-
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/increment_min"
         style="@style/NumberPickerUpButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_toRightOf="@+id/increment_hour"/>
+        android:layout_toRightOf="@+id/colon1"/>
 
     <EditText
         android:id="@+id/timepicker_input_min"
@@ -66,7 +77,7 @@
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:layout_below="@+id/increment_min"
-        android:layout_toRightOf="@+id/timepicker_input_hour"
+        android:layout_toRightOf="@+id/colon1"
         android:clickable="false" 
         android:cursorVisible="false" 
         android:focusable="false" 
@@ -78,16 +89,27 @@
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_below="@+id/timepicker_input_hour"
-        android:layout_toRightOf="@+id/timepicker_input_hour" />
+        android:layout_toRightOf="@+id/colon1" />
 
+    
+    <!-- Colon inbetween -->
+    <TextView
+        android:id="@+id/colon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/timepicker_input_min"
+        android:layout_centerVertical="true"
+        android:text=":"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+  
+    
     <!-- Buttons for seconds -->
-
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/increment_sec"
         style="@style/NumberPickerUpButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_toRightOf="@+id/increment_min"/>
+        android:layout_toRightOf="@+id/colon2"/>
 
     <EditText
         android:id="@+id/timepicker_input_sec"
@@ -96,7 +118,7 @@
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:layout_below="@+id/increment_sec"
-        android:layout_toRightOf="@+id/timepicker_input_min"
+        android:layout_toRightOf="@+id/colon2"
         android:ems="10" 
         android:clickable="false" 
         android:cursorVisible="false" 
@@ -109,9 +131,11 @@
         style="@style/NumberPickerDownButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/timepicker_input_sec"
-        android:layout_alignTop="@+id/decrement_hour" />
+        android:layout_toRightOf="@+id/colon2"
+        />
+    
 
+    <!-- Labels -->
     <TextView
         android:id="@+id/sec_label"
         android:layout_width="wrap_content"
