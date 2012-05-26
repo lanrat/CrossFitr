@@ -3,6 +3,7 @@ package com.vorsk.crossfitr;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +48,10 @@ public class TimerActivity extends Activity
 		    };
 
 	private void updateDisplay() {
+		if(mHour == 0){
+			MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.countdown_00);
+			mediaPlayer.start();
+		}
 		mTimeDisplay.setText(new StringBuilder().append(mHour)
 	    	.append(":").append(pad(mMin)).append(":").append(pad(mSec)));
 	}
