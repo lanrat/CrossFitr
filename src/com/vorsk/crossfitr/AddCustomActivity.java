@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.util.EventLogTags.Description;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -19,8 +20,8 @@ import android.widget.Toast;
 public class AddCustomActivity extends Activity implements OnClickListener 
 {
 	//text fields
-	private EditText workoutTextField;
-	private EditText nameTextField;
+	private EditText workoutTextField, nameTextField;
+	
 	private int workoutConstant = WorkoutModel.TYPE_CUSTOM;
 	private int recordConstant = 0;
 	//Spinner workoutTypeDropDown;  This constant belongs to commented out functionality
@@ -41,8 +42,8 @@ public class AddCustomActivity extends Activity implements OnClickListener
 		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
 		
-        // text field for the workout discription to be added        
-		workoutTextField = (EditText) findViewById(R.id.discription_edittext_add);
+        // text field for the workout description to be added        
+	    	workoutTextField = (EditText) findViewById(R.id.description_edittext_add);
         workoutTextField.setOnClickListener(this);
         
         // text field for the workout name to be added
@@ -70,18 +71,21 @@ public class AddCustomActivity extends Activity implements OnClickListener
 
 	// called by the onClickListener
 	public void onClick(View v) 
-	{
+	{		
+		
 		switch(v.getId())
-		{
+		{		
 		    // if user clicks the save button
 			case R.id.button_workout_form_save:
 				//validate that inputs are not junk
+				
 				if(this.validateForm() == true)
 				{
+
 					model.open();
 					//save data into database, saves data from textfields, and selected workout in dropdowns
 					model.insert(nameTextField.getText().toString(), workoutTextField.getText().toString(),
-								 workoutConstant, recordConstant);
+								 workoutConstant, recordConstant);					
 					model.close();
 					//go back into the custom activity class
 					Intent i = new Intent(this, CustomActivity.class);
@@ -126,6 +130,11 @@ public class AddCustomActivity extends Activity implements OnClickListener
 				
 			break;
 		}
+	}
+	
+	public void keyboardHandler(){
+		
+		
 	}
 	
 	// listener for the spinner object

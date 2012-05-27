@@ -15,25 +15,22 @@ android:orientation="vertical"
         android:id="@+id/nameofworkout_edittext_add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
-        android:imeOptions="actionDone|flagNoEnterAction"
-        android:hint="@string/name_of_workout_add"/>
+        android:singleLine="true"
+        android:imeOptions="actionDone"/>
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/discription_of_workout_add" />    
+        android:text="@string/description_of_workout_add" />    
 <EditText
-        android:id="@+id/discription_edittext_add"
+        android:id="@+id/description_edittext_add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
-        android:imeOptions="actionDone|flagNoEnterAction"
-        android:hint="@string/discription_of_workout_add"/>
+         android:maxLines="5"
+         android:imeOptions="actionDone"/>
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_to_custom_label" />
-
 
 <!--                    Commented out Spinner 
 <Spinner 
