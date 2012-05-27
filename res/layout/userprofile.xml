@@ -66,6 +66,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Open Timer" />
+    
+    <Button
+        android:id="@+id/open_results_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Results page" />
 
     <Button
         android:id="@+id/edit_profile_button"

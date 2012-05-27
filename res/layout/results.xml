@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+        
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="24.5sp"
+        android:text="@string/results_title" />  
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TODO: get workout name from DB" />    
+        
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="24.5sp"
+        android:text="@string/results_description_header" />      
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TODO: get description from DB" /> 
+            
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:textSize="24.5sp"
+        android:text="@string/results_record_type_header" />      
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="TODO: get recordtype from DB" /> 
+    
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="24.5sp"
+        android:text="@string/record_header" />
+    
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TODO: get best record from DB" />
+	
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="24.5sp"
+        android:text="@string/results_time_header" />  
+    
+    	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TODO: get time from timer" />
+        
+	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_gravity="bottom"
+	    android:baselineAligned="false"
+	    android:orientation="horizontal"
+	    android:padding="5dip" >
+
+	    <Button
+	        android:id="@+id/button_results_sav_workout"
+	        android:layout_width="80dp"
+	        android:layout_height="80dp"
+	        android:layout_gravity="bottom"
+	        android:layout_marginBottom="10dp"
+	        android:layout_weight="1"
+	        android:text="@string/button_sav_workout" />
+
+	    <Button
+	        android:id="@+id/button_results_dontsav_workout"
+	        android:layout_width="80dp"
+	        android:layout_height="80dp"
+	        android:layout_gravity="bottom"
+	        android:layout_marginBottom="10dp"
+	        android:layout_weight="1"
+	        android:text="@string/button_dontsav_workout" />
+
+	    <Button
+	        android:id="@+id/button_results_share_workout_FB"
+	        android:layout_width="80dp"
+	        android:layout_height="80dp"
+	        android:layout_gravity="bottom"
+	        android:layout_marginBottom="10dp"
+	        android:layout_weight="1"
+	        android:text="@string/button_share_workout_fb" />
+	</LinearLayout>
+
+</LinearLayout>

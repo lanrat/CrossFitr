@@ -51,6 +51,8 @@
 		    android:label="@string/stopwatch_label" />
 		<activity android:name=".TabataActivity"
 		    android:label="@string/tabata_label" />
+		<activity android:name=".ResultsActivity"
+		    android:label="@string/results_title" />
 
      <activity android:name=".CalendarActivity"
         android:label="@string/Cmain"/>

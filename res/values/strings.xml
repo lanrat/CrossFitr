@@ -34,6 +34,16 @@
 	<string name="record_type_header">Record Type</string>
 	<string name="record_header">Personal Record</string>
 	
+	<!--  Strings used in results page -->
+	<string name="button_sav_workout">End Session</string>
+	<string name="button_dontsav_workout">Don\'t Save and End</string>
+	<string name="button_share_workout_fb">Share on Facebook</string> 
+	<string name="results_title">Results</string>
+	<string name="results_description_header">Description</string>
+	<string name="results_record_type_header">Record Type</string>
+	<string name="results_record_header">Personal Record</string>
+	<string name="results_time_header">Your Time</string>
+	
 	<!-- Strings for user profile. -->
 	<string name="user_name">Name:</string>
 	<string name="user_bmi">BMI:</string>

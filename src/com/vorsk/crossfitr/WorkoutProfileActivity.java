@@ -22,6 +22,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	{
 		switch (v.getId()) 
 		{
+		    // if user presses begin button, user will now go into the timer page.
 			case R.id.button_begin_workout:
 				Intent i = new Intent(this, TimeTabWidget.class);
 				startActivity(i);
