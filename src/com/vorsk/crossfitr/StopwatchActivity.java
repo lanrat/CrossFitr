@@ -54,7 +54,7 @@ public class StopwatchActivity extends Activity {
         //unbindStopwatchService();
     }
     
-    /*private void showCorrectButtons() {
+    private void showCorrectButtons() {
     	Log.d(TAG, "showCorrectButtons");
     	
     	if ( m_stopwatchService != null ) {
@@ -64,7 +64,7 @@ public class StopwatchActivity extends Activity {
     			showStartResetButtons();
     		}
     	}
-    }*/
+    }
     
     private void showPauseLapButtons() {
     	Log.d(TAG, "showPauseLapButtons");
