@@ -150,7 +150,12 @@ public class StopwatchActivity extends Activity {
 	}
 	
 	public long getElapsedTime() {
-		return m_stopwatch.getElapsedTime();
+		if(m_stopwatch.isRunning() == true){
+			return m_stopwatch.getElapsedTime();
+		}else{
+			return 0;
+		}
+		
 	}
 	
 	public void start() {
