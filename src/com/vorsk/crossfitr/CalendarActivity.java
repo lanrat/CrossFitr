@@ -135,6 +135,73 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		calView.setAdapter(gridAdapter);
 	}
 	
+	/**
+	 * Name: CalendarListActivity
+	 * Inner class to handle the calendar list adapter
+	 * 
+	 * 
+	 * 
+	 */	
+	public class Listadapter extends BaseAdapter {	
+		
+		private Context context;
+		int listMonth, listYear;
+		
+		String temp_nameofworkout, temp_durationtime;
+		
+		public Listadapter(Context _context, int month, int year){
+			super();
+			this.context = _context;
+			listMonth = month;
+			listYear = year;
+
+		}
+		
+		public void setListAdapter(int month, int year){
+					
+		}
+		/**
+		 * Name: getData
+		 * Description: When the user clicked one of days on the calendar, 
+		 *              this method, getData, find out there is workout data in that selected day.
+		 *              If the user has done some workout in that day, this method retrieves data, 
+		 *              name of workout and duration time.              
+		 * 
+		 * @param Listyear
+		 * @param Listmonth
+		 * @return
+		 */
+	//TODO: Make this method work right.
+		private HashMap gettingData(int Listyear, int Listmonth) {
+			
+			HashMap map = new HashMap<String, Integer>();
+
+			return map;
+		}	
+
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public long getItemId(int arg0) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public View getView(int arg0, View arg1, ViewGroup arg2) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	}	
+	
+	
+	
 /**
  * Name: GridAdapter
  * Inner class to handle the calendar grid adapter
@@ -330,71 +397,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	}
 	
 	
-	/**
-	 * Name: CalendarListActivity
-	 * Inner class to handle the calendar list adapter
-	 * 
-	 * 
-	 * 
-	 */	
-	public class Listadapter extends BaseAdapter {	
-		
-		private Context context;
-		int listMonth, listYear;
-		
-		String temp_nameofworkout, temp_durationtime;
-		
-		public Listadapter(Context _context, int month, int year){
-			super();
-			this.context = _context;
-			listMonth = month;
-			listYear = year;
-
-		}
-		
-		public void setListAdapter(int month, int year){
-					
-		}
-		/**
-		 * Name: getData
-		 * Description: When the user clicked one of days on the calendar, 
-		 *              this method, getData, find out there is workout data in that selected day.
-		 *              If the user has done some workout in that day, this method retrieves data, 
-		 *              name of workout and duration time.              
-		 * 
-		 * @param Listyear
-		 * @param Listmonth
-		 * @return
-		 */
-	//TODO: Make this method work right.
-		private HashMap gettingData(int Listyear, int Listmonth) {
-			
-			HashMap map = new HashMap<String, Integer>();
-
-			return map;
-		}
-		
-		
-
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	}
+	
 	
 }
