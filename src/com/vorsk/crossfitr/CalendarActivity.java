@@ -7,8 +7,8 @@
  *       2. Access to the database
  *       3. A little mark on the cell which has workout record
  *          (got an idea. I will implement it soon)
- *       4. Fix the layout of the grid adapter 
- * Last update: May 25 12
+ *       
+ * Last update: May 26 12
  */
 
 package com.vorsk.crossfitr;
