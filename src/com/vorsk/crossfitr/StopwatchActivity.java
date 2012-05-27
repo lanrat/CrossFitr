@@ -112,9 +112,11 @@ public class StopwatchActivity extends Activity {
 		StringBuilder sb = new StringBuilder();
 
 		if (now < 1000) {
+			tenths = now / 100;
 		} else if (now < 60000) {
 			seconds = now / 1000;
 			now -= seconds * 1000;
+			tenths = now / 100;
 		} else if (now < 3600000) {
 			hours = now / 3600000;
 			now -= hours * 3600000;
@@ -122,6 +124,8 @@ public class StopwatchActivity extends Activity {
 			now -= minutes * 60000;
 			seconds = now / 1000;
 			now -= seconds * 1000;
+			tenths = now / 100;
+			
 		}
 		
 		if (hours > 0) {
