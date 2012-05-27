@@ -53,9 +53,9 @@
 
     <TextView
         android:id="@+id/colon1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_width="10dp"
+        android:layout_height="150dp"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_toRightOf="@+id/timepicker_input_hour"
         android:text=":"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -65,14 +65,14 @@
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/increment_min"
         style="@style/NumberPickerUpButton"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_toRightOf="@+id/colon1" />
 
     <EditText
         android:id="@+id/timepicker_input_min"
         style="@style/NumberPickerInputText"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="70dp"
         android:layout_below="@+id/increment_min"
         android:layout_toRightOf="@+id/colon1"
@@ -85,7 +85,7 @@
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/decrement_min"
         style="@style/NumberPickerDownButton"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_below="@+id/timepicker_input_hour"
         android:layout_toRightOf="@+id/colon1" />
@@ -94,9 +94,9 @@
 
     <TextView
         android:id="@+id/colon2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_width="10dp"
+        android:layout_height="150dp"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_toRightOf="@+id/timepicker_input_min"
         android:text=":"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -106,14 +106,14 @@
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/increment_sec"
         style="@style/NumberPickerUpButton"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_toRightOf="@+id/colon2" />
 
     <EditText
         android:id="@+id/timepicker_input_sec"
         style="@style/NumberPickerInputText"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="70dp"
         android:layout_below="@+id/increment_sec"
         android:layout_toRightOf="@+id/colon2"
@@ -147,7 +147,7 @@
     <com.vorsk.crossfitr.NumberPickerButton
         android:id="@+id/decrement_sec"
         style="@style/NumberPickerDownButton"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/timepicker_input_sec"
         android:layout_below="@+id/timepicker_input_sec" />

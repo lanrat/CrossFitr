@@ -1,14 +1,10 @@
 package com.vorsk.crossfitr;
 
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 
 public class TimeTabWidget extends TabActivity{
@@ -32,7 +28,7 @@ public class TimeTabWidget extends TabActivity{
 	    tabHost.addTab(spec);
 
 	    // Do the same for the other tabs
-	    intent = new Intent().setClass(this, StopWatchActivity.class);
+	    intent = new Intent().setClass(this, StopwatchActivity.class);
 	    spec = tabHost.newTabSpec("stopwatch").setIndicator("Stopwatch",
 	                      res.getDrawable(R.drawable.tab_stopwatch))
 	                  .setContent(intent);
@@ -44,7 +40,7 @@ public class TimeTabWidget extends TabActivity{
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 
-	    tabHost.setCurrentTab(2);
+	    tabHost.setCurrentTab(0);
 	}
 }
 
