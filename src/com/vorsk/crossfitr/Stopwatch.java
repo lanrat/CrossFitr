@@ -1,6 +1,7 @@
 package com.vorsk.crossfitr;
 
-public class StopWatch {
+public class Stopwatch {
+
 	/**
 	 * Implements a method that returns the current time, in milliseconds.
 	 * Used for testing
@@ -13,7 +14,7 @@ public class StopWatch {
 	 * Default way to get time. Just use the system clock.
 	 */
 	private GetTime SystemTime = new GetTime() {
-		
+
 		public long now() {	return System.currentTimeMillis(); }
 	};
 
@@ -22,19 +23,18 @@ public class StopWatch {
 	 */
 	public enum State { PAUSED, RUNNING };
 
-	private GetTime time;
-	private long startTime;
-	private long stopTime;
-	private long pauseOffset;
+	private GetTime m_time;
+	private long m_startTime;
+	private long m_stopTime;
+	private long m_pauseOffset;
+	private State m_state;
 
-	private State runState;
-
-	public StopWatch() {
-		time = SystemTime;
+	public Stopwatch() {
+		m_time = SystemTime;
 		reset();
 	}
-	public StopWatch(GetTime sTime) {
-		time = sTime;
+	public Stopwatch(GetTime time) {
+		m_time = time;
 		reset();
 	}
 
@@ -43,11 +43,11 @@ public class StopWatch {
 	 * does nothing. 
 	 */
 	public void start() {
-		if ( runState == State.PAUSED ) {
-			pauseOffset = getElapsedTime();
-			stopTime = 0;
-			startTime = time.now();
-			runState = State.RUNNING;
+		if ( m_state == State.PAUSED ) {
+			m_pauseOffset = getElapsedTime();
+			m_stopTime = 0;
+			m_startTime = m_time.now();
+			m_state = State.RUNNING;
 		}
 	}
 
@@ -55,9 +55,9 @@ public class StopWatch {
 	 * Pause the stopwatch. If the stopwatch is already running, do nothing.
 	 */
 	public void pause() {
-		if ( runState == State.RUNNING ) {
-			stopTime = time.now();
-			runState = State.PAUSED;
+		if ( m_state == State.RUNNING ) {
+			m_stopTime = m_time.now();
+			m_state = State.PAUSED;
 		}
 	}
 
@@ -65,20 +65,21 @@ public class StopWatch {
 	 * Reset the stopwatch to the initial state, clearing all stored times. 
 	 */
 	public void reset() {
-		runState = State.PAUSED;
-		startTime = 0;
-		stopTime = 0;
-		pauseOffset	= 0;
+		m_state = State.PAUSED;
+		m_startTime 	= 0;
+		m_stopTime 		= 0;
+		m_pauseOffset 	= 0;
 	}
+
 
 	/***
 	 * @return The amount of time recorded by the stopwatch, in milliseconds
 	 */
 	public long getElapsedTime() {
-		if ( runState == State.PAUSED ) {
-			return (stopTime - startTime) + pauseOffset;
+		if ( m_state == State.PAUSED ) {
+			return (m_stopTime - m_startTime) + m_pauseOffset;
 		} else {
-			return (time.now() - startTime) + pauseOffset;
+			return (m_time.now() - m_startTime) + m_pauseOffset;
 		}
 	}
 
@@ -88,6 +89,6 @@ public class StopWatch {
 	 * 		   time, false otherwise.
 	 */
 	public boolean isRunning() {
-		return (runState == State.RUNNING);
+		return (m_state == State.RUNNING);
 	}
 }
