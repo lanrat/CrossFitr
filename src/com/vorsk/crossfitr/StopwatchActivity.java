@@ -16,8 +16,7 @@ public class StopwatchActivity extends Activity {
 	private Button m_start;
 	private Button m_pause;
 	private Button m_reset;
-	private Button m_lap;
-	private Stopwatch m_stopwatch;
+	private Stopwatch m_stopwatch = new Stopwatch();
 
 	
 	// Timer to update the elapsedTime display
@@ -45,7 +44,7 @@ public class StopwatchActivity extends Activity {
         m_start = (Button)findViewById(R.id.StartButton);
         m_pause = (Button)findViewById(R.id.PauseButton);
         m_reset = (Button)findViewById(R.id.ResetButton);
-
+        
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
     }
     
@@ -73,7 +72,6 @@ public class StopwatchActivity extends Activity {
     	m_start.setVisibility(View.GONE);
     	m_reset.setVisibility(View.GONE);
     	m_pause.setVisibility(View.VISIBLE);
-    	m_lap.setVisibility(View.VISIBLE);
     }
     
     private void showStartResetButtons() {
@@ -82,7 +80,6 @@ public class StopwatchActivity extends Activity {
     	m_start.setVisibility(View.VISIBLE);
     	m_reset.setVisibility(View.VISIBLE);
     	m_pause.setVisibility(View.GONE);
-    	m_lap.setVisibility(View.GONE);
     }
     
     public void onStartClicked(View v) {
