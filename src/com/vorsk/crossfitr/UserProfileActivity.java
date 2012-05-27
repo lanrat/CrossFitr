@@ -29,6 +29,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		View achievements_button = findViewById(R.id.achievements_button);
 		injuries_button.setOnClickListener(this);
 		
+		View results_button = findViewById(R.id.open_results_button);
+		results_button.setOnClickListener(this);
+		
 	}
 
 	public void onClick(View v) 
@@ -44,6 +47,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			Intent t = new Intent(this, TimeTabWidget.class);
 			startActivity(t);
 			break;
+		case R.id.open_results_button:
+			Intent x = new Intent(this, ResultsActivity.class);
+			startActivity(x);
 		case R.id.injuries_button:
 			// TODO add injuries intent
 			break;

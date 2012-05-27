@@ -58,14 +58,14 @@
 	android:layout_width="fill_parent"
 	android:layout_gravity="bottom"
 	android:padding="5dip"
-	android:orientation="horizontal" 
-	>
-		<Button
-    		android:id="@+id/button_begin_workout"
-    		android:layout_width="fill_parent"
-    		android:layout_height="80dp"
-    		android:layout_gravity="bottom"
-    		android:layout_marginBottom="10dp" 
-    		android:text="@string/button_begin_workout"/>
+	android:orientation="horizontal" >
+	
+	<Button
+    	android:id="@+id/button_begin_workout"
+    	android:layout_width="fill_parent"
+    	android:layout_height="80dp"
+    	android:layout_gravity="bottom"
+    	android:layout_marginBottom="10dp" 
+    	android:text="@string/button_begin_workout"/>
 	</LinearLayout>
 </LinearLayout>
