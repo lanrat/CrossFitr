@@ -135,10 +135,8 @@ public class StopwatchActivity extends Activity {
 	}
 	
 	public long getElapsedTime() {
+		return m_stopwatch.getElapsedTime();
 
-			return m_stopwatch.getElapsedTime();
-		
-		
 	}
 	
 	public void start() {
