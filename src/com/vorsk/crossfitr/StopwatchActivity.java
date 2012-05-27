@@ -84,21 +84,21 @@ public class StopwatchActivity extends Activity {
     
     public void onStartClicked(View v) {
     	Log.d(TAG, "start button clicked");
-    	//m_stopwatchService.start();
+    	start();
     	
     	showPauseLapButtons();
     }
     
     public void onPauseClicked(View v) {
     	Log.d(TAG, "pause button clicked");
-    	//m_stopwatchService.pause();
+    	pause();
     	
     	showStartResetButtons();
     }
     
     public void onResetClicked(View v) {
     	Log.d(TAG, "reset button clicked");
-    	//m_stopwatchService.reset();
+    	reset();
 
     }
     
