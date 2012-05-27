@@ -216,11 +216,18 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mCurrentHour = a.getInt( R.styleable.numberpicker_defaultValue, DEFAULT_VALUE );
         mCurrentHour = Math.max( mStart, Math.min( mCurrentHour, mEndHour ) );
         
-        mTextSec.setText( "" + mCurrentSec );
-        mTextMin.setText( "" + mCurrentMin );
+        mTextSec.setText( "" + mCurrentSec);
+        mTextMin.setText( "" + mCurrentMin);
         mTextHour.setText( "" + mCurrentHour );
     }
 
+    private String pad(String input) {
+	    if (Integer.parseInt(input) >= 10)
+	        return String.valueOf(Integer.parseInt(input));
+	    else
+	        return "0" + String.valueOf(Integer.parseInt(input));
+	}
+    
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
@@ -465,7 +472,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     protected void updateViewSec() {
         if (mDisplayedValues == null) {
-            mTextSec.setText(formatNumber(mCurrentSec));
+            mTextSec.setText(pad(formatNumber(mCurrentSec)));
         } 
         else {
             mTextSec.setText(mDisplayedValues[mCurrentSec - mStart]);  
@@ -475,7 +482,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     protected void updateViewMin() {
         if (mDisplayedValues == null) 
-            mTextMin.setText(formatNumber(mCurrentMin)); 
+            mTextMin.setText(pad(formatNumber(mCurrentMin))); 
         else
             mTextMin.setText(mDisplayedValues[mCurrentMin - mStart]); 
         mTextMin.setSelection(mTextMin.getText().length());
@@ -603,7 +610,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 				R.id.decrement_hour == v.getId()){
 			onLongClickHour(v);
 		}
-		return true;
+		return false;
 	}
 	
     public boolean onLongClickSec(View v) {
