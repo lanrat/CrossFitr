@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class StopWatchActivity extends Activity 
+public class StopwatchActivity extends Activity 
 {
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		TextView textview = new TextView(this);
-		textview.setText("This is the Stop Watch tab");
+		textview.setText("This is the Stopwatch tab");
 		setContentView(textview);
 	}
 }
