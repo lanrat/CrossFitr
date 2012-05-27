@@ -51,22 +51,9 @@ public class StopwatchActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //unbindStopwatchService();
     }
-    
-    private void showCorrectButtons() {
-    	Log.d(TAG, "showCorrectButtons");
-    	
-    	if ( m_stopwatchService != null ) {
-    		if ( m_stopwatchService.isStopwatchRunning() ) {
-    			showPauseLapButtons();
-    		} else {
-    			showStartResetButtons();
-    		}
-    	}
-    }
-    
-    private void showPauseLapButtons() {
+   
+    private void showPauseButton() {
     	Log.d(TAG, "showPauseLapButtons");
     	
     	m_start.setVisibility(View.GONE);
@@ -86,7 +73,7 @@ public class StopwatchActivity extends Activity {
     	Log.d(TAG, "start button clicked");
     	start();
     	
-    	showPauseLapButtons();
+    	showPauseButton();
     }
     
     public void onPauseClicked(View v) {
@@ -99,12 +86,10 @@ public class StopwatchActivity extends Activity {
     public void onResetClicked(View v) {
     	Log.d(TAG, "reset button clicked");
     	reset();
-
     }
     
     public void updateElapsedTime() {
-    	//if ( m_stopwatchService != null )
-    		m_elapsedTime.setText(getFormattedElapsedTime());
+   		m_elapsedTime.setText(getFormattedElapsedTime());
     }
     
 	private String formatElapsedTime(long now) {
