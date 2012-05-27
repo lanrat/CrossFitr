@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -39,18 +40,22 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
 
-public class CalendarActivity extends Activity implements OnClickListener,
-		OnItemClickListener {
+public class CalendarActivity extends Activity implements OnClickListener {
 	
-	private static final String tag = "CalendarActivity";
 	
-	private ImageView calJournalButton;
-	private Button currentMonth;
-	private ImageView preMonth, nextMonth;
+	
+	private ImageView calJournalButton, preMonth, nextMonth;
+	private Button currentMonth;	
+	private TextView nameofWorkout, durationtime;
+	
+	private ListView calendarList;
+	private Listadapter cal_adapter;
+	
 	private GridView calView;
 	private GridAdapter gridAdapter; //inner class to handle adapter
 	private Calendar derpCal;
@@ -58,7 +63,7 @@ public class CalendarActivity extends Activity implements OnClickListener,
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
 
-	private CalendarListActivity templist;
+	private static final String tag = "CalendarActivity";
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -68,9 +73,6 @@ public class CalendarActivity extends Activity implements OnClickListener,
 		derpCal = Calendar.getInstance(Locale.getDefault());
 		month = derpCal.get(Calendar.MONTH) + 1;
 		year = derpCal.get(Calendar.YEAR);
-//		Log.d(tag, "Calendar Instance: = " + "Month " + month + " " + " Year: " + year);
-		
-//		selectedButton = (Button) this.findViewById(R.id.selectedButton);
 		
 		preMonth = (ImageView) this.findViewById(R.id.preMonth);
 		preMonth.setOnClickListener(this);
@@ -80,11 +82,18 @@ public class CalendarActivity extends Activity implements OnClickListener,
 		currentMonth.setText(dateFormatter.format(dateTemplate, derpCal.getTime()));
 		
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
-		nextMonth.setOnClickListener(this);
+		nextMonth.setOnClickListener(this);	
+
+		calendarList = (ListView) this.findViewById(R.id.calendar_list);
+		cal_adapter = new Listadapter(getApplicationContext(), month,year);
+		cal_adapter.notifyDataSetChanged();
+		calendarList.setAdapter(cal_adapter);
+		
+		nameofWorkout = (TextView) this.findViewById(R.id.cal_workoutname);
+		durationtime = (TextView) this.findViewById(R.id.cal_durationtime);
 		
 		calView = (GridView) this.findViewById(R.id.calendargrid);
-		
-		gridAdapter = new GridAdapter(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);		
 	}
@@ -92,7 +101,7 @@ public class CalendarActivity extends Activity implements OnClickListener,
 	public void onClick(View view){
 		if(view == preMonth){
 			if(month <= 1){
-				month += 12;
+				month = 12;
 				year--;
 			}else{
 				month--;
@@ -116,7 +125,7 @@ public class CalendarActivity extends Activity implements OnClickListener,
 	}
 		
 	private void setGridAdapterToDate(int month, int year){
-		gridAdapter = new GridAdapter(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
 		derpCal.set(year, month - 1, derpCal.get(Calendar.DAY_OF_MONTH));
 		//Field number for get and set indicating the day of the month. 
 		// This is a synonym for DATE. The first day of the month has value 1.
@@ -126,11 +135,13 @@ public class CalendarActivity extends Activity implements OnClickListener,
 		calView.setAdapter(gridAdapter);
 	}
 	
-
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-	  // TODO Auto-generated method stub
-	  
-  }
+/**
+ * Name: GridAdapter
+ * Inner class to handle the calendar grid adapter
+ * 
+ * 
+ * 
+ */
 	
 	public class GridAdapter extends BaseAdapter implements OnClickListener {
 
@@ -152,12 +163,12 @@ public class CalendarActivity extends Activity implements OnClickListener,
 		private int currentDayOfMonth;
 		private int currentWeekDay;
 		private Button gridcell;
-		private TextView num_events_per_day;
-		private final HashMap eventsPerMonthMap;
+		
+
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
 		    "dd-MMM-yyyy");
 
-		public GridAdapter(Context context, int tViewId, int month, int year) {
+		public GridAdapter(Context context, int month, int year) {
 			super();
 			this.cal_context = context;
 			this.list = new ArrayList<String>();
@@ -169,7 +180,6 @@ public class CalendarActivity extends Activity implements OnClickListener,
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 
 			printMonth(month, year);
-			eventsPerMonthMap = findNumberOfEventsPerMonth(year, month);
 
 		}
 
@@ -201,7 +211,6 @@ public class CalendarActivity extends Activity implements OnClickListener,
 
 			int trailingSpaces = 0;
 			int leadSpaces = 0;
-
 			int daysInPrevMonth = 0;
 			int prevMonth = 0;
 			int prevYear = 0;
@@ -240,36 +249,21 @@ public class CalendarActivity extends Activity implements OnClickListener,
 			if (cal.isLeapYear(cal.get(Calendar.YEAR)) && month == 1) {
 				++daysInMonth;
 			}
-
-			for (int i = 0; i < trailingSpaces; i++) {
-				Log.d(
-				    tag,
-				    "PREV MONTH:= "
-				        + prevMonth
-				        + " => "
-				        + getMonthAsString(prevMonth)
-				        + " "
-				        + String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET)
-				            + i));
-				list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET)
-				    + i)
-				    + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear);
+			
+			for (int i = 0; i < trailingSpaces; i++)
+			{
+				list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET) + i) + "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear);
 			}
-
+			
 			// Current Month Days
 			for (int i = 1; i <= daysInMonth; i++) {
-				if (i == getCurrentDayOfMonth()) {
-					list.add(String.valueOf(i) + "-BLUE" + "-"
-					    + getMonthAsString(currentMonth) + "-" + year);
-				} else {
-					list.add(String.valueOf(i) + "-WHITE" + "-"
-					    + getMonthAsString(currentMonth) + "-" + year);
-				}
+				
+				list.add(String.valueOf(i) + "-WHITE" + "-"
+				    + getMonthAsString(currentMonth) + "-" + year);
 			}
 
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
-				Log.d(tag, "NEXT MONTH:= " + getMonthAsString(nextMonth));
 				list.add(String.valueOf(i + 1) + "-GREY" + "-"
 				    + getMonthAsString(nextMonth) + "-" + nextYear);
 			}
@@ -283,7 +277,7 @@ public class CalendarActivity extends Activity implements OnClickListener,
 				row = inflater.inflate(R.layout.calendar_gridcell, parent, false);
 			}
 
-			// Get a reference to the Day gridcell
+			// Get a reference to the Day 
 			gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 			gridcell.setOnClickListener(this);
 
@@ -291,19 +285,11 @@ public class CalendarActivity extends Activity implements OnClickListener,
 			String theday = day_color[0];
 			String themonth = day_color[2];
 			String theyear = day_color[3];
-			if ((!eventsPerMonthMap.isEmpty()) && (eventsPerMonthMap != null)) {
-				if (eventsPerMonthMap.containsKey(theday)) {
-					num_events_per_day = (TextView) row
-					    .findViewById(R.id.num_events_per_day);
-					Integer numEvents = (Integer) eventsPerMonthMap.get(theday);
-					num_events_per_day.setText(numEvents.toString());
-				}
-			}
+	
 
-			// Set the Day GridCell
+			// set color for days
 			gridcell.setText(theday);
 			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
-			Log.d(tag, "Setting GridCell " + theday + "-" + themonth + "-" + theyear);
 
 			if (day_color[1].equals("GREY")) {
 				gridcell.setTextColor(Color.LTGRAY);
@@ -318,18 +304,11 @@ public class CalendarActivity extends Activity implements OnClickListener,
 			return row;
 		}
 
+		
+		//TODO: Need to implement onClick method to retrieve data and put those on the list 
 		public void onClick(View view) {
-			String date_month_year = (String) view.getTag();
-			CalendarActivity calendar = new CalendarActivity();
-//			calendar.selectedButton.setText("Selected: " + date_month_year);
 
-			try {
-				Date parsedDate = dateFormatter.parse(date_month_year);
-				Log.d(tag, "Parsed Date: " + parsedDate.toString());
 
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 		}
 
 		public int getCurrentDayOfMonth() {
@@ -348,17 +327,73 @@ public class CalendarActivity extends Activity implements OnClickListener,
 			return currentWeekDay;
 		}		
 		
+	}
+	
+	
+	/**
+	 * Name: CalendarListActivity
+	 * Inner class to handle the calendar list adapter
+	 * 
+	 * 
+	 * 
+	 */	
+	public class Listadapter extends BaseAdapter {	
+		
+		private Context context;
+		int listMonth, listYear;
+		
+		String temp_nameofworkout, temp_durationtime;
+		
+		public Listadapter(Context _context, int month, int year){
+			super();
+			this.context = _context;
+			listMonth = month;
+			listYear = year;
+
+		}
+		
+		public void setListAdapter(int month, int year){
+					
+		}
 		/**
-		 * retrieve ALL entries from a SQLite database for that month. Iterate over the List of
-		 * All entries, and get the dateCreated, which is converted into day.
-		 * @param year
-		 * @param month
+		 * Name: getData
+		 * Description: When the user clicked one of days on the calendar, 
+		 *              this method, getData, find out there is workout data in that selected day.
+		 *              If the user has done some workout in that day, this method retrieves data, 
+		 *              name of workout and duration time.              
+		 * 
+		 * @param Listyear
+		 * @param Listmonth
 		 * @return
 		 */
-		private HashMap findNumberOfEventsPerMonth(int year, int month) {
+	//TODO: Make this method work right.
+		private HashMap gettingData(int Listyear, int Listmonth) {
+			
 			HashMap map = new HashMap<String, Integer>();
 
 			return map;
+		}
+		
+		
+
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public long getItemId(int arg0) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public View getView(int arg0, View arg1, ViewGroup arg2) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 	
