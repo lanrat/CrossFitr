@@ -17,6 +17,7 @@ public class TabataActivity extends Activity {
 	private Button t_pause;
 	private Button t_reset;
 	private Time tabata = new Time();
+	private boolean newStart;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -33,9 +34,7 @@ public class TabataActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.tabata_tab);
-
-		// startService(new Intent(this, StopwatchService.class));
-		// bindStopwatchService();
+		newStart = true;
 
 		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
 
@@ -71,19 +70,20 @@ public class TabataActivity extends Activity {
 	public void onStartClicked(View v) {
 		Log.d(TAG, "start button clicked");
 		tabata.start();
-
+		newStart = false;
 		showPauseButton();
 	}
 
 	public void onPauseClicked(View v) {
 		Log.d(TAG, "pause button clicked");
+		newStart = false;
 		tabata.stop();
-
 		showStartResetButtons();
 	}
 
 	public void onResetClicked(View v) {
 		Log.d(TAG, "reset button clicked");
+		newStart = true;
 		tabata.reset();
 	}
 
@@ -94,7 +94,11 @@ public class TabataActivity extends Activity {
 	private String formatElapsedTime(long now, int set) {
 		long seconds = 0, tenths = 0;
 		StringBuilder sb = new StringBuilder();
-
+		
+		if(newStart){
+			now = 20000;			
+		}
+		
 		if (now < 1000) {
 			tenths = now / 100;
 		} else if (now < 60000) {
@@ -102,6 +106,7 @@ public class TabataActivity extends Activity {
 			now -= seconds * 1000;
 			tenths = now / 100;
 		}
+
 
 		sb.append("SET : ").append(set).append("\n").append(formatDigits(seconds)).append(".").append(tenths);
 
@@ -119,7 +124,7 @@ public class TabataActivity extends Activity {
 		if(remain > 10000 ){
 			return formatElapsedTime(20000 - (getElapsedTime() % 30000), set);
 		}else if(remain == 10000){
-			//TODO: beep
+			//TODO: beep, change color(green or red)
 			return formatElapsedTime(0, set);
 		}else{
 			return formatElapsedTime(30000 - (getElapsedTime() % 30000), set);
@@ -130,20 +135,4 @@ public class TabataActivity extends Activity {
 		return tabata.getElapsedTime();
 
 	}
-/*
-	public void start() {
-		Log.d(TAG, "start");
-		tabata.start();
-	}
-
-	public void pause() {
-		Log.d(TAG, "pause");
-		tabata.pause();
-	}
-
-	public void reset() {
-		Log.d(TAG, "reset");
-		tabata.reset();
-	}
-*/
 }

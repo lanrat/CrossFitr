@@ -12,10 +12,8 @@ import android.widget.TextView;
 public class StopwatchActivity extends Activity {
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView s_elapsedTime;
-	private Button s_start;
-	private Button s_pause;
-	private Button s_reset;
+	private TextView sElapsedTime;
+	private Button sStart, sPause, sReset;
 	private Time stopwatch = new Time();
 
 	
@@ -39,11 +37,11 @@ public class StopwatchActivity extends Activity {
         //startService(new Intent(this, StopwatchService.class));
         //bindStopwatchService();
         
-        s_elapsedTime = (TextView)findViewById(R.id.ElapsedTime);
+        sElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         
-        s_start = (Button)findViewById(R.id.StartButton);
-        s_pause = (Button)findViewById(R.id.PauseButton);
-        s_reset = (Button)findViewById(R.id.ResetButton);
+        sStart = (Button)findViewById(R.id.StartButton);
+        sPause = (Button)findViewById(R.id.PauseButton);
+        sReset = (Button)findViewById(R.id.ResetButton);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
     }
@@ -56,17 +54,17 @@ public class StopwatchActivity extends Activity {
     private void showPauseButton() {
     	Log.d(TAG, "showPauseLapButtons");
     	
-    	s_start.setVisibility(View.GONE);
-    	s_reset.setVisibility(View.GONE);
-    	s_pause.setVisibility(View.VISIBLE);
+    	sStart.setVisibility(View.GONE);
+    	sReset.setVisibility(View.GONE);
+    	sPause.setVisibility(View.VISIBLE);
     }
     
     private void showStartResetButtons() {
     	Log.d(TAG, "showStartResetButtons");
 
-    	s_start.setVisibility(View.VISIBLE);
-    	s_reset.setVisibility(View.VISIBLE);
-    	s_pause.setVisibility(View.GONE);
+    	sStart.setVisibility(View.VISIBLE);
+    	sReset.setVisibility(View.VISIBLE);
+    	sPause.setVisibility(View.GONE);
     }
     
     public void onStartClicked(View v) {
@@ -89,7 +87,7 @@ public class StopwatchActivity extends Activity {
     }
     
     public void updateElapsedTime() {
-   		s_elapsedTime.setText(getFormattedElapsedTime());
+   		sElapsedTime.setText(getFormattedElapsedTime());
     }
     
 	private String formatElapsedTime(long now) {
@@ -138,21 +136,4 @@ public class StopwatchActivity extends Activity {
 		return stopwatch.getElapsedTime();
 
 	}
-/*	
-	public void start() {
-		Log.d(TAG, "start");
-		stopwatch.start();
-	}
-
-	public void pause() {
-		Log.d(TAG, "pause");
-		stopwatch.pause();
-	}
-
-
-	public void reset() {
-		Log.d(TAG, "reset");
-		stopwatch.reset();
-	}
-    */
 }
