@@ -1,6 +1,6 @@
 package com.vorsk.crossfitr;
 
-public class Stopwatch {
+public class Time {
 
 	/**
 	 * Implements a method that returns the current time, in milliseconds.
@@ -31,11 +31,11 @@ public class Stopwatch {
 	private long m_pauseOffset;
 	//private State m_state;
 
-	public Stopwatch() {
+	public Time() {
 		m_time = SystemTime;
 		reset();
 	}
-	public Stopwatch(GetTime time) {
+	public Time(GetTime time) {
 		m_time = time;
 		reset();
 	}

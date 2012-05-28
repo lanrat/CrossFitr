@@ -16,7 +16,7 @@ public class StopwatchActivity extends Activity {
 	private Button m_start;
 	private Button m_pause;
 	private Button m_reset;
-	private Stopwatch m_stopwatch = new Stopwatch();
+	private Time m_stopwatch = new Time();
 
 	
 	// Timer to update the elapsedTime display
