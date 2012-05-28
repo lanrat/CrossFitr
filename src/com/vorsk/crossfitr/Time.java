@@ -1,5 +1,7 @@
 package com.vorsk.crossfitr;
 
+import android.util.Log;
+
 public class Time {
 
 	/**
@@ -24,7 +26,7 @@ public class Time {
 	//public enum State { PAUSED, RUNNING };
 	
 	private boolean running = false;
-
+	private static String TAG = "Time";
 	private GetTime m_time;
 	private long m_startTime;
 	private long m_stopTime;
@@ -45,6 +47,7 @@ public class Time {
 	 * does nothing. 
 	 */
 	public void start() {
+		Log.d(TAG, "start");
 		if ( running == false ) {
 			m_pauseOffset = getElapsedTime();
 			m_stopTime = 0;
@@ -56,7 +59,8 @@ public class Time {
 	/***
 	 * Pause the stopwatch. If the stopwatch is already running, do nothing.
 	 */
-	public void pause() {
+	public void stop() {
+		Log.d(TAG, "stop");
 		if ( running == true ) {
 			m_stopTime = m_time.now();
 			running = false;
@@ -67,6 +71,7 @@ public class Time {
 	 * Reset the stopwatch to the initial state, clearing all stored times. 
 	 */
 	public void reset() {
+		Log.d(TAG, "reset");
 		running = false;
 		m_startTime 	= 0;
 		m_stopTime 		= 0;

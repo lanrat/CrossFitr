@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class TabataActivity extends Activity {
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView m_elapsedTime;
-	private Button m_start;
-	private Button m_pause;
-	private Button m_reset;
-	private Time m_stopwatch = new Time();
+	private TextView t_elapsedTime;
+	private Button t_start;
+	private Button t_pause;
+	private Button t_reset;
+	private Time tabata = new Time();
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -37,11 +37,11 @@ public class TabataActivity extends Activity {
 		// startService(new Intent(this, StopwatchService.class));
 		// bindStopwatchService();
 
-		m_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
+		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
 
-		m_start = (Button) findViewById(R.id.StartButton);
-		m_pause = (Button) findViewById(R.id.PauseButton);
-		m_reset = (Button) findViewById(R.id.ResetButton);
+		t_start = (Button) findViewById(R.id.StartButton);
+		t_pause = (Button) findViewById(R.id.PauseButton);
+		t_reset = (Button) findViewById(R.id.ResetButton);
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
 				mFrequency);
@@ -55,40 +55,40 @@ public class TabataActivity extends Activity {
 	private void showPauseButton() {
 		Log.d(TAG, "showPauseLapButtons");
 
-		m_start.setVisibility(View.GONE);
-		m_reset.setVisibility(View.GONE);
-		m_pause.setVisibility(View.VISIBLE);
+		t_start.setVisibility(View.GONE);
+		t_reset.setVisibility(View.GONE);
+		t_pause.setVisibility(View.VISIBLE);
 	}
 
 	private void showStartResetButtons() {
 		Log.d(TAG, "showStartResetButtons");
 
-		m_start.setVisibility(View.VISIBLE);
-		m_reset.setVisibility(View.VISIBLE);
-		m_pause.setVisibility(View.GONE);
+		t_start.setVisibility(View.VISIBLE);
+		t_reset.setVisibility(View.VISIBLE);
+		t_pause.setVisibility(View.GONE);
 	}
 
 	public void onStartClicked(View v) {
 		Log.d(TAG, "start button clicked");
-		start();
+		tabata.start();
 
 		showPauseButton();
 	}
 
 	public void onPauseClicked(View v) {
 		Log.d(TAG, "pause button clicked");
-		pause();
+		tabata.stop();
 
 		showStartResetButtons();
 	}
 
 	public void onResetClicked(View v) {
 		Log.d(TAG, "reset button clicked");
-		reset();
+		tabata.reset();
 	}
 
 	public void updateElapsedTime() {
-		m_elapsedTime.setText(getFormattedElapsedTime());
+		t_elapsedTime.setText(getFormattedElapsedTime());
 	}
 
 	private String formatElapsedTime(long now, int set) {
@@ -127,23 +127,23 @@ public class TabataActivity extends Activity {
 	}
 
 	public long getElapsedTime() {
-		return m_stopwatch.getElapsedTime();
+		return tabata.getElapsedTime();
 
 	}
-
+/*
 	public void start() {
 		Log.d(TAG, "start");
-		m_stopwatch.start();
+		tabata.start();
 	}
 
 	public void pause() {
 		Log.d(TAG, "pause");
-		m_stopwatch.pause();
+		tabata.pause();
 	}
 
 	public void reset() {
 		Log.d(TAG, "reset");
-		m_stopwatch.reset();
+		tabata.reset();
 	}
-
+*/
 }

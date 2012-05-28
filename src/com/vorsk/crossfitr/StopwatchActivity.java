@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class StopwatchActivity extends Activity {
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView m_elapsedTime;
-	private Button m_start;
-	private Button m_pause;
-	private Button m_reset;
-	private Time m_stopwatch = new Time();
+	private TextView s_elapsedTime;
+	private Button s_start;
+	private Button s_pause;
+	private Button s_reset;
+	private Time stopwatch = new Time();
 
 	
 	// Timer to update the elapsedTime display
@@ -39,11 +39,11 @@ public class StopwatchActivity extends Activity {
         //startService(new Intent(this, StopwatchService.class));
         //bindStopwatchService();
         
-        m_elapsedTime = (TextView)findViewById(R.id.ElapsedTime);
+        s_elapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         
-        m_start = (Button)findViewById(R.id.StartButton);
-        m_pause = (Button)findViewById(R.id.PauseButton);
-        m_reset = (Button)findViewById(R.id.ResetButton);
+        s_start = (Button)findViewById(R.id.StartButton);
+        s_pause = (Button)findViewById(R.id.PauseButton);
+        s_reset = (Button)findViewById(R.id.ResetButton);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
     }
@@ -56,40 +56,40 @@ public class StopwatchActivity extends Activity {
     private void showPauseButton() {
     	Log.d(TAG, "showPauseLapButtons");
     	
-    	m_start.setVisibility(View.GONE);
-    	m_reset.setVisibility(View.GONE);
-    	m_pause.setVisibility(View.VISIBLE);
+    	s_start.setVisibility(View.GONE);
+    	s_reset.setVisibility(View.GONE);
+    	s_pause.setVisibility(View.VISIBLE);
     }
     
     private void showStartResetButtons() {
     	Log.d(TAG, "showStartResetButtons");
 
-    	m_start.setVisibility(View.VISIBLE);
-    	m_reset.setVisibility(View.VISIBLE);
-    	m_pause.setVisibility(View.GONE);
+    	s_start.setVisibility(View.VISIBLE);
+    	s_reset.setVisibility(View.VISIBLE);
+    	s_pause.setVisibility(View.GONE);
     }
     
     public void onStartClicked(View v) {
     	Log.d(TAG, "start button clicked");
-    	start();
+    	stopwatch.start();
     	
     	showPauseButton();
     }
     
     public void onPauseClicked(View v) {
     	Log.d(TAG, "pause button clicked");
-    	pause();
+    	stopwatch.stop();
     	
     	showStartResetButtons();
     }
     
     public void onResetClicked(View v) {
     	Log.d(TAG, "reset button clicked");
-    	reset();
+    	stopwatch.reset();
     }
     
     public void updateElapsedTime() {
-   		m_elapsedTime.setText(getFormattedElapsedTime());
+   		s_elapsedTime.setText(getFormattedElapsedTime());
     }
     
 	private String formatElapsedTime(long now) {
@@ -135,24 +135,24 @@ public class StopwatchActivity extends Activity {
 	}
 	
 	public long getElapsedTime() {
-		return m_stopwatch.getElapsedTime();
+		return stopwatch.getElapsedTime();
 
 	}
-	
+/*	
 	public void start() {
 		Log.d(TAG, "start");
-		m_stopwatch.start();
+		stopwatch.start();
 	}
 
 	public void pause() {
 		Log.d(TAG, "pause");
-		m_stopwatch.pause();
+		stopwatch.pause();
 	}
 
 
 	public void reset() {
 		Log.d(TAG, "reset");
-		m_stopwatch.reset();
+		stopwatch.reset();
 	}
-    
+    */
 }
