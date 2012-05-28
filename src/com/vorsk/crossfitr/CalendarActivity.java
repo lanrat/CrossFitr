@@ -246,7 +246,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 
-			printMonth(month, year);
+			createMonth(month, year);
 
 		}
 
@@ -274,7 +274,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return arg0;
 		}
 
-		private void printMonth(int mon, int year) {
+		private void createMonth(int mon, int year) {
 
 			int trailingSpaces = 0;
 			int leadSpaces = 0;
@@ -323,10 +323,16 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			}
 			
 			// Current Month Days
-			for (int i = 1; i <= daysInMonth; i++) {
-				
-				list.add(String.valueOf(i) + "-WHITE" + "-"
-				    + getMonthAsString(currentMonth) + "-" + year);
+			for (int i = 1; i <= daysInMonth; i++) {				
+				if (i == getCurrentDayOfMonth() && month == getMonth())
+				{
+					Log.d(NameofCurrentMonth, String.valueOf(i) + " " + getMonthAsString(currentMonth) + " " + year);
+					list.add(String.valueOf(i) + "-BLUE" + "-" + getMonthAsString(currentMonth) + "-" + year);
+				}
+			else
+				{
+					list.add(String.valueOf(i) + "-WHITE" + "-" + getMonthAsString(currentMonth) + "-" + year);
+				}
 			}
 
 			// Leading Month days
@@ -359,7 +365,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
 
 			if (day_color[1].equals("GREY")) {
-				gridcell.setTextColor(Color.LTGRAY);
+				gridcell.setTextColor(Color.GRAY);
 			}
 			if (day_color[1].equals("WHITE")) {
 				gridcell.setTextColor(Color.WHITE);
@@ -374,6 +380,18 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		
 		//TODO: Need to implement onClick method to retrieve data and put those on the list 
 		public void onClick(View view) {
+			
+			String date_month_year = (String) view.getTag();
+			try
+				{
+					Date parsedDate = dateFormatter.parse(date_month_year);
+					Log.d(tag, "Parsed Date: " + parsedDate.toString());
+
+				}
+			catch (ParseException e)
+				{
+					e.printStackTrace();
+				}
 
 
 		}
@@ -392,9 +410,15 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		public int getCurrentWeekDay() {
 			return currentWeekDay;
-		}		
+		}
 		
 	}
+	
+	public static int getMonth() {  
+      Calendar cale = Calendar.getInstance();      
+      return Calendar.MONTH + 1;  
+
+  }
 	
 	
 	
