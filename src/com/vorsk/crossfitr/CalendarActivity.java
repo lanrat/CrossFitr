@@ -12,20 +12,15 @@
 
 package com.vorsk.crossfitr;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -291,7 +286,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
-				list.add(String.valueOf(i + 1) + "-GREY" + "-"
+				list.add(String.valueOf(i + 1) + "-GRAY" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
 			
@@ -347,7 +342,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		
 		private int colorChanger(String sColor){
 			
-			if (sColor.equals("GREY")) {
+			if (sColor.equals("GRAY")) {
 				return Color.GRAY;
 			}
 
