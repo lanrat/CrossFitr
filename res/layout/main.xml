@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/homepage1"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="15dp" >
     <LinearLayout
         android:layout_width="fill_parent"
