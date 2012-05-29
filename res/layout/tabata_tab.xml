@@ -36,7 +36,7 @@
       android:paddingLeft="24dip"
       android:paddingRight="24dip"
       android:minWidth="150dip"
-      android:onClick="onPauseClicked"
+      android:onClick="onStopClicked"
       android:visibility="gone"/>
     <Button 
       android:text="Reset" 

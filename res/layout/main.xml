@@ -1,42 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/homepage1"
+    android:orientation="vertical"
+    android:padding="15dp" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal" >
 
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:background="@drawable/home"
-android:layout_height="fill_parent"
-android:layout_width="fill_parent"
-android:padding="5dip"
-android:orientation="horizontal" 
->
-		<TableLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center"
-		android:stretchColumns="*" >
+        <Button
+            android:id="@+id/main_button_userpic"
+            android:layout_width="78dp"
+            android:layout_height="86dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="37dp"
+            android:layout_weight="0.01"
+            android:background="@drawable/user_pic" />
 
-			<Button
-    	android:id="@+id/main_button_profile"
-    	android:layout_width="50dp"
-    	android:layout_height="80dp"
-    	android:layout_gravity="center"
-    	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button_profile1"/>
+        <View
+            android:layout_width="12dp"
+            android:layout_height="157dp" />
 
-			<Button 
-			android:id="@+id/main_button_workout"
-    	android:layout_width="50dp"
-    	android:layout_height="80dp"
-    	android:layout_gravity="center"
-    	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button_workout1"/>
+        <Button
+            android:id="@+id/main_button_profile"
+            android:layout_width="175dp"
+            android:layout_height="106dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="37dp"
+            android:background="@drawable/button_profile1" />
+    </LinearLayout>
 
-			<Button 
-			android:id="@+id/main_button_calendar"
-    	android:layout_width="50dp"
-    	android:layout_height="80dp"
-    	android:layout_gravity="center"
-    	android:layout_marginBottom="10dp" 
-    	android:background="@drawable/button_calendar1"/>
+    <LinearLayout
+        android:layout_width="274dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:layout_weight="0.01"
+        android:orientation="horizontal" >
 
-		</TableLayout>
-	</LinearLayout>
+        <TextView
+            android:id="@+id/main_num_of_workouts"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="23dp"
+            android:orientation="horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/main_last_workout"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="48dp"
+            android:orientation="horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
+        
+         <TextView
+            android:id="@+id/main_num_of_achievments"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="48dp"
+            android:orientation="horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="0.12"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/main_button_workouts"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_workouts1" />
+
+        <Button
+            android:id="@+id/main_button_calendar"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_calendar1" />
+    </LinearLayout>
+
+</LinearLayout>

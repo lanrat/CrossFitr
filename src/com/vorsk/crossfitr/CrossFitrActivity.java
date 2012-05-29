@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 
 public class CrossFitrActivity extends Activity implements OnClickListener
@@ -16,8 +17,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        // workout button
-        View workoutButton = findViewById(R.id.main_button_workout);
+        // workouts button
+        View workoutButton = findViewById(R.id.main_button_workouts);
         workoutButton.setOnClickListener(this);
         // calendar button
         View calendarButton = findViewById(R.id.main_button_calendar);
@@ -25,13 +26,23 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         // profile button
         View profileButton = findViewById(R.id.main_button_profile);
         profileButton.setOnClickListener(this);
+        
+    /** user status dialog **/
+      
+	TextView numOfWorkouts = (TextView)findViewById(R.id.main_num_of_workouts);
+	numOfWorkouts.setText("###");
+	
+	TextView lastWorkouts = (TextView)findViewById(R.id.main_last_workout);
+	lastWorkouts.setText("###");
+	
+	TextView numOfAchievments = (TextView)findViewById(R.id.main_num_of_achievments);
+	numOfAchievments.setText("###");           
     }
-
-
+    
 	public void onClick(View v) 
 	{
 		switch (v.getId()) {
-		case R.id.main_button_workout:
+		case R.id.main_button_workouts:
 			Intent i = new Intent(this, WorkoutsActivity.class);
 			startActivity(i);
 			break;
@@ -48,3 +59,4 @@ public class CrossFitrActivity extends Activity implements OnClickListener
 		}
 	}
 }
+

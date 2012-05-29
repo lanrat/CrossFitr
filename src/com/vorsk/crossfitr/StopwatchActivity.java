@@ -31,7 +31,7 @@ public class StopwatchActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.stopwatch);
+        setContentView(R.layout.stopwatch_tab);
 
 
         //startService(new Intent(this, StopwatchService.class));
