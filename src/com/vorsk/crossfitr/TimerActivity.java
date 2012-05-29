@@ -2,17 +2,13 @@ package com.vorsk.crossfitr;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.content.Context;
 
 public class TimerActivity extends Activity 
 {	
@@ -71,6 +67,9 @@ public class TimerActivity extends Activity
 
 		    };
 
+    /**
+     * Clears the timer; sets everything to 0
+     */
 	public void clearElapsedTime(){
 		mHour = 0;
 		mMin = 0;
@@ -84,6 +83,10 @@ public class TimerActivity extends Activity
 		mElapsedTime.setText(getFormattedElapsedTime());
 	}
 	 
+	/**
+	 * Gets the start time for the timer in milliseconds
+	 * @return start time in milliseconds
+	 */
 	public long getStartTime(){
 		startTime = (mHour * 3600000) + (mMin * 60000) + (mSec * 1000);
  	    return startTime;
@@ -96,35 +99,35 @@ public class TimerActivity extends Activity
 		long tenths = 0;
 		StringBuilder sb = new StringBuilder();
 		if(validateStart(start)){	
-		if (start < 1000) {
-			tenths = start / 100;
-		} 
+			if (start < 1000) {
+				tenths = start / 100;
+			} 
 		
-		else if (start < 60000) 
-		{
-			seconds = start / 1000;
-			start -= seconds * 1000;
-			tenths = start / 100;
+			else if (start < 60000) 
+			{
+				seconds = start / 1000;
+				start -= seconds * 1000;
+				tenths = start / 100;
+			}
+			
+			else if (start < 3600000) 
+			{
+				hours = start / 3600000;
+				start -= hours * 3600000;
+				minutes = start / 60000;
+				start -= minutes * 60000;
+				seconds = start / 1000;
+				start -= seconds * 1000;
+				tenths = start / 100;
+			}
 		}
 		
-		else if (start < 3600000) 
-		{
-			hours = start / 3600000;
-			start -= hours * 3600000;
-			minutes = start / 60000;
-			start -= minutes * 60000;
-			seconds = start / 1000;
-			start -= seconds * 1000;
-			tenths = start / 100;
-		}
-		}
 		sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
 	
-		return sb.toString();
-		
+		return sb.toString();		
 	}
 	
 	private boolean validateStart(long start) {
@@ -134,11 +137,15 @@ public class TimerActivity extends Activity
 		return true;
 	}
 
+	/**
+	 * Gets the current elapsed time in 0:00:00.00 format
+	 * @return
+	 */
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - (getElapsedTime() % 30000));
 	}
 	
-	public long getElapsedTime() {
+	private long getElapsedTime() {
 		return timer.getElapsedTime();
 	}
 	
@@ -149,7 +156,7 @@ public class TimerActivity extends Activity
 	}
 
 	public void onStopClicked(View v) {
-		Log.d(TAG, "pause button clicked");
+		Log.d(TAG, "stop button clicked");
 		timer.stop();
 		showStartButton();
 	}
