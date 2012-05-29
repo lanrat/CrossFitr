@@ -238,7 +238,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
-			currentYear_value = tempcal.get(Calendar.YEAR) + 1;
+			currentYear_value = tempcal.get(Calendar.YEAR);
 			createMonth(month, year);
 
 		}
