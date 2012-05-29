@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 
-public class TimeTabWidget extends TabActivity{
-
+public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
+    
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.time_tab_widget);
-
+	    
 	    Resources res = getResources(); // Resource object to get Drawables
 	    TabHost tabHost = getTabHost();  // The activity TabHost
 	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
-	    Intent intent;  // Reusable Intent for each tab
+	    Intent intent;
 
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, TimerActivity.class);
@@ -42,6 +42,9 @@ public class TimeTabWidget extends TabActivity{
 
 	    tabHost.setCurrentTab(0);
 	}
+	
+	
+
 }
 
 	

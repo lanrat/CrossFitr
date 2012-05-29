@@ -142,7 +142,7 @@ public class TimerActivity extends Activity
 	 * @return
 	 */
 	public String getFormattedElapsedTime() {
-		return formatElapsedTime(getStartTime() - (getElapsedTime() % 30000));
+		return formatElapsedTime(getStartTime() - getElapsedTime());
 	}
 	
 	private long getElapsedTime() {

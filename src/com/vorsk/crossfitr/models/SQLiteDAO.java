@@ -36,17 +36,20 @@ public abstract class SQLiteDAO
 	public static final String COL_MDATE = "date_modified";
 	
 	// Pre-populated Type IDs
+		// Workout types
 	public static final int TYPE_NONE = -1;
 	public static final int TYPE_WOD = 1;
 	public static final int TYPE_GIRL = 2;
 	public static final int TYPE_HERO = 3;
 	public static final int TYPE_CUSTOM = 4;
 	
+		// Score types
 	public static final int SCORE_NONE   = -1;
 	public static final int SCORE_TIME   = 1;
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;
 	
+		// Score value
 	public static final int NOT_SCORED = -1;
 	
 	// Abstract - defined by arguments to the ctor
@@ -60,9 +63,9 @@ public abstract class SQLiteDAO
 	/**
 	 * DB connection object, subclassed for the specific DB params we need
 	 * 
-	 * Though, not entirely sure regarding the necessity of this as well as its
+	 * Though, not entirely sure regarding the necessity of this AND its
 	 * wrapper class. Just referenced a google "common practices" doc to
-	 * make this helper. // TODO: Learn specifics of SQLiteOpenHelper
+	 * make this helper.
 	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper
 	{
@@ -79,39 +82,47 @@ public abstract class SQLiteDAO
 		{
 			Log.v("DB", "DB onCreate BEGIN");
 			
-			InputStream sqlfile =
-					context.getResources().openRawResource(R.raw.db_create);
-			InputStream insfile =
-					context.getResources().openRawResource(R.raw.db_create_inserts);
+			// Fetch the creation scripts
+			InputStream sqlfile = context.getResources().openRawResource(
+					R.raw.db_create);
+			InputStream insfile = context.getResources().openRawResource(
+					R.raw.db_create_inserts);
 			byte[] reader;
 			String sqltext;
 			String[] statements;
 			
 			try {
+				// Read in the creation script
 				reader = new byte[sqlfile.available()];
 				while (sqlfile.read(reader) != -1){}
 				sqltext = new String(reader);
 				statements = sqltext.split("--###--");
 				
+				// Create all tables
 				Log.v("DB", "Creating database...");
 				for (int ii=0; ii<statements.length; ii++) {
 					db.execSQL(statements[ii]);
 				}
 				Log.v("DB", "Done creating database");
 				
+				// Read in script with the data for prepopulation
 				reader = new byte[insfile.available()];
 				while (insfile.read(reader) != -1) {}
 				sqltext = new String(reader);
 				statements = sqltext.split("--###--");
 				
+				// Prepopulate the db
 				Log.v("DB", "Inserting data...");
 				for (int ii=0; ii<statements.length; ii++) {
 					db.execSQL(statements[ii]);
 				}
 				Log.v("DB", "Done inserting data");
-			} catch (IOException e) {
+			} catch (SQLException e) {
 				// TODO: this
 				Log.e("DB", "Error occurred during creation");
+			} catch (IOException e) {
+				// TODO: this
+				Log.e("DB", "Error reading DB creation files");
 			}
 			
 			Log.v("DB", "DB onCreate END");
@@ -121,6 +132,8 @@ public abstract class SQLiteDAO
 		public void onUpgrade(SQLiteDatabase db, int over, int nver)
 		{
 			// TODO: This
+			// Just drop the database and recreate if we're lazy...
+			// though that would get rid of all existing data
 		}
 		
 		@Override
