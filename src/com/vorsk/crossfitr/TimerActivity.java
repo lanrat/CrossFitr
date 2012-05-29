@@ -20,6 +20,7 @@ public class TimerActivity extends Activity
     static final int NUMBER_DIALOG_ID = 0; // Dialog variable
     TextView mTimeDisplay, mElapsedTime;
     private int mHour, mMin, mSec;
+    private long startTime;
     NumberPicker mNumberPicker;
     Button mStart, mStop, mReset, mSetTimer;
     Time timer = new Time();
@@ -61,23 +62,30 @@ public class TimerActivity extends Activity
 	private NumberPickerDialog.OnNumberSetListener mNumberSetListener =
 			new NumberPickerDialog.OnNumberSetListener() {
 				public void onNumberSet(int selectedHour, int selectedMin, int selectedSec) {
+					clearElapsedTime();
 					mHour = selectedHour;
 					mMin = selectedMin;
 					mSec = selectedSec;
-					mElapsedTime.setText(new StringBuilder().append(mHour)
-					    	.append(":").append(formatDigits(mMin)).append(":").append(formatDigits(mSec)));
 					showStartButton();
 				}
 
 		    };
 
+	public void clearElapsedTime(){
+		mHour = 0;
+		mMin = 0;
+		mSec = 0;
+		startTime = 0;
+		timer.reset();
+		updateElapsedTime();
+	}
 	
 	private void updateElapsedTime() {
 		mElapsedTime.setText(getFormattedElapsedTime());
 	}
 	 
 	public long getStartTime(){
-		long startTime = (mHour * 3600000) + (mMin * 60000) + (mSec * 1000);
+		startTime = (mHour * 3600000) + (mMin * 60000) + (mSec * 1000);
  	    return startTime;
     }
 
@@ -87,10 +95,7 @@ public class TimerActivity extends Activity
 		long seconds = 0;
 		long tenths = 0;
 		StringBuilder sb = new StringBuilder();
-		if(start <= 0){
-			timer.stop();
-		}
-		
+		if(validateStart(start)){	
 		if (start < 1000) {
 			tenths = start / 100;
 		} 
@@ -112,15 +117,23 @@ public class TimerActivity extends Activity
 			start -= seconds * 1000;
 			tenths = start / 100;
 		}
-			
+		}
 		sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
 	
 		return sb.toString();
+		
 	}
 	
+	private boolean validateStart(long start) {
+		if(start <= 0){		
+			return false;
+		}
+		return true;
+	}
+
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - (getElapsedTime() % 30000));
 	}
@@ -132,7 +145,7 @@ public class TimerActivity extends Activity
 	public void onStartClicked(View V) {
 		Log.d(TAG, "start button clicked");
 		timer.start();
-		showPauseButton();
+		showStopButton();
 	}
 
 	public void onStopClicked(View v) {
@@ -141,10 +154,11 @@ public class TimerActivity extends Activity
 		showStartButton();
 	}
 	
-	private void showPauseButton() {
+	private void showStopButton() {
 		Log.d(TAG, "showPauseLapButtons");
 
 		mStart.setVisibility(View.GONE);
+		mSetTimer.setVisibility(View.GONE);
 		mStop.setVisibility(View.VISIBLE);
 	}
 
@@ -152,6 +166,7 @@ public class TimerActivity extends Activity
 		Log.d(TAG, "showStartResetButtons");
 
 		mStart.setVisibility(View.VISIBLE);
+		mSetTimer.setVisibility(View.VISIBLE);
 		mStop.setVisibility(View.GONE);
 	}
 
