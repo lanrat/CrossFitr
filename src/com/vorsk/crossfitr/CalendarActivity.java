@@ -222,7 +222,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentDayOfMonth;
 		private int currentWeekDay;
 		private Button gridcell;
-		private int currentMonth_value;
+		private int currentMonth_value, currentYear_value;
 
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
 				"dd-MMM-yyyy");
@@ -238,6 +238,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
+			currentYear_value = tempcal.get(Calendar.YEAR) + 1;
 			createMonth(month, year);
 
 		}
@@ -333,7 +334,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					list.set(indexCount, tempString);
 				}
 
-				if (i == getCurrentDayOfMonth() && month == currentMonth_value) {
+				if (i == getCurrentDayOfMonth() && month == currentMonth_value
+						&& year == currentYear_value) {
 					tempString = String.valueOf(i) + "-YELLOW" + "-"
 							+ getMonthAsString(currentMonth) + "-" + year;
 					list.set(indexCount, tempString);
