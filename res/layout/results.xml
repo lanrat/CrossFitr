@@ -15,57 +15,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="TODO: get workout name from DB" />    
+        android:id="@+id/text_workout_name"/>"
         
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="24.5sp"
-        android:text="@string/results_description_header" />      
+        android:text="@string/results_description_header" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TODO: get description from DB" /> 
-            
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:textSize="24.5sp"
-        android:text="@string/results_record_type_header" />      
+        android:id="@+id/text_workout_desc" />
     
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="TODO: get recordtype from DB" /> 
-    
-        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="24.5sp"
         android:text="@string/record_header" />
     
-        <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="TODO: get best record from DB" />
+        android:id="@+id/text_workout_record" />
 	
-        <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="24.5sp"
         android:text="@string/results_time_header" />  
     
-    	<TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="TODO: get time from timer" />
+        android:id="@+id/text_session_score" />
         
 	<LinearLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
