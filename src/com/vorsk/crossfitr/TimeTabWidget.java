@@ -8,7 +8,6 @@ import android.widget.TabHost;
 
 
 public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
-    
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.time_tab_widget);
@@ -42,9 +41,6 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 
 	    tabHost.setCurrentTab(0);
 	}
-	
-	
-
 }
 
 	

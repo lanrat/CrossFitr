@@ -19,7 +19,10 @@ public class TimerActivity extends Activity
     private long startTime;
     NumberPicker mNumberPicker;
     Button mStart, mStop, mReset, mSetTimer;
+    boolean firstTimeCountdown = true;
+    boolean firstTimeAlarm = true;
     Time timer = new Time();
+    AudibleTime sound = new AudibleTime();
     
     
 	// Timer to update the elapsedTime display
@@ -58,7 +61,7 @@ public class TimerActivity extends Activity
 	private NumberPickerDialog.OnNumberSetListener mNumberSetListener =
 			new NumberPickerDialog.OnNumberSetListener() {
 				public void onNumberSet(int selectedHour, int selectedMin, int selectedSec) {
-					clearElapsedTime();
+					clearAllTimer();
 					mHour = selectedHour;
 					mMin = selectedMin;
 					mSec = selectedSec;
@@ -70,13 +73,21 @@ public class TimerActivity extends Activity
     /**
      * Clears the timer; sets everything to 0
      */
-	public void clearElapsedTime(){
+	public void clearAllTimer(){
 		mHour = 0;
 		mMin = 0;
 		mSec = 0;
 		startTime = 0;
+		firstTimeCountdown = true;
+		firstTimeAlarm = true;
 		timer.reset();
 		updateElapsedTime();
+	}
+	
+	private void clearInput(){
+		mHour = 0;
+		mMin = 0;
+		mSec = 0;
 	}
 	
 	private void updateElapsedTime() {
@@ -130,8 +141,13 @@ public class TimerActivity extends Activity
 		return sb.toString();		
 	}
 	
+
 	private boolean validateStart(long start) {
-		if(start <= 0){		
+		if(start <= 0){	
+			showStartButton();
+			showTimerSetButton();
+			clearInput();
+			timer.reset();
 			return false;
 		}
 		return true;
@@ -153,35 +169,40 @@ public class TimerActivity extends Activity
 		Log.d(TAG, "start button clicked");
 		timer.start();
 		showStopButton();
+		hideTimerSetButton();
 	}
 
 	public void onStopClicked(View v) {
 		Log.d(TAG, "stop button clicked");
 		timer.stop();
 		showStartButton();
+		showTimerSetButton();
 	}
 	
 	private void showStopButton() {
 		Log.d(TAG, "showPauseLapButtons");
 
 		mStart.setVisibility(View.GONE);
-		mSetTimer.setVisibility(View.GONE);
 		mStop.setVisibility(View.VISIBLE);
 	}
 
 	private void showStartButton() {
 		Log.d(TAG, "showStartResetButtons");
-
 		mStart.setVisibility(View.VISIBLE);
-		mSetTimer.setVisibility(View.VISIBLE);
 		mStop.setVisibility(View.GONE);
 	}
 
+	private void showTimerSetButton(){
+		mSetTimer.setVisibility(View.VISIBLE);
+	}
+	
+	private void hideTimerSetButton(){
+		mSetTimer.setVisibility(View.GONE);
+	}
 	
 	private String formatDigits(long num) {
 		return (num < 10) ? "0" + num : new Long(num).toString();
 	}
-	
 	
 	// Override creating the Dialog
 	@Override
