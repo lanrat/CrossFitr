@@ -9,9 +9,9 @@
 	    android:layout_gravity="center"
 	    android:layout_width="50dip"
 	    android:layout_height="wrap_content"
+	    android:background="@drawable/calendar_button_selector"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:textColor="#FFFFFF"
-	    android:background="@drawable/calendar_cellfiller"/>
+	    android:textColor="#FFFFFF"/>
 	
 	<TextView
 		android:id="@+id/num_events_per_day"
