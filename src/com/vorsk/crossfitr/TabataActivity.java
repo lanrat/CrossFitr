@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class TabataActivity extends Activity {
+	private static final int TOTAL_TIME = 30000 * 8;
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
 	private TextView t_elapsedTime;
@@ -87,6 +88,13 @@ public class TabataActivity extends Activity {
 		tabata.reset();
 	}
 
+	private void endTabata() {
+		newStart = true;
+		tabata.reset();
+		this.showStartResetButtons();
+		//TODO: end alarm sound and popup??
+	}
+
 	public void updateElapsedTime() {
 		t_elapsedTime.setText(getFormattedElapsedTime());
 	}
@@ -94,7 +102,7 @@ public class TabataActivity extends Activity {
 	private String formatElapsedTime(long now, int set) {
 		long seconds = 0, tenths = 0;
 		StringBuilder sb = new StringBuilder();
-		
+
 		if(newStart){
 			now = 20000;			
 		}
@@ -118,21 +126,24 @@ public class TabataActivity extends Activity {
 	}
 
 	public String getFormattedElapsedTime() {
-		int set = 1 + ((int)getElapsedTime() / 30000);
-		long diff = (30000 * 8) - getElapsedTime();
+		long time = tabata.getElapsedTime();
+		
+		int set = 1 + ((int)time / 30000);
+		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
+		
+		if(diff <= 0){
+			set = 1;
+			this.endTabata();
+		}
 		if(remain > 10000 ){
-			return formatElapsedTime(20000 - (getElapsedTime() % 30000), set);
+			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
 			//TODO: beep, change color(green or red)
 			return formatElapsedTime(0, set);
 		}else{
-			return formatElapsedTime(30000 - (getElapsedTime() % 30000), set);
+			return formatElapsedTime(30000 - (time % 30000), set);
 		}
 	}
 
-	public long getElapsedTime() {
-		return tabata.getElapsedTime();
-
-	}
 }
