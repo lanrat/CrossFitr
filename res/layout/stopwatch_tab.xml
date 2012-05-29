@@ -13,6 +13,7 @@
     android:textSize="72sp"/>
 
   <Button
+  	android:text="@string/start_label"
   	android:id="@+id/StartButton"
   	android:layout_width="wrap_content"
   	android:layout_height="wrap_content"
@@ -20,7 +21,6 @@
   	android:onClick="onStartClicked"
   	android:paddingLeft="24dip"
   	android:paddingRight="24dip"
-  	android:text="Start"
   	android:textSize="36sp" />
 
   <LinearLayout
@@ -28,18 +28,18 @@
     android:layout_height="wrap_content"
     android:gravity="center">
     <Button 
-      android:text="Pause" 
-      android:id="@+id/PauseButton" 
+      android:text="@string/stop_label"
+      android:id="@+id/StopButton" 
       android:layout_width="wrap_content" 
       android:layout_height="wrap_content"
       android:textSize="36sp"
       android:paddingLeft="24dip"
       android:paddingRight="24dip"
       android:minWidth="150dip"
-      android:onClick="onPauseClicked"
+      android:onClick="onStopClicked"
       android:visibility="gone"/>
     <Button 
-      android:text="Reset" 
+      android:text="@string/reset_label" 
       android:id="@+id/ResetButton" 
       android:layout_width="wrap_content" 
       android:layout_height="wrap_content"

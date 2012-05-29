@@ -15,7 +15,7 @@ public class TabataActivity extends Activity {
 	// View elements in stopwatch.xml
 	private TextView t_elapsedTime;
 	private Button t_start;
-	private Button t_pause;
+	private Button t_stop;
 	private Button t_reset;
 	private Time tabata = new Time();
 	private boolean newStart;
@@ -40,7 +40,7 @@ public class TabataActivity extends Activity {
 		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
 
 		t_start = (Button) findViewById(R.id.StartButton);
-		t_pause = (Button) findViewById(R.id.PauseButton);
+		t_stop = (Button) findViewById(R.id.StopButton);
 		t_reset = (Button) findViewById(R.id.ResetButton);
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
@@ -52,12 +52,12 @@ public class TabataActivity extends Activity {
 		super.onDestroy();
 	}
 
-	private void showPauseButton() {
+	private void showStopButton() {
 		Log.d(TAG, "showPauseLapButtons");
 
 		t_start.setVisibility(View.GONE);
 		t_reset.setVisibility(View.GONE);
-		t_pause.setVisibility(View.VISIBLE);
+		t_stop.setVisibility(View.VISIBLE);
 	}
 
 	private void showStartResetButtons() {
@@ -65,18 +65,18 @@ public class TabataActivity extends Activity {
 
 		t_start.setVisibility(View.VISIBLE);
 		t_reset.setVisibility(View.VISIBLE);
-		t_pause.setVisibility(View.GONE);
+		t_stop.setVisibility(View.GONE);
 	}
 
 	public void onStartClicked(View v) {
 		Log.d(TAG, "start button clicked");
 		tabata.start();
 		newStart = false;
-		showPauseButton();
+		showStopButton();
 	}
 
-	public void onPauseClicked(View v) {
-		Log.d(TAG, "pause button clicked");
+	public void onStopClicked(View v) {
+		Log.d(TAG, "stop button clicked");
 		newStart = false;
 		tabata.stop();
 		showStartResetButtons();
@@ -132,7 +132,8 @@ public class TabataActivity extends Activity {
 		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
 		
-		if(diff <= 0){
+		//reset at end of set 8 workout. no last 10 sec break
+		if(diff <= 10000){
 			set = 1;
 			this.endTabata();
 		}

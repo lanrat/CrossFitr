@@ -13,7 +13,7 @@ public class StopwatchActivity extends Activity {
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
 	private TextView sElapsedTime;
-	private Button sStart, sPause, sReset;
+	private Button sStart, sStop, sReset;
 	private Time stopwatch = new Time();
 
 	
@@ -40,7 +40,7 @@ public class StopwatchActivity extends Activity {
         sElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         
         sStart = (Button)findViewById(R.id.StartButton);
-        sPause = (Button)findViewById(R.id.PauseButton);
+        sStop = (Button)findViewById(R.id.StopButton);
         sReset = (Button)findViewById(R.id.ResetButton);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
@@ -51,12 +51,12 @@ public class StopwatchActivity extends Activity {
         super.onDestroy();
     }
    
-    private void showPauseButton() {
+    private void showStopButton() {
     	Log.d(TAG, "showPauseLapButtons");
     	
     	sStart.setVisibility(View.GONE);
     	sReset.setVisibility(View.GONE);
-    	sPause.setVisibility(View.VISIBLE);
+    	sStop.setVisibility(View.VISIBLE);
     }
     
     private void showStartResetButtons() {
@@ -64,18 +64,18 @@ public class StopwatchActivity extends Activity {
 
     	sStart.setVisibility(View.VISIBLE);
     	sReset.setVisibility(View.VISIBLE);
-    	sPause.setVisibility(View.GONE);
+    	sStop.setVisibility(View.GONE);
     }
     
     public void onStartClicked(View v) {
     	Log.d(TAG, "start button clicked");
     	stopwatch.start();
     	
-    	showPauseButton();
+    	showStopButton();
     }
     
-    public void onPauseClicked(View v) {
-    	Log.d(TAG, "pause button clicked");
+    public void onStopClicked(View v) {
+    	Log.d(TAG, "stop button clicked");
     	stopwatch.stop();
     	
     	showStartResetButtons();

@@ -16,6 +16,9 @@
     <string name="timer_label">Timer</string>
     <string name="tabata_label">Tabata</string>
     <string name="stopwatch_label">Stopwatch</string>
+    <string name="start_label">Start</string>
+    <string name="stop_label">Stop</string>
+    <string name="reset_label">Reset</string>
     
     <!-- Working layout on Anthony table -->
     <string name="name_of_workout_add">Name of Workout</string>
