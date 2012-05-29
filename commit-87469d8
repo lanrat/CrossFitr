@@ -1,40 +1,0 @@
-commit 87469d8d8b96f31aca415b565c12dc2fb8e79075
-Author: Alice <amnguyen30@gmail.com>
-Date:   Mon May 28 23:44:34 2012 -0700
-
-    Ooopsies, here's main.xml with calendar and workout buttons.
-
-diff --git a/res/layout/main.xml b/res/layout/main.xml
-index c178bea..971ee3a 100644
---- a/res/layout/main.xml
-+++ b/res/layout/main.xml
-@@ -3,8 +3,9 @@
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:background="@drawable/homepage1"
--    android:orientation="horizontal"
--    android:padding="15dp" >
-+    android:orientation="vertical"
-+    android:padding="15dp" >
-+
-     <LinearLayout
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-@@ -35,7 +36,7 @@
-             android:layout_marginTop="37dp"
-             android:background="@drawable/button_profile1" />
-     </LinearLayout>
--
-+
-     <LinearLayout
-         android:layout_width="274dp"
-         android:layout_height="60dp"
-@@ -70,7 +71,7 @@
-             android:textColor="#ffffff"
-             android:textSize="25dp" />
-     </LinearLayout>
--
-+
-     <LinearLayout
-         android:layout_width="fill_parent"
-         android:layout_height="0dp"
