@@ -5,7 +5,7 @@
     android:background="@drawable/homepage1"
     android:orientation="vertical"
     android:padding="15dp" >
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -35,8 +35,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="37dp"
             android:background="@drawable/button_profile1" />
-    </LinearLayout>
-
+    </LinearLayout>
     <LinearLayout
         android:layout_width="274dp"
         android:layout_height="60dp"
@@ -71,14 +70,14 @@
             android:textColor="#ffffff"
             android:textSize="25dp" />
     </LinearLayout>
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:layout_weight="0.12"
         android:orientation="vertical" >
-
+
         <Button
             android:id="@+id/main_button_workouts"
             android:layout_width="210dp"
