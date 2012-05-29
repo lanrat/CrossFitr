@@ -26,6 +26,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -50,7 +51,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private TextView nameofWorkout, durationtime;
 
 	private ListView calendarList;
-	private Listadapter cal_adapter;
 
 	private GridView calView;
 	private GridAdapter gridAdapter; // inner class to handle adapter
@@ -79,11 +79,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
-
-		calendarList = (ListView) this.findViewById(R.id.calendar_list);
-		cal_adapter = new Listadapter(getApplicationContext(), month, year);
-		cal_adapter.notifyDataSetChanged();
-		calendarList.setAdapter(cal_adapter);
 
 		nameofWorkout = (TextView) this.findViewById(R.id.cal_workoutname);
 		durationtime = (TextView) this.findViewById(R.id.cal_durationtime);
@@ -137,61 +132,16 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	 * 
 	 * 
 	 */
-	public class Listadapter extends BaseAdapter {
+	public class ListHelper extends Activity {
 
-		private Context context;
-		int listMonth, listYear;
-
-		String temp_nameofworkout, temp_durationtime;
-
-		public Listadapter(Context _context, int month, int year) {
-			super();
-			this.context = _context;
-			listMonth = month;
-			listYear = year;
-
-		}
-
-		public void setListAdapter(int month, int year) {
-
-		}
-
-		/**
-		 * Name: getData Description: When the user clicked one of days on the
-		 * calendar, this method, getData, find out there is workout data in that
-		 * selected day. If the user has done some workout in that day, this method
-		 * retrieves data, name of workout and duration time.
-		 * 
-		 * @param Listyear
-		 * @param Listmonth
-		 * @return
-		 */
-		// TODO: Make this method work right.
-		private HashMap gettingData(int Listyear, int Listmonth) {
-
-			HashMap map = new HashMap<String, Integer>();
-
-			return map;
-		}
-
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			// TODO Auto-generated method stub
-			return null;
+		public void onCreate(Bundle savedInstanceState){
+			setContentView(R.layout.calendar_listhelper);
+			
+			ListView listview = (ListView) findViewById(R.id.calendar_list);
+			
+			
+			
+			
 		}
 	}
 
@@ -223,6 +173,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentWeekDay;
 		private Button gridcell;
 		private int currentMonth_value, currentYear_value;
+		private String buttonControl_color = null;
 		private boolean viewControl = false;
 		private Button buttonControl = null;
 
@@ -370,31 +321,16 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			String[] day_color = list.get(position).split("-");
 			String theday = day_color[0];
+			String initialColor = day_color[1];
 			String themonth = day_color[2];
 			String theyear = day_color[3];
 
 			// set color for days
 			gridcell.setText(theday);
-			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
-
-			if (day_color[1].equals("GREY")) {
-				gridcell.setTextColor(Color.GRAY);
-			}
-			if (day_color[1].equals("WHITE")) {
-				gridcell.setTextColor(Color.WHITE);
-			}
-			if (day_color[1].equals("BLUE")) {
-				gridcell.setTextColor(getResources().getColor(
-						R.color.static_text_blue));
-			}
-			if (day_color[1].equals("YELLOW")) {
-				gridcell.setTextColor(getResources().getColor(
-						R.color.static_text_yellow));
-			}
-			if (day_color[1].equals("RED")) {
-				gridcell.setTextColor(getResources().getColor(
-						R.color.static_text_red));
-			}
+			gridcell.setTag(initialColor + "-" + theday + "-" + themonth + "-" + theyear);
+			
+			gridcell.setTextColor(colorChanger(day_color[1]));
+			
 			return row;
 		}
 
@@ -402,25 +338,42 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// the list
 		public void onClick(View view) {
 			Button clickedButton = (Button) view;
-			if(buttonControl != null)
-				buttonControl.setTextColor(Color.WHITE);
+			if(buttonControl != null && buttonControl_color != null){
+				buttonControl.setTextColor(colorChanger(buttonControl_color));
+			}
 		
 			clickedButton.setOnClickListener(this);
 			clickedButton.setTextColor(getResources().getColor(
 						R.color.static_text_green));
-	//		clickedButton.setBackgroundDrawable(getWallpaper());
+			
 			buttonControl = clickedButton;
+			String tempHelper = (String) buttonControl.getTag();
+			String[] colorHelper = tempHelper.split("-");
+			buttonControl_color = colorHelper[0];
+		}
+		
+		private int colorChanger(String sColor){
 			
-			
-			String date_month_year = (String) view.getTag();
-			try {
-				Date parsedDate = dateFormatter.parse(date_month_year);
-				Log.d(tag, "Touched date :" + date_month_year);
-
-			} catch (ParseException e) {
-				e.printStackTrace();
+			if (sColor.equals("GREY")) {
+				return Color.GRAY;
 			}
 
+			if (sColor.equals("BLUE")) {
+				return getResources().getColor(
+						R.color.static_text_blue);
+			}
+			if (sColor.equals("YELLOW")) {
+				return getResources().getColor(
+						R.color.static_text_yellow);
+			}
+			if (sColor.equals("RED")) {
+				return getResources().getColor(
+						R.color.static_text_red);
+			}
+			else{
+				return Color.WHITE;
+			}
+			
 		}
 
 		public int getCurrentDayOfMonth() {
