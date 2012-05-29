@@ -223,6 +223,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentWeekDay;
 		private Button gridcell;
 		private int currentMonth_value, currentYear_value;
+		private boolean viewControl = false;
+		private Button buttonControl = null;
 
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
 				"dd-MMM-yyyy");
@@ -347,6 +349,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				list.add(String.valueOf(i + 1) + "-GREY" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
+			
+			for(int i = 0; i < list.size(); i++){
+				Log.d(tag, "Index ["+i+"] :" + list.get(i));
+			}
 
 		}
 
@@ -395,11 +401,21 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// TODO: Need to implement onClick method to retrieve data and put those on
 		// the list
 		public void onClick(View view) {
+			Button clickedButton = (Button) view;
+			if(buttonControl != null)
+				buttonControl.setTextColor(Color.WHITE);
+		
+			clickedButton.setOnClickListener(this);
+			clickedButton.setTextColor(getResources().getColor(
+						R.color.static_text_green));
+	//		clickedButton.setBackgroundDrawable(getWallpaper());
+			buttonControl = clickedButton;
+			
 			
 			String date_month_year = (String) view.getTag();
 			try {
 				Date parsedDate = dateFormatter.parse(date_month_year);
-				Log.d(tag, "Touched date :" + parsedDate.toString());
+				Log.d(tag, "Touched date :" + date_month_year);
 
 			} catch (ParseException e) {
 				e.printStackTrace();
