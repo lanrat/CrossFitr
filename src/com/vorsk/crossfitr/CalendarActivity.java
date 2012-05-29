@@ -1,14 +1,13 @@
 /**
  * Calendar
  * 
- * @author Darren Seung Won
  * @Process: In development 
- * TODO: 1. Make a list below the calendar
- *       2. Access to the database
- *       3. A little mark on the cell which has workout record
+ * TODO: 1. Make a list below the calendar (Ian)
+ *       2. Access to the database (Ian)
+ *       3. A little mark on the cell which has workout record (Darren)
  *          (got an idea. I will implement it soon)
  *       
- * Last update: May 26 12
+ * Last update: May 29 12
  */
 
 package com.vorsk.crossfitr;
@@ -128,23 +127,22 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	/**
 	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
-	 * 
-	 * 
-	 * 
+	 * TODO:: ListView Starts from there 
 	 */
 	public class ListHelper extends Activity {
 
 		public void onCreate(Bundle savedInstanceState){
 			setContentView(R.layout.calendar_listhelper);
 			
-			ListView listview = (ListView) findViewById(R.id.calendar_list);
-			
-			
-			
+			ListView listview = (ListView) findViewById(R.id.calendar_list);		
 			
 		}
 	}
 
+	
+	
+	
+	
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
 	 * 
@@ -198,10 +196,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		private String getMonthAsString(int i) {
 			return months[i];
-		}
-
-		private String getWeekDayAsString(int i) {
-			return weekdays[i];
 		}
 
 		private int getNumberOfDaysOfMonth(int i) {
@@ -320,14 +314,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			gridcell.setOnClickListener(this);
 
 			String[] day_color = list.get(position).split("-");
-			String theday = day_color[0];
-			String initialColor = day_color[1];
-			String themonth = day_color[2];
-			String theyear = day_color[3];
 
 			// set color for days
-			gridcell.setText(theday);
-			gridcell.setTag(initialColor + "-" + theday + "-" + themonth + "-" + theyear);
+			gridcell.setText(day_color[0]);
+			gridcell.setTag(day_color[1] + "-" + day_color[0] + "-" +  day_color[2] + "-" + day_color[3]);
 			
 			gridcell.setTextColor(colorChanger(day_color[1]));
 			
@@ -350,6 +340,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			String tempHelper = (String) buttonControl.getTag();
 			String[] colorHelper = tempHelper.split("-");
 			buttonControl_color = colorHelper[0];
+
+			
+			Log.d(tag,"getId() : " + view.getId());
 		}
 		
 		private int colorChanger(String sColor){
