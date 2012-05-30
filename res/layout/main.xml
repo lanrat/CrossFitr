@@ -77,7 +77,7 @@
         android:layout_marginTop="12dp"
         android:layout_weight="0.12"
         android:orientation="vertical" >
-
+	        
         <Button
             android:id="@+id/main_button_workouts"
             android:layout_width="210dp"
@@ -85,7 +85,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="25dp"
-            android:background="@drawable/button_workouts1" />
+            android:background="@drawable/workout_button_click" />
 
         <Button
             android:id="@+id/main_button_calendar"
