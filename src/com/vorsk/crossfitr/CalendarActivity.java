@@ -133,15 +133,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			
 		}
 	}
-
-	
-	
-	
 	
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
-	 * 
-	 * 
 	 * 
 	 */
 
