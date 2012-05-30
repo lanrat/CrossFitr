@@ -115,9 +115,9 @@ public class TimerActivity extends Activity
 				tenths = start / 100;
 			} 
 		
-			if(start < 3000 && start > 2000){
-				//sound.playCountdownSound();
-			}
+			/*if(start < 3000 && start > 2000){
+				sound.playCountdownSound();
+			}*/
 			
 			else if (start < 60000) 
 			{
