@@ -1,5 +1,8 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,13 +17,14 @@ import android.widget.TextView;
 public class TimerActivity extends Activity 
 {	
     static final int NUMBER_DIALOG_ID = 0; // Dialog variable
-    TextView mTimeDisplay, mElapsedTime;
+    TextView mTimeDisplay, mElapsedTime, mWorkoutDescription;
     private int mHour, mMin, mSec;
     private long startTime;
     NumberPicker mNumberPicker;
     Button mStart, mStop, mReset, mSetTimer;
     boolean firstTimeCountdown = true;
     boolean firstTimeAlarm = true;
+    long id;
     Time timer = new Time();
     AudibleTime sound;
     
@@ -41,13 +45,30 @@ public class TimerActivity extends Activity
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		
+	    //create model object
+	    WorkoutModel model = new WorkoutModel(this);
+	  	//open model to put data into database
+	  	model.open();
+	  	//get the id passed from previous activity (workout lists)
+	  	id = getIntent().getLongExtra("ID", -1);
+	  	//if ID is invalid, go back to home screen
+	  	if(id < 0)
+	  	{
+	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  	}
+		
+	  	WorkoutRow row = model.getByID(id);
+	 
 		mElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
-        
+        mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
         mStart = (Button)findViewById(R.id.StartButton);
         mStop = (Button)findViewById(R.id.StopButton);
         mSetTimer = (Button)findViewById(R.id.SetTimer);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
+
+        mWorkoutDescription.setText(row.description);
+
     
 		// Opens Dialog on click
 		mSetTimer.setOnClickListener(new View.OnClickListener()
@@ -57,6 +78,7 @@ public class TimerActivity extends Activity
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
+		model.close();
 	}
 	
 	private NumberPickerDialog.OnNumberSetListener mNumberSetListener =
@@ -184,6 +206,7 @@ public class TimerActivity extends Activity
 	
 	public void onFinishedClicked(View v){
 		Intent i = new Intent(this, ResultsActivity.class);
+		i.putExtra("ID", id);
 		startActivity(i);
 	}
 	

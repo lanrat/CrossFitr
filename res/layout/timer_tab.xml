@@ -51,11 +51,18 @@
       android:onClick="onStopClicked"/>
   </LinearLayout>
 
+  
   <Button
       android:id="@+id/FinishButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:onClick="onFinishedClicked"
       android:text="@string/finish_label" />
+
+  <TextView
+      android:id="@+id/workout_des_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+       />
 
 </LinearLayout>
