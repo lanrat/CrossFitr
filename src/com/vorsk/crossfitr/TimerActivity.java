@@ -2,17 +2,17 @@ package com.vorsk.crossfitr;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class TimerActivity extends Activity 
 {	
-	private static String TAG = "TimerActivity";
     static final int NUMBER_DIALOG_ID = 0; // Dialog variable
     TextView mTimeDisplay, mElapsedTime;
     private int mHour, mMin, mSec;
@@ -22,7 +22,7 @@ public class TimerActivity extends Activity
     boolean firstTimeCountdown = true;
     boolean firstTimeAlarm = true;
     Time timer = new Time();
-    AudibleTime sound = new AudibleTime();
+    AudibleTime sound;
     
     
 	// Timer to update the elapsedTime display
@@ -39,6 +39,7 @@ public class TimerActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		
 		mElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         
@@ -109,11 +110,15 @@ public class TimerActivity extends Activity
 		long seconds = 0;
 		long tenths = 0;
 		StringBuilder sb = new StringBuilder();
-		if(validateStart(start)){	
+		if(!checkForEnd(start)){	
 			if (start < 1000) {
 				tenths = start / 100;
 			} 
 		
+			if(start < 3000 && start > 2000){
+				//sound.playCountdownSound();
+			}
+			
 			else if (start < 60000) 
 			{
 				seconds = start / 1000;
@@ -142,15 +147,15 @@ public class TimerActivity extends Activity
 	}
 	
 
-	private boolean validateStart(long start) {
-		if(start <= 0){	
+	private boolean checkForEnd(long time) {
+		if(time <= 0){	
 			showStartButton();
 			showTimerSetButton();
 			clearInput();
 			timer.reset();
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -166,28 +171,28 @@ public class TimerActivity extends Activity
 	}
 	
 	public void onStartClicked(View V) {
-		Log.d(TAG, "start button clicked");
 		timer.start();
 		showStopButton();
 		hideTimerSetButton();
 	}
 
 	public void onStopClicked(View v) {
-		Log.d(TAG, "stop button clicked");
 		timer.stop();
 		showStartButton();
 		showTimerSetButton();
 	}
 	
+	public void onFinishedClicked(View v){
+		Intent i = new Intent(this, ResultsActivity.class);
+		startActivity(i);
+	}
+	
 	private void showStopButton() {
-		Log.d(TAG, "showPauseLapButtons");
-
 		mStart.setVisibility(View.GONE);
 		mStop.setVisibility(View.VISIBLE);
 	}
 
 	private void showStartButton() {
-		Log.d(TAG, "showStartResetButtons");
 		mStart.setVisibility(View.VISIBLE);
 		mStop.setVisibility(View.GONE);
 	}

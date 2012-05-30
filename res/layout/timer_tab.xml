@@ -12,10 +12,10 @@
     android:gravity="center"
     android:textSize="72sp"/>
   <Button 
-      android:text="Set Timer" 
       android:id="@+id/SetTimer" 
       android:layout_width="wrap_content" 
       android:layout_height="wrap_content"
+      android:text="@string/timerset_label" 
       android:textSize="36sp"
       android:paddingLeft="24dip"
       android:paddingRight="24dip"
@@ -34,12 +34,12 @@
 	  android:onClick="onStartClicked"
 	  android:paddingLeft="24dip"
 	  android:paddingRight="24dip"
-      android:text="Start"
+      android:text="@string/start_label"
  	  android:textSize="36sp"
  	  android:visibility="gone" />
     
     <Button 
-      android:text="Stop" 
+      android:text="@string/stop_label" 
       android:id="@+id/StopButton" 
       android:layout_width="wrap_content" 
       android:layout_height="wrap_content"
@@ -50,5 +50,12 @@
       android:visibility="gone"
       android:onClick="onStopClicked"/>
   </LinearLayout>
+
+  <Button
+      android:id="@+id/FinishButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:onClick="onFinishedClicked"
+      android:text="@string/finish_label" />
 
 </LinearLayout>
