@@ -23,14 +23,16 @@ public class CustomActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_workout_list);
         
+        //create the ListView object
         ListView lv = (ListView) findViewById(R.id.workout_list_view);
         
+        //add buttons and add to listener
 		View add_custom_button = findViewById(R.id.add_custom_button);
 		add_custom_button.setOnClickListener(this);
-		
 		View edit_custom_button = findViewById(R.id.edit_custom_button);
 		add_custom_button.setOnClickListener(this);
 		
+		//create model
 		WorkoutModel model = new WorkoutModel(this);
 
 		//Access the database and retrieve all custom workouts
@@ -38,10 +40,13 @@ public class CustomActivity extends Activity implements OnClickListener,
 		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_CUSTOM);
 		model.close();
 
+		//adapter object for the list
 		adapter = new ArrayAdapter<WorkoutRow>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, results);
 
+		//set the listener for the adapter
 		lv.setAdapter(adapter);
+		//set listener for this object
 		lv.setOnItemClickListener(this);
 	}
 	
@@ -54,6 +59,8 @@ public class CustomActivity extends Activity implements OnClickListener,
 				Intent u = new Intent(this, AddCustomActivity.class);
 				startActivity(u);
 				break;
+				
+				//TODO: really? is this needed?
 			case R.id.edit_custom_button:
 				Intent t = new Intent(this, AddCustomActivity.class);
 				startActivity(t);
