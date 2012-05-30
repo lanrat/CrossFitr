@@ -182,9 +182,11 @@ public class TimerActivity extends Activity
 		showTimerSetButton();
 	}
 	
-	public void onFinishedClicked(View v){
-		Intent i = new Intent(this, ResultsActivity.class);
-		startActivity(i);
+	public void onFinishedClicked(View v) {
+		Intent result = new Intent();
+		result.putExtra("time", getElapsedTime());
+		getParent().setResult(RESULT_OK, result);
+		finish();
 	}
 	
 	private void showStopButton() {

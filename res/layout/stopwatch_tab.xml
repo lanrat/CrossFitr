@@ -55,7 +55,7 @@
       android:id="@+id/FinishButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:onClick="onFinishClicked"
+      android:onClick="onFinishedClicked"
       android:text="@string/finish_label" />
 
 </LinearLayout>

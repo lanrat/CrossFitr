@@ -88,8 +88,10 @@ public class StopwatchActivity extends Activity {
     }
     
     public void onFinishedClicked(View v){
-		Intent i = new Intent(this, ResultsActivity.class);
-		startActivity(i);
+		Intent result = new Intent();
+		result.putExtra("time", getElapsedTime());
+		getParent().setResult(RESULT_OK, result);
+		finish();
 	}
     
     public void updateElapsedTime() {

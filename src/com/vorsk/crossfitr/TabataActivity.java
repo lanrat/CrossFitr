@@ -90,8 +90,10 @@ public class TabataActivity extends Activity {
 	}
 	
 	public void onFinishedClicked(View v){
-		Intent i = new Intent(this, ResultsActivity.class);
-		startActivity(i);
+		Intent result = new Intent();
+		result.putExtra("time", tabata.getElapsedTime());
+		getParent().setResult(RESULT_OK, result);
+		finish();
 	}
 
 	private void endTabata() {

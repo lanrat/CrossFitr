@@ -99,10 +99,10 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 *                   this.SCORE_NONE if no score is recorded
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(long workout, int score, int score_type)
+	public long insert(long workout, long score, long score_type)
 	{
-		Integer isc = (score == NOT_SCORED) ? null : score;
-		Integer ist = (score_type == SCORE_NONE) ? null : score_type;
+		Long isc = (score == NOT_SCORED) ? null : score;
+		Long ist = (score_type == SCORE_NONE) ? null : score_type;
 		
 		ContentValues cv = new ContentValues();
 		cv.put(COL_WORKOUT, workout);
@@ -127,6 +127,20 @@ public class WorkoutSessionModel extends SQLiteDAO
 		
 		WorkoutSessionRow[] rows = fetchWorkoutSessionRows(cr);
 		return (rows.length == 0) ? null : rows[0];
+	}
+	
+	/**
+	 * Remove a previously created session
+	 * 
+	 * Currently used by ResultsActivity is you don't want to save. This
+	 * should be cleaned up so this method can be removed.
+	 * 
+	 * @param id session_id to delete
+	 * @return result of deletion, -1 on failure
+	 */
+	public int delete(long id)
+	{
+		return super.delete(COL_ID + " = " + id);
 	}
 
 }
