@@ -30,7 +30,7 @@ public class CustomActivity extends Activity implements OnClickListener,
 		View add_custom_button = findViewById(R.id.add_custom_button);
 		add_custom_button.setOnClickListener(this);
 		View edit_custom_button = findViewById(R.id.edit_custom_button);
-		add_custom_button.setOnClickListener(this);
+		edit_custom_button.setOnClickListener(this);
 		
 		//create model
 		WorkoutModel model = new WorkoutModel(this);
@@ -60,7 +60,7 @@ public class CustomActivity extends Activity implements OnClickListener,
 				startActivity(u);
 				break;
 				
-				//TODO: really? is this needed?
+				//TODO: really? is this needed? Maybe not.
 			case R.id.edit_custom_button:
 				Intent t = new Intent(this, AddCustomActivity.class);
 				startActivity(t);
