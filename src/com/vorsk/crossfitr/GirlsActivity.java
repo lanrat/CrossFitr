@@ -3,28 +3,23 @@ package com.vorsk.crossfitr;
 import com.vorsk.crossfitr.models.*;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 public class GirlsActivity extends Activity implements OnItemClickListener
 {
 	//private adapter
 	private ArrayAdapter<WorkoutRow> adapter;
+	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.workout_list);
 		
 		WorkoutModel model = new WorkoutModel(this);
 		
@@ -40,11 +35,6 @@ public class GirlsActivity extends Activity implements OnItemClickListener
 		
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
-		}
-
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
