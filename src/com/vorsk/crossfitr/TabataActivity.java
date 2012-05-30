@@ -2,6 +2,7 @@ package com.vorsk.crossfitr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -138,19 +139,29 @@ public class TabataActivity extends Activity {
 		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
 		
+		int green = Color.GREEN;
+		int red = Color.RED;
+		
 		//reset at end of set 8 workout. no last 10 sec break
 		if(diff <= 10000){
 			set = 1;
 			this.endTabata();
 		}
 		if(remain > 10000 ){
+			this.setActivityBackgroundColor(green);
 			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
 			//TODO: beep, change color(green or red)
 			return formatElapsedTime(0, set);
 		}else{
+			this.setActivityBackgroundColor(red);
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
+	}
+	
+	public void setActivityBackgroundColor(int color){
+	    View view = this.getWindow().getDecorView();
+	    view.setBackgroundColor(color);
 	}
 
 }

@@ -35,11 +35,9 @@ public class Time {
 
 	public Time() {
 		m_time = SystemTime;
-		reset();
 	}
 	public Time(GetTime time) {
 		m_time = time;
-		reset();
 	}
 
 	/**
