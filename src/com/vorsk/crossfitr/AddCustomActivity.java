@@ -88,8 +88,7 @@ public class AddCustomActivity extends Activity implements OnClickListener
 								 workoutConstant, recordConstant);					
 					model.close();
 					//go back into the custom activity class
-					Intent i = new Intent(this, CustomActivity.class);
-					startActivity(i);
+					finish();
 				}
 				else
 				{
@@ -110,11 +109,14 @@ public class AddCustomActivity extends Activity implements OnClickListener
 				{
 					model.open();
 					//save data into database, saves data from textfields, and selected workout in dropdowns
-					model.insert(nameTextField.getText().toString(), workoutTextField.getText().toString(),
+					long id = model.insert(nameTextField.getText().toString(), workoutTextField.getText().toString(),
 								 workoutConstant, recordConstant);
 					model.close();
 					
+					//create new intent
 					Intent i = new Intent(this, WorkoutProfileActivity.class);
+					//add the ID to the intent
+					i.putExtra("ID", id);
 					startActivity(i);
 				}
 				else

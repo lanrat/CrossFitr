@@ -2,40 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/home"
-    android:orientation="horizontal" >
-   
-    <TableLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center"
-		android:stretchColumns="*" >
-
-    <Button
-		android:id="@+id/wod_button"
-	  android:layout_width="40dp"
-    android:layout_height="80dp"
-		android:layout_gravity="center"
-		android:background="@drawable/button_wodworkout1"/>
-    <Button
-		android:id="@+id/girl_button"
-		android:layout_width="40dp"
-    	android:layout_height="80dp"
-		android:layout_gravity="center"
-		android:background="@drawable/button_girlsworkout1"/>
-    <Button
-		android:id="@+id/hero_button"
-		android:layout_width="40dp"
-    	android:layout_height="80dp"
-		android:layout_gravity="center"
-		android:background="@drawable/button_heroesworkout1"/>
-    <Button
-    android:id="@+id/custom_button"
-    android:layout_width="40dp"
-    android:layout_height="80dp"
-    android:background="@drawable/button_customworkout1"/>
-		</TableLayout>
-       
+    android:background="@drawable/background_workouts"
+    android:orientation="horizontal"
+    android:padding="15dp" >
     
+    <LinearLayout
+        android:layout_width="275dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="97dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
+        <Button
+            android:id="@+id/wod_button"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_wod1" />
+
+        <Button
+            android:id="@+id/hero_button"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button_heroes1" />
+
+        <Button
+            android:id="@+id/girl_button"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button_girls" />
+
+        <Button
+            android:id="@+id/custom_button"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button_custom1" />
+    </LinearLayout>
+    
 </LinearLayout>

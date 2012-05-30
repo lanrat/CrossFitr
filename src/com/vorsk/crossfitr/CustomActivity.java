@@ -65,10 +65,10 @@ public class CustomActivity extends Activity implements OnClickListener,
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
 	{
+		//pass the ID of the workout into the WorkoutProfileActivity
 		WorkoutRow workout = adapter.getItem(position);
 		Intent x = new Intent(this, WorkoutProfileActivity.class);
 		x.putExtra("ID", workout._id);
 		startActivity(x);
 	}
-	
 }

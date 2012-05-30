@@ -18,8 +18,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-public class GirlsActivity extends ListActivity
+public class GirlsActivity extends Activity implements OnItemClickListener
 {
+	//private adapter
+	private ArrayAdapter<WorkoutRow> adapter;
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -31,16 +33,25 @@ public class GirlsActivity extends ListActivity
 		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_GIRL);
 		model.close();
 		
-		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
+        ListView lv = (ListView) findViewById(R.id.workout_list_view);
+        		
+		adapter = new ArrayAdapter<WorkoutRow>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, results);
 		
-		setListAdapter(adapter);
+		lv.setAdapter(adapter);
+		lv.setOnItemClickListener(this);
+		}
+
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
 	}
-	
-	public void onListItemClick(ListView list, View view, int position, long id) 
-	{
-		String item = (String) getListAdapter().getItem(position);
-		Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		//pass the ID of the workout into the WorkoutProfileActivity
+		WorkoutRow workout = adapter.getItem(position);
+		Intent x = new Intent(this, WorkoutProfileActivity.class);
+		x.putExtra("ID", workout._id);
+		startActivity(x);
 	}
-	
 }
