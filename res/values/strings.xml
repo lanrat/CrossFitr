@@ -19,7 +19,10 @@
     <string name="start_label">Start</string>
     <string name="stop_label">Stop</string>
     <string name="reset_label">Reset</string>
-    
+    <string name="finish_label">Finish Workout</string>
+    <string name="timerset_label">Set Timer</string>
+ 
+   
     <!-- Working layout on Anthony table -->
     <string name="name_of_workout_add">Name of Workout</string>
     <string name="description_of_workout_add">Description of Workout</string>

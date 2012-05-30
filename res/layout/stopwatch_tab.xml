@@ -48,6 +48,14 @@
       android:paddingRight="24dip"
       android:minWidth="150dip"
       android:onClick="onResetClicked"/>
+     
   </LinearLayout>
+
+  <Button
+      android:id="@+id/FinishButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:onClick="onFinishClicked"
+      android:text="@string/finish_label" />
 
 </LinearLayout>

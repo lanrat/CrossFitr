@@ -140,7 +140,8 @@ public class WorkoutModel extends SQLiteDAO
 	 * @param id
 	 * @return Associated entry or NULL on failure
 	 */
-	public WorkoutRow getByID(long id) {
+	public WorkoutRow getByID(long id)
+	{
 		Cursor cr = selectByID(id);
 
 		if (cr == null || cr.getCount() > 1) {
@@ -154,15 +155,37 @@ public class WorkoutModel extends SQLiteDAO
 	/**
 	 * Fetch all workouts of a specific type (girl, hero, custom, wod)
 	 * 
-	 * @param type
-	 *            The workout type; use constants (TYPE_GIRL, etc)
+	 * @param type The workout type; use constants (TYPE_GIRL, etc)
 	 * @return
 	 */
-	public WorkoutRow[] getAllByType(int type) {
+	public WorkoutRow[] getAllByType(int type)
+	{
 		String[] col = new String[] { COL_WK_TYPE };
 		String[] val = new String[] { String.valueOf(type) };
 		Cursor cr = select(col, val);
 		return fetchWorkoutRows(cr);
+	}
+	
+	/**
+	 * Gets a workout_type's ID by its name
+	 * 
+	 * @param name
+	 * @return ID of the workout type, 0L on failure
+	 */
+	public long getTypeID(String name)
+	{
+		return selectIDByName("workout_type", name);
+	}
+	
+	/**
+	 * Gets a workout_type's name by its ID
+	 * 
+	 * @param id
+	 * @return name of the workout type, null on failure
+	 */
+	public String getTypeName(long id)
+	{
+		return selectNameByID("workout_type", id);
 	}
 
 }

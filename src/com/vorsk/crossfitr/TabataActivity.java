@@ -1,6 +1,7 @@
 package com.vorsk.crossfitr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -86,6 +87,11 @@ public class TabataActivity extends Activity {
 		Log.d(TAG, "reset button clicked");
 		newStart = true;
 		tabata.reset();
+	}
+	
+	public void onFinishedClicked(View v){
+		Intent i = new Intent(this, ResultsActivity.class);
+		startActivity(i);
 	}
 
 	private void endTabata() {
