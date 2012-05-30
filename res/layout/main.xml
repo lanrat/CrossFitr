@@ -34,7 +34,7 @@
             android:layout_height="106dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="37dp"
-            android:background="@drawable/button_profile1" />
+            android:background="@drawable/profile_button_click" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="274dp"
@@ -94,7 +94,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_calendar1" />
+            android:background="@drawable/calendar_button_click" />
     </LinearLayout>
 
 </LinearLayout>
