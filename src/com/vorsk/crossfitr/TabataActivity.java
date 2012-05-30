@@ -1,5 +1,8 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +17,13 @@ public class TabataActivity extends Activity {
 	private static final int TOTAL_TIME = 30000 * 8;
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView t_elapsedTime;
+	private TextView t_elapsedTime, mWorkoutDescription;
 	private Button t_start;
 	private Button t_stop;
 	private Button t_reset;
 	private Time tabata = new Time();
 	private boolean newStart;
+	long id;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -36,9 +40,25 @@ public class TabataActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.tabata_tab);
+		
+		 //create model object
+	    WorkoutModel model = new WorkoutModel(this);
+	  	//open model to put data into database
+	  	model.open();
+	  	//get the id passed from previous activity (workout lists)
+	  	id = getIntent().getLongExtra("ID", -1);
+	  	//if ID is invalid, go back to home screen
+	  	if(id < 0)
+	  	{
+	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  	}
+	  	
 		newStart = true;
 
+	  	WorkoutRow row = model.getByID(id);
+
 		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
+		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 
 		t_start = (Button) findViewById(R.id.StartButton);
 		t_stop = (Button) findViewById(R.id.StopButton);
@@ -46,6 +66,10 @@ public class TabataActivity extends Activity {
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
 				mFrequency);
+
+	    mWorkoutDescription.setText(row.description);
+
+		model.close();
 	}
 
 	@Override
@@ -91,6 +115,7 @@ public class TabataActivity extends Activity {
 	
 	public void onFinishedClicked(View v){
 		Intent i = new Intent(this, ResultsActivity.class);
+		i.putExtra("ID", id);
 		startActivity(i);
 	}
 
