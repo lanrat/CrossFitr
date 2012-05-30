@@ -57,5 +57,11 @@
       android:layout_height="wrap_content"
       android:onClick="onFinishClicked"
       android:text="@string/finish_label" />
+  
+  <TextView
+      android:id="@+id/workout_des_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+       />
 
 </LinearLayout>

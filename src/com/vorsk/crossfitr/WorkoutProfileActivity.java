@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class WorkoutProfileActivity extends Activity implements OnClickListener 
 {
+	long id;
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -21,7 +22,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		//open model to put data into database
 		model.open();
 		//get the id passed from previous activity (workout lists)
-		long id = getIntent().getLongExtra("ID", -1);
+		id = getIntent().getLongExtra("ID", -1);
 		//if ID is invalid, go back to home screen
 		if(id < 0)
 		{
@@ -59,6 +60,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		    // if user presses begin button, user will now go into the timer page.
 			case R.id.button_begin_workout:
 				Intent i = new Intent(this, TimeTabWidget.class);
+				i.putExtra("ID", id);
 				startActivity(i);
 				break;
 		}
