@@ -15,8 +15,11 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
-public class CustomActivity extends Activity implements OnClickListener
+public class CustomActivity extends Activity implements OnClickListener,
+                                                        OnItemClickListener
 {
+	private ArrayAdapter<WorkoutRow> adapter;
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -37,11 +40,11 @@ public class CustomActivity extends Activity implements OnClickListener
 		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_CUSTOM);
 		model.close();
 
-		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(this,
+		adapter = new ArrayAdapter<WorkoutRow>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, results);
 
 		lv.setAdapter(adapter);
-		
+		lv.setOnItemClickListener(this);
 	}
 	
 	public void onClick(View v) 
@@ -49,22 +52,23 @@ public class CustomActivity extends Activity implements OnClickListener
 		// TODO Auto-generated method stub
 		switch (v.getId()) 
 		{
-		case R.id.add_custom_button:
-			Intent u = new Intent(this, AddCustomActivity.class);
-			startActivity(u);
-			break;
-		case R.id.edit_custom_button:
-			Intent t = new Intent(this, AddCustomActivity.class);
-			startActivity(t);
-			break;
+			case R.id.add_custom_button:
+				Intent u = new Intent(this, AddCustomActivity.class);
+				startActivity(u);
+				break;
+			case R.id.edit_custom_button:
+				Intent t = new Intent(this, AddCustomActivity.class);
+				startActivity(t);
+				break;
 		}
 	}
-	
-	/*
-	public void onListItemClick(ListView list, View view, int position, long id) 
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
 	{
-		String item = (String) getListAdapter().getItem(position);
-		Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
+		WorkoutRow workout = adapter.getItem(position);
+		Intent x = new Intent(this, WorkoutProfileActivity.class);
+		x.putExtra("ID", workout._id);
+		startActivity(x);
 	}
-	*/
+	
 }

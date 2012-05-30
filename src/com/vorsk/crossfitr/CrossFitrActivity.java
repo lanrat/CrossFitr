@@ -1,8 +1,11 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -25,6 +28,15 @@ public class CrossFitrActivity extends Activity implements OnClickListener
         // profile button
         View profileButton = findViewById(R.id.main_button_profile);
         profileButton.setOnClickListener(this);
+        
+        //test here
+        WorkoutModel model = new WorkoutModel(this);
+        long id = getIntent().getLongExtra("ID", -1);
+        if(id > 0)
+        {
+        	Log.v("VIEW", "ID = " + id);
+        }
+        
     }
 
 

@@ -11,6 +11,7 @@
         android:textSize="24.5sp"
         android:text="@string/workout_profile_title" />  
     <TextView
+        android:id="@+id/workout_profile_nameDB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -23,6 +24,7 @@
         android:textSize="24.5sp"
         android:text="@string/description_header" />      
     <TextView
+        android:id="@+id/workout_profile_descDB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TODO: get description from DB" /> 
@@ -35,6 +37,7 @@
         android:text="@string/record_type_header" />      
     
     <TextView
+        android:id="@+id/workout_profile_recordtypeDB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -47,6 +50,7 @@
         android:textSize="24.5sp"
         android:text="@string/record_header" />  
     <TextView
+        android:id="@+id/workout_profile_best_recordDB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

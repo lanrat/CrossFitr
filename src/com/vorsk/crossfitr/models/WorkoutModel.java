@@ -143,7 +143,7 @@ public class WorkoutModel extends SQLiteDAO
 	public WorkoutRow getByID(long id) {
 		Cursor cr = selectByID(id);
 
-		if (cr.getCount() > 1) {
+		if (cr == null || cr.getCount() > 1) {
 			return null; // TODO: Throw exception
 		}
 
