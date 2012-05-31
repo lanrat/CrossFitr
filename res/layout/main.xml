@@ -77,7 +77,7 @@
         android:layout_marginTop="12dp"
         android:layout_weight="0.12"
         android:orientation="vertical" >
-	        
+	        
         <Button
             android:id="@+id/main_button_workouts"
             android:layout_width="210dp"

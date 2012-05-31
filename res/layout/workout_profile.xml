@@ -1,75 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:background="@drawable/background_workouts"
     android:orientation="vertical" >
-  
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24.5sp"
-        android:text="@string/workout_profile_title" />  
-    <TextView
-        android:id="@+id/workout_profile_nameDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="TODO: get workout name from DB" />    
-        
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24.5sp"
-        android:text="@string/description_header" />      
+
     <TextView
         android:id="@+id/workout_profile_descDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO: get description from DB" /> 
-            
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginTop="100dp"
+        android:text="TODO: get description from DB"
+        android:textSize="30sp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:textSize="24.5sp"
-        android:text="@string/record_type_header" />      
-    
-    <TextView
-        android:id="@+id/workout_profile_recordtypeDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="TODO: get recordtype from DB" /> 
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24.5sp"
-        android:text="@string/record_header" />  
+        android:text="@string/record_header"
+        android:textSize="20sp" />
+
     <TextView
         android:id="@+id/workout_profile_best_recordDB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="TODO: get best record from DB" />
-	
-	<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="fill_parent"
-	android:layout_width="fill_parent"
-	android:layout_gravity="bottom"
-	android:padding="5dip"
-	android:orientation="horizontal" >
-	
-	<Button
-    	android:id="@+id/button_begin_workout"
-    	android:layout_width="fill_parent"
-    	android:layout_height="80dp"
-    	android:layout_gravity="bottom"
-    	android:layout_marginBottom="10dp" 
-    	android:text="@string/button_begin_workout"/>
-	</LinearLayout>
+        android:text="TODO: get best record from DB"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/workout_profile_recordtypeDB"	
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TODO: get recordtype from DB" />
+
+    <TextView
+        android:id="@+id/workout_profile_nameDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TODO: get workout name from DB" />
+
+    <Button
+        android:id="@+id/button_begin_workout"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="100dp"
+        android:text="@drawable/button_begin_workout" />
+
 </LinearLayout>
