@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
-import android.widget.TabWidget;
-
 
 public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
 	long id;
@@ -29,11 +27,6 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	  		getParent().setResult(RESULT_CANCELED);
 	  		finish();
 	  	}
-	  	
-	  	//open model to put data into database
-	    //WorkoutModel model = new WorkoutModel(this);
-	  	//model.open();
-	    //model.close();
 	  	
 	  	
 	    // Create an Intent to launch an Activity for the tab (to be reused)
