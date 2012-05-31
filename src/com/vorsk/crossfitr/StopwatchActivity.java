@@ -122,7 +122,7 @@ public class StopwatchActivity extends Activity {
    		sElapsedTime.setText(getFormattedElapsedTime());
     }
     
-	private String formatElapsedTime(long now) {
+	public static String formatElapsedTime(long now) {
 		long hours=0, minutes=0, seconds=0, tenths=0;
 		StringBuilder sb = new StringBuilder();
 
@@ -156,7 +156,7 @@ public class StopwatchActivity extends Activity {
 		return sb.toString();
 	}
 		
-	private String formatDigits(long num) {
+	private static String formatDigits(long num) {
 		return (num < 10) ? "0" + num : new Long(num).toString();
 	}
 	

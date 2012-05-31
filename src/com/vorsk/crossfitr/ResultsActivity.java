@@ -100,8 +100,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 		// Set content
 		txt_name.setText(workout.name);
 		txt_desc.setText(workout.description);
-		txt_record.setText(String.valueOf(workout.record)); // TODO: Format this
-		txt_score.setText(String.valueOf(session.score)); // TODO: Format this
+		txt_record.setText(StopwatchActivity.formatElapsedTime(workout.record)); // Formatted using Stopwatch Activity
+		txt_score.setText(StopwatchActivity.formatElapsedTime(session.score)); // Formatted using Stopwatch Activity
 
 		// Set handlers
 		btn_save.setOnClickListener(this);
