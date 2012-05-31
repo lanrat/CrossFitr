@@ -7,6 +7,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 public class WodActivity extends Activity 
 {
 	private ListView listView;
+	protected ProgressDialog pd;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -29,11 +31,11 @@ public class WodActivity extends Activity
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1);
-		adapter.add("Loading...");
 
 		listView.setAdapter(adapter);
 		
-		new DownloadWOD().execute(model);
+		new DownloadWOD(model,this).execute(0);
+		
 	}
 	
 	/**
@@ -54,11 +56,16 @@ public class WodActivity extends Activity
 	 * ASync task for loading the RSS
 	 * @author Ian
 	 */
-	 private class DownloadWOD extends AsyncTask<WODModel, Integer, ArrayList<WorkoutRow>> {
-	     protected ArrayList<WorkoutRow> doInBackground(WODModel... models) {
-	    	 models[0].fetch();
+	 private class DownloadWOD extends AsyncTask<Integer, Integer, ArrayList<WorkoutRow>> {
+		 WODModel model;
+		 public DownloadWOD(WODModel model,Activity parent){
+			 this.model = model;
+			 pd = ProgressDialog.show(parent, "Loading...", "Retrieving Workouts", true, false);
+		 }
+	     protected ArrayList<WorkoutRow> doInBackground(Integer... models) {
+	    	 model.fetch();
 	         //publishProgress((int) ((i / (float) count) * 100));
-	         return models[0].getWodRows();
+	         return model.getWodRows();
 	     }
 
 	     protected void onProgressUpdate(Integer... progress) {
@@ -67,7 +74,8 @@ public class WodActivity extends Activity
 
 	     protected void onPostExecute(ArrayList<WorkoutRow> result) {
 	 		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,result);
-	    	listView.setAdapter(adapter);
+	 		pd.dismiss();
+	 		listView.setAdapter(adapter);
 	     }
 	 }
 

@@ -35,11 +35,9 @@ public class Time {
 
 	public Time() {
 		m_time = SystemTime;
-		reset();
 	}
 	public Time(GetTime time) {
 		m_time = time;
-		reset();
 	}
 
 	/**
@@ -71,7 +69,7 @@ public class Time {
 	 * Reset the stopwatch to the initial state, clearing all stored times. 
 	 */
 	public void reset() {
-		Log.d(TAG, "reset");
+		//Log.d(TAG, "reset");
 		running = false;
 		m_startTime 	= 0;
 		m_stopTime 		= 0;

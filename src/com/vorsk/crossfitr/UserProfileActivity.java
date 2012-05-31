@@ -44,8 +44,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			startActivity(u);
 			break;
 		case R.id.open_timer_button:
-			Intent t = new Intent(this, TimeTabWidget.class);
-			startActivity(t);
+			// Disabled, due to database requirement - Matt
+			/*Intent t = new Intent(this, TimeTabWidget.class);
+			startActivity(t);*/
 			break;
 		case R.id.open_results_button:
 			Intent x = new Intent(this, ResultsActivity.class);

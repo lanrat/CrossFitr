@@ -133,15 +133,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			
 		}
 	}
-
-	
-	
-	
 	
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
-	 * 
-	 * 
 	 * 
 	 */
 
@@ -286,7 +280,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
-				list.add(String.valueOf(i + 1) + "-GRAY" + "-"
+				list.add(String.valueOf(i + 1) + "-GREY" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
 			
@@ -342,7 +336,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		
 		private int colorChanger(String sColor){
 			
-			if (sColor.equals("GRAY")) {
+			if (sColor.equals("GREY")) {
 				return Color.GRAY;
 			}
 

@@ -20,7 +20,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="25dp"
-            android:background="@drawable/button_wod1" />
+            android:background="@drawable/wod_button_click" />
 
         <Button
             android:id="@+id/hero_button"
@@ -29,7 +29,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/button_heroes1" />
+            android:background="@drawable/hero_button_click" />
 
         <Button
             android:id="@+id/girl_button"
@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/button_girls" />
+            android:background="@drawable/girl_button_click" />
 
         <Button
             android:id="@+id/custom_button"
@@ -47,7 +47,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/button_custom1" />
+            android:background="@drawable/custom_button_click" />
     </LinearLayout>
     
 </LinearLayout>

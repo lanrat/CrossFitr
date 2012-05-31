@@ -1,5 +1,8 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +16,10 @@ import android.widget.TextView;
 public class StopwatchActivity extends Activity {
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView sElapsedTime;
+	private TextView sElapsedTime, mWorkoutDescription;
 	private Button sStart, sStop, sReset;
 	private Time stopwatch = new Time();
+	long id;
 
 	
 	// Timer to update the elapsedTime display
@@ -34,17 +38,36 @@ public class StopwatchActivity extends Activity {
         
         setContentView(R.layout.stopwatch_tab);
 
+        //create model object
+	    WorkoutModel model = new WorkoutModel(this);
+	  	//open model to put data into database
+	  	model.open();
+	  	//get the id passed from previous activity (workout lists)
+	  	id = getIntent().getLongExtra("ID", -1);
+	  	//if ID is invalid, go back to home screen
+	  	if(id < 0)
+	  	{
+	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  	}
 
         //startService(new Intent(this, StopwatchService.class));
         //bindStopwatchService();
+	  	
+	  	WorkoutRow row = model.getByID(id);
         
         sElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
+        mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
         
         sStart = (Button)findViewById(R.id.StartButton);
         sStop = (Button)findViewById(R.id.StopButton);
         sReset = (Button)findViewById(R.id.ResetButton);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
+        
+        mWorkoutDescription.setText(row.description);
+
+        
+        model.close();
     }
     
     @Override
@@ -87,7 +110,7 @@ public class StopwatchActivity extends Activity {
     	stopwatch.reset();
     }
     
-    public void onFinishedClicked(View v){
+    public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", getElapsedTime());
 		getParent().setResult(RESULT_OK, result);

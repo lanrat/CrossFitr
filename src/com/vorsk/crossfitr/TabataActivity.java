@@ -1,7 +1,11 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,12 +18,13 @@ public class TabataActivity extends Activity {
 	private static final int TOTAL_TIME = 30000 * 8;
 	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView t_elapsedTime;
+	private TextView t_elapsedTime, mWorkoutDescription;
 	private Button t_start;
 	private Button t_stop;
 	private Button t_reset;
 	private Time tabata = new Time();
 	private boolean newStart;
+	long id;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -36,9 +41,25 @@ public class TabataActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.tabata_tab);
+		
+		 //create model object
+	    WorkoutModel model = new WorkoutModel(this);
+	  	//open model to put data into database
+	  	model.open();
+	  	//get the id passed from previous activity (workout lists)
+	  	id = getIntent().getLongExtra("ID", -1);
+	  	//if ID is invalid, go back to home screen
+	  	if(id < 0)
+	  	{
+	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  	}
+	  	
 		newStart = true;
 
+	  	WorkoutRow row = model.getByID(id);
+
 		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
+		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 
 		t_start = (Button) findViewById(R.id.StartButton);
 		t_stop = (Button) findViewById(R.id.StopButton);
@@ -46,6 +67,10 @@ public class TabataActivity extends Activity {
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
 				mFrequency);
+
+	    mWorkoutDescription.setText(row.description);
+
+		model.close();
 	}
 
 	@Override
@@ -89,7 +114,7 @@ public class TabataActivity extends Activity {
 		tabata.reset();
 	}
 	
-	public void onFinishedClicked(View v){
+	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", tabata.getElapsedTime());
 		getParent().setResult(RESULT_OK, result);
@@ -140,19 +165,29 @@ public class TabataActivity extends Activity {
 		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
 		
+		int green = Color.GREEN;
+		int red = Color.RED;
+		
 		//reset at end of set 8 workout. no last 10 sec break
 		if(diff <= 10000){
 			set = 1;
 			this.endTabata();
 		}
 		if(remain > 10000 ){
+			this.setActivityBackgroundColor(green);
 			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
 			//TODO: beep, change color(green or red)
 			return formatElapsedTime(0, set);
 		}else{
+			this.setActivityBackgroundColor(red);
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
+	}
+	
+	public void setActivityBackgroundColor(int color){
+	    View view = this.getWindow().getDecorView();
+	    view.setBackgroundColor(color);
 	}
 
 }

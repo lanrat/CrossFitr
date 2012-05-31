@@ -34,7 +34,7 @@
             android:layout_height="106dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="37dp"
-            android:background="@drawable/button_profile1" />
+            android:background="@drawable/profile_button_click" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="274dp"
@@ -77,7 +77,7 @@
         android:layout_marginTop="12dp"
         android:layout_weight="0.12"
         android:orientation="vertical" >
-
+	        
         <Button
             android:id="@+id/main_button_workouts"
             android:layout_width="210dp"
@@ -85,7 +85,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="25dp"
-            android:background="@drawable/button_workouts1" />
+            android:background="@drawable/workout_button_click" />
 
         <Button
             android:id="@+id/main_button_calendar"
@@ -94,7 +94,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_calendar1" />
+            android:background="@drawable/calendar_button_click" />
     </LinearLayout>
 
 </LinearLayout>
