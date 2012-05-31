@@ -21,7 +21,7 @@ public class StopwatchActivity extends Activity {
 	private Time stopwatch = new Time();
 	long id;
 
-	
+
 	// Timer to update the elapsedTime display
     private final long mFrequency = 100;    // milliseconds
     private final int TICK_WHAT = 2; 
@@ -52,7 +52,7 @@ public class StopwatchActivity extends Activity {
 
         //startService(new Intent(this, StopwatchService.class));
         //bindStopwatchService();
-	  	
+
 	  	WorkoutRow row = model.getByID(id);
         
         sElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
@@ -95,14 +95,16 @@ public class StopwatchActivity extends Activity {
     public void onStartClicked(View v) {
     	Log.d(TAG, "start button clicked");
     	stopwatch.start();
-    	
+    	((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
     	showStopButton();
     }
     
     public void onStopClicked(View v) {
     	Log.d(TAG, "stop button clicked");
     	stopwatch.stop();
-    	
+    	((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
     	showStartResetButtons();
     }
     
@@ -141,7 +143,7 @@ public class StopwatchActivity extends Activity {
 			now -= seconds * 1000;
 			tenths = now / 100;
 		}
-		
+
 		if (hours > 0) {
 			sb.append(hours).append(":")
 				.append(formatDigits(minutes)).append(":")
@@ -152,18 +154,18 @@ public class StopwatchActivity extends Activity {
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
 		}
-		
+
 		return sb.toString();
 	}
-		
+
 	private static String formatDigits(long num) {
 		return (num < 10) ? "0" + num : new Long(num).toString();
 	}
-	
+
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getElapsedTime());
 	}
-	
+
 	public long getElapsedTime() {
 		return stopwatch.getElapsedTime();
 

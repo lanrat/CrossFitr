@@ -4,11 +4,12 @@ import android.media.MediaPlayer;
 import android.app.Activity;
 
 public class AudibleTime extends Activity{
-	MediaPlayer mMediaPlayer = new MediaPlayer();
+	private MediaPlayer mp = new MediaPlayer();
 	
 	public void playCountdownSound(){
-		mMediaPlayer = MediaPlayer.create(this, R.raw.alarm);
-		mMediaPlayer.start();
+		MediaPlayer media = MediaPlayer.create(this,R.raw.countdown_3_0);
+		media.start();
+		
 
 	}
 	

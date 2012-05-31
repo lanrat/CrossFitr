@@ -24,6 +24,7 @@ public class TimerActivity extends Activity
     private long startTime;
     NumberPicker mNumberPicker;
     Button mStart, mStop, mReset, mSetTimer;
+    TabHost tabHost;
     boolean firstTimeCountdown = true;
     boolean firstTimeAlarm = true;
     long id;
@@ -46,7 +47,7 @@ public class TimerActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		
+
 	    //create model object
 	    WorkoutModel model = new WorkoutModel(this);
 	  	//get the id passed from previous activity (workout lists)
@@ -62,7 +63,7 @@ public class TimerActivity extends Activity
 	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
 		model.close();
-	 
+
 		mElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
         mStart = (Button)findViewById(R.id.StartButton);
@@ -83,7 +84,7 @@ public class TimerActivity extends Activity
 	        }
 	    });
 	}
-	
+
 	private NumberPickerDialog.OnNumberSetListener mNumberSetListener =
 			new NumberPickerDialog.OnNumberSetListener() {
 				public void onNumberSet(int selectedHour, int selectedMin, int selectedSec) {
@@ -109,17 +110,17 @@ public class TimerActivity extends Activity
 		timer.reset();
 		updateElapsedTime();
 	}
-	
+
 	private void clearInput(){
 		mHour = 0;
 		mMin = 0;
 		mSec = 0;
 	}
-	
+
 	private void updateElapsedTime() {
 		mElapsedTime.setText(getFormattedElapsedTime());
 	}
-	 
+
 	/**
 	 * Gets the start time for the timer in milliseconds
 	 * @return start time in milliseconds
@@ -139,14 +140,14 @@ public class TimerActivity extends Activity
 			if (start < 1000) {
 				tenths = start / 100;
 			} 
-	
+
 			else if (start < 60000) 
 			{
 				seconds = start / 1000;
 				start -= seconds * 1000;
 				tenths = start / 100;
 			}
-			
+
 			else if (start < 3600000) 
 			{
 				minutes = start / 60000;
@@ -155,7 +156,7 @@ public class TimerActivity extends Activity
 				start -= seconds * 1000;
 				tenths = start / 100;
 			}
-			
+
 			else
 			{
 				hours = start / 3600000;
@@ -167,15 +168,15 @@ public class TimerActivity extends Activity
 				tenths = start / 100;
 			}
 		}
-		
+
 		sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
-	
+
 		return sb.toString();		
 	}
-	
+
 
 	private boolean checkForEnd(long time) {
 		if(time < 0){	
@@ -195,30 +196,34 @@ public class TimerActivity extends Activity
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - getElapsedTime());
 	}
-	
+
 	private long getElapsedTime() {
 		return timer.getElapsedTime();
 	}
-	
+
 	public void onStartClicked(View V) {
 		timer.start();
 		showStopButton();
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
 		mSetTimer.setVisibility(View.GONE);
 	}
 
 	public void onStopClicked(View v) {
 		timer.stop();
 		showStartButton();
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 		mSetTimer.setVisibility(View.VISIBLE);
 	}
-	
+
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", getFormattedElapsedTime());
 		getParent().setResult(RESULT_OK, result);
 		finish();
 	}
-	
+
 	private void showStopButton() {
 		mStart.setVisibility(View.GONE);
 		mStop.setVisibility(View.VISIBLE);
@@ -229,11 +234,11 @@ public class TimerActivity extends Activity
 		mStop.setVisibility(View.GONE);
 	}
 
-	
+
 	private String formatDigits(long num) {
 		return (num < 10) ? "0" + num : new Long(num).toString();
 	}
-	
+
 	// Override creating the Dialog
 	@Override
 	protected Dialog onCreateDialog(int id) 
