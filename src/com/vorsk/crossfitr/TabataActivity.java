@@ -42,21 +42,24 @@ public class TabataActivity extends Activity {
 
 		setContentView(R.layout.tabata_tab);
 		
-		 //create model object
-	    WorkoutModel model = new WorkoutModel(this);
 	  	//open model to put data into database
-	  	model.open();
 	  	//get the id passed from previous activity (workout lists)
 	  	id = getIntent().getLongExtra("ID", -1);
 	  	//if ID is invalid, go back to home screen
 	  	if(id < 0)
 	  	{
-	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  		getParent().setResult(RESULT_CANCELED);
+	  		finish();
 	  	}
 	  	
 		newStart = true;
+		
+		 //create model object
+	    WorkoutModel model = new WorkoutModel(this);
 
+	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
+		model.close();
 
 		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
@@ -70,7 +73,6 @@ public class TabataActivity extends Activity {
 
 	    mWorkoutDescription.setText(row.description);
 
-		model.close();
 	}
 
 	@Override
@@ -114,10 +116,11 @@ public class TabataActivity extends Activity {
 		tabata.reset();
 	}
 	
-	public void onFinishedClicked(View v){
-		Intent i = new Intent(this, ResultsActivity.class);
-		i.putExtra("ID", id);
-		startActivity(i);
+	public void onFinishClicked(View v) {
+		Intent result = new Intent();
+		result.putExtra("time", getFormattedElapsedTime());
+		getParent().setResult(RESULT_OK, result);
+		finish();
 	}
 
 	private void endTabata() {

@@ -2,6 +2,7 @@ package com.vorsk.crossfitr;
 
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
+import com.vorsk.crossfitr.models.WorkoutSessionModel;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,27 +14,28 @@ import android.widget.TextView;
 
 public class WorkoutProfileActivity extends Activity implements OnClickListener 
 {
-	long id;
+	private WorkoutRow workout;
+	
+	private int ACT_TIMER = 1;
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		//create model object
 		WorkoutModel model = new WorkoutModel(this);
-		//open model to put data into database
-		model.open();
 		//get the id passed from previous activity (workout lists)
-		id = getIntent().getLongExtra("ID", -1);
+		long id = getIntent().getLongExtra("ID", -1);
 		//if ID is invalid, go back to home screen
 		if(id < 0)
 		{
-			startActivity(new Intent(this, CrossFitrActivity.class));
+			finish();
 		}
 		//set view
 		setContentView(R.layout.workout_profile);
 		
-		Log.v("VIEW", "ID = " + id);
 		//create a WorkoutRow, to retrieve data from database
-		WorkoutRow row = model.getByID(id);
+		model.open();
+		workout = model.getByID(id);
 		
 		//TextView objects
 		TextView tvname = (TextView)findViewById(R.id.workout_profile_nameDB);
@@ -42,10 +44,10 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
 		
 		//set the texts of the TextView objects from the data retrieved from the DB
-		tvname.setText(row.name);
-		tvdesc.setText(row.description);
-		tvrecordType.setText(model.getTypeName(row.workout_type_id));//TODO: convert later after method
-		tvbestRecord.setText(String.valueOf(row.record));
+		tvname.setText(workout.name);
+		tvdesc.setText(workout.description);
+		tvrecordType.setText(model.getTypeName(workout.workout_type_id));
+		tvbestRecord.setText(String.valueOf(workout.record)); // TODO: Format
         
 		// begin workout button
         View beginButton = findViewById(R.id.button_begin_workout);
@@ -60,9 +62,42 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		    // if user presses begin button, user will now go into the timer page.
 			case R.id.button_begin_workout:
 				Intent i = new Intent(this, TimeTabWidget.class);
-				i.putExtra("ID", id);
-				startActivity(i);
+				i.putExtra("workout_id", workout._id);
+				startActivityForResult(i, ACT_TIMER);
 				break;
+		}
+	}
+	
+	protected void onActivityResult(int request, int result, Intent data)
+	{
+		if (request == ACT_TIMER) {
+			if (result != RESULT_CANCELED) {
+				// Session was completed
+				long score;
+				WorkoutSessionModel model = new WorkoutSessionModel(this);
+				model.open();
+				
+				// Get the score returned
+				if (workout.record_type_id == WorkoutModel.SCORE_TIME) {
+					score = data.getLongExtra("time", -1);
+				} else if (workout.record_type_id == WorkoutModel.SCORE_REPS) {
+					score = WorkoutModel.NOT_SCORED; // TODO: this
+				} else if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT) {
+					score = WorkoutModel.NOT_SCORED; // TODO: this
+				} else {
+					score = WorkoutModel.NOT_SCORED;
+				}
+				
+				// Save as a new session
+				long id = model.insert(workout._id, score,
+						workout.record_type_id);
+				model.close();
+				
+				// Show the results page
+				Intent res = new Intent(this, ResultsActivity.class);
+				res.putExtra("session_id", id);
+				startActivity(res);
+			}
 		}
 	}
 }

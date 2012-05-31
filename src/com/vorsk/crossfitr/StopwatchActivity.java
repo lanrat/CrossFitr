@@ -111,10 +111,11 @@ public class StopwatchActivity extends Activity {
     	stopwatch.reset();
     }
     
-    public void onFinishedClicked(View v){
-		Intent i = new Intent(this, ResultsActivity.class);
-		i.putExtra("ID", id);
-		startActivity(i);
+    public void onFinishClicked(View v) {
+		Intent result = new Intent();
+		result.putExtra("time", getElapsedTime());
+		getParent().setResult(RESULT_OK, result);
+		finish();
 	}
     
     public void updateElapsedTime() {

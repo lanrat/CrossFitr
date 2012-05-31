@@ -40,9 +40,8 @@ public class WODModel {
 				item = it.next();
 				row = new WorkoutRow();
 				
-				
 				row.name = parseTitle(item.getTitle(), item.getPubDate());
-				row.description = item.getDescription();
+				row.description = "Test";//android.text.Html.fromHtml(item.getDescription()).toString();
 				row.workout_type_id = SQLiteDAO.TYPE_WOD;
 				row.record = WorkoutModel.NOT_SCORED;
 				row.record_type_id = WorkoutModel.SCORE_NONE; 

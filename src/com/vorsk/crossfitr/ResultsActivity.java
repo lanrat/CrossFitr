@@ -25,6 +25,8 @@ import android.widget.TextView;
  */
 public class ResultsActivity extends Activity implements OnClickListener
 {
+	private long session_id;
+	
 	/**
 	 * Automatically ends this activity and returns control to the caller
 	 * This should be called if there was insufficient privelages to invoke
@@ -50,7 +52,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 			reject("Page_Requirement", "No intent provided");
 		}
 		
-		long session_id = getIntent().getLongExtra("session_id", 0L);
+		session_id = getIntent().getLongExtra("session_id", 0L);
 		if (session_id == 0L) {
 			reject("Page_Requirement", "No session id provided");
 		}
@@ -98,8 +100,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 		// Set content
 		txt_name.setText(workout.name);
 		txt_desc.setText(workout.description);
-		txt_record.setText(workout.record); // TODO: Format this
-		txt_score.setText(session.score); // TODO: Format this
+		txt_record.setText(String.valueOf(workout.record)); // TODO: Format this
+		txt_score.setText(String.valueOf(session.score)); // TODO: Format this
 
 		// Set handlers
 		btn_save.setOnClickListener(this);
@@ -116,14 +118,15 @@ public class ResultsActivity extends Activity implements OnClickListener
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
-				//TODO: save data to db
-				Intent i = new Intent(this, CrossFitrActivity.class);
-				startActivity(i);
+				finish();
 				break;
 			// if user presses dont save button, go back to home screen.
 			case R.id.button_results_dontsav_workout:
-				Intent inte = new Intent(this, CrossFitrActivity.class);
-				startActivity(inte);
+				WorkoutSessionModel model = new WorkoutSessionModel(this);
+				model.open();
+				model.delete(session_id);
+				model.close();
+				finish();
 				break;
 				   
 			// if user presses share on fb button, results will be shared on fb.			

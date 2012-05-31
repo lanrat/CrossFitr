@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
+// TODO: All these workout activities should just extend 1 WorkoutActivity
+// class or something
 public class CustomActivity extends Activity implements OnClickListener,
                                                         OnItemClickListener
 {

@@ -49,17 +49,19 @@ public class TimerActivity extends Activity
 		
 	    //create model object
 	    WorkoutModel model = new WorkoutModel(this);
-	  	//open model to put data into database
-	  	model.open();
 	  	//get the id passed from previous activity (workout lists)
 	  	id = getIntent().getLongExtra("ID", -1);
 	  	//if ID is invalid, go back to home screen
 	  	if(id < 0)
 	  	{
-	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  		getParent().setResult(RESULT_CANCELED);
+	  		finish();
 	  	}
-		
+
+	  	//open model to put data into database
+	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
+		model.close();
 	 
 		mElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
@@ -80,7 +82,6 @@ public class TimerActivity extends Activity
 				showDialog(NUMBER_DIALOG_ID);
 	        }
 	    });
-		model.close();
 	}
 	
 	private NumberPickerDialog.OnNumberSetListener mNumberSetListener =
@@ -211,10 +212,11 @@ public class TimerActivity extends Activity
 		mSetTimer.setVisibility(View.VISIBLE);
 	}
 	
-	public void onFinishedClicked(View v){
-		Intent i = new Intent(this, ResultsActivity.class);
-		i.putExtra("session_id", id);
-		startActivity(i);
+	public void onFinishedClicked(View v) {
+		Intent result = new Intent();
+		result.putExtra("time", getFormattedElapsedTime());
+		getParent().setResult(RESULT_OK, result);
+		finish();
 	}
 	
 	private void showStopButton() {
