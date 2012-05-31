@@ -10,8 +10,10 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class TimerActivity extends Activity 
@@ -136,11 +138,7 @@ public class TimerActivity extends Activity
 			if (start < 1000) {
 				tenths = start / 100;
 			} 
-		
-			/*if(start < 3000 && start > 2000){
-				sound.playCountdownSound();
-			}*/
-			
+	
 			else if (start < 60000) 
 			{
 				seconds = start / 1000;
@@ -149,6 +147,15 @@ public class TimerActivity extends Activity
 			}
 			
 			else if (start < 3600000) 
+			{
+				minutes = start / 60000;
+				start -= minutes * 60000;
+				seconds = start / 1000;
+				start -= seconds * 1000;
+				tenths = start / 100;
+			}
+			
+			else
 			{
 				hours = start / 3600000;
 				start -= hours * 3600000;
@@ -170,9 +177,9 @@ public class TimerActivity extends Activity
 	
 
 	private boolean checkForEnd(long time) {
-		if(time <= 0){	
-			showStartButton();
-			showTimerSetButton();
+		if(time < 0){	
+			mSetTimer.setVisibility(View.VISIBLE);
+			mStop.setVisibility(View.GONE);
 			clearInput();
 			timer.reset();
 			return true;
@@ -195,18 +202,18 @@ public class TimerActivity extends Activity
 	public void onStartClicked(View V) {
 		timer.start();
 		showStopButton();
-		hideTimerSetButton();
+		mSetTimer.setVisibility(View.GONE);
 	}
 
 	public void onStopClicked(View v) {
 		timer.stop();
 		showStartButton();
-		showTimerSetButton();
+		mSetTimer.setVisibility(View.VISIBLE);
 	}
 	
 	public void onFinishedClicked(View v){
 		Intent i = new Intent(this, ResultsActivity.class);
-		i.putExtra("ID", id);
+		i.putExtra("session_id", id);
 		startActivity(i);
 	}
 	
@@ -220,13 +227,6 @@ public class TimerActivity extends Activity
 		mStop.setVisibility(View.GONE);
 	}
 
-	private void showTimerSetButton(){
-		mSetTimer.setVisibility(View.VISIBLE);
-	}
-	
-	private void hideTimerSetButton(){
-		mSetTimer.setVisibility(View.GONE);
-	}
 	
 	private String formatDigits(long num) {
 		return (num < 10) ? "0" + num : new Long(num).toString();
