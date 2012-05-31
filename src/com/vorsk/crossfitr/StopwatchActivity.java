@@ -64,6 +64,7 @@ public class StopwatchActivity extends Activity {
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
         
+
         mWorkoutDescription.setText(row.description);
 
         

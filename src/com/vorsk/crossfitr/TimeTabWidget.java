@@ -10,13 +10,16 @@ import android.widget.TabHost;
 
 
 public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
+	TabHost tabhost;
 	long id;
+	Time time = new Time();
+	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.time_tab_widget);
 	    
 	    Resources res = getResources(); // Resource object to get Drawables
-	    TabHost tabHost = getTabHost();  // The activity TabHost
+	    tabhost = getTabHost(); // The activity TabHost
 	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
 	    Intent intent;
 
@@ -38,28 +41,35 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	    intent.putExtra("ID", id);
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
-	    spec = tabHost.newTabSpec("timer").setIndicator("Timer",
+	    spec = tabhost.newTabSpec("timer").setIndicator("Timer",
 	                      res.getDrawable(R.drawable.tab_timer))
 	                  .setContent(intent);
-	    tabHost.addTab(spec);
+	    tabhost.addTab(spec);
+
 
 	    // Do the same for the other tabs
 	    intent = new Intent().setClass(this, StopwatchActivity.class);
 	    intent.putExtra("ID", id);
-	    spec = tabHost.newTabSpec("stopwatch").setIndicator("Stopwatch",
+	    spec = tabhost.newTabSpec("stopwatch").setIndicator("Stopwatch",
 	                      res.getDrawable(R.drawable.tab_stopwatch))
 	                  .setContent(intent);
-	    tabHost.addTab(spec);
+	    tabhost.addTab(spec);
 
 	    intent = new Intent().setClass(this, TabataActivity.class);
 	    intent.putExtra("ID", id);
-	    spec = tabHost.newTabSpec("tabata").setIndicator("Tabata",
+	    spec = tabhost.newTabSpec("tabata").setIndicator("Tabata",
 	                      res.getDrawable(R.drawable.tab_tabata))
 	                  .setContent(intent);
-	    tabHost.addTab(spec);
+	    tabhost.addTab(spec);
 
-	    tabHost.setCurrentTab(1);
+	    tabhost.setCurrentTab(1);
 	    model.close();
+	}
+	
+	public void disableTabs(int id){
+		if(id == 0){
+			tabhost.getTabWidget().getChildTabViewAt(1).setEnabled(false);
+		}
 	}
 }
 
