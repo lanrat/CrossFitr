@@ -20,17 +20,19 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
 	    Intent intent;
 
-	    //create model object
-	    WorkoutModel model = new WorkoutModel(this);
-	  	//open model to put data into database
-	  	model.open();
 	  	//get the id passed from previous activity (workout lists)
-	  	id = getIntent().getLongExtra("ID", -1);
+	  	id = getIntent().getLongExtra("workout_id", -1);
 	  	//if ID is invalid, go back to home screen
 	  	if(id < 0)
 	  	{
-	  		startActivity(new Intent(this, CrossFitrActivity.class));
+	  		getParent().setResult(RESULT_CANCELED);
+	  		finish();
 	  	}
+	  	
+	  	//open model to put data into database
+	    //WorkoutModel model = new WorkoutModel(this);
+	  	//model.open();
+	    //model.close();
 	  	
 	  	
 	    // Create an Intent to launch an Activity for the tab (to be reused)
@@ -59,7 +61,6 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	    tabHost.addTab(spec);
 
 	    tabHost.setCurrentTab(1);
-	    model.close();
 	}
 }
 

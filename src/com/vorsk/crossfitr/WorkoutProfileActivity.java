@@ -23,8 +23,6 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		//create model object
 		WorkoutModel model = new WorkoutModel(this);
-		//open model to put data into database
-		model.open();
 		//get the id passed from previous activity (workout lists)
 		long id = getIntent().getLongExtra("ID", -1);
 		//if ID is invalid, go back to home screen
@@ -36,6 +34,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		setContentView(R.layout.workout_profile);
 		
 		//create a WorkoutRow, to retrieve data from database
+		model.open();
 		workout = model.getByID(id);
 		
 		//TextView objects
