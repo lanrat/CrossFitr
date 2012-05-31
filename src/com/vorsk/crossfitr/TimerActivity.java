@@ -7,6 +7,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -182,6 +185,15 @@ public class TimerActivity extends Activity
 			mSetTimer.setVisibility(View.VISIBLE);
 			mStop.setVisibility(View.GONE);
 			clearInput();
+			Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+		     if(alert == null){
+		         // alert is null, using backup
+		         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		         if(alert == null){  // I can't see this ever being null (as always have a default notification) but just in case
+		             // alert backup is null, using 2nd backup
+		             alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);               
+		         }
+		     }
 			timer.reset();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
