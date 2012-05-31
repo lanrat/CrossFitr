@@ -6,11 +6,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
 
-
 public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
-	TabHost tabhost;
 	long id;
-	Time time = new Time();
+	TabHost tabhost;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -30,11 +28,6 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	  		finish();
 	  	}
 	  	
-	  	//open model to put data into database
-	    //WorkoutModel model = new WorkoutModel(this);
-	  	//model.open();
-	    //model.close();
-	  	
 	  	
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, TimerActivity.class);
@@ -45,6 +38,7 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	                      res.getDrawable(R.drawable.tab_timer))
 	                  .setContent(intent);
 	    tabhost.addTab(spec);
+	    tabhost.setEnabled(false);
 
 
 	    // Do the same for the other tabs
@@ -64,12 +58,6 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 
 
 	    tabhost.setCurrentTab(1);
-	}
-	
-	public void disableTabs(int id){
-		if(id == 0){
-			tabhost.getTabWidget().getChildTabViewAt(1).setEnabled(false);
-		}
 	}
 }
 

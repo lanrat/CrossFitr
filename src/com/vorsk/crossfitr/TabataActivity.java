@@ -99,6 +99,8 @@ public class TabataActivity extends Activity {
 	public void onStartClicked(View v) {
 		Log.d(TAG, "start button clicked");
 		tabata.start();
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
 		newStart = false;
 		showStopButton();
 	}
@@ -107,6 +109,8 @@ public class TabataActivity extends Activity {
 		Log.d(TAG, "stop button clicked");
 		newStart = false;
 		tabata.stop();
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 		showStartResetButtons();
 	}
 
