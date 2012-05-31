@@ -183,6 +183,8 @@ public class TimerActivity extends Activity
 			mStop.setVisibility(View.GONE);
 			clearInput();
 			timer.reset();
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			return true;
 		}
 		return false;
