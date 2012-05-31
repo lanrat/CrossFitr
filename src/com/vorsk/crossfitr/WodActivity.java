@@ -3,22 +3,29 @@ package com.vorsk.crossfitr;
 import java.util.ArrayList;
 
 import com.vorsk.crossfitr.models.WODModel;
+import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.SQLException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class WodActivity extends Activity 
+public class WodActivity extends Activity  implements OnItemClickListener
 {
 	private ListView listView;
 	protected ProgressDialog pd;
+	ArrayAdapter<WorkoutRow> adapter;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -27,14 +34,16 @@ public class WodActivity extends Activity
 		
 		listView = (ListView) findViewById(R.id.workout_list_view);
 		
-		WODModel model = new WODModel();
+		WODModel WODmodel = new WODModel();
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		/*adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1);
 
-		listView.setAdapter(adapter);
+		listView.setAdapter(adapter);*/
 		
-		new DownloadWOD(model,this).execute(0);
+		listView.setOnItemClickListener(this);
+		
+		new DownloadWOD(WODmodel,this).execute(0);
 		
 	}
 	
@@ -73,10 +82,32 @@ public class WodActivity extends Activity
 	     }
 
 	     protected void onPostExecute(ArrayList<WorkoutRow> result) {
-	 		ArrayAdapter<WorkoutRow> adapter = new ArrayAdapter<WorkoutRow>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,result);
+	    	adapter = new ArrayAdapter<WorkoutRow>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,result);
 	 		pd.dismiss();
 	 		listView.setAdapter(adapter);
 	     }
 	 }
+
+	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+		//pass the ID of the workout into the WorkoutProfileActivity
+		WorkoutRow workout = adapter.getItem(position);
+		
+		//add the selected workout to the DB
+		WorkoutModel model = new WorkoutModel(this);
+		model.open();
+		long entry_id;
+
+		try {
+			entry_id = model.insert(workout);
+		} catch (SQLException e) {
+			Log.e("WODActivity","derp on wod insert");
+			return;
+		}
+		
+		Intent x = new Intent(this, WorkoutProfileActivity.class);
+		x.putExtra("ID", entry_id); 
+		startActivity(x);
+		
+	}
 
 }

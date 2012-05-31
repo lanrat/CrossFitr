@@ -1,6 +1,8 @@
 package com.vorsk.crossfitr.models;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Workout entry struct
@@ -47,4 +49,5 @@ public class WorkoutRow extends SQLiteRow
 	{
 		return this.name;
 	}
+
 }
