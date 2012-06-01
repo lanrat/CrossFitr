@@ -64,7 +64,7 @@ public class TimerActivity extends Activity
 		
 		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
 		
-		mStateLabel = (TextView)findViewById(R.id.timer_state_label);
+		mStateLabel = (TextView)findViewById(R.id.state_label);
 		mStateLabel.setTypeface(roboto);
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
@@ -76,7 +76,7 @@ public class TimerActivity extends Activity
         mSetTimer = (Button)findViewById(R.id.SetTimer);
         mSetTimer.setTypeface(roboto);
         
-        mFinish = (Button)findViewById(R.id.FinishButton);
+        mFinish = (Button)findViewById(R.id.finish_workout_button);
         mFinish.setTypeface(roboto);
         
         mStartStop.setEnabled(false);
