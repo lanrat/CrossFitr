@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="Press To Start"
+        android:text="@string/workoutstate_default_label"
         android:textSize="24sp" />
 
     <Button
@@ -35,7 +35,16 @@
         android:paddingRight="24dip"
         android:text="@string/reset_label"
         android:onClick="onResetClicked" />
-        
+    
+    <TextView
+        android:id="@+id/workout_name_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="45dp"
+        android:gravity="right"
+        android:text="Workout Name"
+        android:textSize="22sp" />
+      
     <TextView
         android:id="@+id/workout_des_time"
         android:layout_width="208dp"
@@ -43,7 +52,8 @@
         android:layout_gravity="center"
         android:layout_weight="0.03"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Workout Description" />
+        android:text="@string/workoutdes_default_label"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/finish_workout_button"

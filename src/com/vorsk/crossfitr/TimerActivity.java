@@ -14,12 +14,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.ScrollingMovementMethod;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-public class TimerActivity extends Activity 
+public class TimerActivity extends Activity implements OnGlobalLayoutListener 
 {	
     static final int NUMBER_DIALOG_ID = 0; // Dialog variable
     private int mHour, mMin, mSec;
@@ -28,8 +31,7 @@ public class TimerActivity extends Activity
     private final int TICK_WHAT = 2;
     NumberPicker mNumberPicker;
     Button mSetTimer, mFinish, mStartStop;
-    TextView mWorkoutDescription, mStateLabel;
-    private boolean newRun; 
+    TextView mWorkoutDescription, mStateLabel, mWorkoutName;
     Time timer = new Time();
 
 	private Handler mHandler = new Handler() {
@@ -44,7 +46,6 @@ public class TimerActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		newRun = true;
 
 	    //create model object
 	    WorkoutModel model = new WorkoutModel(this);
@@ -59,35 +60,38 @@ public class TimerActivity extends Activity
 
 	  	//open model to put data into database
 	  	model.open();
-	  	WorkoutRow row = model.getByID(id);
+	  	WorkoutRow workout = model.getByID(id);
 		model.close();
 		
 		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
 		
 		mStateLabel = (TextView)findViewById(R.id.state_label);
 		mStateLabel.setTypeface(roboto);
+		mStateLabel.setText("");
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
+		mWorkoutDescription.setText(workout.description);
+		
+		mWorkoutName = (TextView)findViewById(R.id.workout_name_time);
+		mWorkoutName.setText(workout.name);
+		mWorkoutName.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
+		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
+		vto.addOnGlobalLayoutListener(this);	
 		mStartStop.setTypeface(roboto);
+		mStartStop.setEnabled(false);
 		
         mSetTimer = (Button)findViewById(R.id.SetTimer);
         mSetTimer.setTypeface(roboto);
         
         mFinish = (Button)findViewById(R.id.finish_workout_button);
         mFinish.setTypeface(roboto);
-        
-        mStartStop.setEnabled(false);
         mFinish.setEnabled(false);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
-        
-        mStateLabel.setText("");
-        
-        mWorkoutDescription.setText(row.description);
-
     
 		// Opens Dialog on click
 		mSetTimer.setOnClickListener(new View.OnClickListener()
@@ -126,8 +130,6 @@ public class TimerActivity extends Activity
 		startTime = 0;
 		mStateLabel.setText("Press To Start");
 		mStateLabel.setTextColor(-16711936);
-
-		newRun = true;
 
 		timer.reset();
 		updateElapsedTime();
@@ -191,15 +193,11 @@ public class TimerActivity extends Activity
 			}
 		}
 
-		if(hours > 0 || newRun){
-			sb.append(hours).append(":")
+
+		sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
-			.append(formatDigits(seconds));
-		}else{
-			sb.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
-		}
 
 		return sb.toString();		
 	}
@@ -233,7 +231,6 @@ public class TimerActivity extends Activity
 	}
 
 	public void onStartStopClicked(View V) {
-		newRun = false;
 		if(!timer.isRunning()){
 			timer.start();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
@@ -265,10 +262,21 @@ public class TimerActivity extends Activity
 		return (num < 10) ? "0" + num : new Long(num).toString();
 	}
 
-	// Override creating the Dialog
+	
 	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
 		return new NumberPickerDialog(this, mNumberSetListener, 2, 0);
+	}
+
+	/**
+	 * Resizes mStartStop dynamically for smaller screen sizes
+	 */
+	@Override
+	public void onGlobalLayout() {
+	    if (1 < mStartStop.getLineCount()) {
+	        mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+	                mStartStop.getTextSize() - 2);
+	    }
 	}
 }
