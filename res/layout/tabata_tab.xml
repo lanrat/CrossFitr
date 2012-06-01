@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <Button
         android:id="@+id/start_stop_button"
         android:layout_width="match_parent"
@@ -50,10 +50,12 @@
         android:layout_width="208dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.03"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/workoutdes_default_label" 
-        android:textSize="18sp"/> 
+        android:layout_weight="0.02"
+        android:gravity="top|center"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:text="@string/workoutdes_default_label"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/finish_workout_button"

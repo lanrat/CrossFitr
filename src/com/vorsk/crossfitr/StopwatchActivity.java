@@ -65,6 +65,7 @@ public class StopwatchActivity extends Activity {
 		
 		mReset = (Button)findViewById(R.id.reset_button);
 		mReset.setTypeface(roboto);
+		mReset.setEnabled(false);
         
         mFinish = (Button)findViewById(R.id.finish_workout_button);
         mFinish.setTypeface(roboto);
@@ -103,6 +104,7 @@ public class StopwatchActivity extends Activity {
     public void onResetClicked(View v) {
     	stopwatch.reset();
     	mFinish.setEnabled(false);
+    	mReset.setEnabled(false);
     }
     
     public void onFinishClicked(View v) {
