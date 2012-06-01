@@ -171,10 +171,16 @@ public class TimerActivity extends Activity
 			}
 		}
 
-		sb.append(hours).append(":")
+		if(hours > 0){
+			sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
+			.append(formatDigits(seconds));
+		}else{
+			sb.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
+		}
+		
 
 		return sb.toString();		
 	}
