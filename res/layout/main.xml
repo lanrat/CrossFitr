@@ -9,108 +9,98 @@
         android:id="@+id/main_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
+        android:layout_marginTop="-15dp"
         android:src="@drawable/main_header" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="294dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/main_button_userpic"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/user_pic" />
+
+        <Button
+            android:id="@+id/main_button_profile"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ic_main_profile" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="300dp"
+        android:layout_height="81dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/main_status"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp" >
+
+        <TextView
+            android:id="@+id/main_num_of_workouts"
+            android:layout_width="69dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.55"
+            android:orientation="horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/main_last_workout"
+            android:layout_width="88dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/main_num_of_achievments"
+            android:layout_width="77dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.32"
+            android:orientation="horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="190dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="294dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal" >
+        <Button
+            android:id="@+id/main_button_workouts"
+            android:layout_width="295dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_main_workouts" />
 
-            <Button
-                android:id="@+id/main_button_userpic"
-                android:layout_width="74dp"
-                android:layout_height="74dp"
-                android:layout_gravity="top"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/user_pic" />
-
-            <Button
-                android:id="@+id/main_button_profile"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ic_main_profile" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout1"
-            android:layout_width="296dp"
-            android:layout_height="68dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/main_status"
-            android:orientation="horizontal"
-            android:paddingBottom="30dp" >
-
-            <TextView
-                android:id="@+id/main_num_of_workouts"
-                android:layout_width="69dp"
-                android:layout_height="43dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.55"
-                android:orientation="horizontal"
-                android:textColor="#ffffff"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/main_last_workout"
-                android:layout_width="88dp"
-                android:layout_height="43dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:textColor="#ffffff"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/main_num_of_achievments"
-                android:layout_width="77dp"
-                android:layout_height="43dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.32"
-                android:orientation="horizontal"
-                android:textColor="#ffffff"
-                android:textSize="25dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/main_button_workouts"
-                android:layout_width="274dp"
-                android:layout_height="68dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.25"
-                android:background="@drawable/ic_main_workouts" />
-
-            <Button
-                android:id="@+id/main_button_calendar"
-                android:layout_width="274dp"
-                android:layout_height="68dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.25"
-                android:background="@drawable/ic_main_calendar" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/main_button_calendar"
+            android:layout_width="295dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_main_calendar" />
     </LinearLayout>
 
 </LinearLayout>
