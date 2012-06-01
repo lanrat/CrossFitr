@@ -60,13 +60,22 @@ public class TimerActivity extends Activity
 	  	WorkoutRow row = model.getByID(id);
 		model.close();
 		
+		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
+		
 		mStateLabel = (TextView)findViewById(R.id.timer_state_label);
+		mStateLabel.setTypeface(roboto);
+		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mWorkoutDescription.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
+		mStartStop.setTypeface(roboto);
+		
         mSetTimer = (Button)findViewById(R.id.SetTimer);
+        mSetTimer.setTypeface(roboto);
+        
         mFinish = (Button)findViewById(R.id.FinishButton);
-        mStartStop = (Button)findViewById(R.id.start_stop_button);
+        mFinish.setTypeface(roboto);
         
         mStartStop.setEnabled(false);
         mFinish.setEnabled(false);
@@ -91,11 +100,16 @@ public class TimerActivity extends Activity
 	private NumberPickerDialog.OnNumberSetListener mNumberSetListener =
 			new NumberPickerDialog.OnNumberSetListener() {
 				public void onNumberSet(int selectedHour, int selectedMin, int selectedSec) {
-					clearAllTimer();
-					mHour = selectedHour;
-					mMin = selectedMin;
-					mSec = selectedSec;
-					mStartStop.setEnabled(true);
+					if(selectedHour == 0 && selectedMin == 0 && selectedSec == 0){
+						clearInput();
+					}
+					else{
+						clearAllTimer();
+						mHour = selectedHour;
+						mMin = selectedMin;
+						mSec = selectedSec;
+						mStartStop.setEnabled(true);
+					}
 				}
 
 		    };
@@ -109,6 +123,7 @@ public class TimerActivity extends Activity
 		mSec = 0;
 		startTime = 0;
 		mStateLabel.setText("Press To Start");
+		mStateLabel.setTextColor(-16711936);
 		timer.reset();
 		updateElapsedTime();
 	}
@@ -228,6 +243,7 @@ public class TimerActivity extends Activity
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
 			mStateLabel.setText("Press To Stop");
+			mStateLabel.setTextColor(-65536);
 			mSetTimer.setEnabled(false);
 			mFinish.setEnabled(false);
 		}
@@ -237,6 +253,7 @@ public class TimerActivity extends Activity
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
 			mSetTimer.setEnabled(true);
+			mStateLabel.setTextColor(-16711936);
 			mFinish.setEnabled(true);
 		}
 	}
