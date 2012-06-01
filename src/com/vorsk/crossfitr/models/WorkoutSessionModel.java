@@ -134,6 +134,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 *
 	 * @param mintime Beginning time of interval (unix timestamp)
 	 * @param maxtime End time of interval (unix timestamp)
+	 * @return Sessions within the time period; NULL on failure
 	 */
 	public WorkoutSessionRow[] getByTime(int mintime, int maxtime)
 	{
@@ -171,6 +172,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 * Fetch all workout sessions by type
 	 *
 	 * @param type Workout type; use constants (TYPE_GIRL, etc)
+	 * @return Sessions of that workout type; null on failure
 	 */
 	public WorkoutSessionRow[] getByType(int type)
 	{
@@ -179,6 +181,20 @@ public class WorkoutSessionModel extends SQLiteDAO
 			+ COL_ID + "=ws." + COL_WORKOUT + ") = ?";
 		
 		Cursor cr = db.rawQuery(sql, new String[] { String.valueOf(type) });
+		return fetchWorkoutSessionRows(cr);
+	}
+	
+	/**
+	 * Fetch sessions of a particular workout
+	 * 
+	 * @param id ID of the workout; obtain from WorkoutModel
+	 * @return Sessions of that workout; null on failure
+	 */
+	public WorkoutSessionRow[] getByWorkout(long id)
+	{
+		String col[] = { COL_WORKOUT };
+		String val[] = { String.valueOf(id) };
+		Cursor cr = select(col, val);
 		return fetchWorkoutSessionRows(cr);
 	}
 	

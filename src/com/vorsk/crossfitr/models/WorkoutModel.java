@@ -184,8 +184,8 @@ public class WorkoutModel extends SQLiteDAO
 	 */
 	public WorkoutRow[] getAllByType(int type)
 	{
-		String[] col = new String[] { COL_WK_TYPE };
-		String[] val = new String[] { String.valueOf(type) };
+		String[] col = { COL_WK_TYPE };
+		String[] val = { String.valueOf(type) };
 		Cursor cr = select(col, val);
 		return fetchWorkoutRows(cr);
 	}
