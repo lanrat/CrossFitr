@@ -5,6 +5,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,16 +45,24 @@ public class StopwatchActivity extends Activity {
 	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
 	  	model.close();
+	  	
+	  	Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
+	  	
+	  	mStateLabel = (TextView)findViewById(R.id.state_label);
+		mStateLabel.setTypeface(roboto);
+		
+		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mWorkoutDescription.setTypeface(roboto);
+		mWorkoutDescription.setText(row.description);
+		
+		mStartStop = (Button)findViewById(R.id.start_stop_button);
+		mStartStop.setTypeface(roboto);
+		
+		mReset = (Button)findViewById(R.id.reset_button);
+		mReset.setTypeface(roboto);
         
-        mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
-        mStateLabel = (TextView)findViewById(R.id.state_label);
-        
-        mStartStop = (Button)findViewById(R.id.start_stop_button);
-        mReset = (Button)findViewById(R.id.reset_button);
         mFinish = (Button)findViewById(R.id.finish_workout_button);
-        
-        mWorkoutDescription.setText(row.description);
-        mReset.setEnabled(false);
+        mFinish.setTypeface(roboto);
         mFinish.setEnabled(false);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
@@ -69,7 +78,8 @@ public class StopwatchActivity extends Activity {
 			stopwatch.start();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
-			mStateLabel.setText("Press To Stop");;
+			mStateLabel.setText("Press To Stop");
+			mStateLabel.setTextColor(-65536);
 			mFinish.setEnabled(false);
 			mReset.setEnabled(false);
 		}
@@ -78,6 +88,7 @@ public class StopwatchActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
+			mStateLabel.setTextColor(-16711936);
 			mFinish.setEnabled(true);
 			mReset.setEnabled(true);
 			mFinish.setEnabled(true);

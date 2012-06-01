@@ -18,7 +18,7 @@
         android:textSize="70sp" />
 
     <TextView
-        android:id="@+id/timer_state_label"
+        android:id="@+id/state_label"
         android:layout_width="163dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -46,7 +46,7 @@
         android:textSize="36sp" />
 
     <Button
-        android:id="@+id/FinishButton"
+        android:id="@+id/finish_workout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
