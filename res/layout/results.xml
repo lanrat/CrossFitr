@@ -38,6 +38,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
         android:id="@+id/text_workout_desc" />
         
 	<LinearLayout
@@ -56,25 +58,27 @@
 	        android:layout_gravity="bottom"
 	        android:layout_marginBottom="10dp"
 	        android:layout_weight="1"
-	        android:text="@string/button_sav_workout" />
+	        android:background="@drawable/save_button_click" />
 
 	    <Button
 	        android:id="@+id/button_results_dontsav_workout"
 	        android:layout_width="80dp"
 	        android:layout_height="80dp"
 	        android:layout_gravity="bottom"
+	        android:layout_marginLeft="5dp"
 	        android:layout_marginBottom="10dp"
 	        android:layout_weight="1"
-	        android:text="@string/button_dontsav_workout" />
+	        android:background="@drawable/no_save_button_clicked" />
 
 	    <Button
 	        android:id="@+id/button_results_share_workout_FB"
 	        android:layout_width="80dp"
 	        android:layout_height="80dp"
 	        android:layout_gravity="bottom"
+	        android:layout_marginLeft="5dp"
 	        android:layout_marginBottom="10dp"
 	        android:layout_weight="1"
-	        android:text="@string/button_share_workout_fb" />
+	        android:background="@drawable/share_button_click" />
 	</LinearLayout>
 
 </LinearLayout>
