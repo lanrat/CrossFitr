@@ -272,7 +272,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 	/**
 	 * Resizes mStartStop dynamically for smaller screen sizes
 	 */
-	@Override
 	public void onGlobalLayout() {
 	    if (1 < mStartStop.getLineCount()) {
 	        mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,

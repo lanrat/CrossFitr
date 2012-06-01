@@ -116,6 +116,7 @@ public class CustomActivity extends Activity implements OnClickListener {
 			descTView = (TextView) convertView
 					.findViewById(R.id.custom_string_description);
 			descTView.setText(arrayList.get(index).description);
+			descTView.setSelected(true);
 
 			return convertView;
 		}
