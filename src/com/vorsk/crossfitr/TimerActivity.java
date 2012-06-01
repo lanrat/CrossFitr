@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.ScrollingMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -30,7 +31,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
     private final int TICK_WHAT = 2;
     NumberPicker mNumberPicker;
     Button mSetTimer, mFinish, mStartStop;
-    TextView mWorkoutDescription, mStateLabel;
+    TextView mWorkoutDescription, mStateLabel, mWorkoutName;
     Time timer = new Time();
 
 	private Handler mHandler = new Handler() {
@@ -59,38 +60,38 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 
 	  	//open model to put data into database
 	  	model.open();
-	  	WorkoutRow row = model.getByID(id);
+	  	WorkoutRow workout = model.getByID(id);
 		model.close();
 		
 		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
 		
 		mStateLabel = (TextView)findViewById(R.id.state_label);
 		mStateLabel.setTypeface(roboto);
+		mStateLabel.setText("");
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
+		mWorkoutDescription.setText(workout.description);
+		
+		mWorkoutName = (TextView)findViewById(R.id.workout_name_time);
+		mWorkoutName.setText(workout.name);
+		mWorkoutName.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
 		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
-		vto.addOnGlobalLayoutListener(this);
-		
+		vto.addOnGlobalLayoutListener(this);	
 		mStartStop.setTypeface(roboto);
+		mStartStop.setEnabled(false);
 		
         mSetTimer = (Button)findViewById(R.id.SetTimer);
         mSetTimer.setTypeface(roboto);
         
         mFinish = (Button)findViewById(R.id.finish_workout_button);
         mFinish.setTypeface(roboto);
-        
-        mStartStop.setEnabled(false);
         mFinish.setEnabled(false);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
-        
-        mStateLabel.setText("");
-        
-        mWorkoutDescription.setText(row.description);
-
     
 		// Opens Dialog on click
 		mSetTimer.setOnClickListener(new View.OnClickListener()

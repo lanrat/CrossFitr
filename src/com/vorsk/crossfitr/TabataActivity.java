@@ -10,7 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class TabataActivity extends Activity {
 	private static final int TOTAL_TIME = 30000 * 8;
 	// View elements in stopwatch.xml
-	private TextView mWorkoutDescription, mStateLabel;
+	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
 	private boolean newStart;
@@ -56,7 +56,7 @@ public class TabataActivity extends Activity {
 	    WorkoutModel model = new WorkoutModel(this);
 
 	  	model.open();
-	  	WorkoutRow row = model.getByID(id);
+	  	WorkoutRow workout = model.getByID(id);
 		model.close();
 		
 		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
@@ -66,8 +66,13 @@ public class TabataActivity extends Activity {
 		mStateLabel.setText("");
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
-		mWorkoutDescription.setText(row.description);
+		mWorkoutDescription.setText(workout.description);
+		
+		mWorkoutName = (TextView)findViewById(R.id.workout_name_time);
+		mWorkoutName.setText(workout.name);
+		mWorkoutName.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
 		mStartStop.setTypeface(roboto);

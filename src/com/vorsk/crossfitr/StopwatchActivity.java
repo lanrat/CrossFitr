@@ -9,13 +9,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class StopwatchActivity extends Activity {
-	private TextView mWorkoutDescription, mStateLabel;
+	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
     private final long mFrequency = 100;
     private final int TICK_WHAT = 2;
@@ -43,7 +43,7 @@ public class StopwatchActivity extends Activity {
 	  	}
 
 	  	model.open();
-	  	WorkoutRow row = model.getByID(id);
+	  	WorkoutRow workout = model.getByID(id);
 	  	model.close();
 	  	
 	  	Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
@@ -52,8 +52,13 @@ public class StopwatchActivity extends Activity {
 		mStateLabel.setTypeface(roboto);
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
-		mWorkoutDescription.setText(row.description);
+		mWorkoutDescription.setText(workout.description);
+		
+		mWorkoutName = (TextView)findViewById(R.id.workout_name_time);
+		mWorkoutName.setText(workout.name);
+		mWorkoutName.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
 		mStartStop.setTypeface(roboto);
