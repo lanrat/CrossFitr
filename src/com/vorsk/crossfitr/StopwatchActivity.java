@@ -14,17 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class StopwatchActivity extends Activity {
-	private static String TAG = "StopwatchActivity";
-	// View elements in stopwatch.xml
-	private TextView sElapsedTime, mWorkoutDescription;
-	private Button sStart, sStop, sReset;
+	private TextView mWorkoutDescription, mStateLabel;
+	private Button mStartStop, mReset, mFinish;
+    private final long mFrequency = 100;
+    private final int TICK_WHAT = 2;
+	private long id;
 	private Time stopwatch = new Time();
-	long id;
-
-
-	// Timer to update the elapsedTime display
-    private final long mFrequency = 100;    // milliseconds
-    private final int TICK_WHAT = 2; 
+   
 	private Handler mHandler = new Handler() {
         public void handleMessage(Message m) {
         	updateElapsedTime();
@@ -38,79 +34,59 @@ public class StopwatchActivity extends Activity {
         
         setContentView(R.layout.stopwatch_tab);
 
-        //create model object
 	    WorkoutModel model = new WorkoutModel(this);
-	  	//open model to put data into database
-	  	model.open();
-	  	//get the id passed from previous activity (workout lists)
 	  	id = getIntent().getLongExtra("ID", -1);
-	  	//if ID is invalid, go back to home screen
 	  	if(id < 0)
 	  	{
 	  		startActivity(new Intent(this, CrossFitrActivity.class));
 	  	}
 
-        //startService(new Intent(this, StopwatchService.class));
-        //bindStopwatchService();
-
+	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
+	  	model.close();
         
-        sElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
         mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+        mStateLabel = (TextView)findViewById(R.id.state_label);
         
-        sStart = (Button)findViewById(R.id.StartButton);
-        sStop = (Button)findViewById(R.id.StopButton);
-        sReset = (Button)findViewById(R.id.ResetButton);
+        mStartStop = (Button)findViewById(R.id.start_stop_button);
+        mReset = (Button)findViewById(R.id.reset_button);
+        mFinish = (Button)findViewById(R.id.finish_workout_button);
+        
+        mWorkoutDescription.setText(row.description);
+        mReset.setEnabled(false);
+        mFinish.setEnabled(false);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
-        
-
-        mWorkoutDescription.setText(row.description);
-
-        
-        model.close();
     }
     
-    @Override
+   @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-   
-    private void showStopButton() {
-    	Log.d(TAG, "showPauseLapButtons");
-    	
-    	sStart.setVisibility(View.GONE);
-    	sReset.setVisibility(View.GONE);
-    	sStop.setVisibility(View.VISIBLE);
-    }
-    
-    private void showStartResetButtons() {
-    	Log.d(TAG, "showStartResetButtons");
 
-    	sStart.setVisibility(View.VISIBLE);
-    	sReset.setVisibility(View.VISIBLE);
-    	sStop.setVisibility(View.GONE);
-    }
-    
-    public void onStartClicked(View v) {
-    	Log.d(TAG, "start button clicked");
-    	stopwatch.start();
-    	((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
-    	showStopButton();
-    }
-    
-    public void onStopClicked(View v) {
-    	Log.d(TAG, "stop button clicked");
-    	stopwatch.stop();
-    	((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
-    	showStartResetButtons();
-    }
+    public void onStartStopClicked(View V) {
+		if(!stopwatch.isRunning()){
+			stopwatch.start();
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
+			mStateLabel.setText("Press To Stop");;
+			mFinish.setEnabled(false);
+			mReset.setEnabled(false);
+		}
+		else{
+			stopwatch.stop();
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
+			mStateLabel.setText("Press To Start");
+			mFinish.setEnabled(true);
+			mReset.setEnabled(true);
+			mFinish.setEnabled(true);
+		}
+	}
     
     public void onResetClicked(View v) {
-    	Log.d(TAG, "reset button clicked");
     	stopwatch.reset();
+    	mFinish.setEnabled(false);
     }
     
     public void onFinishClicked(View v) {
@@ -121,7 +97,7 @@ public class StopwatchActivity extends Activity {
 	}
     
     public void updateElapsedTime() {
-   		sElapsedTime.setText(getFormattedElapsedTime());
+   		mStartStop.setText(getFormattedElapsedTime());
     }
     
 	public static String formatElapsedTime(long now) {

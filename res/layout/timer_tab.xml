@@ -53,6 +53,4 @@
         android:onClick="onFinishedClicked"
         android:text="@string/finish_label"
          />
-
-
 </LinearLayout>
