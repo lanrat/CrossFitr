@@ -19,6 +19,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+
+import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
@@ -46,7 +48,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	private ImageView calJournalButton, preMonth, nextMonth;
 	private Button currentMonth;
-	private TextView nameofWorkout, durationtime;
 
 	private ListView calendarList;
 
@@ -56,9 +57,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
-
 	private static final String tag = "CalendarActivity";
-
+	
+	private WorkoutModel model_data;
+	private WorkoutRow[] pulledData;
+	private ListView derp_calendar_list;
+	private ArrayList<WorkoutRow> workoutrowList;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_main);
@@ -78,13 +83,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
 
-		nameofWorkout = (TextView) this.findViewById(R.id.cal_workoutname);
-		durationtime = (TextView) this.findViewById(R.id.cal_durationtime);
 
 		calView = (GridView) this.findViewById(R.id.calendargrid);
 		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
+		
+		derp_calendar_list = (ListView) findViewById(R.id.calendar_list);
+		
 	}
 
 	public void onClick(View view) {
@@ -119,7 +125,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// Field number for get and set indicating the day of the month.
 		// This is a synonym for DATE. The first day of the month has value 1.
 
-		currentMonth.setText(dateFormatter.format(dateTemplate, derpCal.getTime()));
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 	}
@@ -130,18 +135,37 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	/**
 	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
-	 * TODO:: ListView Starts from there 
 	 */
-	public class ListHelper extends Activity {
+	public class ListHelper extends BaseAdapter {
 
 		public void onCreate(Bundle savedInstanceState){
-			setContentView(R.layout.calendar_listhelper);
+			setContentView(R.layout.calendar_list_item);
 			
 			ListView listview = (ListView) findViewById(R.id.calendar_list);
 			String[] test = {"one", "two", "three"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,test);
 			listview.setAdapter(adapter);
 			
+		}
+
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 	
@@ -172,7 +196,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private Button gridcell;
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
-		private boolean viewControl = false;
 		private Button buttonControl = null;
 
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
@@ -301,7 +324,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		}
 
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int index, View convertView, ViewGroup parent) {
 			View row = convertView;
 			if (row == null) {
 				LayoutInflater inflater = (LayoutInflater) cal_context
@@ -313,7 +336,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 			gridcell.setOnClickListener(this);
 
-			String[] day_color = list.get(position).split("-");
+			String[] day_color = list.get(index).split("-");
 
 			// set color for days
 			gridcell.setText(day_color[0]);
@@ -330,11 +353,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			Button clickedButton = (Button) view;
 			if(buttonControl != null && buttonControl_color != null){
 				buttonControl.setTextColor(colorChanger(buttonControl_color));
+				buttonControl.setBackgroundResource(R.drawable.calendar_cellfiller);
 			}
 		
 			clickedButton.setOnClickListener(this);
 			clickedButton.setTextColor(getResources().getColor(
 						R.color.static_text_green));
+			clickedButton.setBackgroundResource(R.drawable.calendar_bg_frame);
 			
 			buttonControl = clickedButton;
 			String tempHelper = (String) buttonControl.getTag();

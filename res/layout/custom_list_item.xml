@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- You can use any kind of layout Alice. It is just temporary -->
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="match_parent"
+android:layout_width="wrap_content"
+android:orientation="vertical">
+	
+    <!-- TextView for "The name of workout" -->
+    <TextView
+		android:id="@+id/custom_string_nameofworkout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:padding="5dp">
+	</TextView>
+    
+    <!-- TextView for "The workout description" -->
+    <TextView
+		android:id="@+id/custom_string_description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:padding = "5dp">
+	</TextView>
+	
+    <ImageView
+        android:id="@+id/custom_image_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/custom_rightarrow">        
+    </ImageView>
+    
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:orientation="vertical">
+    <ImageView 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/custom_separating_bar">        
+    </ImageView>
+   </LinearLayout>
+    	
+</LinearLayout>

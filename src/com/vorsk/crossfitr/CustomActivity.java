@@ -1,81 +1,144 @@
 package com.vorsk.crossfitr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 // TODO: All these workout activities should just extend 1 WorkoutActivity
 // class or something
-public class CustomActivity extends Activity implements OnClickListener,
-                                                        OnItemClickListener
-{
-	private ArrayAdapter<WorkoutRow> adapter;
-	
-	public void onCreate(Bundle savedInstanceState) 
-	{
+public class CustomActivity extends Activity implements OnClickListener {
+	private static final String tag = "CustomActivity";
+	private ListView customLView;
+	private View add_custom_button;
+	private WorkoutModel model_data;
+	private WorkoutRow[] pulledData;
+	private ArrayList<WorkoutRow> workoutrowList;
+	private CustomListhelper listAdapter;
+	private ListView derp_custom_List;
+
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.custom_workout_list);
-        
-        //create the ListView object
-        ListView lv = (ListView) findViewById(R.id.workout_list_view);
-        
-        //add buttons and add to listener
-		View add_custom_button = findViewById(R.id.add_custom_button);
+		setContentView(R.layout.custom_workout_main);
+		workoutrowList = new ArrayList<WorkoutRow>();
+
+		// create the ListView object
+		customLView = (ListView) findViewById(R.id.workout_list_view);
+
+		// add buttons and add to listener
+		add_custom_button = findViewById(R.id.custom_add_button);
 		add_custom_button.setOnClickListener(this);
-		View edit_custom_button = findViewById(R.id.edit_custom_button);
-		edit_custom_button.setOnClickListener(this);
-		
-		//create model
-		WorkoutModel model = new WorkoutModel(this);
 
-		//Access the database and retrieve all custom workouts
-		model.open();	
-		WorkoutRow[] results = model.getAllByType(WorkoutModel.TYPE_CUSTOM);
-		model.close();
+		// create model
+		model_data = new WorkoutModel(this);
 
-		//adapter object for the list
-		adapter = new ArrayAdapter<WorkoutRow>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, results);
+		// Access the database and retrieve all custom workouts
+		model_data.open();
+		pulledData = model_data.getAllByType(WorkoutModel.TYPE_CUSTOM);
+		model_data.close();
 
-		//set the listener for the adapter
-		lv.setAdapter(adapter);
-		//set listener for this object
-		lv.setOnItemClickListener(this);
-	}
-	
-	public void onClick(View v) 
-	{
-		// TODO Auto-generated method stub
-		switch (v.getId()) 
-		{
-			case R.id.add_custom_button:
-				Intent u = new Intent(this, AddCustomActivity.class);
-				startActivity(u);
-				break;
-				
-				//TODO: really? is this needed? Maybe not.
-			case R.id.edit_custom_button:
-				Intent t = new Intent(this, AddCustomActivity.class);
-				startActivity(t);
-				break;
+		Log.d(tag, "pulledData.legnth : " + pulledData.length);
+
+		if (pulledData.length != 0) {
+			for (int i = 0; i < pulledData.length; i++) {
+				workoutrowList.add(pulledData[i]);
+				Log.d(tag, "### creatList is working!!");
+			}
+
+			derp_custom_List = (ListView) this.findViewById(R.id.custom_workout_list);
+
+			listAdapter = new CustomListhelper(getApplicationContext(),
+					workoutrowList);
+
+			listAdapter.notifyDataSetChanged();
+
+			derp_custom_List.setAdapter(listAdapter);
+
 		}
 	}
 
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
-	{
-		//pass the ID of the workout into the WorkoutProfileActivity
-		WorkoutRow workout = adapter.getItem(position);
-		Intent x = new Intent(this, WorkoutProfileActivity.class);
-		x.putExtra("ID", workout._id);
-		startActivity(x);
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.custom_add_button:
+			Intent u = new Intent(this, CustomAddActivity.class);
+			startActivity(u);
+			break;
+		}
+	}
+
+	public class CustomListhelper extends BaseAdapter implements OnClickListener {
+
+		private static final String tag = "CustomListhelper";
+		private final Context listContext;
+		private ArrayList<WorkoutRow> arrayList;
+		private ImageView listArrow;
+		private TextView nameTView;
+		private TextView descTView;
+		private LayoutInflater inflater;
+
+		public CustomListhelper(Context _context, ArrayList<WorkoutRow> _data) {
+			this.listContext = _context;
+			this.arrayList = _data;
+			inflater = (LayoutInflater) _context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		}
+
+		public View getView(int index, View convertView, ViewGroup parent) {
+			if (convertView == null)
+				convertView = inflater
+						.inflate(R.layout.custom_list_item, parent, false);
+
+			listArrow = (ImageView) convertView.findViewById(R.id.custom_image_arrow);
+			listArrow.setOnClickListener(this);
+
+			Log.d(tag, "arrayList.get(" + index + ").name : "
+					+ arrayList.get(index).name);
+
+			nameTView = (TextView) convertView
+					.findViewById(R.id.custom_string_nameofworkout);
+			nameTView.setText(arrayList.get(index).name);
+
+			descTView = (TextView) convertView
+					.findViewById(R.id.custom_string_description);
+			descTView.setText(arrayList.get(index).description);
+
+			return convertView;
+		}
+
+		public int getCount() {
+
+			return arrayList.size();
+		}
+
+		public String getItem(int arg0) {
+			return arrayList.get(arg0).name;
+		}
+
+		public long getItemId(int id) {
+			return id;
+		}
+
+		public void onClick(View v) {
+		}
 	}
 }
