@@ -14,12 +14,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-public class TimerActivity extends Activity 
+public class TimerActivity extends Activity implements OnGlobalLayoutListener 
 {	
     static final int NUMBER_DIALOG_ID = 0; // Dialog variable
     private int mHour, mMin, mSec;
@@ -71,6 +74,9 @@ public class TimerActivity extends Activity
 		mWorkoutDescription.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
+		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
+		vto.addOnGlobalLayoutListener(this);
+		
 		mStartStop.setTypeface(roboto);
 		
         mSetTimer = (Button)findViewById(R.id.SetTimer);
@@ -191,15 +197,16 @@ public class TimerActivity extends Activity
 			}
 		}
 
-		if(hours > 0 || newRun){
+	//	if(hours > 0 || newRun){
 			sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
-			.append(formatDigits(seconds));
-		}else{
+			.append(formatDigits(seconds)).append(".")
+			.append(tenths);
+	/*	}else{
 			sb.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
-		}
+		}*/
 
 		return sb.toString();		
 	}
@@ -265,10 +272,21 @@ public class TimerActivity extends Activity
 		return (num < 10) ? "0" + num : new Long(num).toString();
 	}
 
-	// Override creating the Dialog
+	
 	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
 		return new NumberPickerDialog(this, mNumberSetListener, 2, 0);
+	}
+
+	/**
+	 * Resizes mStartStop dynamically for smaller screen sizes
+	 */
+	@Override
+	public void onGlobalLayout() {
+	    if (1 < mStartStop.getLineCount()) {
+	        mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+	                mStartStop.getTextSize() - 2);
+	    }
 	}
 }

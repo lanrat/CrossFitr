@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <Button
         android:id="@+id/start_stop_button"
         android:layout_width="match_parent"
@@ -12,10 +12,8 @@
         android:layout_weight="0.09"
         android:minWidth="150dip"
         android:onClick="onStartStopClicked"
-        android:paddingLeft="24dip"
-        android:paddingRight="24dip"
         android:textColor="@android:color/white"
-        android:textSize="70sp" />
+        android:textSize="69dp" />
 
     <TextView
         android:id="@+id/state_label"
