@@ -16,7 +16,7 @@ public class WODModel {
 
 	private String title;
 	private ArrayList<WorkoutRow> list = new ArrayList<WorkoutRow>();
-
+	SimpleDateFormat formatter;
 	public WODModel() {
 	}
 	
@@ -34,6 +34,9 @@ public class WODModel {
 			List<RssItemBean> items = feed.getItems();
 			Iterator<RssItemBean> it = items.iterator();
 			
+			//build the formatter
+			formatter = new SimpleDateFormat("EEEE, dd MMM yyyy");
+			
 			RssItemBean item;
 			WorkoutRow row;
 			while (it.hasNext()){
@@ -42,6 +45,7 @@ public class WODModel {
 				
 				row.name = parseTitle(item.getTitle(), item.getPubDate());
 				row.description = "Test";//android.text.Html.fromHtml(item.getDescription()).toString();
+				//row._id = 999999;
 				row.workout_type_id = SQLiteDAO.TYPE_WOD;
 				row.record = WorkoutModel.NOT_SCORED;
 				row.record_type_id = WorkoutModel.SCORE_NONE; 
@@ -56,9 +60,8 @@ public class WODModel {
 		}
 	}
 	
-	private static String parseTitle(String rssTitle, Date pubDate){
+	private String parseTitle(String rssTitle, Date pubDate){
 		// currently I don't use the actual title...
-		Format formatter = new SimpleDateFormat("EEEE, dd MMM yyyy");
 		return "WOD "+formatter.format(pubDate);
 	}
 	
