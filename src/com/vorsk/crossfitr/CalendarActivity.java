@@ -19,6 +19,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import com.vorsk.crossfitr.models.WorkoutRow;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -31,10 +33,12 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -119,6 +123,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 	}
+	
+	protected Activity getThis(){
+		return this;
+	}
 
 	/**
 	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
@@ -129,7 +137,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		public void onCreate(Bundle savedInstanceState){
 			setContentView(R.layout.calendar_listhelper);
 			
-			ListView listview = (ListView) findViewById(R.id.calendar_list);		
+			ListView listview = (ListView) findViewById(R.id.calendar_list);
+			String[] test = {"one", "two", "three"};
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,test);
+			listview.setAdapter(adapter);
 			
 		}
 	}

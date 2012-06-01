@@ -16,15 +16,12 @@ import android.widget.TextView;
 
 public class TabataActivity extends Activity {
 	private static final int TOTAL_TIME = 30000 * 8;
-	private static String TAG = "StopwatchActivity";
 	// View elements in stopwatch.xml
-	private TextView t_elapsedTime, mWorkoutDescription;
-	private Button t_start;
-	private Button t_stop;
-	private Button t_reset;
+	private TextView mWorkoutDescription, mStateLabel;
+	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
 	private boolean newStart;
-	long id;
+	private long id;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -60,13 +57,13 @@ public class TabataActivity extends Activity {
 	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
 		model.close();
-
-		t_elapsedTime = (TextView) findViewById(R.id.ElapsedTime);
+		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		mStateLabel = (TextView)findViewById(R.id.state_label);
 
-		t_start = (Button) findViewById(R.id.StartButton);
-		t_stop = (Button) findViewById(R.id.StopButton);
-		t_reset = (Button) findViewById(R.id.ResetButton);
+		mStartStop = (Button) findViewById(R.id.start_stop_button);
+		mReset = (Button) findViewById(R.id.reset_button);
+		mFinish = (Button)findViewById(R.id.finish_workout_button);
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
 				mFrequency);
@@ -80,42 +77,29 @@ public class TabataActivity extends Activity {
 		super.onDestroy();
 	}
 
-	private void showStopButton() {
-		Log.d(TAG, "showPauseLapButtons");
-
-		t_start.setVisibility(View.GONE);
-		t_reset.setVisibility(View.GONE);
-		t_stop.setVisibility(View.VISIBLE);
-	}
-
-	private void showStartResetButtons() {
-		Log.d(TAG, "showStartResetButtons");
-
-		t_start.setVisibility(View.VISIBLE);
-		t_reset.setVisibility(View.VISIBLE);
-		t_stop.setVisibility(View.GONE);
-	}
-
-	public void onStartClicked(View v) {
-		Log.d(TAG, "start button clicked");
-		tabata.start();
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
-		newStart = false;
-		showStopButton();
-	}
-
-	public void onStopClicked(View v) {
-		Log.d(TAG, "stop button clicked");
-		newStart = false;
-		tabata.stop();
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
-		showStartResetButtons();
+	public void onStartStopClicked(View V) {
+		if(!tabata.isRunning()){
+			tabata.start();
+			newStart = false;
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
+			mStateLabel.setText("Press To Stop");
+			mFinish.setEnabled(false);
+			mReset.setEnabled(false);
+		}
+		else{
+			tabata.stop();
+			newStart = false;
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
+			mStateLabel.setText("Press To Start");
+			mFinish.setEnabled(true);
+			mReset.setEnabled(true);
+			mFinish.setEnabled(true);
+		}
 	}
 
 	public void onResetClicked(View v) {
-		Log.d(TAG, "reset button clicked");
 		newStart = true;
 		tabata.reset();
 	}
@@ -130,12 +114,11 @@ public class TabataActivity extends Activity {
 	private void endTabata() {
 		newStart = true;
 		tabata.reset();
-		this.showStartResetButtons();
 		//TODO: end alarm sound and popup??
 	}
 
 	public void updateElapsedTime() {
-		t_elapsedTime.setText(getFormattedElapsedTime());
+		mStartStop.setText(getFormattedElapsedTime());
 	}
 
 	private String formatElapsedTime(long now, int set) {

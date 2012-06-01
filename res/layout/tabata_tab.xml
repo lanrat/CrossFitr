@@ -1,65 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:gravity="center_horizontal"
-  android:orientation="vertical">
-  <TextView
-    android:id="@+id/ElapsedTime"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:textSize="72sp"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-  <Button
-  	android:text="@string/start_label"
-    android:id="@+id/StartButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:minWidth="150dip"
-    android:onClick="onStartClicked"
-    android:paddingLeft="24dip"
-    android:paddingRight="24dip"
-    android:textSize="36sp" />
+    <Button
+        android:id="@+id/start_stop_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.09"
+        android:minWidth="150dip"
+        android:onClick="onStartStopClicked"
+        android:paddingLeft="24dip"
+        android:paddingRight="24dip"
+        android:textColor="@android:color/white"
+        android:textSize="70sp" />
 
-  <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center">
-    <Button 
-      android:text="@string/stop_label" 
-      android:id="@+id/StopButton" 
-      android:layout_width="wrap_content" 
-      android:layout_height="wrap_content"
-      android:textSize="36sp"
-      android:paddingLeft="24dip"
-      android:paddingRight="24dip"
-      android:minWidth="150dip"
-      android:onClick="onStopClicked"
-      android:visibility="gone"/>
-    <Button 
-      android:text="@string/reset_label" 
-      android:id="@+id/ResetButton" 
-      android:layout_width="wrap_content" 
-      android:layout_height="wrap_content"
-      android:textSize="36sp"
-      android:paddingLeft="24dip"
-      android:paddingRight="24dip"
-      android:minWidth="150dip"
-      android:onClick="onResetClicked"/>
-  </LinearLayout>
+    <TextView
+        android:id="@+id/state_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Press To Start"
+        android:textSize="24sp" />
 
-  <Button
-      android:id="@+id/FinishButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/finish_label"
-      android:onClick="onFinishClicked" />
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="119dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="150dip"
+        android:paddingLeft="24dip"
+        android:paddingRight="24dip"
+        android:text="@string/reset_label"
+        android:onClick="onResetClicked" />
+        
+    <TextView
+        android:id="@+id/workout_des_time"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.03"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Workout Description" />
 
-  <TextView
-      android:id="@+id/workout_des_time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-       />
+    <Button
+        android:id="@+id/finish_workout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onFinishClicked"
+        android:text="@string/finish_label"
+         />
 </LinearLayout>
