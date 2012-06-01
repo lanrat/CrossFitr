@@ -106,7 +106,7 @@ public class TabataActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 			mStateLabel.setText("Press To Start");
 			mStateLabel.setTextColor(-16711936);
-			mFinish.setEnabled(true);
+			//mFinish.setEnabled(true);
 			mReset.setEnabled(true);
 			mFinish.setEnabled(true);
 		}
