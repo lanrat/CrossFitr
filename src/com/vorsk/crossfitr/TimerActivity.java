@@ -29,6 +29,7 @@ public class TimerActivity extends Activity
     NumberPicker mNumberPicker;
     Button mSetTimer, mFinish, mStartStop;
     TextView mWorkoutDescription, mStateLabel;
+    private boolean newRun; 
     Time timer = new Time();
 
 	private Handler mHandler = new Handler() {
@@ -43,6 +44,7 @@ public class TimerActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		newRun = true;
 
 	    //create model object
 	    WorkoutModel model = new WorkoutModel(this);
@@ -109,6 +111,7 @@ public class TimerActivity extends Activity
 		mSec = 0;
 		startTime = 0;
 		mStateLabel.setText("Press To Start");
+		newRun = true;
 		timer.reset();
 		updateElapsedTime();
 	}
@@ -171,7 +174,7 @@ public class TimerActivity extends Activity
 			}
 		}
 
-		if(hours > 0){
+		if(hours > 0 || newRun){
 			sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds));
@@ -180,7 +183,6 @@ public class TimerActivity extends Activity
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
 		}
-		
 
 		return sb.toString();		
 	}
@@ -223,6 +225,7 @@ public class TimerActivity extends Activity
 	}
 
 	public void onStartStopClicked(View V) {
+		newRun = false;
 		if(!timer.isRunning()){
 			timer.start();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
