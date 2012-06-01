@@ -207,15 +207,6 @@ public class TimerActivity extends Activity
 
 	private boolean checkForEnd(long time) {
 		if(time < 0){	
-			Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-		    if(alert == null){
-		         // alert is null, using backup
-		         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		         if(alert == null){  // I can't see this ever being null (as always have a default notification) but just in case
-		             // alert backup is null, using 2nd backup
-		             alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);               
-		         }
-		     }
 		    clearInput();
 			timer.reset();
 			mStateLabel.setText("");
