@@ -245,8 +245,8 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
-			mSetTimer.setEnabled(true);
 			mStateLabel.setTextColor(-16711936);
+			mSetTimer.setEnabled(true);
 			mFinish.setEnabled(true);
 		}
 	}
