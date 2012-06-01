@@ -22,6 +22,8 @@ import java.util.Locale;
 
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
+import com.vorsk.crossfitr.models.WorkoutSessionModel;
+import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.content.Context;
@@ -59,10 +61,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private static final String dateTemplate = "MMMM yyyy";
 	private static final String tag = "CalendarActivity";
 	
-	private WorkoutModel model_data;
-	private WorkoutRow[] pulledData;
+	private WorkoutSessionModel model_data;
+	private WorkoutSessionModel[] pulledData;
 	private ListView derp_calendar_list;
-	private ArrayList<WorkoutRow> workoutrowList;
+	private ArrayList<WorkoutSessionModel> workoutSessionList;
+	private CalendarList calenderAdapter;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +92,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
+		
+		
+		model_data = new WorkoutSessionModel(this);
+		
+		
 		
 		derp_calendar_list = (ListView) findViewById(R.id.calendar_list);
 		
@@ -136,15 +145,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	/**
 	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
 	 */
-	public class ListHelper extends BaseAdapter {
+	public class CalendarList extends BaseAdapter {
 
+		private static final String tag = "CalendarList";
+		
+		
+		
 		public void onCreate(Bundle savedInstanceState){
-			setContentView(R.layout.calendar_list_item);
 			
-			ListView listview = (ListView) findViewById(R.id.calendar_list);
-			String[] test = {"one", "two", "three"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,test);
-			listview.setAdapter(adapter);
 			
 		}
 
