@@ -56,6 +56,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
+            android:name=".CustomAddActivity"
+            android:label="@string/custom_Add_label"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name=".WorkoutProfileActivity"
             android:label="@string/workout_name"
             android:screenOrientation="portrait" 

@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
-import android.util.EventLogTags.Description;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,49 +33,31 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 
 	// onCreate method called at the beginning of activity
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d(tag,"### at least here 1 ###");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.custom_workout_add);
 
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-		View addCustomBg = findViewById(R.id.workout_background);
+		View addCustomBg = findViewById(R.id.custom_add_background);
 		addCustomBg.setOnClickListener(this);
 
 		// button to save
 		View saveButton = findViewById(R.id.button_workout_form_save);
 		saveButton.setOnClickListener(this);
-
-		Log.d(tag,"### at least here 1 ###");
 		
 		// button to save and start workout
 		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
 		
-		Log.d(tag,"### at least here 2 ###");
-
 		// text field for the workout description to be added
 		workoutTextField = (EditText) findViewById(R.id.description_edittext_add);
 		workoutTextField.setOnClickListener(this);
 
-		Log.d(tag,"### at least here 3 ###");
 		// text field for the workout name to be added
 		nameTextField = (EditText) findViewById(R.id.nameofworkout_edittext_add);
 		nameTextField.setOnClickListener(this);
 
-		Log.d(tag,"### at least here 4 ###");
-		// drop down menu for the workout types to be added
-		/*
-		 * !!!!! functionaly taken out, users can no longer add to WoD, heroes,
-		 * girls workout lists workoutTypeDropDown = (Spinner)
-		 * findViewById(R.id.workout_form_workouttype_spinner);
-		 * ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-		 * this, R.array.workouttype_array, android.R.layout.simple_spinner_item);
-		 * adapter
-		 * .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		 * workoutTypeDropDown.setAdapter(adapter);
-		 * workoutTypeDropDown.setOnItemSelectedListener(new
-		 * MyOnItemSelectedListener());
-		 */
 
 		// drop down menu for the record type to be added
 		recordTypeDropDown = (Spinner) findViewById(R.id.workout_form_recordtype_spinner);
@@ -150,7 +130,7 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 
 			break;
 
-		case R.id.workout_background:
+		case R.id.custom_add_background:
 			hideKeyboard(workoutTextField);
 			hideKeyboard(nameTextField);
 			break;
