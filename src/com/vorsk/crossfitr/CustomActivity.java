@@ -15,14 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 // TODO: All these workout activities should just extend 1 WorkoutActivity
@@ -126,7 +121,6 @@ public class CustomActivity extends Activity implements OnClickListener {
 		}
 
 		public int getCount() {
-
 			return arrayList.size();
 		}
 
