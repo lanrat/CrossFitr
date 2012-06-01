@@ -79,6 +79,7 @@ public class TabataActivity extends Activity {
 		
 		mReset = (Button)findViewById(R.id.reset_button);
 		mReset.setTypeface(roboto);
+		mReset.setEnabled(false);
         
         mFinish = (Button)findViewById(R.id.finish_workout_button);
         mFinish.setTypeface(roboto);
@@ -111,7 +112,6 @@ public class TabataActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 			mStateLabel.setText("Press To Start");
 			mStateLabel.setTextColor(-16711936);
-			//mFinish.setEnabled(true);
 			mReset.setEnabled(true);
 			mFinish.setEnabled(true);
 		}
@@ -120,6 +120,8 @@ public class TabataActivity extends Activity {
 	public void onResetClicked(View v) {
 		newStart = true;
 		tabata.reset();
+		mReset.setEnabled(false);
+		mFinish.setEnabled(false);
 	}
 	
 	public void onFinishClicked(View v) {
