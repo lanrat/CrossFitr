@@ -6,6 +6,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -21,23 +22,15 @@ import android.widget.TextView;
 public class TimerActivity extends Activity 
 {	
     static final int NUMBER_DIALOG_ID = 0; // Dialog variable
-    TextView mTimeDisplay, mElapsedTime, mWorkoutDescription, mStateLabel;
     private int mHour, mMin, mSec;
-    private long startTime;
-    NumberPicker mNumberPicker;
-    Button mStart, mStop, mReset, mSetTimer, mFinish;
-    Button mStartStop;
-    TabHost tabHost;
-    boolean firstTimeCountdown = true;
-    boolean firstTimeAlarm = true;
-    long id;
-    Time timer = new Time();
-    AudibleTime sound;
-    
-    
-	// Timer to update the elapsedTime display
+    private long startTime, id;
     private final long mFrequency = 100;    // milliseconds
-    private final int TICK_WHAT = 2; 
+    private final int TICK_WHAT = 2;
+    NumberPicker mNumberPicker;
+    Button mSetTimer, mFinish, mStartStop;
+    TextView mWorkoutDescription, mStateLabel;
+    Time timer = new Time();
+
 	private Handler mHandler = new Handler() {
         public void handleMessage(Message m) {
         	updateElapsedTime();
@@ -66,19 +59,22 @@ public class TimerActivity extends Activity
 	  	model.open();
 	  	WorkoutRow row = model.getByID(id);
 		model.close();
-
-		mElapsedTime = (TextView)findViewById(R.id.ElapsedTime);
+		
 		mStateLabel = (TextView)findViewById(R.id.timer_state_label);
-        mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
-        mStart = (Button)findViewById(R.id.StartButton);
-        mStop = (Button)findViewById(R.id.StopButton);
+		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
+		
+		mStartStop = (Button)findViewById(R.id.start_stop_button);
         mSetTimer = (Button)findViewById(R.id.SetTimer);
         mFinish = (Button)findViewById(R.id.FinishButton);
         mStartStop = (Button)findViewById(R.id.start_stop_button);
+        
         mStartStop.setEnabled(false);
         mFinish.setEnabled(false);
+        
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
+        
         mStateLabel.setText("");
+        
         mWorkoutDescription.setText(row.description);
 
     
@@ -100,7 +96,6 @@ public class TimerActivity extends Activity
 					mMin = selectedMin;
 					mSec = selectedSec;
 					mStartStop.setEnabled(true);
-					//showStartButton();
 				}
 
 		    };
@@ -113,11 +108,9 @@ public class TimerActivity extends Activity
 		mMin = 0;
 		mSec = 0;
 		startTime = 0;
-		firstTimeCountdown = true;
-		firstTimeAlarm = true;
+		mStateLabel.setText("Press To Start");
 		timer.reset();
 		updateElapsedTime();
-		mStateLabel.setText("Press To Start");
 	}
 
 	private void clearInput(){
@@ -189,9 +182,6 @@ public class TimerActivity extends Activity
 
 	private boolean checkForEnd(long time) {
 		if(time < 0){	
-			mSetTimer.setVisibility(View.VISIBLE);
-			// mStop.setVisibility(View.GONE);
-			clearInput();
 			Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		    if(alert == null){
 		         // alert is null, using backup
@@ -201,8 +191,9 @@ public class TimerActivity extends Activity
 		             alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);               
 		         }
 		     }
+		    clearInput();
 			timer.reset();
-			mStateLabel.setText("Press To Start");
+			mStateLabel.setText("");
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mSetTimer.setEnabled(true);
@@ -232,6 +223,7 @@ public class TimerActivity extends Activity
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
 			mStateLabel.setText("Press To Stop");
 			mSetTimer.setEnabled(false);
+			mFinish.setEnabled(false);
 		}
 		else{
 			timer.stop();
@@ -239,34 +231,16 @@ public class TimerActivity extends Activity
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
 			mSetTimer.setEnabled(true);
+			mFinish.setEnabled(true);
 		}
 	}
 
-/*	public void onStopClicked(View v) {
-		timer.stop();
-		showStartButton();
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
-		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
-		mSetTimer.setVisibility(View.VISIBLE);
-	}*/
-
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
-		result.putExtra("time", getFormattedElapsedTime());
+		result.putExtra("time", getStartTime());
 		getParent().setResult(RESULT_OK, result);
 		finish();
 	}
-
-/*	private void showStopButton() {
-		mStart.setVisibility(View.GONE);
-		mStop.setVisibility(View.VISIBLE);
-	}
-
-	private void showStartButton() {
-		mStart.setVisibility(View.VISIBLE);
-		mStop.setVisibility(View.GONE);
-	}*/
-
 
 	private String formatDigits(long num) {
 		return (num < 10) ? "0" + num : new Long(num).toString();
