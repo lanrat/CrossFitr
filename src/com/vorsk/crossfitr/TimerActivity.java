@@ -263,7 +263,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 	}
 
 	
-	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
 		return new NumberPickerDialog(this, mNumberSetListener, 2, 0);
@@ -272,7 +271,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 	/**
 	 * Resizes mStartStop dynamically for smaller screen sizes
 	 */
-	@Override
 	public void onGlobalLayout() {
 	    if (1 < mStartStop.getLineCount()) {
 	        mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,
