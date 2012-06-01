@@ -158,15 +158,19 @@ public class WorkoutModel extends SQLiteDAO
 	/**
 	 * Finds a workout matching a given name
 	 * @param name the name to search for
-	 * @return the row containing hat workout, -1 on failure;
+	 * @return the row id containing that workout, -1 on failure;
 	 */
 	public long getIDFromName(String name){
 		Log.d(TAG,"looking up id for: "+name);
+		Log.d(TAG,"Table: "+DB_TABLE);
 		Cursor cr = super.db.rawQuery(
 				"SELECT "+COL_ID+" FROM " + DB_TABLE + " WHERE " + COL_NAME + " = ?",new String[] {name});
 		if (cr != null && cr.getCount() > 0){
 			Log.d(TAG,"found id");
-			return fetchWorkoutRows(cr)[0]._id;
+			int id = cr.getColumnIndex(COL_ID);
+			Log.d(TAG,"id is: "+id);
+			return cr.getLong(id);
+			//return fetchWorkoutRows(cr)[0]._id;
 		}
 		Log.d(TAG,"name not found");
 		return -1;	
