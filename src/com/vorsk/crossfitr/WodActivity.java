@@ -11,6 +11,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 	private ListView listView;
 	protected ProgressDialog pd;
 	ArrayAdapter<WorkoutRow> adapter;
+	private static String TAG = "WODActivity";
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -95,12 +97,28 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		//add the selected workout to the DB
 		WorkoutModel model = new WorkoutModel(this);
 		model.open();
-		long entry_id;
+		//long entry_id = 0;
+		
+		long entry_id = model.getIDFromName(workout.name);
 
-		try {
-			entry_id = model.insert(workout);
-		} catch (SQLException e) {
-			Log.e("WODActivity","derp on wod insert");
+		if (entry_id == -1){
+			Log.d(TAG,"WOD not in DB, inserting");
+			try {
+				//entry_id = model.insert(workout);
+				//TODO this is a hack to make inserting a selected workout work, it should be fixed!
+				entry_id = model.insert(workout.name, workout.description, (int)workout.workout_type_id,
+														(int)workout.record_type_id, workout.record);
+			/*}catch (SQLiteConstraintException e){
+				Log.d(TAG,"Row already exists!");
+				entry_id = model.getIDFromName(workout.name);*/
+			} catch (SQLException e) {
+				Log.e(TAG,"derp on wod insert");
+				return;
+			}
+		}
+		
+		if (entry_id == -1){
+			Log.e(TAG,"could not insert WOD into DB, unknown error");
 			return;
 		}
 		

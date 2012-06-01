@@ -3,6 +3,7 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * DAO for "workout" table.
@@ -22,6 +23,8 @@ public class WorkoutModel extends SQLiteDAO
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
+	
+	private static String TAG = "WorkoutModel";
 	
 	
 	/*****   Constructors   *****/
@@ -85,7 +88,7 @@ public class WorkoutModel extends SQLiteDAO
 	
 	/**
 	 * Inserts a new entry into the workout table
-	 * 
+	 * TODO: does not work, violates unknown constraint
 	 * @param row
 	 *            Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
@@ -151,6 +154,23 @@ public class WorkoutModel extends SQLiteDAO
 		WorkoutRow[] rows = fetchWorkoutRows(cr);
 		return (rows.length == 0) ? null : rows[0];
 	}
+	
+	/**
+	 * Finds a workout matching a given name
+	 * @param name the name to search for
+	 * @return the row containing hat workout, -1 on failure;
+	 */
+	public long getIDFromName(String name){
+		Log.d(TAG,"looking up id for: "+name);
+		Cursor cr = super.db.rawQuery(
+				"SELECT "+COL_ID+" FROM " + DB_TABLE + " WHERE " + COL_NAME + " = ?",new String[] {name});
+		if (cr != null && cr.getCount() > 0){
+			Log.d(TAG,"found id");
+			return fetchWorkoutRows(cr)[0]._id;
+		}
+		Log.d(TAG,"name not found");
+		return -1;	
+	}
 
 	/**
 	 * Fetch all workouts of a specific type (girl, hero, custom, wod)
@@ -165,6 +185,7 @@ public class WorkoutModel extends SQLiteDAO
 		Cursor cr = select(col, val);
 		return fetchWorkoutRows(cr);
 	}
+	
 	
 	/**
 	 * Gets a workout_type's ID by its name
