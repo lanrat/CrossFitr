@@ -67,7 +67,7 @@ public class StopwatchActivity extends Activity {
     public void onStartStopClicked(View V) {
 		if(!stopwatch.isRunning()){
 			stopwatch.start();
-			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
 			mStateLabel.setText("Press To Stop");;
 			mFinish.setEnabled(false);
@@ -75,7 +75,7 @@ public class StopwatchActivity extends Activity {
 		}
 		else{
 			stopwatch.stop();
-			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
 			mFinish.setEnabled(true);
