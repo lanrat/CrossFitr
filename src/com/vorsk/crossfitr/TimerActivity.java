@@ -64,8 +64,8 @@ public class TimerActivity extends Activity
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
-        mSetTimer = (Button)findViewById(R.id.set_timer_button);
-        mFinish = (Button)findViewById(R.id.finish_workout_button);
+        mSetTimer = (Button)findViewById(R.id.SetTimer);
+        mFinish = (Button)findViewById(R.id.FinishButton);
         mStartStop = (Button)findViewById(R.id.start_stop_button);
         
         mStartStop.setEnabled(false);
@@ -206,7 +206,7 @@ public class TimerActivity extends Activity
 
 	/**
 	 * Gets the current elapsed time in 0:00:00.00 format
-	 * @return correctly formatted String
+	 * @return
 	 */
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - getElapsedTime());
