@@ -190,7 +190,6 @@ public class WorkoutModel extends SQLiteDAO
 		return fetchWorkoutRows(cr);
 	}
 	
-	
 	/**
 	 * Gets a workout_type's ID by its name
 	 * 

@@ -130,6 +130,59 @@ public class WorkoutSessionModel extends SQLiteDAO
 	}
 	
 	/**
+	 * Fetch all workouts within a given time period
+	 *
+	 * @param mintime Beginning time of interval (unix timestamp)
+	 * @param maxtime End time of interval (unix timestamp)
+	 */
+	public WorkoutSessionRow[] getByTime(int mintime, int maxtime)
+	{
+		String sql = "SELECT * FROM " + DB_TABLE + " WHERE "
+			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ?";
+		
+		Cursor cr = db.rawQuery(sql, new String[] { 
+				String.valueOf(mintime), String.valueOf(maxtime) });
+		return fetchWorkoutSessionRows(cr);
+	}
+	
+	/**
+	 * Fetch all workouts within a given time period of a given type
+	 *
+	 * @param mintime Beginning time of interval (unix timestamp)
+	 * @param maxtime End time of interval (unix timestamp)
+	 * @param type Workout type; use constants (TYPE_GIRL, etc)
+	 */
+	public WorkoutSessionRow[] getByTime(int mintime, int maxtime, int type)
+	{
+		String sql = "SELECT * FROM " + DB_TABLE + " ws WHERE "
+			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ? AND "
+			+ "(SELECT " + WorkoutModel.COL_WK_TYPE + " FROM workout WHERE "
+			+ COL_ID + "=ws." + COL_WORKOUT + ") = ?";
+		
+		Cursor cr = db.rawQuery(sql, new String[] {
+				String.valueOf(mintime),
+				String.valueOf(maxtime), 
+				String.valueOf(type)
+		});
+		return fetchWorkoutSessionRows(cr);
+	}
+	
+	/**
+	 * Fetch all workout sessions by type
+	 *
+	 * @param type Workout type; use constants (TYPE_GIRL, etc)
+	 */
+	public WorkoutSessionRow[] getByType(int type)
+	{
+		String sql = "SELECT * FROM " + DB_TABLE + " ws WHERE "
+			+ "(SELECT " + WorkoutModel.COL_WK_TYPE + " FROM workout WHERE "
+			+ COL_ID + "=ws." + COL_WORKOUT + ") = ?";
+		
+		Cursor cr = db.rawQuery(sql, new String[] { String.valueOf(type) });
+		return fetchWorkoutSessionRows(cr);
+	}
+	
+	/**
 	 * Remove a previously created session
 	 * 
 	 * Currently used by ResultsActivity is you don't want to save. This
