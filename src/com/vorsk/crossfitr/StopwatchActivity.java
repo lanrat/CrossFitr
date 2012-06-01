@@ -54,6 +54,7 @@ public class StopwatchActivity extends Activity {
         
         mWorkoutDescription.setText(row.description);
         mReset.setEnabled(false);
+        mFinish.setEnabled(false);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
     }
@@ -79,11 +80,13 @@ public class StopwatchActivity extends Activity {
 			mStateLabel.setText("Press To Start");
 			mFinish.setEnabled(true);
 			mReset.setEnabled(true);
+			mFinish.setEnabled(true);
 		}
 	}
     
     public void onResetClicked(View v) {
     	stopwatch.reset();
+    	mFinish.setEnabled(false);
     }
     
     public void onFinishClicked(View v) {
