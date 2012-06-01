@@ -21,6 +21,8 @@
     <string name="reset_label">Reset</string>
     <string name="finish_label">Finish Workout</string>
     <string name="timerset_label">Set Timer</string>
+    <string name="workoutdes_default_label">Worout Description</string>
+    <string name="workoutstate_default_label">Press To Start</string>
  
    
     <!-- Working layout on Anthony table -->

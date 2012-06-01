@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 public class TimerActivity extends Activity implements OnGlobalLayoutListener 
@@ -32,7 +31,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
     NumberPicker mNumberPicker;
     Button mSetTimer, mFinish, mStartStop;
     TextView mWorkoutDescription, mStateLabel;
-    private boolean newRun; 
     Time timer = new Time();
 
 	private Handler mHandler = new Handler() {
@@ -47,7 +45,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		newRun = true;
 
 	    //create model object
 	    WorkoutModel model = new WorkoutModel(this);
@@ -133,8 +130,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 		mStateLabel.setText("Press To Start");
 		mStateLabel.setTextColor(-16711936);
 
-		newRun = true;
-
 		timer.reset();
 		updateElapsedTime();
 	}
@@ -197,16 +192,11 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 			}
 		}
 
-	//	if(hours > 0 || newRun){
-			sb.append(hours).append(":")
+
+		sb.append(hours).append(":")
 			.append(formatDigits(minutes)).append(":")
 			.append(formatDigits(seconds)).append(".")
 			.append(tenths);
-	/*	}else{
-			sb.append(formatDigits(minutes)).append(":")
-			.append(formatDigits(seconds)).append(".")
-			.append(tenths);
-		}*/
 
 		return sb.toString();		
 	}
@@ -240,7 +230,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 	}
 
 	public void onStartStopClicked(View V) {
-		newRun = false;
 		if(!timer.isRunning()){
 			timer.start();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);

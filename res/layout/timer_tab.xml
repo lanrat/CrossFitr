@@ -20,7 +20,7 @@
         android:layout_width="163dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="Press To Start"
+        android:text="@string/workoutstate_default_label"
         android:textSize="24sp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_gravity="center"
         android:layout_weight="0.03"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Workout Description" />
+        android:text="@string/workoutdes_default_label" />
 
     <Button
         android:id="@+id/SetTimer"
