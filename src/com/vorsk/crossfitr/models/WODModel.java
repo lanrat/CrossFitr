@@ -25,6 +25,14 @@ public class WODModel {
 	}
 	
 	/**
+	 * Gets all available WODS to display
+	 */
+	public void fetchAll(){
+		this.fetchNew();
+		this.fetchDB();
+	}
+	
+	/**
 	 * Run this to get results
 	 */
 	public void fetchNew(){
@@ -65,14 +73,6 @@ public class WODModel {
 			row.name = "Error Loading RSS";
 			list.add(row);
 		}
-	}
-	
-	/**
-	 * Gets all avaible WODS to display
-	 */
-	public void fetchAll(){
-		this.fetchNew();
-		this.fetchDB();
 	}
 	
 	/**
