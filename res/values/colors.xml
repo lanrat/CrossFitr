@@ -14,5 +14,11 @@
 
     <!-- Font colors -->
     <color name="blue">#0099CC</color>
-
+    
+    <!--  workout types colors -->
+    <color name="wod">#669900</color>
+    <color name="heroes">#ff8800</color>   
+    <color name="girls">#e75aa1</color>   
+    <color name="custom">#93d2f3</color>              
+    
 </resources>

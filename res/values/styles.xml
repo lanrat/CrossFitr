@@ -25,18 +25,24 @@
         <item name="android:background">@drawable/numberpicker_input</item>
     </style>
 
-    <style name="titleText" >
+    <style name="titleText">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">40sp</item>
     </style>
-    
-    <style name="mainButtonText" >
+
+    <style name="mainButtonText">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">25sp</item>
         <item name="android:paddingLeft">75dp</item>
-        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingTop">17dp</item>
         <item name="android:gravity">left</item>
     </style>
-    
+
+    <style name="textButton">
+        <item name="android:textSize">25sp</item>
+        <item name="android:paddingLeft">60dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:gravity">left</item>
+    </style>
 
 </resources>
