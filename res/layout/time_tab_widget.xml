@@ -7,7 +7,8 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:background="@drawable/background_main" >
         <ImageView
         	android:id="@+id/main_header"
         	android:layout_width="wrap_content"
