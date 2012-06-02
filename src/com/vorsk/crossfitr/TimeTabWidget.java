@@ -35,7 +35,7 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
 	    spec = tabhost.newTabSpec("timer").setIndicator("Timer",
-	                      res.getDrawable(R.drawable.tab_timer))
+	                      res.getDrawable(R.drawable.timer_tab_icons))
 	                  .setContent(intent);
 	    tabhost.addTab(spec);
 	    tabhost.setEnabled(false);

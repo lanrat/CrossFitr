@@ -8,9 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -29,10 +27,12 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private long startTime, id;
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
+	private boolean cdRun;
 	NumberPicker mNumberPicker;
 	Button mSetTimer, mFinish, mStartStop;
 	TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	Time timer = new Time();
+	private MediaPlayer mp;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
@@ -45,7 +45,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
+		cdRun = false;
 		// create model object
 		WorkoutModel model = new WorkoutModel(this);
 		// get the id passed from previous activity (workout lists)
@@ -71,7 +71,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		mWorkoutDescription = (TextView) findViewById(R.id.workout_des_time);
 		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
-		mWorkoutDescription.setText(workout.description);
+		String workoutDesc = workout.description;
+		workoutDesc.replace(",", "\n");
+		mWorkoutDescription.setText(workoutDesc);
 
 		mWorkoutName = (TextView) findViewById(R.id.workout_name_time);
 		mWorkoutName.setText(workout.name);
@@ -81,7 +83,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(this);
 		mStartStop.setTypeface(roboto);
-		mStartStop.setText("0:00:00.0");
+		//mStartStop.setText("0:00:00.0");
 		mStartStop.setEnabled(false);
 
 		mSetTimer = (Button) findViewById(R.id.SetTimer);
@@ -140,7 +142,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	}
 
 	private void updateElapsedTime() {
-		if(timer.isRunning())
+		if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
@@ -232,30 +234,34 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					.getChildTabViewAt(1).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
 					.getChildTabViewAt(2).setEnabled(false);
+			
+			 //Release any resources from previous MediaPlayer
+			 if (mp != null) {
+			 mp.release();
+			 }
+			
+			 // Create a new MediaPlayer to play this sound
+			 mp = MediaPlayer.create(this, R.raw.countdown_3_0);
+			 mp.start();
+			 
 
-			new CountDownTimer(4000, 1000) {
+			new CountDownTimer(3100, 1000) {
 
 				public void onTick(long millisUntilFinished) {
-					int cd = (int) (millisUntilFinished / 1000);
-					//mStartStop.setText("" + millisUntilFinished / 1000);
-					
-					if(cd > 2){
-						mStartStop.setText("3");
-					}else if(cd > 1){
-						mStartStop.setText("2");
-					}else{
-						mStartStop.setText("1");
-					}
-					
+					mStartStop.setEnabled(false);
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(-65536);
+					mSetTimer.setEnabled(false);
+					mFinish.setEnabled(false);
+					cdRun = true;
+					mStartStop.setText("" + (millisUntilFinished / 1000));
 				}
 
 				public void onFinish() {
 					mStartStop.setText("Go!");
 					timer.start();
-					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
-					mSetTimer.setEnabled(false);
-					mFinish.setEnabled(false);
+					cdRun = false;
+					mStartStop.setEnabled(true);
 				}
 			}.start();
 

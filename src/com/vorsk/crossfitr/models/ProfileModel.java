@@ -70,6 +70,7 @@ public class ProfileModel extends SQLiteDAO {
 			ii++;
 		}
 
+		cr.close();
 		return result;
 	}
 

@@ -73,7 +73,8 @@ public class InjuryModel extends SQLiteDAO
 			valid = cr.moveToNext();
 			ii ++;
 		}
-		
+
+		cr.close();
 		return result;
 	}
 	
