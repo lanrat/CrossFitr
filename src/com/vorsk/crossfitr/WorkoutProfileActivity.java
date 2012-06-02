@@ -39,14 +39,15 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		
 		//TextView objects
 		TextView tvname = (TextView)findViewById(R.id.workout_profile_nameDB);
-		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
-		TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB); 
 		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
+		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
+		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB); 
+		
 		
 		//set the texts of the TextView objects from the data retrieved from the DB
 		tvname.setText(workout.name);
 		tvdesc.setText(workout.description);
-		tvrecordType.setText(model.getTypeName(workout.workout_type_id));
+		//tvrecordType.setText(model.getTypeName(workout.workout_type_id));
 		tvbestRecord.setText(String.valueOf(workout.record)); // TODO: Format
         
 		// begin workout button

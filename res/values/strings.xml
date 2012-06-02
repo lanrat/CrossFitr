@@ -41,7 +41,7 @@
 	<string name="workout_profile_title">Workout Profile</string>
 	<string name="description_header">Description</string>
 	<string name="record_type_header">Record Type</string>
-	<string name="record_header">Personal Record</string>
+	<string name="record_header">Personal Record: </string>
 	
 	<!--  Strings used in results page -->
 	<string name="button_sav_workout">End Session</string>

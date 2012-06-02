@@ -23,6 +23,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile_form);
+		model.open();
 	
 
 		// Save button
@@ -31,23 +32,31 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		
 		// Cancel button
 		View cancelButton = findViewById(R.id.button_userprofile_form_cancel);
-		saveButton.setOnClickListener(this);
+		cancelButton.setOnClickListener(this);
 		
 		// Name field
         nameTextField = (EditText) findViewById(R.id.user_name_field);
         nameTextField.setOnClickListener(this);
+        nameTextField.setText(model.getByAttribute("name").value);        
 
         // Weight field
         weightTextField = (EditText) findViewById(R.id.user_weight_field);
         weightTextField.setOnClickListener(this);
+        weightTextField.setText(model.getByAttribute("weight").value);
+
         
         //Goal Weight field
         goalWeightTextField = (EditText) findViewById(R.id.user_goal_weight_field);
         goalWeightTextField.setOnClickListener(this);
+        goalWeightTextField.setText(model.getByAttribute("goal_weight").value);
+
         
         //Height field
         heightTextField = (EditText) findViewById(R.id.user_height_field);
         heightTextField.setOnClickListener(this);
+        heightTextField.setText(model.getByAttribute("height").value);
+        
+        model.close();
 	}
 
 	public void onClick(View v) 
@@ -56,8 +65,10 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		switch(v.getId())
 		{
 		case R.id.button_userprofile_form_save:
-			long name_id = model.insert("name", nameTextField.getText().toString());
-			weightTextField.setText(String.valueOf(name_id));
+			long name_id = model.updateInsert("name", nameTextField.getText().toString());
+			long height_id = model.updateInsert("height", heightTextField.getText().toString());
+			long current_weight_id = model.updateInsert("weight", weightTextField.getText().toString());
+			long goal_weight_id = model.updateInsert("goal_weight", goalWeightTextField.getText().toString());
 			break;
 		case R.id.button_userprofile_form_cancel:
 			Intent u = new Intent(this, UserProfileActivity.class);
@@ -67,3 +78,4 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		model.close();
 	}
 }
+

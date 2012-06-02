@@ -4,40 +4,48 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_workouts"
     android:orientation="vertical" >
-
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/workout_profile_nameDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODO: get workout name from DB"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/record_header"
+            android:layout_marginLeft="30dp"
+            android:textSize="15sp" />
+        
+        
+	    <TextView
+	        android:id="@+id/workout_profile_best_recordDB"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="2dp"
+	        android:text="TODO: get best record from DB"
+	        android:textSize="15sp" />
+
+        
+    </LinearLayout>
+
     <TextView
         android:id="@+id/workout_profile_descDB"
         android:layout_width="match_parent"
         android:layout_height="78dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight="0.12"
         android:text="TODO: get description from DB"
         android:textSize="30sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/record_header"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/workout_profile_best_recordDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO: get best record from DB"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/workout_profile_recordtypeDB"	
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TODO: get recordtype from DB" />
-
-    <TextView
-        android:id="@+id/workout_profile_nameDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO: get workout name from DB" />
 
     <Button
         android:id="@+id/button_begin_workout"
