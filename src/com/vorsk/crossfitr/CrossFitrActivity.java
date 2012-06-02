@@ -44,7 +44,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		profileText.setTypeface(font);
 
 		/** user status dialog **/
-
+		// TODO
 		numOfWorkouts = (TextView) findViewById(R.id.main_num_of_workouts);
 		numOfWorkouts.setText("###");
 
