@@ -3,7 +3,6 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 /**
  * DAO for "workout" table.
@@ -23,9 +22,7 @@ public class WorkoutModel extends SQLiteDAO
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
-	
-	private static String TAG = "WorkoutModel";
-	
+		
 	
 	/*****   Constructors   *****/
 	
