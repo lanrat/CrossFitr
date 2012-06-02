@@ -162,19 +162,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * @return the row id containing that workout, -1 on failure;
 	 */
 	public long getIDFromName(String name){
-		Log.d(TAG,"looking up id for: "+name);
-		Log.d(TAG,"Table: "+DB_TABLE);
-		Cursor cr = super.db.rawQuery(
-				"SELECT "+COL_ID+" FROM " + DB_TABLE + " WHERE " + COL_NAME + " = ?",new String[] {name});
-		if (cr != null && cr.getCount() > 0){
-			Log.d(TAG,"found id");
-			int id = cr.getColumnIndex(COL_ID);
-			Log.d(TAG,"id is: "+id);
-			return cr.getLong(id);
-			//return fetchWorkoutRows(cr)[0]._id;
-		}
-		Log.d(TAG,"name not found");
-		return -1;	
+		return super.selectIDByName(DB_TABLE, name);
 	}
 
 	/**
