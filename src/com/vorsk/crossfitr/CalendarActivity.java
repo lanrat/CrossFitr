@@ -392,11 +392,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public int getCurrentDayOfMonth() {
-
-			if (currentDayOfMonth - 1 == 0)
-				return 1;
-
-			return currentDayOfMonth ;
+			return currentDayOfMonth;
 		}
 
 		private void setCurrentDayOfMonth(int currentDayOfMonth) {
