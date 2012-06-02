@@ -74,6 +74,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 			ii ++;
 		}
 		
+		cr.close();
 		return result;
 	}
 	

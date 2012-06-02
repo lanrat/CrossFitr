@@ -150,7 +150,7 @@ public abstract class SQLiteDAO
 	
 	
 	private DatabaseHelper DBHelper;
-	protected SQLiteDatabase db;
+	protected static SQLiteDatabase db;
 
 	/*** Constructors ***/
 
