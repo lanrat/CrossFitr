@@ -412,7 +412,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public int stampTime(String _sDate) {
-			Log.d("stampTime", "_sDate = " + _sDate);
+	  		Log.d("stampTime", "_sDate = " + _sDate);
 			try {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 				Log.d("stampTime", "formatter = " + formatter.toString());
@@ -503,10 +503,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
-			//  itemWorkout.setText(arrayList.get(position).workout_id)
+				//TODO: Start right here!
+			//  itemWorkout.setText(arrayList.get(position).workout_id) -> Does not work!!!
 				
-			}
-			
+			}	
 			
 			return convertView;
 		}
