@@ -72,7 +72,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
-		mWorkoutDescription.setText(workout.description);
+		String workoutDesc = workout.description;
+		workoutDesc.replace(",", "\n");
+		mWorkoutDescription.setText(workoutDesc);
 
 		mWorkoutName = (TextView)findViewById(R.id.workout_name_time);
 		mWorkoutName.setText(workout.name);
