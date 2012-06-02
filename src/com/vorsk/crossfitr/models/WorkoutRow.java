@@ -1,8 +1,6 @@
 package com.vorsk.crossfitr.models;
 
 import android.content.ContentValues;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
  * Workout entry struct
@@ -48,6 +46,23 @@ public class WorkoutRow extends SQLiteRow
 	public String toString()
 	{
 		return this.name;
+	}
+	
+	/**
+	 * returns the hashcode for the object
+	 */
+	public int hashCode(){
+		return name.hashCode();
+	}
+	
+	/** 
+	 * check name of Workout to determine if equal
+	 */
+	public boolean equals(Object obj){
+        if (obj.getClass() == getClass()){
+            return this.name.equals(((WorkoutRow)obj).name);
+        }
+		return false;
 	}
 
 }
