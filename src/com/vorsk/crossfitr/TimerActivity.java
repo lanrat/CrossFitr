@@ -230,10 +230,8 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 
 	public void onStartStopClicked(View V) {
 		if (!timer.isRunning()) {
-			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
-					.getChildTabViewAt(1).setEnabled(false);
-			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
-					.getChildTabViewAt(2).setEnabled(false);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
+			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
 
 			new CountDownTimer(4000, 1000) {
 
