@@ -9,7 +9,7 @@ android:orientation="vertical">
 	
     <!-- TextView for "The name of workout" -->
     <TextView
-		android:id="@+id/custom_string_nameofworkout"
+		android:id="@+id/string_nameofworkout"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="20sp"
@@ -19,7 +19,7 @@ android:orientation="vertical">
     <!-- TextView for "The workout description" -->
     <TextView
         android:ellipsize="marquee"
-		android:id="@+id/custom_string_description"
+		android:id="@+id/string_description"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="20sp"
@@ -27,7 +27,7 @@ android:orientation="vertical">
 	</TextView>
 	
     <ImageView
-        android:id="@+id/custom_image_arrow"
+        android:id="@+id/image_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/custom_rightarrow">        

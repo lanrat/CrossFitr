@@ -7,7 +7,6 @@ import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -133,10 +132,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 			case R.id.button_results_share_workout_FB:
 				//TODO: implement fb functionality
 			    // if user presses this button, user will now go into the timer page.
-				break;
-					
+				break;		
 		}
 	}
-	
 	
 }

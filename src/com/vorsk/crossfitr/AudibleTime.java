@@ -8,8 +8,6 @@ public class AudibleTime extends Activity{
 	public void playCountdownSound(){
 		MediaPlayer media = MediaPlayer.create(this,R.raw.countdown_3_0);
 		media.start();
-		
-
 	}
 	
 	public void playAlarmSound(){

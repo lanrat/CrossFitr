@@ -1,8 +1,6 @@
 package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -15,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 // TODO: All these workout activities should just extend 1 WorkoutActivity
 // class or something
-public class CustomActivity extends Activity implements OnClickListener {
+public class CustomActivity extends Activity implements OnClickListener, OnItemClickListener {
 	private static final String tag = "CustomActivity";
 	private ListView customLView;
 	private View add_custom_button;
@@ -68,8 +68,17 @@ public class CustomActivity extends Activity implements OnClickListener {
 			listAdapter.notifyDataSetChanged();
 
 			derp_custom_List.setAdapter(listAdapter);
-
+			
+			derp_custom_List.setOnItemClickListener(this);
 		}
+	}
+	
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
+		WorkoutRow workout = listAdapter.get(position);
+		Intent x = new Intent(this, WorkoutProfileActivity.class);
+		x.putExtra("ID", workout._id);
+		startActivity(x);
 	}
 
 	public void onClick(View v) {
@@ -103,18 +112,18 @@ public class CustomActivity extends Activity implements OnClickListener {
 				convertView = inflater
 						.inflate(R.layout.custom_list_item, parent, false);
 
-			listArrow = (ImageView) convertView.findViewById(R.id.custom_image_arrow);
+			listArrow = (ImageView) convertView.findViewById(R.id.image_arrow);
 			listArrow.setOnClickListener(this);
 
 			Log.d(tag, "arrayList.get(" + index + ").name : "
 					+ arrayList.get(index).name);
 
 			nameTView = (TextView) convertView
-					.findViewById(R.id.custom_string_nameofworkout);
+					.findViewById(R.id.string_nameofworkout);
 			nameTView.setText(arrayList.get(index).name);
 
 			descTView = (TextView) convertView
-					.findViewById(R.id.custom_string_description);
+					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
 			descTView.setSelected(true);
 
@@ -127,6 +136,11 @@ public class CustomActivity extends Activity implements OnClickListener {
 
 		public String getItem(int arg0) {
 			return arrayList.get(arg0).name;
+		}
+		
+		public <T> T get(int arg0)
+		{
+		   return (T) arrayList.get(arg0);
 		}
 
 		public long getItemId(int id) {

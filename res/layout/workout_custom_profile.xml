@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_workouts" >
+    android:background="@drawable/background_workouts" >
+
     <LinearLayout
         android:id="@+id/titlebar"
         android:layout_width="wrap_content"
@@ -38,7 +39,7 @@
     <ScrollView 
     android:id="@+id/details_scroll"
     android:layout_width="fill_parent"
-    android:layout_height="270dp" >
+    android:layout_height="250dp" >
 	    <TextView
 	        android:id="@+id/workout_profile_descDB"
 	        android:layout_width="match_parent"
@@ -47,14 +48,27 @@
 	        android:textSize="25sp" />
     
     </ScrollView>
-
-    <Button
-        android:id="@+id/button_begin_workout"
-        android:layout_width="100dp"
-        android:layout_height="62dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/begin_workout_clicked" />
+	
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:orientation="horizontal">
+	    
+	    <Button
+	        android:id="@+id/button_begin_workout"
+	        android:layout_width="100dp"
+	        android:layout_height="62dp"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginTop="50dp"
+	        android:background="@drawable/begin_workout_clicked" />
+	    
+	    <Button
+	        android:id="@+id/button_custom_edit_button"
+	        android:layout_marginLeft="15dp"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/edit_profile_label" />
+	   </LinearLayout>
 
 </LinearLayout>
