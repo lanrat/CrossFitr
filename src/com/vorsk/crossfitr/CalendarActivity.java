@@ -124,6 +124,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// Field number for get and set indicating the day of the month.
 		// This is a synonym for DATE. The first day of the month has value 1.
 
+		currentMonth.setText(dateFormatter.format(dateTemplate, derpCal.getTime()));
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 	}
@@ -212,6 +213,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			int nextYear = 0;
 
 			int currentMonth = mon - 1;
+			String currentMonthName = getMonthAsString(currentMonth);
 			daysInMonth = getNumberOfDaysOfMonth(currentMonth);
 
 			GregorianCalendar cal = new GregorianCalendar(year, currentMonth, 1);
@@ -391,10 +393,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		public int getCurrentDayOfMonth() {
 
-			if (currentDayOfMonth - 1 <= 0)
+			if (currentDayOfMonth - 1 == 0)
 				return 1;
 
-			return currentDayOfMonth - 1;
+			return currentDayOfMonth ;
 		}
 
 		private void setCurrentDayOfMonth(int currentDayOfMonth) {
