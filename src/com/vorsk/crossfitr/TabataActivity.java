@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
@@ -21,7 +22,7 @@ public class TabataActivity extends Activity {
 	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
-	private boolean newStart;
+	private boolean newStart, cdRun;
 	private long id;
 
 	// Timer to update the elapsedTime display
@@ -39,7 +40,7 @@ public class TabataActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.tabata_tab);
-		
+		cdRun = false;
 	  	//open model to put data into database
 	  	//get the id passed from previous activity (workout lists)
 	  	id = getIntent().getLongExtra("ID", -1);
@@ -96,14 +97,28 @@ public class TabataActivity extends Activity {
 
 	public void onStartStopClicked(View V) {
 		if(!tabata.isRunning()){
-			tabata.start();
 			newStart = false;
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
-			mStateLabel.setText("Press To Stop");
-			mStateLabel.setTextColor(-65536);
-			mFinish.setEnabled(false);
-			mReset.setEnabled(false);
+			new CountDownTimer(3100, 1000) {
+
+				public void onTick(long millisUntilFinished) {
+					mStartStop.setEnabled(false);
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(-65536);
+					mReset.setEnabled(false);
+					mFinish.setEnabled(false);
+					cdRun = true;
+					mStartStop.setText("" + (millisUntilFinished / 1000));
+				}
+
+				public void onFinish() {
+					mStartStop.setText("Go!");
+					tabata.start();
+					cdRun = false;
+					mStartStop.setEnabled(true);
+				}
+			}.start();
 		}
 		else{
 			tabata.stop();
@@ -138,6 +153,7 @@ public class TabataActivity extends Activity {
 	}
 
 	public void updateElapsedTime() {
+		if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
