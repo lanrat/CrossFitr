@@ -353,9 +353,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			String endDate = new String(Integer.toString(tempconverter) + "-" + month
 					+ "-" + year);
 
-			Log.d(tag, "startDate : " + startDate);
-			Log.d(tag, "endDate : " + endDate);
-
 			try {
 				WorkoutSessionRow[] tempWS = calendar_WSession.getByTime(
 						stampTime(startDate), stampTime(endDate));
@@ -396,7 +393,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			if (currentDayOfMonth - 1 == 0)
 				return 1;
 
-			return currentDayOfMonth ;
+			return currentDayOfMonth;
 		}
 
 		private void setCurrentDayOfMonth(int currentDayOfMonth) {
@@ -412,16 +409,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public int stampTime(String _sDate) {
-	  		Log.d("stampTime", "_sDate = " + _sDate);
 			try {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-				Log.d("stampTime", "formatter = " + formatter.toString());
 				Date date = (Date) formatter.parse(_sDate);
-				Log.d("stampTime", "date = " + date.toString());
 
 				java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
-				Log.d("stampTime", "date.getTime() = " + date.getTime());
-				Log.d("stampTime", "timeStampDate = " + timeStampDate);
+
 				long milliTime = timeStampDate.getTime() / 1000L;
 				Log.d("stampTime", "milliTime = " + milliTime);
 				return (int) milliTime;
@@ -435,6 +428,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// the list
 		public void onClick(View view) {
 			Button clickedButton = (Button) view;
+
 			if (buttonControl != null && buttonControl_color != null) {
 				buttonControl.setTextColor(colorChanger(buttonControl_color));
 				// buttonControl.setBackgroundResource(R.drawable.calendar_cellfiller);
@@ -451,10 +445,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			buttonControl_color = colorHelper[0];
 
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
-			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
-			
-			
-		
+			int numberofRecord = recordChecker(noColor[1], noColor[2], noColor[3]);
+
 		}
 
 	}
@@ -469,45 +461,47 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private ArrayList<WorkoutSessionRow> arrayList;
 		private boolean havenoRecord;
 		private LayoutInflater inflater;
-		
+
 		private TextView itemWorkout;
 		private TextView itemRecord;
-		
+
 		private WorkoutSessionModel WSModel;
-		
-		public CalendarList(Context _context){
+
+		public CalendarList(Context _context) {
 			this.listContext = _context;
 			this.havenoRecord = true;
 			inflater = (LayoutInflater) _context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);			
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 
-		public CalendarList(Context _context, ArrayList<WorkoutSessionRow> _data){
+		public CalendarList(Context _context, ArrayList<WorkoutSessionRow> _data) {
 			this.listContext = _context;
 			this.arrayList = _data;
 			this.havenoRecord = false;
 			inflater = (LayoutInflater) _context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			WSModel = new WorkoutSessionModel (_context);
+			WSModel = new WorkoutSessionModel(_context);
 		}
+
 		public View getView(int position, View convertView, ViewGroup parent) {
-			
-			if(convertView == null)
+
+			if (convertView == null)
 				convertView = inflater
-				.inflate(R.layout.custom_list_item, parent, false);
-			
+						.inflate(R.layout.custom_list_item, parent, false);
+
 			itemWorkout = (TextView) convertView.findViewById(R.id.cal_workoutname);
-			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);			
-			
-			if(havenoRecord == true){
+			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);
+
+			if (havenoRecord == true) {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
-			}else{
-				//TODO: Start right here!
-			//  itemWorkout.setText(arrayList.get(position).workout_id) -> Does not work!!!
-				
-			}	
-			
+			} else {
+				// TODO: Start right here!
+				// itemWorkout.setText(arrayList.get(position).workout_id) -> Does not
+				// work!!!
+
+			}
+
 			return convertView;
 		}
 
@@ -526,6 +520,5 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return 0;
 		}
 
-		
 	}
 }
