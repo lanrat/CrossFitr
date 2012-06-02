@@ -200,6 +200,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 
 	private boolean checkForEnd(long time) {
 		if (time < 0) {
+			playSound(R.raw.boxing_bellx3);
 			clearInput();
 			timer.reset();
 			mStateLabel.setText("");
@@ -235,17 +236,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
 					.getChildTabViewAt(2).setEnabled(false);
 			
-			 //Release any resources from previous MediaPlayer
-			 if (mp != null) {
-			 mp.release();
-			 }
-			
-			 // Create a new MediaPlayer to play this sound
-			 mp = MediaPlayer.create(this, R.raw.countdown_3_0);
-			 mp.start();
+			playSound(R.raw.countdown_3_0);
 			 
-
-			new CountDownTimer(3100, 1000) {
+			new CountDownTimer(3100, 100) {
 
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setEnabled(false);
@@ -254,19 +247,18 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					mSetTimer.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
-					mStartStop.setText("" + (millisUntilFinished / 1000));
+					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 				}
 
 				public void onFinish() {
+					playSound(R.raw.bell_ring);
 					mStartStop.setText("Go!");
 					timer.start();
 					cdRun = false;
 					mStartStop.setEnabled(true);
 				}
 			}.start();
-
 			
-
 		} else {
 			timer.stop();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
@@ -304,5 +296,16 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					mStartStop.getTextSize() - 2);
 		}
+	}
+	
+	private void playSound(int r) {
+		//Release any resources from previous MediaPlayer
+		 if (mp != null) {
+		 mp.release();
+		 }
+		
+		 // Create a new MediaPlayer to play this sound
+		 mp = MediaPlayer.create(this, r);
+		 mp.start();
 	}
 }

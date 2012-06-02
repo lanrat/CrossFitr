@@ -98,16 +98,9 @@ public class StopwatchActivity extends Activity implements
 		if(!stopwatch.isRunning()){
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
-		
-			 //Release any resources from previous MediaPlayer
-			 if (mp != null) {
-			 mp.release();
-			 }
-			
-			 // Create a new MediaPlayer to play this sound
-			 mp = MediaPlayer.create(this, R.raw.countdown_3_0);
-			 mp.start();
-			new CountDownTimer(3100, 1000) {
+			 
+			playSound(R.raw.countdown_3_0);
+			new CountDownTimer(3100, 100) {
 			
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setEnabled(false);
@@ -116,7 +109,7 @@ public class StopwatchActivity extends Activity implements
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
-					mStartStop.setText("" + (millisUntilFinished / 1000));
+					mStartStop.setText("" + ((millisUntilFinished / 1000)+1));
 				}
 
 				public void onFinish() {
@@ -210,5 +203,16 @@ public class StopwatchActivity extends Activity implements
 			mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					mStartStop.getTextSize() - 2);
 		}
+	}
+	
+	private void playSound(int r) {
+		//Release any resources from previous MediaPlayer
+		 if (mp != null) {
+		 mp.release();
+		 }
+		
+		 // Create a new MediaPlayer to play this sound
+		 mp = MediaPlayer.create(this, r);
+		 mp.start();
 	}
 }
