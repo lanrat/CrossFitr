@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class StopwatchActivity extends Activity {
+public class StopwatchActivity extends Activity implements OnGlobalLayoutListener {
 	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
     private final long mFrequency = 100;
@@ -61,6 +64,8 @@ public class StopwatchActivity extends Activity {
 		mWorkoutName.setTypeface(roboto);
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
+		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
+		vto.addOnGlobalLayoutListener(this);	
 		mStartStop.setTypeface(roboto);
 		
 		mReset = (Button)findViewById(R.id.reset_button);
@@ -163,5 +168,15 @@ public class StopwatchActivity extends Activity {
 	public long getElapsedTime() {
 		return stopwatch.getElapsedTime();
 
+	}
+	
+	/**
+	 * Resizes mStartStop dynamically for smaller screen sizes
+	 */
+	public void onGlobalLayout() {
+	    if (1 < mStartStop.getLineCount()) {
+	        mStartStop.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+	                mStartStop.getTextSize() - 2);
+	    }
 	}
 }
