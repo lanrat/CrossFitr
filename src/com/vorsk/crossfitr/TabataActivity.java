@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -24,6 +25,7 @@ public class TabataActivity extends Activity {
 	private Time tabata = new Time();
 	private boolean newStart, cdRun;
 	private long id;
+	private MediaPlayer mp;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -100,6 +102,16 @@ public class TabataActivity extends Activity {
 			newStart = false;
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
+			
+			 //Release any resources from previous MediaPlayer
+			 if (mp != null) {
+			 mp.release();
+			 }
+			
+			 // Create a new MediaPlayer to play this sound
+			 mp = MediaPlayer.create(this, R.raw.countdown_3_0);
+			 mp.start();
+			 
 			new CountDownTimer(3100, 1000) {
 
 				public void onTick(long millisUntilFinished) {

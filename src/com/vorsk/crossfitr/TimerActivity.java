@@ -8,9 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -34,6 +32,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	Button mSetTimer, mFinish, mStartStop;
 	TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	Time timer = new Time();
+	private MediaPlayer mp;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
@@ -72,7 +71,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		mWorkoutDescription = (TextView) findViewById(R.id.workout_des_time);
 		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
-		mWorkoutDescription.setText(workout.description);
+		String workoutDesc = workout.description;
+		workoutDesc.replace(",", "\n");
+		mWorkoutDescription.setText(workoutDesc);
 
 		mWorkoutName = (TextView) findViewById(R.id.workout_name_time);
 		mWorkoutName.setText(workout.name);
@@ -233,6 +234,16 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					.getChildTabViewAt(1).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
 					.getChildTabViewAt(2).setEnabled(false);
+			
+			 //Release any resources from previous MediaPlayer
+			 if (mp != null) {
+			 mp.release();
+			 }
+			
+			 // Create a new MediaPlayer to play this sound
+			 mp = MediaPlayer.create(this, R.raw.countdown_3_0);
+			 mp.start();
+			 
 
 			new CountDownTimer(3100, 1000) {
 
