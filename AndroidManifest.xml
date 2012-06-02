@@ -113,6 +113,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
+            android:name=".WorkoutCustomProfileActivity"
+            android:label="@string/workout_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name=".CalendarListActivity"
             android:label="@string/CList"
             android:screenOrientation="portrait" 
