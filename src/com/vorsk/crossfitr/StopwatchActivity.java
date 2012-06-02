@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
@@ -23,6 +24,7 @@ public class StopwatchActivity extends Activity implements OnGlobalLayoutListene
     private final long mFrequency = 100;
     private final int TICK_WHAT = 2;
 	private long id;
+	private boolean cdRun;
 	private Time stopwatch = new Time();
    
 	private Handler mHandler = new Handler() {
@@ -38,6 +40,8 @@ public class StopwatchActivity extends Activity implements OnGlobalLayoutListene
         
         setContentView(R.layout.stopwatch_tab);
 
+        cdRun = false;
+        
 	    WorkoutModel model = new WorkoutModel(this);
 	  	id = getIntent().getLongExtra("ID", -1);
 	  	if(id < 0)
@@ -86,13 +90,28 @@ public class StopwatchActivity extends Activity implements OnGlobalLayoutListene
 
     public void onStartStopClicked(View V) {
 		if(!stopwatch.isRunning()){
-			stopwatch.start();
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
-			mStateLabel.setText("Press To Stop");
-			mStateLabel.setTextColor(-65536);
-			mFinish.setEnabled(false);
-			mReset.setEnabled(false);
+		
+			new CountDownTimer(3100, 1000) {
+
+				public void onTick(long millisUntilFinished) {
+					mStartStop.setEnabled(false);
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(-65536);
+					mReset.setEnabled(false);
+					mFinish.setEnabled(false);
+					cdRun = true;
+					mStartStop.setText("" + (millisUntilFinished / 1000));
+				}
+
+				public void onFinish() {
+					mStartStop.setText("Go!");
+					stopwatch.start();
+					cdRun = false;
+					mStartStop.setEnabled(true);
+				}
+			}.start();
 		}
 		else{
 			stopwatch.stop();
@@ -120,6 +139,7 @@ public class StopwatchActivity extends Activity implements OnGlobalLayoutListene
 	}
     
     public void updateElapsedTime() {
+    	if(!cdRun)
    		mStartStop.setText(getFormattedElapsedTime());
     }
     

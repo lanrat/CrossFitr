@@ -29,6 +29,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private long startTime, id;
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
+	private boolean cdRun;
 	NumberPicker mNumberPicker;
 	Button mSetTimer, mFinish, mStartStop;
 	TextView mWorkoutDescription, mStateLabel, mWorkoutName;
@@ -45,7 +46,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
+		cdRun = false;
 		// create model object
 		WorkoutModel model = new WorkoutModel(this);
 		// get the id passed from previous activity (workout lists)
@@ -81,7 +82,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(this);
 		mStartStop.setTypeface(roboto);
-		mStartStop.setText("0:00:00.0");
+		//mStartStop.setText("0:00:00.0");
 		mStartStop.setEnabled(false);
 
 		mSetTimer = (Button) findViewById(R.id.SetTimer);
@@ -140,7 +141,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	}
 
 	private void updateElapsedTime() {
-		if(timer.isRunning())
+		if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
@@ -233,29 +234,23 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
 					.getChildTabViewAt(2).setEnabled(false);
 
-			new CountDownTimer(4000, 1000) {
+			new CountDownTimer(3100, 1000) {
 
 				public void onTick(long millisUntilFinished) {
-					int cd = (int) (millisUntilFinished / 1000);
-					//mStartStop.setText("" + millisUntilFinished / 1000);
-					
-					if(cd > 2){
-						mStartStop.setText("3");
-					}else if(cd > 1){
-						mStartStop.setText("2");
-					}else{
-						mStartStop.setText("1");
-					}
-					
+					mStartStop.setEnabled(false);
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(-65536);
+					mSetTimer.setEnabled(false);
+					mFinish.setEnabled(false);
+					cdRun = true;
+					mStartStop.setText("" + (millisUntilFinished / 1000));
 				}
 
 				public void onFinish() {
 					mStartStop.setText("Go!");
 					timer.start();
-					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
-					mSetTimer.setEnabled(false);
-					mFinish.setEnabled(false);
+					cdRun = false;
+					mStartStop.setEnabled(true);
 				}
 			}.start();
 
