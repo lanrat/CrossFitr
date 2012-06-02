@@ -35,11 +35,9 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		
 		WODModel WODmodel = new WODModel(this);
 
-		
 		listView.setOnItemClickListener(this);
 		
 		new DownloadWOD(WODmodel,this).execute(0);
-		
 	}
 	
 	/**

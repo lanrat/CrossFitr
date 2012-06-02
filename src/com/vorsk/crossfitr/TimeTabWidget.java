@@ -56,7 +56,6 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	                  .setContent(intent);
 	    tabhost.addTab(spec);
 
-
 	    tabhost.setCurrentTab(1);
 	}
 }

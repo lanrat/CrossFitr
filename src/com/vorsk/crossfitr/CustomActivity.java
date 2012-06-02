@@ -70,7 +70,6 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 			derp_custom_List.setAdapter(listAdapter);
 			
 			derp_custom_List.setOnItemClickListener(this);
-
 		}
 	}
 	

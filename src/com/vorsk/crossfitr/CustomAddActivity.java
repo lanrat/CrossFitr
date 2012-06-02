@@ -134,13 +134,12 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 			hideKeyboard(workoutTextField);
 			hideKeyboard(nameTextField);
 			break;
-
 		}
 
 	}
 
 	public void keyboardHandler() {
-
+		//TODO
 	}
 
 	// listener for the spinner object

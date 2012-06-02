@@ -89,7 +89,6 @@ public class TabataActivity extends Activity {
         mFinish.setEnabled(false);
         
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
-
 	}
 
 	@Override

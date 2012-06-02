@@ -123,15 +123,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		calView.setAdapter(gridAdapter);
 	}
 
-	protected Activity getThis() {
-		return this;
-	}
-
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
 	 * 
 	 */
-
 	public class GridAdapter extends BaseAdapter implements OnClickListener {
 
 		private static final String tag = "GridAdapter";
@@ -443,9 +438,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
 			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
-			
-			
-		
 		}
 
 	}
