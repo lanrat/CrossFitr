@@ -260,13 +260,14 @@ public abstract class SQLiteDAO
 		return cr.getString(col);
 	}
 	
+	
 	protected long selectIDByName(String table, String name) throws SQLException
 	{
 		Cursor cr = db.rawQuery(
 			"SELECT * FROM " + table + " WHERE " + COL_NAME + "=?",
 			new String[] { name });
 		if (cr == null || cr.getCount() < 1) {
-			return 0L;
+			return -1;
 		}
 		
 		int col = cr.getColumnIndexOrThrow(COL_ID);
