@@ -16,8 +16,6 @@ import java.util.*;
 import java.text.*;
 import java.sql.Timestamp;
 
-import com.vorsk.crossfitr.models.WorkoutModel;
-import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
@@ -31,14 +29,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -337,6 +331,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return row;
 		}
 
+		//Unused
 		private String removeColorfromTag(String _target) {
 			String[] tempHelper = _target.split("-");
 			String noColoronIt = new String(tempHelper[1] + "-" + tempHelper[2] + "-"

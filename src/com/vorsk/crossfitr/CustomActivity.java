@@ -1,8 +1,6 @@
 package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
