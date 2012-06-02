@@ -102,14 +102,7 @@ public class TabataActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(false);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
 			
-			 //Release any resources from previous MediaPlayer
-			 if (mp != null) {
-			 mp.release();
-			 }
-			
-			 // Create a new MediaPlayer to play this sound
-			 mp = MediaPlayer.create(this, R.raw.countdown_3_0);
-			 mp.start();
+			playSound(R.raw.countdown_3_0);
 			 
 			new CountDownTimer(3100, 1000) {
 
@@ -159,6 +152,7 @@ public class TabataActivity extends Activity {
 
 	private void endTabata() {
 		newStart = true;
+		playSound(R.raw.boxing_bellx3);
 		tabata.reset();
 		//TODO: end alarm sound and popup??
 	}
@@ -225,5 +219,15 @@ public class TabataActivity extends Activity {
 	    View view = this.getWindow().getDecorView();
 	    view.setBackgroundColor(color);
 	}
-
+	
+	private void playSound(int r) {
+		//Release any resources from previous MediaPlayer
+		 if (mp != null) {
+		 mp.release();
+		 }
+		
+		 // Create a new MediaPlayer to play this sound
+		 mp = MediaPlayer.create(this, r);
+		 mp.start();
+	}
 }

@@ -42,7 +42,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private Button currentMonth;
 
 	private ListView calendarList;
-
 	private GridView calView;
 	private GridAdapter gridAdapter; // inner class to handle adapter
 	private Calendar derpCal;
@@ -83,7 +82,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		model_data = new WorkoutSessionModel(this);
 
-		derp_calendar_list = (ListView) findViewById(R.id.calendar_list);
+		derp_calendar_list = (ListView) findViewById(R.id.calendar_listView);
 	}
 
 	public void onClick(View view) {
@@ -151,8 +150,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
 		private Button buttonControl = null;
-
+		
+		// For list
+		private CalendarList listAdapter;
 		private WorkoutSessionModel calendar_WSession;
+		private ArrayList<WorkoutSessionRow> workoutList;
+		private WorkoutSessionRow[] pulledData;
 
 		public GridAdapter(Context context, int month, int year) {
 			super();
@@ -304,11 +307,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			gridcell.setTextColor(colorChanger(day_color[1]));
 
-			Log.d(tag, "gridcell.getText : " + gridcell.getText());
+//			Log.d(tag, "gridcell.getText : " + gridcell.getText());
 
 			int numberofRecords = recordChecker(day_color[0], day_color[2],
 					day_color[3]);
-			Log.d(tag, "numberofRecords = " + numberofRecords);
+//			Log.d(tag, "numberofRecords = " + numberofRecords);
 
 			if (numberofRecords == 0) {
 				gridcell.setBackgroundResource(R.drawable.calendar_cellfiller);
@@ -337,9 +340,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int recordChecker(String day, String month, String year) {
 
 			String startDate = new String(day + "-" + month + "-" + year);
-
 			int tempconverter = Integer.parseInt(day) + 1;
-
 			String endDate = new String(Integer.toString(tempconverter) + "-" + month
 					+ "-" + year);
 
@@ -353,13 +354,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				return 0;
 			}
 
-			WorkoutSessionRow[] tempWS = calendar_WSession.getByTime(
+			pulledData = calendar_WSession.getByTime(
 					stampTime(startDate), stampTime(endDate));
 
-			Log.d(tag, "tempWS : " + tempWS.getClass().toString());
-			Log.d(tag, "tempWS.length : " + tempWS.length);
+//			Log.d(tag, "tempWS : " + tempWS.getClass().toString());
+//			Log.d(tag, "tempWS.length : " + tempWS.length);
 
-			return tempWS.length;
+			return pulledData.length;
 		}
 
 		private int colorChanger(String sColor) {
@@ -401,13 +402,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	  		Log.d("stampTime", "_sDate = " + _sDate);
 			try {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-				Log.d("stampTime", "formatter = " + formatter.toString());
+		//		Log.d("stampTime", "formatter = " + formatter.toString());
 				Date date = (Date) formatter.parse(_sDate);
-				Log.d("stampTime", "date = " + date.toString());
+		//		Log.d("stampTime", "date = " + date.toString());
 
 				java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
-				Log.d("stampTime", "date.getTime() = " + date.getTime());
-				Log.d("stampTime", "timeStampDate = " + timeStampDate);
+		//		Log.d("stampTime", "date.getTime() = " + date.getTime());
+		//		Log.d("stampTime", "timeStampDate = " + timeStampDate);
 				long milliTime = timeStampDate.getTime() / 1000L;
 				Log.d("stampTime", "milliTime = " + milliTime);
 				return (int) milliTime;
@@ -417,8 +418,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			}
 		}
 
-		// TODO: Need to implement onClick method to retrieve data and put those on
-		// the list
 		public void onClick(View view) {
 			Button clickedButton = (Button) view;
 			if (buttonControl != null && buttonControl_color != null) {
@@ -436,8 +435,23 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			String[] colorHelper = tempHelper.split("-");
 			buttonControl_color = colorHelper[0];
 
+			
+			derp_calendar_list = (ListView) findViewById(R.id.calendar_listView);
+			
+			//TODO: Start from here.
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
 			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
+			
+			if(numberofRecord == 0)
+				listAdapter = new CalendarList(getApplicationContext());
+			else{			
+				for(int i = 0; i < numberofRecord;i++){
+					workoutList.add(pulledData[i]);
+				}
+				listAdapter = new CalendarList(getApplicationContext(), workoutList);				
+			}
+			listAdapter.notifyDataSetChanged();
+			derp_calendar_list.setAdapter(listAdapter);
 		}
 
 	}
@@ -456,8 +470,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private TextView itemWorkout;
 		private TextView itemRecord;
 		
-		private WorkoutSessionModel WSModel;
-		
 		public CalendarList(Context _context){
 			this.listContext = _context;
 			this.havenoRecord = true;
@@ -471,18 +483,18 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			this.havenoRecord = false;
 			inflater = (LayoutInflater) _context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			WSModel = new WorkoutSessionModel (_context);
 		}
 		public View getView(int position, View convertView, ViewGroup parent) {
-			
+			Log.d(tag,"It works");
 			if(convertView == null)
 				convertView = inflater
-				.inflate(R.layout.custom_list_item, parent, false);
+				.inflate(R.layout.calendar_list_item, parent, false);
 			
 			itemWorkout = (TextView) convertView.findViewById(R.id.cal_workoutname);
 			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);			
 			
 			if(havenoRecord == true){
+				Log.d(tag,"havenoRecord : " + havenoRecord);
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
@@ -495,17 +507,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 

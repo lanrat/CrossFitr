@@ -72,7 +72,7 @@
 		</ImageView>
 
 		<ListView
-		  android:id="@+id/calendar_list"
+		  android:id="@+id/calendar_listView"
 		  android:layout_gravity="center"
 		  android:layout_width="fill_parent"
 		  android:layout_height="wrap_content"
