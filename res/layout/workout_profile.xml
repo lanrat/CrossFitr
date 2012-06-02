@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@drawable/background_workouts"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:background="@drawable/background_workouts" >
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/titlebar"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="100dp"
@@ -16,7 +15,7 @@
             android:id="@+id/workout_profile_nameDB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TODO: get workout name from DB"
+            android:text="workout name from DB"
             android:textSize="25sp" />
 
         <TextView
@@ -32,20 +31,26 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="2dp"
-	        android:text="TODO: get best record from DB"
+	        android:text="best record from DB"
 	        android:textSize="15sp" />
 
         
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/workout_profile_descDB"
-        android:layout_width="match_parent"
-        android:layout_height="78dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="0.12"
-        android:text="TODO: get description from DB"
-        android:textSize="30sp" />
+    <ScrollView 
+    android:id="@+id/details_scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="250dp" >
+	    <TextView
+	        android:id="@+id/workout_profile_descDB"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="30dp"
+	        android:layout_weight="0.12"
+	        android:text="description from DB"
+	        android:textSize="25sp" />
+    
+    </ScrollView>
 
     <Button
         android:id="@+id/button_begin_workout"
@@ -53,7 +58,7 @@
         android:layout_height="62dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/begin_workout_clicked" />
 
 </LinearLayout>
