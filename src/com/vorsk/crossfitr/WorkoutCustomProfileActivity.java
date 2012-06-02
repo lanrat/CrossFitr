@@ -23,8 +23,7 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 	{
 		super.onCreate(savedInstanceState);
 		
-		edit_custom_button = findViewById(R.id.button_custom_edit_button);
-		edit_custom_button.setOnClickListener(this);
+		
 		//create model object
 		WorkoutModel model = new WorkoutModel(this);
 		//get the id passed from previous activity (workout lists)
@@ -58,6 +57,9 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
         View beginButton = findViewById(R.id.button_begin_workout);
         beginButton.setOnClickListener(this);
         model.close();
+        
+        edit_custom_button = findViewById(R.id.button_custom_edit_button);
+        edit_custom_button.setOnClickListener(this);
 	}
 	
 	public void onClick(View v) 
@@ -70,10 +72,12 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 				i.putExtra("workout_id", workout._id);
 				startActivityForResult(i, ACT_TIMER);
 				break;
+				
 			case R.id.button_custom_edit_button:
 				Intent u = new Intent(this, CustomAddActivity.class);
 				startActivity(u);
 				break;
+				
 		}
 	}
 	
