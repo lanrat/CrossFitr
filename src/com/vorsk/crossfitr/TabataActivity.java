@@ -117,6 +117,7 @@ public class TabataActivity extends Activity {
 				}
 
 				public void onFinish() {
+					playSound(R.raw.bell_ring);
 					mStartStop.setText("Go!");
 					tabata.start();
 					cdRun = false;
