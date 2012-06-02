@@ -28,6 +28,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 	protected ProgressDialog pd;
 	ArrayAdapter<WorkoutRow> adapter;
 	private static String TAG = "WODActivity";
+	WorkoutModel workoutModel;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -37,11 +38,11 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		listView = (ListView) findViewById(R.id.workout_list_view);
 		
 		WODModel WODmodel = new WODModel();
+		workoutModel = new WorkoutModel(this);
 
-		/*adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1);
 
-		listView.setAdapter(adapter);*/
+
+
 		
 		listView.setOnItemClickListener(this);
 		
@@ -79,10 +80,23 @@ public class WodActivity extends Activity  implements OnItemClickListener
 	         //setProgressPercent(progress[0]);
 	     }
 
-	     protected void onPostExecute(ArrayList<WorkoutRow> result) {
-	    	adapter = new ArrayAdapter<WorkoutRow>(getThis(),android.R.layout.simple_list_item_1,android.R.id.text1,result);
-	 		pd.dismiss();
+	     protected void onPostExecute(ArrayList<WorkoutRow> results) {
+	 		workoutModel.open();
+			WorkoutRow[] DBworkouts = workoutModel.getAllByType(WorkoutModel.TYPE_WOD);
+			
+			adapter = new ArrayAdapter<WorkoutRow>(getThis(),
+					android.R.layout.simple_list_item_1, android.R.id.text1);
+	    	 for (WorkoutRow row : results){
+	    		 adapter.add(row);
+	    	 }	 
+	    	 for (int i = 0; i < DBworkouts.length; i++){
+	    		 if (!results.contains(DBworkouts[i])){
+	    			 adapter.add(DBworkouts[i]);
+	    		 }
+	    	 }
+	    	 
 	 		listView.setAdapter(adapter);
+	 		pd.dismiss();
 	     }
 	 }
 
@@ -93,7 +107,6 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		//add the selected workout to the DB
 		WorkoutModel model = new WorkoutModel(this);
 		model.open();
- 
 		
 		long entry_id = model.getIDFromName(workout.name);
 
@@ -105,10 +118,12 @@ public class WodActivity extends Activity  implements OnItemClickListener
 														(int)workout.record_type_id, workout.record);
 			} catch (SQLException e) {
 				Log.e(TAG,"derp on wod insert");
+				model.close();
 				return;
 			}
+
 		}
-		
+		model.close();
 		if (entry_id == -1){
 			Log.e(TAG,"could not insert WOD into DB, unknown error");
 			return;
