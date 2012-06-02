@@ -12,13 +12,9 @@
 
 package com.vorsk.crossfitr;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
-
+import java.util.*;
+import java.text.*;
+import java.sql.Timestamp;
 
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
@@ -60,14 +56,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
 	private static final String tag = "CalendarActivity";
-	
+
 	private WorkoutSessionModel model_data;
 	private WorkoutSessionModel[] pulledData;
 	private ListView derp_calendar_list;
 	private ArrayList<WorkoutSessionModel> workoutSessionList;
 	private CalendarList calenderAdapter;
-	
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_main);
@@ -87,21 +82,17 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
 
-
 		calView = (GridView) this.findViewById(R.id.calendargrid);
 		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
-		
-		
-		model_data = new WorkoutSessionModel(this);
-		
-		
-		
-		derp_calendar_list = (ListView) findViewById(R.id.calendar_list);
-		
-	}
 
+		model_data = new WorkoutSessionModel(this);
+
+		derp_calendar_list = (ListView) findViewById(R.id.calendar_list);
+	}
+	
+	
 	public void onClick(View view) {
 		if (view == preMonth) {
 			if (month <= 1) {
@@ -137,8 +128,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 	}
-	
-	protected Activity getThis(){
+
+	protected Activity getThis() {
 		return this;
 	}
 
@@ -148,12 +139,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	public class CalendarList extends BaseAdapter {
 
 		private static final String tag = "CalendarList";
-		
-		
-		
-		public void onCreate(Bundle savedInstanceState){
-			
-			
+
+		public void onCreate(Bundle savedInstanceState) {
+
 		}
 
 		public int getCount() {
@@ -176,7 +164,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
 	 * 
@@ -189,8 +177,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private final Context cal_context;
 		private List<String> list;
 		private static final int DAY_OFFSET = 1;
-		private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
-				"Wed", "Thu", "Fri", "Sat" };
+
 		// Strings for day
 		private final String[] months = { "January", "February", "March", "April",
 				"May", "June", "July", "August", "September", "October", "November",
@@ -198,16 +185,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private final int[] daysOfMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
 				30, 31 }; // the number of days of each month
 		private final int month, year;
-		private int daysInMonth, prevMonthDays;
+		private int daysInMonth;
 		private int currentDayOfMonth;
 		private int currentWeekDay;
 		private Button gridcell;
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
 		private Button buttonControl = null;
-
-		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
-				"dd-MMM-yyyy");
+		
 
 		public GridAdapter(Context context, int month, int year) {
 			super();
@@ -244,6 +229,19 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		public long getItemId(int arg0) {
 			return arg0;
 		}
+		
+
+	
+		
+	    
+		public int stampTime(String _sDate) throws ParseException{
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
+			Date date = (Date)formatter.parse(_sDate);
+			Timestamp timeStampDate = new Timestamp(date.getTime());
+			String convertedDate = timeStampDate.toString();
+			return Integer.parseInt(convertedDate);
+			
+		}
 
 		private void createMonth(int mon, int year) {
 
@@ -255,7 +253,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			int nextYear = 0;
 
 			int currentMonth = mon - 1;
-			String NameofCurrentMonth = getMonthAsString(currentMonth);
 			daysInMonth = getNumberOfDaysOfMonth(currentMonth);
 
 			GregorianCalendar cal = new GregorianCalendar(year, currentMonth, 1);
@@ -312,6 +309,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					list.set(indexCount, tempString);
 				}
 
+				Log.d("Today is : ", "day: " + getCurrentDayOfMonth() + " month: "
+						+ currentMonth_value + " year : " + currentYear_value);
+
 				if (i == getCurrentDayOfMonth() && month == currentMonth_value
 						&& year == currentYear_value) {
 					tempString = String.valueOf(i) + "-YELLOW" + "-"
@@ -325,9 +325,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				list.add(String.valueOf(i + 1) + "-GREY" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
-			
-			for(int i = 0; i < list.size(); i++){
-				Log.d(tag, "Index ["+i+"] :" + list.get(i));
+
+			for (int i = 0; i < list.size(); i++) {
+				Log.d(tag, "Index [" + i + "] :" + list.get(i));
 			}
 
 		}
@@ -348,10 +348,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			// set color for days
 			gridcell.setText(day_color[0]);
-			gridcell.setTag(day_color[1] + "-" + day_color[0] + "-" +  day_color[2] + "-" + day_color[3]);
-			
+			gridcell.setTag(day_color[1] + "-" + day_color[0] + "-" + day_color[2]
+					+ "-" + day_color[3]);
+
 			gridcell.setTextColor(colorChanger(day_color[1]));
-			
+
 			return row;
 		}
 
@@ -359,50 +360,49 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// the list
 		public void onClick(View view) {
 			Button clickedButton = (Button) view;
-			if(buttonControl != null && buttonControl_color != null){
+			if (buttonControl != null && buttonControl_color != null) {
 				buttonControl.setTextColor(colorChanger(buttonControl_color));
 				buttonControl.setBackgroundResource(R.drawable.calendar_cellfiller);
 			}
-		
+
 			clickedButton.setOnClickListener(this);
 			clickedButton.setTextColor(getResources().getColor(
-						R.color.static_text_green));
+					R.color.static_text_green));
 			clickedButton.setBackgroundResource(R.drawable.calendar_bg_frame);
-			
+
 			buttonControl = clickedButton;
 			String tempHelper = (String) buttonControl.getTag();
 			String[] colorHelper = tempHelper.split("-");
 			buttonControl_color = colorHelper[0];
 
-			
-			Log.d(tag,"getId() : " + view.getId());
+			Log.d(tag, "getId() : " + view.getId());
 		}
-		
-		private int colorChanger(String sColor){
-			
+
+		private int colorChanger(String sColor) {
+
 			if (sColor.equals("GREY")) {
 				return Color.GRAY;
 			}
 
 			if (sColor.equals("BLUE")) {
-				return getResources().getColor(
-						R.color.static_text_blue);
+				return getResources().getColor(R.color.static_text_blue);
 			}
 			if (sColor.equals("YELLOW")) {
-				return getResources().getColor(
-						R.color.static_text_yellow);
+				return getResources().getColor(R.color.static_text_yellow);
 			}
 			if (sColor.equals("RED")) {
-				return getResources().getColor(
-						R.color.static_text_red);
-			}
-			else{
+				return getResources().getColor(R.color.static_text_red);
+			} else {
 				return Color.WHITE;
 			}
-			
+
 		}
 
 		public int getCurrentDayOfMonth() {
+
+			if (currentDayOfMonth - 1 <= 0)
+				return 1;
+
 			return currentDayOfMonth - 1;
 		}
 
@@ -417,6 +417,5 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		public int getCurrentWeekDay() {
 			return currentWeekDay;
 		}
-
 	}
 }

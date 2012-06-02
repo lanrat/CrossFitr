@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
+
     <style name="NumberPickerInputText" parent="@android:style/TextAppearance.Large.Inverse">
         <item name="android:textColor">@android:color/primary_text_light</item>
         <item name="android:textSize">30sp</item>
@@ -24,4 +24,19 @@
         <item name="android:singleLine">true</item>
         <item name="android:background">@drawable/numberpicker_input</item>
     </style>
+
+    <style name="titleText" >
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+    
+    <style name="mainButtonText" >
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:paddingLeft">75dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:gravity">left</item>
+    </style>
+    
+
 </resources>
