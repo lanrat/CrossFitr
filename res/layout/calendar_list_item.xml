@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="horizontal"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
-	
-    <TextView
-        android:id="@+id/cal_workoutname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:padding="5dp"
-        android:text = "in developement"/>
 
+<!-- You can use any kind of layout Alice. It is just temporary -->
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="match_parent"
+android:layout_width="wrap_content"
+android:orientation="vertical">
+	
+    <!-- TextView for "The name of workout" -->
     <TextView
-        android:id="@+id/cal_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:padding="5dp"
-        android:text = "in developement"/>
+		android:id="@+id/cal_workoutname"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:padding="5dp">
+	</TextView>
+    
+    <!-- TextView for "The workout description" -->
+    <TextView
+		android:id="@+id/cal_record"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:padding = "5dp">
+	</TextView>
+     
+    	
 </LinearLayout>

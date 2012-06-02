@@ -91,8 +91,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		derp_calendar_list = (ListView) findViewById(R.id.calendar_list);
 	}
-	
-	
+
 	public void onClick(View view) {
 		if (view == preMonth) {
 			if (month <= 1) {
@@ -134,38 +133,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
-	 */
-	public class CalendarList extends BaseAdapter {
-
-		private static final String tag = "CalendarList";
-
-		public void onCreate(Bundle savedInstanceState) {
-
-		}
-
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	}
-
-	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
 	 * 
 	 */
@@ -178,6 +145,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private List<String> list;
 		private static final int DAY_OFFSET = 1;
 
+		private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
+				"Wed", "Thu", "Fri", "Sat" };
 		// Strings for day
 		private final String[] months = { "January", "February", "March", "April",
 				"May", "June", "July", "August", "September", "October", "November",
@@ -192,7 +161,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
 		private Button buttonControl = null;
-		
+
+		private WorkoutSessionModel calendar_WSession;
 
 		public GridAdapter(Context context, int month, int year) {
 			super();
@@ -206,8 +176,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
 			currentYear_value = tempcal.get(Calendar.YEAR);
-			createMonth(month, year);
 
+			calendar_WSession = new WorkoutSessionModel(context);
+
+			createMonth(month, year);
 		}
 
 		private String getMonthAsString(int i) {
@@ -228,19 +200,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		public long getItemId(int arg0) {
 			return arg0;
-		}
-		
-
-	
-		
-	    
-		public int stampTime(String _sDate) throws ParseException{
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
-			Date date = (Date)formatter.parse(_sDate);
-			Timestamp timeStampDate = new Timestamp(date.getTime());
-			String convertedDate = timeStampDate.toString();
-			return Integer.parseInt(convertedDate);
-			
 		}
 
 		private void createMonth(int mon, int year) {
@@ -348,34 +307,67 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			// set color for days
 			gridcell.setText(day_color[0]);
+
 			gridcell.setTag(day_color[1] + "-" + day_color[0] + "-" + day_color[2]
 					+ "-" + day_color[3]);
 
 			gridcell.setTextColor(colorChanger(day_color[1]));
 
+			Log.d(tag, "gridcell.getText : " + gridcell.getText());
+
+			int numberofRecords = recordChecker(day_color[0], day_color[2],
+					day_color[3]);
+			Log.d(tag, "numberofRecords = " + numberofRecords);
+
+			if (numberofRecords == 0) {
+				gridcell.setBackgroundResource(R.drawable.calendar_cellfiller);
+			} else if (numberofRecords == 1) {
+				gridcell.setBackgroundResource(R.drawable.calendar_has_one_record);
+			} else if (numberofRecords == 2) {
+				gridcell.setBackgroundResource(R.drawable.calendar_has_two_records);
+			} else if (numberofRecords == 3) {
+				gridcell.setBackgroundResource(R.drawable.calendar_has_three_records);
+			} else if (numberofRecords == 4) {
+				gridcell.setBackgroundResource(R.drawable.calendar_has_four_records);
+			} else if (numberofRecords >= 5) {
+				gridcell.setBackgroundResource(R.drawable.calendar_has_five_records);
+			}
 			return row;
 		}
 
-		// TODO: Need to implement onClick method to retrieve data and put those on
-		// the list
-		public void onClick(View view) {
-			Button clickedButton = (Button) view;
-			if (buttonControl != null && buttonControl_color != null) {
-				buttonControl.setTextColor(colorChanger(buttonControl_color));
-				buttonControl.setBackgroundResource(R.drawable.calendar_cellfiller);
+		private String removeColorfromTag(String _target) {
+			String[] tempHelper = _target.split("-");
+			String noColoronIt = new String(tempHelper[1] + "-" + tempHelper[2] + "-"
+					+ tempHelper[3]);
+			return noColoronIt;
+		}
+
+		private int recordChecker(String day, String month, String year) {
+
+			String startDate = new String(day + "-" + month + "-" + year);
+
+			int tempconverter = Integer.parseInt(day) + 1;
+
+			String endDate = new String(Integer.toString(tempconverter) + "-" + month
+					+ "-" + year);
+
+			Log.d(tag, "startDate : " + startDate);
+			Log.d(tag, "endDate : " + endDate);
+
+			try {
+				WorkoutSessionRow[] tempWS = calendar_WSession.getByTime(
+						stampTime(startDate), stampTime(endDate));
+			} catch (NullPointerException e) {
+				return 0;
 			}
 
-			clickedButton.setOnClickListener(this);
-			clickedButton.setTextColor(getResources().getColor(
-					R.color.static_text_green));
-			clickedButton.setBackgroundResource(R.drawable.calendar_bg_frame);
+			WorkoutSessionRow[] tempWS = calendar_WSession.getByTime(
+					stampTime(startDate), stampTime(endDate));
 
-			buttonControl = clickedButton;
-			String tempHelper = (String) buttonControl.getTag();
-			String[] colorHelper = tempHelper.split("-");
-			buttonControl_color = colorHelper[0];
+			Log.d(tag, "tempWS : " + tempWS.getClass().toString());
+			Log.d(tag, "tempWS.length : " + tempWS.length);
 
-			Log.d(tag, "getId() : " + view.getId());
+			return tempWS.length;
 		}
 
 		private int colorChanger(String sColor) {
@@ -417,5 +409,122 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		public int getCurrentWeekDay() {
 			return currentWeekDay;
 		}
+
+		public int stampTime(String _sDate) {
+			Log.d("stampTime", "_sDate = " + _sDate);
+			try {
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+				Log.d("stampTime", "formatter = " + formatter.toString());
+				Date date = (Date) formatter.parse(_sDate);
+				Log.d("stampTime", "date = " + date.toString());
+
+				java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
+				Log.d("stampTime", "date.getTime() = " + date.getTime());
+				Log.d("stampTime", "timeStampDate = " + timeStampDate);
+				long milliTime = timeStampDate.getTime() / 1000L;
+				Log.d("stampTime", "milliTime = " + milliTime);
+				return (int) milliTime;
+
+			} catch (ParseException e) {
+				return 0;
+			}
+		}
+
+		// TODO: Need to implement onClick method to retrieve data and put those on
+		// the list
+		public void onClick(View view) {
+			Button clickedButton = (Button) view;
+			if (buttonControl != null && buttonControl_color != null) {
+				buttonControl.setTextColor(colorChanger(buttonControl_color));
+				// buttonControl.setBackgroundResource(R.drawable.calendar_cellfiller);
+			}
+
+			clickedButton.setOnClickListener(this);
+			clickedButton.setTextColor(getResources().getColor(
+					R.color.static_text_green));
+			// clickedButton.setBackgroundResource(R.drawable.calendar_bg_frame);
+
+			buttonControl = clickedButton;
+			String tempHelper = (String) buttonControl.getTag();
+			String[] colorHelper = tempHelper.split("-");
+			buttonControl_color = colorHelper[0];
+
+			String[] noColor = ((String) clickedButton.getTag()).split("-");
+			int numberofRecord = recordChecker(noColor[0],noColor[1],noColor[2]);
+			
+			
+		
+		}
+
+	}
+
+	/**
+	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
+	 */
+	public class CalendarList extends BaseAdapter {
+
+		private static final String tag = "CalendarList";
+		private final Context listContext;
+		private ArrayList<WorkoutSessionRow> arrayList;
+		private boolean havenoRecord;
+		private LayoutInflater inflater;
+		
+		private TextView itemWorkout;
+		private TextView itemRecord;
+		
+		private WorkoutSessionModel WSModel;
+		
+		public CalendarList(Context _context){
+			this.listContext = _context;
+			this.havenoRecord = true;
+			inflater = (LayoutInflater) _context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);			
+		}
+
+		public CalendarList(Context _context, ArrayList<WorkoutSessionRow> _data){
+			this.listContext = _context;
+			this.arrayList = _data;
+			this.havenoRecord = false;
+			inflater = (LayoutInflater) _context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			WSModel = new WorkoutSessionModel (_context);
+		}
+		public View getView(int position, View convertView, ViewGroup parent) {
+			
+			if(convertView == null)
+				convertView = inflater
+				.inflate(R.layout.custom_list_item, parent, false);
+			
+			itemWorkout = (TextView) convertView.findViewById(R.id.cal_workoutname);
+			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);			
+			
+			if(havenoRecord == true){
+				itemWorkout.setText("No data existing on this day");
+				itemRecord.setText("No data existing on this day");
+			}else{
+			//  itemWorkout.setText(arrayList.get(position).workout_id)
+				
+			}
+			
+			
+			return convertView;
+		}
+
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		
 	}
 }
