@@ -375,7 +375,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			if (sColor.equals("GREY")) {
 				return Color.GRAY;
 			}
-
 			if (sColor.equals("BLUE")) {
 				return getResources().getColor(R.color.static_text_blue);
 			}
@@ -450,7 +449,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			buttonControl_color = colorHelper[0];
 
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
-			int numberofRecord = recordChecker(noColor[0],noColor[1],noColor[2]);
+			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
 			
 			
 		
