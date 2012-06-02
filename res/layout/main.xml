@@ -85,22 +85,25 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="vertical" >
-
+
         <Button
             android:id="@+id/main_button_workouts"
+            style="@style/mainButtonText"
             android:layout_width="295dp"
             android:layout_height="70dp"
-            android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/ic_main_workouts" />
+            android:background="@drawable/ic_main_workouts"
+            android:text="workouts" />
 
         <Button
+            style="@style/mainButtonText"
             android:id="@+id/main_button_calendar"
             android:layout_width="295dp"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ic_main_calendar" />
+            android:background="@drawable/ic_main_calendar"
+            android:text="calendar" />
     </LinearLayout>
 
 </LinearLayout>
