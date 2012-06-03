@@ -36,8 +36,10 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
+			if(!cdRun)
 			updateElapsedTime();
 			sendMessageDelayed(Message.obtain(this, TICK_WHAT), mFrequency);
+			
 		}
 	};
 
@@ -142,7 +144,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	}
 
 	private void updateElapsedTime() {
-		if(!cdRun)
+		//if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
