@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:background="@drawable/result_page"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:id="@+id/results_background" >
     
     <TextView
 	    android:id="@+id/text_workout_name"
@@ -42,7 +43,7 @@
     <ScrollView
         android:id="@+id/text_workout_desc_scroll"
         android:layout_below="@+id/score_header"
-        android:layout_above="@+id/bottom_bar"
+        android:layout_above="@+id/commentfield"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 	    <TextView
@@ -54,7 +55,27 @@
 	                   android:text="lolol"
 	        android:id="@+id/text_workout_desc" />
 	    </ScrollView>
-        
+	
+	<LinearLayout
+	    android:id="@+id/commentfield"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar">
+		
+		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/comment_field_header" />    
+		<EditText
+	        android:id="@+id/results_comment_edittext_add"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:singleLine="true"
+	        android:imeOptions="actionDone"
+	        android:maxLines="5"/>
+    </LinearLayout>
+	
 	<LinearLayout
 	    android:id="@+id/bottom_bar"
 	    android:layout_width="fill_parent"

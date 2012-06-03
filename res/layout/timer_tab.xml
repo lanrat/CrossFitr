@@ -1,37 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/workout_name_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingLeft="45dp"
-        android:text="Workout Name"
-        android:textSize="22sp" />
-
-    <TextView
-        android:id="@+id/workout_des_time"
-        android:layout_width="208dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="0.02"
-        android:gravity="top|center"
-        android:maxLines="5"
-        android:scrollbars="vertical"
-        android:text="@string/workoutdes_default_label"
-        android:textSize="18sp" />
+    android:gravity="right"
+    android:orientation="vertical" >
 
     <Button
         android:id="@+id/start_stop_button"
         android:layout_width="match_parent"
-        android:background="@drawable/button_image"
-        android:layout_height="0dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
         android:layout_gravity="top"
-        android:layout_weight="0.09"
+        android:layout_weight="0.00"
+        android:background="@drawable/background_main"
         android:minWidth="150dip"
         android:onClick="onStartStopClicked"
         android:textColor="@android:color/white"
@@ -41,29 +22,59 @@
         android:id="@+id/state_label"
         android:layout_width="163dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/start_stop_button"
         android:text="@string/workoutstate_default_label"
         android:textSize="24sp" />
-
+
     <Button
         android:id="@+id/SetTimer"
-        android:layout_width="232dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
+        android:layout_width="174dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/state_label"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/button_image"
-        android:textColor="@android:color/white"
-        android:minWidth="150dip"
-        android:paddingLeft="24dip"
-        android:paddingRight="24dip"
+        android:paddingBottom="10dp"
         android:text="@string/timerset_label"
+        android:textColor="@android:color/white"
         android:textSize="36sp" />
+
+    <LinearLayout
+        android:id="@+id/description_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/finish_workout_button"
+        android:layout_below="@+id/SetTimer"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/workout_name_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="Workout Name"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/workout_des_time"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.11"
+            android:scrollbars="vertical"
+            android:text="@string/workoutdes_default_label"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/finish_workout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:onClick="onFinishedClicked"
-        android:text="@string/finish_label"
-         />
-</LinearLayout>
+        android:text="@string/finish_label" />
+
+
+
+</RelativeLayout>
