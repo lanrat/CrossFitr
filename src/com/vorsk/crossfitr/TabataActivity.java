@@ -152,6 +152,9 @@ public class TabataActivity extends Activity {
 		finish();
 	}
 
+	/**
+	 * method to do when 8 sets are done
+	 */
 	private void endTabata() {
 		newStart = true;
 		//playSound(R.raw.boxing_bellx3);
@@ -204,6 +207,8 @@ public class TabataActivity extends Activity {
 			set = 1;
 			this.endTabata();
 		}
+		
+		// if logic to display sets and time for tabata
 		if(remain > 10000 ){
 			if(!goStop){
 				playSound(R.raw.bell_ring);
@@ -223,11 +228,19 @@ public class TabataActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * method to change background color
+	 * @param color
+	 */
 	public void setActivityBackgroundColor(int color){
 	    View view = this.getWindow().getDecorView();
 	    view.setBackgroundColor(color);
 	}
 	
+	/**
+	 * method to play sound file 
+	 * @param r
+	 */
 	private void playSound(int r) {
 		//Release any resources from previous MediaPlayer
 		 if (mp != null) {

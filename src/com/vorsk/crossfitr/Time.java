@@ -22,6 +22,7 @@ public class Time {
 
 	/**
 	 * What is the stopwatch doing?
+	 * we can use state if we have several boolean later
 	 */
 	//public enum State { PAUSED, RUNNING };
 	
