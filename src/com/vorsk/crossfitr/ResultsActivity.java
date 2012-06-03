@@ -6,10 +6,13 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -25,6 +28,8 @@ import android.widget.TextView;
 public class ResultsActivity extends Activity implements OnClickListener
 {
 	private long session_id;
+	private EditText workoutTextField;
+	private InputMethodManager keyControl;
 	
 	/**
 	 * Automatically ends this activity and returns control to the caller
@@ -70,6 +75,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		
 		WorkoutSessionRow session = validateAccess();
 		
@@ -77,7 +83,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 		WorkoutModel wmodel = new WorkoutModel(this);
 		wmodel.open();
 		WorkoutRow workout = wmodel.getByID(session.workout_id);
-		if (workout == null) {
+		if (workout == null) 
+		{
 			Log.e("DB_Inconsistency", "Invalid workout id on session");
 			finish();
 		}
@@ -101,11 +108,19 @@ public class ResultsActivity extends Activity implements OnClickListener
 		txt_desc.setText(workout.description);
 		txt_record.setText(StopwatchActivity.formatElapsedTime(workout.record)); // Formatted using Stopwatch Activity
 		txt_score.setText(StopwatchActivity.formatElapsedTime(session.score)); // Formatted using Stopwatch Activity
+		
+		workoutTextField = (EditText) findViewById(R.id.results_comment_edittext_add);
+		workoutTextField.setOnClickListener(this);
 
 		// Set handlers
 		btn_save.setOnClickListener(this);
 		btn_nosave.setOnClickListener(this);
 		btn_sharefb.setOnClickListener(this);
+	}
+	
+	private void hideKeyboard(EditText eBox) 
+	{
+		keyControl.hideSoftInputFromWindow(eBox.getWindowToken(), 0);
 	}
 	
 	/**
@@ -117,6 +132,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
+				
 				finish();
 				break;
 			// if user presses dont save button, go back to home screen.
@@ -132,7 +148,11 @@ public class ResultsActivity extends Activity implements OnClickListener
 			case R.id.button_results_share_workout_FB:
 				//TODO: implement fb functionality
 			    // if user presses this button, user will now go into the timer page.
-				break;		
+				break;
+				
+			case R.id.results_background:
+				hideKeyboard(workoutTextField);
+				break;
 		}
 	}
 	

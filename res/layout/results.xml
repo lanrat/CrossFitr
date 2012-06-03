@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/result_page"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/results_background">
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -41,6 +42,19 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/text_workout_desc" />
+    
+    
+    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/comment_field_header" />    
+	<EditText
+	        android:id="@+id/results_comment_edittext_add"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:singleLine="true"
+	        android:imeOptions="actionDone"/>
+    
         
 	<LinearLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
