@@ -8,17 +8,20 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class HeroesActivity extends Activity{
+public class HeroesActivity extends Activity implements OnItemClickListener{
 	private static final String tag = "HeroesActivity";
 	private ListView heroesView;
 	private WorkoutModel model_data;
@@ -60,7 +63,17 @@ public class HeroesActivity extends Activity{
 		listAdapter.notifyDataSetChanged();
 		
 		derp_heroes_list.setAdapter(listAdapter);
+		
+		derp_heroes_list.setOnItemClickListener(this);
 		}
+	}
+	
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
+		WorkoutRow workout = listAdapter.get(position);
+		Intent x = new Intent(this, WorkoutProfileActivity.class);
+		x.putExtra("ID", workout._id);
+		startActivity(x);
 	}
 
 	public class HeroesListHelper extends BaseAdapter implements OnClickListener{
@@ -109,10 +122,16 @@ public class HeroesActivity extends Activity{
 			return arrayList.size();
 		}
 
+		
 		public String getItem(int index) {
 			return arrayList.get(index).name;
 		}
-
+		
+		public <T> T get(int arg0)
+		{
+		   return (T) arrayList.get(arg0);
+		}
+		
 		public long getItemId(int id) {			
 			return id;
 		}
