@@ -19,13 +19,14 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageView
             android:id="@+id/main_button_userpic"
             android:layout_width="74dp"
             android:layout_height="74dp"
             android:layout_gravity="top"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="12dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/user_pic" />
 
         <Button

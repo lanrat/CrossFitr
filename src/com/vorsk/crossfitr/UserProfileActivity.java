@@ -41,9 +41,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	private TextView userTotalWorkoutsText;
 	private TextView userLastWorkoutText;
 	private TextView userTotalAchievementsText;
+	
 	private ImageView photoButton;
 	
-	private File file = new File(Environment.getExternalStorageDirectory(), "profile.png");
+	private File file;
 
 	
 	public void onCreate(Bundle savedInstanceState) 
@@ -54,26 +55,22 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// Displaying user data
 		model.open();
 		
-		// If nothing entered, redirect the user to the edit profile page
-		
 		// Setting up photobutton
-        
+		file = new File(Environment.getExternalStorageDirectory(), "profile.png");
 		photoButton = (ImageView) this.findViewById(R.id.user_pic_button);
 		Bitmap bMap = BitmapFactory.decodeFile(file.toString());
 		if(bMap != null){
 			photoButton.setImageBitmap(bMap);
 		}
 		
-		photoButton.setOnClickListener(new View.OnClickListener() {
-
-            
+		photoButton.setOnClickListener(new View.OnClickListener() {            
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
                 startActivityForResult(cameraIntent, CAMERA_REQUEST); 
             }
         });
 
-		
+		// If nothing entered, redirect the user to the edit profile page
 		// Name
 		/*if(model.getByAttribute("name") == null){
 			Intent u = new Intent(this, EditUserProfileActivity.class);
@@ -222,7 +219,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	
 	// Method for taking in photo from camera and setting as profile pic
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
-        if (requestCode == CAMERA_REQUEST) {  
+        if (requestCode == CAMERA_REQUEST && data != null) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             
             // CROPPING
