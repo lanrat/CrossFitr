@@ -105,6 +105,7 @@ public class TabataActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
 			
 			playSound(R.raw.countdown_3_0);
+			cdRun = true;
 			 
 			new CountDownTimer(3000, 100) {
 
@@ -114,7 +115,6 @@ public class TabataActivity extends Activity {
 					mStateLabel.setText("");
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
-					cdRun = true;
 				}
 
 				public void onFinish() {
@@ -217,7 +217,9 @@ public class TabataActivity extends Activity {
 		// if logic to display sets and time for tabata
 		if(remain > 10000 ){
 			if(!goStop){
-				playSound(R.raw.bell_ring);
+				if(tabata.isRunning()){
+					playSound(R.raw.bell_ring);
+				}
 				goStop = true;
 			}
 			this.setDisplayBackgroundColor(green);
@@ -226,7 +228,7 @@ public class TabataActivity extends Activity {
 			return formatElapsedTime(0, set);
 		}else{
 			if(goStop){
-				if(diff > 20000){
+				if(diff > 20000 && tabata.isRunning()){
 					playSound(R.raw.air_horn);
 				}
 				goStop = false;
