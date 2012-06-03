@@ -93,7 +93,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 				}
 				
 				//Test debugging!
-				Log.d(TAG,"workoutID: "+workout._id+" score: "+score+" recotdTypeID: "+workout.record_type_id);
+				//Log.d(TAG,"workoutID: "+workout._id+" score: "+score+" recotdTypeID: "+workout.record_type_id);
 				
 				// Save as a new session
 				long id = model.insert(workout._id, score,

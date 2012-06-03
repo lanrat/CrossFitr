@@ -87,7 +87,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 			try {
 				//entry_id = model.insert(workout);
 				
-				Log.d(TAG,"WODTypeID: "+workout.record_type_id);
+				//Log.d(TAG,"WODTypeID: "+workout.record_type_id);
 				entry_id = model.insert(workout.name, workout.description, (int)workout.workout_type_id,
 														(int)workout.record_type_id, workout.record);
 			} catch (SQLException e) {
