@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_weight="4"
-            android:text="workouts" />
+            android:text="Workouts" />
 
 
         <ImageView

@@ -143,6 +143,12 @@ public abstract class SQLiteDAO
 				while (sqlfile.read(reader) != -1){}
 				sqltext = new String(reader);
 				statements = sqltext.split("--###--");
+				
+				// Delete the db
+				Log.v("DB", "Deleting data...");
+				for (int ii=0; ii<statements.length; ii++) {
+					db.execSQL(statements[ii]);
+				}
 			} catch (SQLException e) {
 				// TODO: this
 				Log.e("DB", "Error occurred during creation");
