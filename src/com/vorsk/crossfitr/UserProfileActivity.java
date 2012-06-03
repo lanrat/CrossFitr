@@ -43,11 +43,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// If nothing entered, redirect the user to the edit profile page
 		
 		// Name
-		if(model.getByAttribute("name") == null){
+		/*if(model.getByAttribute("name") == null){
 			Intent u = new Intent(this, EditUserProfileActivity.class);
 			startActivity(u);
 		}
-		else if(model.getByAttribute("name") != null){
+		else */if(model.getByAttribute("name") != null){
 			userNameText = (TextView) findViewById(R.id.user_name);
 			userNameText.setText(this.getString(R.string.user_name) + " " + model.getByAttribute("name").value);
 		}
@@ -203,8 +203,8 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	
 	// Back to frontpage method to make the skip from edit profile work more fluidly and stop 
 	// a back pressing cycle between the two pages.
-	public void onBackPressed(){
+	/*public void onBackPressed(){
 			Intent u = new Intent(this, CrossFitrActivity.class);
 			startActivity(u);
-		}
+		}*/
 }
