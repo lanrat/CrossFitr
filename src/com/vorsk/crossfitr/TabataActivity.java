@@ -32,6 +32,7 @@ public class TabataActivity extends Activity {
 	private final int TICK_WHAT = 2;
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
+			if(!cdRun)
 			updateElapsedTime();
 			sendMessageDelayed(Message.obtain(this, TICK_WHAT), mFrequency);
 		}
@@ -159,12 +160,15 @@ public class TabataActivity extends Activity {
 	 */
 	private void endTabata() {
 		newStart = true;
-		//playSound(R.raw.boxing_bellx3);
+		playSound(R.raw.boxing_bellx3);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 		tabata.reset();
+		mFinish.setEnabled(true);
 	}
 
 	public void updateElapsedTime() {
-		if(!cdRun)
+		//if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
@@ -222,7 +226,9 @@ public class TabataActivity extends Activity {
 			return formatElapsedTime(0, set);
 		}else{
 			if(goStop){
-				playSound(R.raw.air_horn);
+				if(diff > 20000){
+					playSound(R.raw.air_horn);
+				}
 				goStop = false;
 			}
 			this.setDisplayBackgroundColor(red);
