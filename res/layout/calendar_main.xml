@@ -4,7 +4,8 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="@drawable/calendar_background">
+	android:background="@drawable/calendar_background"
+	android:id = "@+id/calendar_bg">
 	<ImageView
 			android:id="@+id/cal_header"
 			android:src="@drawable/baseheader"
