@@ -1,9 +1,13 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutSessionModel;
+import com.vorsk.crossfitr.models.WorkoutSessionRow;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -18,7 +22,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -53,10 +58,10 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
 		numOfAchievments.setText("###");
-
 	}
 
-	public void onClick(View v) {
+	public void onClick(View v)
+	{
 		switch (v.getId()) {
 		case R.id.main_button_workouts:
 			Intent i = new Intent(this, WorkoutsActivity.class);

@@ -44,9 +44,14 @@ public class ProfileModel extends SQLiteDAO {
 	 *            result of a query
 	 * @return Array of entries
 	 */
-	private ProfileRow[] fetchProfileRows(Cursor cr) {
+	private ProfileRow[] fetchProfileRows(Cursor cr)
+	{
+		if (cr == null) {
+			return null;
+		}
 		ProfileRow[] result = new ProfileRow[cr.getCount()];
 		if (result.length == 0) {
+			cr.close();
 			return result;
 		}
 

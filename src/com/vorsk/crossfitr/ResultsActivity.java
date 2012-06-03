@@ -113,15 +113,18 @@ public class ResultsActivity extends Activity implements OnClickListener
 	 */
 	public void onClick(View v)
 	{
+		WorkoutSessionModel model = new WorkoutSessionModel(this);
 		switch(v.getId())
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
+				model.open();
+				model.editComment(session_id, "HELLO");
+				model.close();
 				finish();
 				break;
 			// if user presses dont save button, go back to home screen.
 			case R.id.button_results_dontsav_workout:
-				WorkoutSessionModel model = new WorkoutSessionModel(this);
 				model.open();
 				model.delete(session_id);
 				model.close();
