@@ -79,6 +79,10 @@
   <!-- Strings for Calendar -->
   <string name="CList">Calendar_listhelper</string>
   <string name="Cmain">Calendar_main</string>
+  <string name="sun" >sun\u0020\u0020\u0020\u0020\u0020</string>
+  <string name="mon_thru_fri" >mon\u0020\u0020\u0020\u0020tue\u0020\u0020\u0020\u0020wed\u0020\u0020\u0020
+							    \u0020thu\u0020\u0020\u0020\u0020\u0020fri\u0020\u0020\u0020\u0020\u0020\u0020</string>
+  <string name="sat">sat</string>
 
 	
 </resources>

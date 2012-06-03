@@ -41,18 +41,49 @@
 		</ImageView>
 	</LinearLayout>
 
-	<LinearLayout
-		android:layout_gravity="center"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<ImageView
-			android:id="@+id/calendarheader"
-			android:src="@drawable/calendar_header"
-			android:layout_gravity="center"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
-		</ImageView>
-	</LinearLayout>
+   <RelativeLayout
+        android:id="@+id/calendarheader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/calendar_header"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/calendarHeaderText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+     
+            android:layout_alignParentTop="true"
+            android:text="@string/sun"
+            android:textColor="@color/weekendBlue"
+			android:layout_marginLeft="-15dp"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/calendarHeaderText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+			android:layout_toRightOf="@+id/calendarHeaderText1"
+			android:textStyle="bold" 
+            android:text="@string/mon_thru_fri"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/calendarHeaderText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/calendarHeaderText2"
+			android:textStyle="bold" 
+            android:text="@string/sat"
+            android:textColor="@color/weekendBlue"
+            android:textSize="17sp" />
+    </RelativeLayout>
+    
 	<GridView
 		android:id="@+id/calendargrid"
 		android:numColumns="7"

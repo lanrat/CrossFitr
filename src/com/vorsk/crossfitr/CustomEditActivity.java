@@ -28,8 +28,6 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 	
 	private WorkoutRow workout;
 	
-	private long id = (Long) intent.getExtras().get("id");
-	
 	private int workoutConstant = WorkoutModel.TYPE_CUSTOM;
 	private int recordConstant = 0;
 	// Spinner workoutTypeDropDown; This constant belongs to commented out
@@ -44,6 +42,10 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+		WorkoutModel model = new WorkoutModel(this);
+		
+		long id = getIntent().getLongExtra("ID", -1);
+		
 		View addCustomBg = findViewById(R.id.custom_add_background);
 		addCustomBg.setOnClickListener(this);
 
@@ -76,6 +78,8 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		recordTypeDropDown.setAdapter(adapter2);
 		recordTypeDropDown
 				.setOnItemSelectedListener(new MyOnItemSelectedListener());
+		
+		model.close();
 	}
 
 	private void hideKeyboard(EditText eBox) {
@@ -92,12 +96,13 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 
 			if (this.validateForm() == true) {
 
-				model.open();
-				// save data into database, saves data from textfields, and selected
-				// workout in dropdowns
-				model.insert(nameTextField.getText().toString(), workoutTextField
-						.getText().toString(), workoutConstant, recordConstant);
-				model.close();
+				Log.d("a0000000000000", "works hereeeeeeee");
+				//workout.name.  nameTextField.getText().toString());
+				
+				//workout.description = workoutTextField.getText().toString();
+				
+				Log.d("!!!!!!!!!!!!!!!!!!", "works here");
+		
 				// go back into the custom activity class
 				Intent i = new Intent(this, CustomActivity.class);
 				startActivity(i);
@@ -116,13 +121,13 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		// user clicks the save and start workout button
 		case R.id.button_workout_form_start:
 			if (this.validateForm() == true) {
-				model.open();
-				// save data into database, saves data from textfields, and selected
-				// workout in dropdowns
-				model.insert(nameTextField.getText().toString(), workoutTextField
-						.getText().toString(), workoutConstant, recordConstant);
-				model.close();
+				
+				workout.name = nameTextField.getText().toString();
+				
+				workout.description = workoutTextField.getText().toString();
 
+				Log.d("adsf", "works here");
+				
 				Intent i = new Intent(this, WorkoutProfileActivity.class);
 				startActivity(i);
 			} else {
