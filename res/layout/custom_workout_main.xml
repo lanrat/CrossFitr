@@ -10,6 +10,7 @@
 
     <ListView
         android:id="@+id/custom_workout_list"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>
