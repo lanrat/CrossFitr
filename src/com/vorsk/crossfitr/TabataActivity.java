@@ -154,7 +154,7 @@ public class TabataActivity extends Activity {
 
 	private void endTabata() {
 		newStart = true;
-		playSound(R.raw.boxing_bellx3);
+		//playSound(R.raw.boxing_bellx3);
 		tabata.reset();
 	}
 
@@ -206,7 +206,7 @@ public class TabataActivity extends Activity {
 		}
 		if(remain > 10000 ){
 			if(!goStop){
-				playSound(R.raw.boxing_bellx3);
+				playSound(R.raw.bell_ring);
 				goStop = true;
 			}
 			this.setActivityBackgroundColor(green);
