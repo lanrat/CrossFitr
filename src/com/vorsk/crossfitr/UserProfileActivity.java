@@ -222,7 +222,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	
 	// Method for taking in photo from camera and setting as profile pic
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
-        if (requestCode == CAMERA_REQUEST) {  
+        if (requestCode == CAMERA_REQUEST && data != null) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             
             // CROPPING
