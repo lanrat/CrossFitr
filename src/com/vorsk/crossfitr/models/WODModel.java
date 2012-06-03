@@ -61,7 +61,8 @@ public class WODModel {
 				//row._id = 999999;
 				row.workout_type_id = SQLiteDAO.TYPE_WOD;
 				row.record = WorkoutModel.NOT_SCORED;
-				row.record_type_id = WorkoutModel.SCORE_NONE; 
+				row.record_type_id = WorkoutModel.SCORE_TIME;
+				//row.record_type_id = WorkoutModel.SCORE_NONE; 
 				 if (!list.contains(row)){
 					 list.add(row);
 				 }

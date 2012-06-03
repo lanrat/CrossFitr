@@ -22,6 +22,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public static final String COL_WORKOUT    = "workout_id";
 	public static final String COL_SCORE      = "score";
 	public static final String COL_SCORE_TYPE = "score_type_id";
+	public static final String COL_CMNT       = "comments";
 	
 	
 	/*****   Constructors   *****/
@@ -63,6 +64,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 		int ind_stid  = cr.getColumnIndexOrThrow(COL_SCORE_TYPE);
 		int ind_dm    = cr.getColumnIndexOrThrow(COL_MDATE);
 		int ind_dc    = cr.getColumnIndexOrThrow(COL_CDATE);
+		int ind_cmnt  = cr.getColumnIndexOrThrow(COL_CMNT);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
@@ -71,6 +73,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 			result[ii].workout_id    = cr.getLong(ind_wid);
 			result[ii].score         = cr.getInt(ind_score);
 			result[ii].score_type_id = cr.getLong(ind_stid);
+			result[ii].comments      = cr.getString(ind_cmnt);
 		
 			valid = cr.moveToNext();
 			ii ++;
@@ -112,6 +115,22 @@ public class WorkoutSessionModel extends SQLiteDAO
 		cv.put(COL_SCORE, isc);
 		cv.put(COL_SCORE_TYPE, ist);
 		return super.insert(cv);
+	}
+	
+	/**
+	 * Change the comment of a session
+	 * 
+	 * @param id ID of the comment to edit
+	 * @param comment New comment; overwrites existing comment
+	 * @return 1 on success, -1 on failure, 0 if invalid ID
+	 */
+	public int editComment(long id, String comment)
+	{
+		if (comment == null) comment = "";
+		
+		ContentValues cv = new ContentValues();
+		cv.put(COL_CMNT, comment);
+		return super.update(cv, COL_ID + " = " + id);
 	}
 	
 	/**
@@ -199,6 +218,11 @@ public class WorkoutSessionModel extends SQLiteDAO
 		String val[] = { String.valueOf(id) };
 		Cursor cr = select(col, val);
 		return fetchWorkoutSessionRows(cr);
+	}
+	
+	public int getTotal()
+	{
+		return selectCount(null, null);
 	}
 	
 	/**

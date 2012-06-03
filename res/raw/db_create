@@ -32,6 +32,7 @@ CREATE TABLE workout_session
 (
 	_id            INTEGER PRIMARY KEY,
 	workout_id     INTEGER REFERENCES workout ON DELETE RESTRICT NOT NULL,
+	comments       TEXT NOT NULL DEFAULT "",
 	score          INTEGER,
 	score_type_id  INTEGER REFERENCES score_type ON DELETE RESTRICT,
 	date_created   INTEGER NOT NULL,

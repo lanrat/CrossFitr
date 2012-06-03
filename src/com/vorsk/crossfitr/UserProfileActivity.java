@@ -1,7 +1,9 @@
 package com.vorsk.crossfitr;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import com.vorsk.crossfitr.models.ProfileModel;
@@ -12,7 +14,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,6 +42,8 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	private TextView userLastWorkoutText;
 	private TextView userTotalAchievementsText;
 	private ImageView photoButton;
+	
+	private File file = new File(Environment.getExternalStorageDirectory(), "profile.png");
 
 	
 	public void onCreate(Bundle savedInstanceState) 
@@ -51,9 +57,13 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// If nothing entered, redirect the user to the edit profile page
 		
 		// Setting up photobutton
+        
 		photoButton = (ImageView) this.findViewById(R.id.user_pic_button);
-		Bitmap bMap = BitmapFactory.decodeFile("/sdcard/Pictures/CrossFitr/profile.png");
-		photoButton.setImageBitmap(bMap);
+		Bitmap bMap = BitmapFactory.decodeFile(file.toString());
+		if(bMap != null){
+			photoButton.setImageBitmap(bMap);
+		}
+		
 		photoButton.setOnClickListener(new View.OnClickListener() {
 
             
@@ -213,12 +223,23 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	// Method for taking in photo from camera and setting as profile pic
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
         if (requestCode == CAMERA_REQUEST) {  
-            Bitmap photo = (Bitmap) data.getExtras().get("data"); 
-            photoButton.setImageBitmap(photo);
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            
+            // CROPPING
+            float scaleWidth = 1;
+            float scaleHeight = 1;
+            Matrix matrix = new Matrix();
+            matrix.postScale(scaleWidth, scaleHeight);
+            Bitmap resizedPhoto = Bitmap.createBitmap(photo, 0, photo.getWidth()/10 , photo.getWidth(), photo.getWidth(), matrix, true);
+            photoButton.setImageBitmap(resizedPhoto);
+            
+            // Save file
             try {
-				FileOutputStream out = new FileOutputStream("/sdcard/Pictures/CrossFitr/profile.png");
-	            photo.compress(Bitmap.CompressFormat.PNG, 90, out);
-			} catch (FileNotFoundException e) {
+            	file.createNewFile();
+				FileOutputStream out = new FileOutputStream(file);
+	            resizedPhoto.compress(Bitmap.CompressFormat.PNG, 90, out);
+	            out.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }
