@@ -171,7 +171,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			this.month = month;
 			this.year = year;
 
-			Calendar tempcal = Calendar.getInstance();
+			Calendar tempcal = Calendar.getInstance(TimeZone.getTimeZone("PST"));
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
@@ -390,7 +390,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public int getCurrentDayOfMonth() {
-			return currentDayOfMonth;
+
+			Calendar calendar = Calendar.getInstance();			
+			return calendar.get(Calendar.DAY_OF_MONTH);
 		}
 
 		private void setCurrentDayOfMonth(int currentDayOfMonth) {
@@ -498,7 +500,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private TextView itemRecord;
 		
 		public CalendarList(Context _context){
-			Log.d(tag,"It works #####");
+//			Log.d(tag,"It works #####");
 			this.listContext = _context;
 			this.havenoRecord = true;
 			inflater = (LayoutInflater) _context
