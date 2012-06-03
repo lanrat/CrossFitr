@@ -24,6 +24,7 @@ import com.vorsk.crossfitr.models.WorkoutSessionRow;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -55,10 +56,28 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private WorkoutSessionModel[] pulledData;
 	private ArrayList<WorkoutSessionModel> workoutSessionList;
 	private CalendarList calenderAdapter;
+	
+	// font type for days of the week
+	private TextView daysOfWeekText1;
+	private TextView daysOfWeekText2;
+	private TextView daysOfWeekText3;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_main);
+		
+		// text setting for the days of the week
+		Typeface font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Thin.ttf");
+
+		daysOfWeekText1 = (TextView) findViewById(R.id.calendarHeaderText1);
+		daysOfWeekText1.setTypeface(font);
+
+		daysOfWeekText2 = (TextView) findViewById(R.id.calendarHeaderText2);
+		daysOfWeekText2.setTypeface(font);
+
+		daysOfWeekText3 = (TextView) findViewById(R.id.calendarHeaderText3);
+		daysOfWeekText3.setTypeface(font);
 
 		// declare a new calendar object with built-in calendar
 		derpCal = Calendar.getInstance(Locale.getDefault());

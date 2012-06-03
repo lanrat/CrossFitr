@@ -93,7 +93,7 @@
             android:layout_height="70dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/ic_main_workouts"
-            android:text="workouts" />
+            android:text="Workouts" />
 
         <Button
             android:id="@+id/main_button_calendar"
@@ -103,7 +103,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/ic_main_calendar"
-            android:text="calendar" />
+            android:text="Calendar" />
     </LinearLayout>
 
 </LinearLayout>
