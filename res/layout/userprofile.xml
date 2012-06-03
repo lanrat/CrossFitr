@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/cal_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseheader" />
+
     <Button
         android:id="@+id/main_button_userpic"
         android:layout_width="74dp"
@@ -75,20 +81,6 @@
         android:layout_height="wrap_content"
         android:text="@string/user_total_achievements"
         android:textSize="24dp" />
-
-    <Button
-        android:id="@+id/open_timer_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Open Timer" />
-    
-    <Button
-        android:id="@+id/open_results_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Results page" />
 
     <Button
         android:id="@+id/edit_profile_button"
