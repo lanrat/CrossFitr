@@ -66,7 +66,8 @@ public class TabataActivity extends Activity {
 	  	
 	  	mStateLabel = (TextView)findViewById(R.id.state_label);
 		mStateLabel.setTypeface(roboto);
-		mStateLabel.setText("");
+		mStateLabel.setText("Press To Start");
+		mStateLabel.setTextColor(-16711936);
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
@@ -109,8 +110,7 @@ public class TabataActivity extends Activity {
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
-					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
+					mStateLabel.setText("");
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
@@ -121,6 +121,8 @@ public class TabataActivity extends Activity {
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
 					tabata.start();
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(-65536);
 					cdRun = false;
 					mStartStop.setEnabled(true);
 				}
