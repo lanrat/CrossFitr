@@ -7,6 +7,7 @@ import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,7 @@ import android.widget.TextView;
 public class ResultsActivity extends Activity implements OnClickListener
 {
 	private long session_id;
-	private EditText workoutTextField;
+	private EditText commentTextField;
 	private InputMethodManager keyControl;
 	
 	/**
@@ -98,6 +99,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		View btn_nosave = findViewById(R.id.button_results_dontsav_workout);
 		View btn_sharefb = findViewById(R.id.button_results_share_workout_FB);
 		
+		// text views
 		TextView txt_name = (TextView)findViewById(R.id.text_workout_name);
 		TextView txt_desc = (TextView)findViewById(R.id.text_workout_desc);
 		TextView txt_record = (TextView)findViewById(R.id.text_workout_record);
@@ -109,8 +111,9 @@ public class ResultsActivity extends Activity implements OnClickListener
 		txt_record.setText(StopwatchActivity.formatElapsedTime(workout.record)); // Formatted using Stopwatch Activity
 		txt_score.setText(StopwatchActivity.formatElapsedTime(session.score)); // Formatted using Stopwatch Activity
 		
-		workoutTextField = (EditText) findViewById(R.id.results_comment_edittext_add);
-		workoutTextField.setOnClickListener(this);
+		//edittext handler
+		commentTextField = (EditText) findViewById(R.id.results_comment_edittext_add);
+		commentTextField.setOnClickListener(this);
 
 		// Set handlers
 		btn_save.setOnClickListener(this);
@@ -118,6 +121,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		btn_sharefb.setOnClickListener(this);
 	}
 	
+	//method to hide the keyboard
 	private void hideKeyboard(EditText eBox) 
 	{
 		keyControl.hideSoftInputFromWindow(eBox.getWindowToken(), 0);
@@ -132,8 +136,16 @@ public class ResultsActivity extends Activity implements OnClickListener
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
-				
+				WorkoutSessionRow session = validateAccess();
+				WorkoutSessionModel model1 = new WorkoutSessionModel(this);
+				model1.editComment(session_id, commentTextField.getText().toString());
 				finish();
+				
+				//close all activity except homepage activity
+				Intent intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
+                startActivity(intent);
+
 				break;
 			// if user presses dont save button, go back to home screen.
 			case R.id.button_results_dontsav_workout:
@@ -142,6 +154,12 @@ public class ResultsActivity extends Activity implements OnClickListener
 				model.delete(session_id);
 				model.close();
 				finish();
+				
+				//close all activities except homepage
+				Intent intent2  = new Intent(getBaseContext(), CrossFitrActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
+                startActivity(intent2);
+
 				break;
 				   
 			// if user presses share on fb button, results will be shared on fb.			
@@ -150,8 +168,9 @@ public class ResultsActivity extends Activity implements OnClickListener
 			    // if user presses this button, user will now go into the timer page.
 				break;
 				
+			//should close keyboard if clicks on background
 			case R.id.results_background:
-				hideKeyboard(workoutTextField);
+				hideKeyboard(commentTextField);
 				break;
 		}
 	}
