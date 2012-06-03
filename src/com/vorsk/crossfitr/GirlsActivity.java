@@ -22,49 +22,41 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class GirlsActivity extends Activity implements OnItemClickListener{
-	private static final String tag = "HeroesActivity";
-	private ListView heroesView;
+	private ListView girlsView;
 	private WorkoutModel model_data;
 	private WorkoutRow[] pulledData;
 	private ArrayList<WorkoutRow> workoutrowList;
-	private ListView derp_heroes_list;
+	private ListView derp_girls_list;
 	private GirlsListHelper listAdapter;
 	
 	public void onCreate(Bundle savedInstanceState){
-		
-		Log.d(tag,"at least here!!!  #1");
+				
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.heroes_workout_main);		
 		workoutrowList = new ArrayList<WorkoutRow>();
 		
-		heroesView = (ListView) findViewById(R.id.workout_list_view);		
+		girlsView = (ListView) findViewById(R.id.workout_list_view);		
 		
 		model_data= new WorkoutModel(this);
-
-		Log.d(tag,"at least here!!!  #2");
 	
 		//Access the database and retrieve all heroes workouts
 		model_data.open();	
 		pulledData = model_data.getAllByType(WorkoutModel.TYPE_GIRL);
 		model_data.close();
 
-		Log.d(tag,"at least here!!!  #3");
-	
-		Log.d(tag,"at least here!!!  #4");
-		
 		if (pulledData.length != 0) {
 			for (int i = 0; i < pulledData.length; i++) {
 				workoutrowList.add(pulledData[i]);
 			}		
 
-			Log.d(tag,"at least here!!!  #5");
-		derp_heroes_list = (ListView) findViewById(R.id.heroes_workout_list);
+		derp_girls_list = (ListView) findViewById(R.id.heroes_workout_list);
+		
 		listAdapter = new GirlsListHelper(getApplicationContext(), workoutrowList);
 		listAdapter.notifyDataSetChanged();
 		
-		derp_heroes_list.setAdapter(listAdapter);
+		derp_girls_list.setAdapter(listAdapter);
 		
-		derp_heroes_list.setOnItemClickListener(this);
+		derp_girls_list.setOnItemClickListener(this);
 		}
 	}
 	

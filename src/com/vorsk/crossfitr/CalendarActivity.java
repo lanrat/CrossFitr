@@ -16,6 +16,8 @@ import java.util.*;
 import java.text.*;
 import java.sql.Timestamp;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
@@ -37,7 +39,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class CalendarActivity extends Activity implements OnClickListener {
-
+	private static final String tag = "CalendarActivity";
 	private ImageView calJournalButton, preMonth, nextMonth;
 	private Button currentMonth;
 
@@ -48,11 +50,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
-	private static final String tag = "CalendarActivity";
 
 	private WorkoutSessionModel model_data;
 	private WorkoutSessionModel[] pulledData;
-	private ListView derp_calendar_list;
 	private ArrayList<WorkoutSessionModel> workoutSessionList;
 	private CalendarList calenderAdapter;
 
@@ -81,8 +81,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		calView.setAdapter(gridAdapter);
 
 		model_data = new WorkoutSessionModel(this);
-
-		derp_calendar_list = (ListView) findViewById(R.id.calendar_listView);
 	}
 
 	public void onClick(View view) {
@@ -156,6 +154,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private WorkoutSessionModel calendar_WSession;
 		private ArrayList<WorkoutSessionRow> workoutList;
 		private WorkoutSessionRow[] pulledData;
+		private ListView derp_calList;
 
 		public GridAdapter(Context context, int month, int year) {
 			super();
@@ -436,9 +435,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			buttonControl_color = colorHelper[0];
 
 			
-			derp_calendar_list = (ListView) findViewById(R.id.calendar_listView);
+			derp_calList = (ListView) findViewById(R.id.calendar_listView);
 			
-			//TODO: Start from here.
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
 			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
 			
@@ -450,10 +448,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				}
 				listAdapter = new CalendarList(getApplicationContext(), workoutList);				
 			}
+			
 			listAdapter.notifyDataSetChanged();
-			derp_calendar_list.setAdapter(listAdapter);
+			derp_calList.setAdapter(listAdapter);			
 		}
-
 	}
 
 	/**
@@ -466,15 +464,18 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private ArrayList<WorkoutSessionRow> arrayList;
 		private boolean havenoRecord;
 		private LayoutInflater inflater;
+		private int numberofRecord;
 		
 		private TextView itemWorkout;
 		private TextView itemRecord;
 		
 		public CalendarList(Context _context){
+			Log.d(tag,"It works #####");
 			this.listContext = _context;
 			this.havenoRecord = true;
 			inflater = (LayoutInflater) _context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);			
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);		
+			numberofRecord = 1;
 		}
 
 		public CalendarList(Context _context, ArrayList<WorkoutSessionRow> _data){
@@ -483,6 +484,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			this.havenoRecord = false;
 			inflater = (LayoutInflater) _context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			numberofRecord = _data.size();
 		}
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Log.d(tag,"It works");
@@ -494,30 +496,34 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);			
 			
 			if(havenoRecord == true){
-				Log.d(tag,"havenoRecord : " + havenoRecord);
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
-				//TODO: Start right here!
-			//  itemWorkout.setText(arrayList.get(position).workout_id) -> Does not work!!!
+				WorkoutModel tempModel = new WorkoutModel(listContext);
+				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
+				String score = Integer.toString(arrayList.get(position).score);	
 				
+				
+				itemWorkout.setText(tempRowName.name);
+				itemRecord.setText(score);
+								
 			}	
 			
 			return convertView;
 		}
 
 		public int getCount() {
-			return 0;
+			Log.d(tag,"On getCount() ");
+			return numberofRecord;
 		}
 
-		public Object getItem(int position) {
+		public String  getItem(int position) {
+			Log.d(tag,"On getItem() ");
 			return null;
 		}
 
 		public long getItemId(int position) {
-			return 0;
-		}
-
-		
+			return position;
+		}		
 	}
 }
