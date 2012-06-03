@@ -46,7 +46,6 @@ public class WodActivity extends Activity  implements OnItemClickListener
 	protected void startLoadingScreen(final AsyncTask task){
 		 pd = ProgressDialog.show(this, "Loading...", "Retrieving Workouts", true, true,
 				 new DialogInterface.OnCancelListener(){
-             @Override
              public void onCancel(DialogInterface dialog) {
                  task.cancel(true);
                  finish();
