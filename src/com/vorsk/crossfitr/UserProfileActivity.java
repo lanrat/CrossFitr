@@ -56,7 +56,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		photoButton.setImageBitmap(bMap);
 		photoButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
+            
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
                 startActivityForResult(cameraIntent, CAMERA_REQUEST); 
