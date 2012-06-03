@@ -3,6 +3,8 @@ package com.vorsk.crossfitr;
 import java.math.BigDecimal;
 
 import com.vorsk.crossfitr.models.ProfileModel;
+import com.vorsk.crossfitr.models.WorkoutSessionModel;
+import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +19,8 @@ public class UserProfileActivity extends Activity implements OnClickListener
 {
 	
 	ProfileModel model = new ProfileModel(this);
+	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
+
 	
 	private TextView userNameText;
 	private TextView userBMIText;
@@ -36,15 +40,21 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// Displaying user data
 		model.open();
 		
+		// If nothing entered, redirect the user to the edit profile page
+		
 		// Name
-		if(model.getByAttribute("name") != null){
+		if(model.getByAttribute("name") == null){
+			Intent u = new Intent(this, EditUserProfileActivity.class);
+			startActivity(u);
+		}
+		else if(model.getByAttribute("name") != null){
 			userNameText = (TextView) findViewById(R.id.user_name);
 			userNameText.setText(this.getString(R.string.user_name) + " " + model.getByAttribute("name").value);
 		}
 		
 		// BMI
 		userBMIText = (TextView) findViewById(R.id.user_bmi);
-		if(model.calculateBMI() != BigDecimal.valueOf(-1))
+		if((model.getByAttribute("current_weight") != null) && (model.getByAttribute("current_height") != null))
 			userBMIText.setText(this.getString(R.string.user_bmi) + " " + model.calculateBMI().setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 		
 		// Current Weight
@@ -65,16 +75,22 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			userHeightText.setText(this.getString(R.string.user_height) + " " + model.getByAttribute("height").value);
 		}
 		
+		// Getting data from workout model
+		sessionModel.open();
+		
+		// TODO: Figure out how to get all workouts in results
+		WorkoutSessionRow[] results = sessionModel.getByType(0);
+		
+		
 		// Total Workouts
-		if(model.getByAttribute("total_workouts") != null){
-			userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
-			userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + model.getByAttribute("total_workouts").value);
-		}
+		userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
+		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + results.length);
 		
 		// Last Workout
-		if(model.getByAttribute("last_workout") != null){
+		// TODO: Figure out if most recent workout is last or first. Implement date into WorkoutSession
+		if(results != null){
 			userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
-			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + model.getByAttribute("last_workout").value);
+			//userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + model.getByAttribute("last_workout").value);
 		}
 		
 		// Total Achievements
@@ -112,7 +128,6 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// Displaying user data
 		model.open();
 
-		// Name
 		if(model.getByAttribute("name") != null){
 			userNameText = (TextView) findViewById(R.id.user_name);
 			userNameText.setText(this.getString(R.string.user_name) + " " + model.getByAttribute("name").value);
@@ -185,4 +200,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			break;
 		}
 	}
+	
+	// Back to frontpage method to make the skip from edit profile work more fluidly and stop 
+	// a back pressing cycle between the two pages.
+	public void onBackPressed(){
+			Intent u = new Intent(this, CrossFitrActivity.class);
+			startActivity(u);
+		}
 }
