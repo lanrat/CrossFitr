@@ -47,5 +47,22 @@ public class WorkoutRow extends SQLiteRow
 	{
 		return this.name;
 	}
+	
+	/**
+	 * returns the hashcode for the object
+	 */
+	public int hashCode(){
+		return name.hashCode();
+	}
+	
+	/** 
+	 * check name of Workout to determine if equal
+	 */
+	public boolean equals(Object obj){
+        if (obj.getClass() == getClass()){
+            return this.name.equals(((WorkoutRow)obj).name);
+        }
+		return false;
+	}
 
 }

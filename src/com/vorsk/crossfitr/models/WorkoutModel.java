@@ -3,7 +3,6 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 /**
  * DAO for "workout" table.
@@ -23,9 +22,7 @@ public class WorkoutModel extends SQLiteDAO
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
-	
-	private static String TAG = "WorkoutModel";
-	
+		
 	
 	/*****   Constructors   *****/
 	
@@ -67,13 +64,15 @@ public class WorkoutModel extends SQLiteDAO
 		int ind_name = cr.getColumnIndexOrThrow(COL_NAME);
 		int ind_desc = cr.getColumnIndexOrThrow(COL_DESC);
 		int ind_wtid = cr.getColumnIndexOrThrow(COL_WK_TYPE);
-		int ind_rec = cr.getColumnIndexOrThrow(COL_RECORD);
+		int ind_rec  = cr.getColumnIndexOrThrow(COL_RECORD);
 		int ind_rtid = cr.getColumnIndexOrThrow(COL_REC_TYPE);
+		int ind_dm   = cr.getColumnIndexOrThrow(COL_MDATE);
+		int ind_dc   = cr.getColumnIndexOrThrow(COL_CDATE);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new WorkoutRow();
-			result[ii]._id = cr.getLong(ind_id);
+			fetchBaseData(cr, result[ii], ind_id, ind_dm, ind_dc);
 			result[ii].name = cr.getString(ind_name);
 			result[ii].description = cr.getString(ind_desc);
 			result[ii].workout_type_id = cr.getLong(ind_wtid);
@@ -165,21 +164,9 @@ public class WorkoutModel extends SQLiteDAO
 	 * @param name the name to search for
 	 * @return the row id containing that workout, -1 on failure;
 	 */
-	public long getIDFromName(String name){
-		/*Log.d(TAG,"looking up id for: "+name);
-		Log.d(TAG,"Table: "+DB_TABLE);
-		Cursor cr = db.rawQuery(
-				"SELECT "+COL_ID+" FROM " + DB_TABLE + " WHERE " + COL_NAME + " = ?",new String[] {name});
-		if (cr != null && cr.getCount() > 0){
-			Log.d(TAG,"found id");
-			int id = cr.getColumnIndex(COL_ID);
-			Log.d(TAG,"id is: "+id);
-			return cr.getLong(id);
-			//return fetchWorkoutRows(cr)[0]._id;
-		}
-		Log.d(TAG,"name not found");
-		return -1;	*/
-		return selectIDByName(DB_TABLE, name);
+	public long getIDFromName(String name)
+	{
+		return super.selectIDByName(DB_TABLE, name);
 	}
 
 	/**

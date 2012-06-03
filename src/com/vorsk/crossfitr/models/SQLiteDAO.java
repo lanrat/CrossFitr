@@ -245,6 +245,15 @@ public abstract class SQLiteDAO
 		cr.moveToFirst();
 		return cr.getLong(col);
 	}
+	
+	protected void fetchBaseData(Cursor cr, SQLiteRow row,
+			int ind_id, int ind_dm, int ind_dc)
+	{
+		row._id = cr.getLong(ind_id);
+		// Gets as milliseconds
+		row.date_modified = cr.getInt(ind_dm);
+		row.date_created = cr.getInt(ind_dc);
+	}
 
 	/*** Public ***/
 

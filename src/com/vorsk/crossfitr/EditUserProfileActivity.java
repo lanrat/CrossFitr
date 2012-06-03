@@ -11,13 +11,12 @@ import android.widget.EditText;
 
 public class EditUserProfileActivity extends Activity implements OnClickListener 
 {
-	
 	private EditText nameTextField;
 	private EditText weightTextField;
 	private EditText heightTextField;
 	private EditText goalWeightTextField;
 	ProfileModel model = new ProfileModel(this);
-	
+
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -25,7 +24,6 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		setContentView(R.layout.userprofile_form);
 		model.open();
 	
-
 		// Save button
 		View saveButton = findViewById(R.id.button_userprofile_form_save);
 		saveButton.setOnClickListener(this);

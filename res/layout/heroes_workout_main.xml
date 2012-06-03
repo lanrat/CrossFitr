@@ -9,8 +9,7 @@
     <!-- Custom workout list from the database -->
 
     <ListView
-        android:id="@+id/custom_workout_list"
-        android:scrollbars="vertical"
+        android:id="@+id/heroes_workout_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>

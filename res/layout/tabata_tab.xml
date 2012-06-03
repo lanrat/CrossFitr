@@ -14,8 +14,7 @@
         android:minWidth="150dip"
         android:onClick="onStartStopClicked"
         android:textColor="@android:color/white"
-        android:textSize="70sp" 
-        android:text="TEST"/>
+        android:textSize="60sp"/>
 
     <TextView
         android:id="@+id/state_label"

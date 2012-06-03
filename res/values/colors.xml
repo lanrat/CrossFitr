@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="symptom_color_selected">#003366</color>
+    <color name="reaction_color_selected">#003366</color>
+    <color name="static_text_blue">#003366</color>
+    <color name="static_text_red">#FF0000</color>
+    <color name="static_text_yellow">#FFCC00</color>
+    <color name="static_text_green">#008000</color>
+    <color name="journal_entry_listitem_text_color">#003366</color>
+    <color name="note_text_disabled">#333333</color>
 
-	<color
-		name="white">#FFFFFF</color>
-	<color
-		name="black">#000000</color>
-		
-	<color
-		name="symptom_color_selected">#003366</color>
-		
-	<color
-		name="reaction_color_selected">#003366</color>
-<color name="static_text_blue">#003366</color>
-<color name="static_text_red">#FF0000</color>
-<color name="static_text_yellow">#FFCC00</color>
-<color name="static_text_green">#008000</color>
-<color name="journal_entry_listitem_text_color">#003366</color>
-<color name="note_text_disabled">#333333</color>
+    <!-- Font colors -->
+    <color name="blue">#0099CC</color>
+    
+    <!--  workout types colors -->
+    <color name="wod">#669900</color>
+    <color name="heroes">#ff8800</color>   
+    <color name="girls">#e75aa1</color>   
+    <color name="custom">#93d2f3</color>              
+    
 </resources>

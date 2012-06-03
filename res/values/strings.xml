@@ -12,6 +12,7 @@
     <string name="custom_Add_label">Custom Add Page</string>
     <string name="user_label">User Profile</string>
     <string name="edit_profile_label">Edit Profile</string>
+    <string name="delete_profile_label">Delete Profile</string> 
     <string name="workout_name">Workout</string>
     <string name="timer_tab_label">Timer Tab</string>
     <string name="timer_label">Timer</string>

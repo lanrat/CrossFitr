@@ -55,14 +55,16 @@ public class ProfileModel extends SQLiteDAO {
 
 		// Grab the cursor's column indices
 		// An error here indicates the COL constants aren't synced with the DB
-		int ind_id = cr.getColumnIndexOrThrow(COL_ID);
+		int ind_id   = cr.getColumnIndexOrThrow(COL_ID);
 		int ind_attr = cr.getColumnIndexOrThrow(COL_ATTR);
-		int ind_val = cr.getColumnIndexOrThrow(COL_VALUE);
+		int ind_val  = cr.getColumnIndexOrThrow(COL_VALUE);
+		int ind_dm   = cr.getColumnIndexOrThrow(COL_MDATE);
+		int ind_dc   = cr.getColumnIndexOrThrow(COL_CDATE);
 
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new ProfileRow();
-			result[ii]._id = cr.getLong(ind_id);
+			fetchBaseData(cr, result[ii], ind_id, ind_dm, ind_dc);
 			result[ii].attribute = cr.getString(ind_attr);
 			result[ii].value = cr.getString(ind_val);
 

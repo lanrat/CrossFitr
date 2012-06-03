@@ -11,15 +11,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class WorkoutProfileActivity extends Activity implements OnClickListener 
+public class WorkoutCustomProfileActivity extends Activity implements OnClickListener 
 {
 	private WorkoutRow workout;
 	
 	private int ACT_TIMER = 1;
 	
+	private View edit_custom_button;
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+		
 		//create model object
 		WorkoutModel model = new WorkoutModel(this);
 		//get the id passed from previous activity (workout lists)
@@ -30,7 +34,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 			finish();
 		}
 		//set view
-		setContentView(R.layout.workout_profile);
+		setContentView(R.layout.workout_custom_profile);
 		
 		//create a WorkoutRow, to retrieve data from database
 		model.open();
@@ -53,6 +57,9 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
         View beginButton = findViewById(R.id.button_begin_workout);
         beginButton.setOnClickListener(this);
         model.close();
+        
+        edit_custom_button = findViewById(R.id.button_custom_edit_button);
+        edit_custom_button.setOnClickListener(this);
 	}
 	
 	public void onClick(View v) 
@@ -65,6 +72,13 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 				i.putExtra("workout_id", workout._id);
 				startActivityForResult(i, ACT_TIMER);
 				break;
+				
+			case R.id.button_custom_edit_button:
+				Intent u = new Intent(this, CustomEditActivity.class);
+				u.putExtra("id", workout._id);
+				startActivity(u);
+				break;
+				
 		}
 	}
 	
