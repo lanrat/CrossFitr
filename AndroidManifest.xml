@@ -4,24 +4,24 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8"
+    <uses-sdk
+        android:minSdkVersion="8"
         android:targetSdkVersion="8" />
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
     </uses-permission>
     
     <uses-feature android:name="android.hardware.camera"></uses-feature> 
-
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
             android:name=".CrossFitrActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,14 +31,14 @@
         <activity
             android:name=".WorkoutsActivity"
             android:label="@string/list_of_workout_title"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name=".AllWorkoutsActivity"
             android:label="@string/all_label"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name=".WodActivity"
@@ -73,13 +73,13 @@
         <activity
             android:name=".WorkoutProfileActivity"
             android:label="@string/workout_name"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".UserProfileActivity"
             android:label="@string/user_label"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".EditUserProfileActivity"
             android:label="@string/edit_profile_label"
@@ -89,18 +89,18 @@
             android:name=".AddCustomActivity"
             android:label="@string/add_custom_add"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".TimeTabWidget"
             android:label="@string/timer_tab_label"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".TimerActivity"
             android:label="@string/timer_label"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".StopwatchActivity"
             android:label="@string/stopwatch_label"
@@ -129,8 +129,8 @@
         <activity
             android:name=".CalendarListActivity"
             android:label="@string/CList"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
     </application>
 
 </manifest>
