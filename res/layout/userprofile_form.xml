@@ -21,6 +21,7 @@
         android:text="@string/user_height" />    
 	<EditText
         android:id="@+id/user_height_field"
+        android:inputType="number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 	
@@ -31,6 +32,7 @@
         android:text="@string/user_weight" />    
 	<EditText
         android:id="@+id/user_weight_field"
+        android:inputType="number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 	
@@ -41,6 +43,7 @@
         android:text="@string/user_goal_weight" />    
 	<EditText
         android:id="@+id/user_goal_weight_field"
+        android:inputType="number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 	

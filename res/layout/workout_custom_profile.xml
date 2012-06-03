@@ -48,11 +48,13 @@
 	        android:textSize="25sp" />
     
     </ScrollView>
-	
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="wrap_content"
-	    android:layout_height="match_parent"
-	    android:orientation="horizontal">
+	
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" >
 	    
 	    <Button
 	        android:id="@+id/button_begin_workout"
@@ -62,13 +64,21 @@
 	        android:layout_marginBottom="10dp"
 	        android:layout_marginTop="50dp"
 	        android:background="@drawable/begin_workout_clicked" />
-	    
+
 	    <Button
 	        android:id="@+id/button_custom_edit_button"
-	        android:layout_marginLeft="15dp"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
 	        android:text="@string/edit_profile_label" />
-	   </LinearLayout>
+	    
+	      <Button
+	        android:id="@+id/button_custom_delete_button"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/delete_profile_label" />
+
+	</LinearLayout>
 
 </LinearLayout>

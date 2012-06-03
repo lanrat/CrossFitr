@@ -100,20 +100,21 @@ public class StopwatchActivity extends Activity implements
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(false);
 			 
 			playSound(R.raw.countdown_3_0);
-			new CountDownTimer(3100, 100) {
+			new CountDownTimer(3000, 100) {
 			
 				public void onTick(long millisUntilFinished) {
+					mStartStop.setText("" + ((millisUntilFinished / 1000)+1));
 					mStartStop.setEnabled(false);
 					mStateLabel.setText("Press To Stop");
 					mStateLabel.setTextColor(-65536);
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
-					mStartStop.setText("" + ((millisUntilFinished / 1000)+1));
 				}
 
 				public void onFinish() {
-					mStartStop.setText("Go!");
+					playSound(R.raw.bell_ring);
+					//mStartStop.setText("Go!");
 					stopwatch.start();
 					cdRun = false;
 					mStartStop.setEnabled(true);

@@ -115,13 +115,12 @@ public class ProfileModel extends SQLiteDAO {
 	 */
 	public long updateInsert(String attr, String value) {
 		long correct = 1;
-		// Cursor cursor = select(attr, value);
 		ContentValues cv = new ContentValues();
 		cv.put(COL_VALUE, value);
 
 		correct = super.update(cv, "attribute='" + attr + "'");
-		if (correct < 0) // If update fails, insert
-			return super.insert(cv);
+		if (correct <= 0) // If update fails, insert
+			return this.insert(attr, value);
 		else
 			return correct;
 	}

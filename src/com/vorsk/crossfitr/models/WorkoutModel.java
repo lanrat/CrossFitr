@@ -47,6 +47,9 @@ public class WorkoutModel extends SQLiteDAO
 	 */
 	private WorkoutRow[] fetchWorkoutRows(Cursor cr)
 	{
+		if (cr == null) {
+			return null;
+		}
 		WorkoutRow[] result = new WorkoutRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
@@ -61,13 +64,15 @@ public class WorkoutModel extends SQLiteDAO
 		int ind_name = cr.getColumnIndexOrThrow(COL_NAME);
 		int ind_desc = cr.getColumnIndexOrThrow(COL_DESC);
 		int ind_wtid = cr.getColumnIndexOrThrow(COL_WK_TYPE);
-		int ind_rec = cr.getColumnIndexOrThrow(COL_RECORD);
+		int ind_rec  = cr.getColumnIndexOrThrow(COL_RECORD);
 		int ind_rtid = cr.getColumnIndexOrThrow(COL_REC_TYPE);
+		int ind_dm   = cr.getColumnIndexOrThrow(COL_MDATE);
+		int ind_dc   = cr.getColumnIndexOrThrow(COL_CDATE);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new WorkoutRow();
-			result[ii]._id = cr.getLong(ind_id);
+			fetchBaseData(cr, result[ii], ind_id, ind_dm, ind_dc);
 			result[ii].name = cr.getString(ind_name);
 			result[ii].description = cr.getString(ind_desc);
 			result[ii].workout_type_id = cr.getLong(ind_wtid);
@@ -155,10 +160,12 @@ public class WorkoutModel extends SQLiteDAO
 	
 	/**
 	 * Finds a workout matching a given name
+	 * 
 	 * @param name the name to search for
 	 * @return the row id containing that workout, -1 on failure;
 	 */
-	public long getIDFromName(String name){
+	public long getIDFromName(String name)
+	{
 		return super.selectIDByName(DB_TABLE, name);
 	}
 
@@ -166,7 +173,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * Fetch all workouts of a specific type (girl, hero, custom, wod)
 	 * 
 	 * @param type The workout type; use constants (TYPE_GIRL, etc)
-	 * @return
+	 * @return array of workouts, null on failure
 	 */
 	public WorkoutRow[] getAllByType(int type)
 	{
@@ -180,7 +187,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * Gets a workout_type's ID by its name
 	 * 
 	 * @param name
-	 * @return ID of the workout type, 0L on failure
+	 * @return ID of the workout type, -1 on failure
 	 */
 	public long getTypeID(String name)
 	{
@@ -191,7 +198,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * Gets a workout_type's name by its ID
 	 * 
 	 * @param id
-	 * @return name of the workout type, null on failure
+	 * @return name of the workout type, NULL on failure
 	 */
 	public String getTypeName(long id)
 	{

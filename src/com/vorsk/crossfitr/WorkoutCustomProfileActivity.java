@@ -74,7 +74,8 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 				break;
 				
 			case R.id.button_custom_edit_button:
-				Intent u = new Intent(this, CustomAddActivity.class);
+				Intent u = new Intent(this, CustomEditActivity.class);
+				u.putExtra("id", workout._id);
 				startActivity(u);
 				break;
 				

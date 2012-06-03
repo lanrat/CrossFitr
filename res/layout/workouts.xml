@@ -60,7 +60,7 @@
             android:layout_marginBottom="7dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_workoutlist_heroes" 
-            android:text="heroes"
+            android:text="Heroes"
             android:textColor="@color/heroes"/>
 
         <Button
@@ -71,7 +71,7 @@
             android:layout_marginBottom="7dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_workoutlist_girls"
-            android:text="girls"
+            android:text="Girls"
             android:textColor="@color/girls" />
 
         <Button
@@ -82,7 +82,7 @@
             android:layout_marginBottom="7dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_workoutlist_custom"
-            android:text= "custom"
+            android:text= "Custom"
             android:textColor="@color/custom" />
     </LinearLayout>
 
