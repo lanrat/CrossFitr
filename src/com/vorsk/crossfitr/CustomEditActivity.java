@@ -95,14 +95,16 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 			// validate that inputs are not junk
 
 			if (this.validateForm() == true) {
-
+				model.open();
 				Log.d("a0000000000000", "works hereeeeeeee");
-				//workout.name.  nameTextField.getText().toString());
+				workout.setName(nameTextField.getText().toString());
 				
-				//workout.description = workoutTextField.getText().toString();
+				workout.setDes(workoutTextField.getText().toString());
+				
+				workout.setRecord(recordConstant);
 				
 				Log.d("!!!!!!!!!!!!!!!!!!", "works here");
-		
+				model.close();
 				// go back into the custom activity class
 				Intent i = new Intent(this, CustomActivity.class);
 				startActivity(i);

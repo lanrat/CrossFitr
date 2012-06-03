@@ -51,6 +51,21 @@ public class WorkoutRow extends SQLiteRow
 	/**
 	 * returns the hashcode for the object
 	 */
+	
+	public void setName( String name )
+	{
+		this.name = name;
+	}
+	
+	public void setDes( String des)
+	{
+		this.description = des;
+	}
+	
+	public void setRecord( int record )
+	{
+		this.record = record;
+	}
 	public int hashCode(){
 		return name.hashCode();
 	}
