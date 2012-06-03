@@ -1,65 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:background="@drawable/result_page"
-    android:orientation="vertical" 
-    android:id="@+id/results_background">
+    android:layout_height="fill_parent"
+    android:id="@+id/results_background" >
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+	    android:id="@+id/text_workout_name"
+	    android:layout_alignParentTop="true"
+	    android:layout_width="fill_parent"
+	    android:layout_marginTop="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="A"
+	    android:textSize="30dp"/>
+    
+    <LinearLayout
+        android:id="@+id/score_header"
+        android:layout_below="@+id/text_workout_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:orientation="horizontal" >
-           
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="10dp"
-	        android:id="@+id/text_workout_name"
-	        android:textSize="30dp"/>
-	        
-	        
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="30dp"
-	        android:id="@+id/text_workout_record" 
-	        android:textSize="20dp"/>
-	    
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="30dp"
-	        android:id="@+id/text_session_score" 
-	        android:textSize="20dp"/>
+		        
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="30dp"
+		        android:id="@+id/text_workout_record" 
+		                   android:text="B"
+		        android:textSize="20dp"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="30dp"
+		        android:id="@+id/text_session_score" 
+		                   android:text="C"
+		        android:textSize="20dp"/>
 	</LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/text_workout_desc" />
-    
-    
-    <TextView
+    <ScrollView
+        android:id="@+id/text_workout_desc_scroll"
+        android:layout_below="@+id/score_header"
+        android:layout_above="@+id/commentfield"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+	    <TextView
+
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="15dp"
+	        android:layout_marginLeft="10dp"
+	                   android:text="lolol"
+	        android:id="@+id/text_workout_desc" />
+	    </ScrollView>
+	
+	<LinearLayout
+	    android:id="@+id/commentfield"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar">
+		
+		<TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/comment_field_header" />    
-	<EditText
+		<EditText
 	        android:id="@+id/results_comment_edittext_add"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:singleLine="true"
-	        android:imeOptions="actionDone"/>
-    
-        
+	        android:imeOptions="actionDone"
+	        android:maxLines="5"/>
+    </LinearLayout>
+	
 	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/bottom_bar"
 	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
 	    android:layout_gravity="bottom"
 	    android:baselineAligned="false"
 	    android:orientation="horizontal"
@@ -76,7 +97,7 @@
 
 	    <Button
 	        android:id="@+id/button_results_dontsav_workout"
-	        android:layout_width="80dp"
+	        android:layout_width="80dp"    
 	        android:layout_height="80dp"
 	        android:layout_gravity="bottom"
 	        android:layout_marginLeft="5dp"
@@ -95,4 +116,4 @@
 	        android:background="@drawable/share_button_click" />
 	</LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

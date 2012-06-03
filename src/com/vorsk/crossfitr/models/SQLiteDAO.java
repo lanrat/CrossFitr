@@ -57,7 +57,7 @@ public abstract class SQLiteDAO
 	
 	// DB Properties
 	private static final String DB_NAME = "CrossFitr";
-	private static final int DB_VERSION = 1;
+	private static final int DB_VERSION = 4;
 	
 	
 	/**
@@ -131,7 +131,27 @@ public abstract class SQLiteDAO
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int over, int nver)
 		{
-			context.deleteDatabase(DB_NAME);
+			InputStream sqlfile = context.getResources().openRawResource(
+					R.raw.db_delete);
+			byte[] reader;
+			String sqltext;
+			String[] statements;
+			
+			try {
+				// Read in the deletion script
+				reader = new byte[sqlfile.available()];
+				while (sqlfile.read(reader) != -1){}
+				sqltext = new String(reader);
+				statements = sqltext.split("--###--");
+			} catch (SQLException e) {
+				// TODO: this
+				Log.e("DB", "Error occurred during creation");
+			} catch (IOException e) {
+				// TODO: this
+				Log.e("DB", "Error reading DB creation files");
+			}
+			
+			onCreate(db);
 		}
 		
 		@Override
