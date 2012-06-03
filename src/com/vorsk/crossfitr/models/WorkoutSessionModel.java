@@ -220,6 +220,11 @@ public class WorkoutSessionModel extends SQLiteDAO
 		return fetchWorkoutSessionRows(cr);
 	}
 	
+	/**
+	 * Gets the total number of sessions performed
+	 * 
+	 * @return Total sessions
+	 */
 	public int getTotal()
 	{
 		return selectCount(null, null);

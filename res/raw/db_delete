@@ -1,0 +1,15 @@
+DROP TABLE achievement;
+--###--
+DROP TABLE achievement_type;
+--###--
+DROP TABLE injury;
+--###--
+DROP TABLE profile;
+--###--
+DROP TABLE workout_session;
+--###--
+DROP TABLE workout;
+--###--
+DROP TABLE workout_type;
+--###--
+DROP TABLE score_type;
