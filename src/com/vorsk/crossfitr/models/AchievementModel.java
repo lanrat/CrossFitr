@@ -50,8 +50,12 @@ public class AchievementModel extends SQLiteDAO
 	 */
 	private AchievementRow[] fetchAchievementRows(Cursor cr)
 	{
+		if (cr == null) {
+			return null;
+		}
 		AchievementRow[] result = new AchievementRow[cr.getCount()];
 		if (result.length == 0) {
+			cr.close();
 			return result;
 		}
 		
