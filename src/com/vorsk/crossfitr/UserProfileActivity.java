@@ -1,5 +1,7 @@
 package com.vorsk.crossfitr;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.math.BigDecimal;
 
 import com.vorsk.crossfitr.models.ProfileModel;
@@ -8,15 +10,20 @@ import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 
 
 public class UserProfileActivity extends Activity implements OnClickListener 
 {
+	private static final int CAMERA_REQUEST = 666;
 	
 	ProfileModel model = new ProfileModel(this);
 	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
@@ -30,6 +37,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	private TextView userTotalWorkoutsText;
 	private TextView userLastWorkoutText;
 	private TextView userTotalAchievementsText;
+	private ImageView photoButton;
 
 	
 	public void onCreate(Bundle savedInstanceState) 
@@ -41,6 +49,20 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		model.open();
 		
 		// If nothing entered, redirect the user to the edit profile page
+		
+		// Setting up photobutton
+		photoButton = (ImageView) this.findViewById(R.id.user_pic_button);
+		Bitmap bMap = BitmapFactory.decodeFile("/sdcard/Pictures/CrossFitr/profile.png");
+		photoButton.setImageBitmap(bMap);
+		photoButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
+                startActivityForResult(cameraIntent, CAMERA_REQUEST); 
+            }
+        });
+
 		
 		// Name
 		/*if(model.getByAttribute("name") == null){
@@ -54,12 +76,12 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		
 		// BMI
 		userBMIText = (TextView) findViewById(R.id.user_bmi);
-		if(/*(model.getByAttribute("current_weight") != null) &&*/ (model.getByAttribute("height") != null)){
+		if((model.getByAttribute("weight") != null) && (model.getByAttribute("height") != null)){
 			userBMIText.setText(this.getString(R.string.user_bmi) + " " + model.calculateBMI().setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 		}
 		
 		// Current Weight
-		if(model.getByAttribute("current_weight") != null){
+		if(model.getByAttribute("weight") != null){
 			userWeightText = (TextView) findViewById(R.id.user_weight);
 			userWeightText.setText(this.getString(R.string.user_weight) + " " + model.getByAttribute("weight").value);
 		}
@@ -129,7 +151,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		
 		// BMI
 		userBMIText = (TextView) findViewById(R.id.user_bmi);
-		if((model.getByAttribute("current_weight") != null) && (model.getByAttribute("height") != null)){
+		if((model.getByAttribute("weight") != null) && (model.getByAttribute("height") != null)){
 			userBMIText.setText(this.getString(R.string.user_bmi) + " " + model.calculateBMI().setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 		}
 		
@@ -168,7 +190,6 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
 			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + model.getByAttribute("total_achievements").value);
 		}
-				
 		model.close();
 	}
 
@@ -187,6 +208,20 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			// TODO add achievements intent
 			break;
 		}
+	}
+	
+	// Method for taking in photo from camera and setting as profile pic
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+        if (requestCode == CAMERA_REQUEST) {  
+            Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+            photoButton.setImageBitmap(photo);
+            try {
+				FileOutputStream out = new FileOutputStream("/sdcard/Pictures/CrossFitr/profile.png");
+	            photo.compress(Bitmap.CompressFormat.PNG, 90, out);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+        }
 	}
 	
 	// Back to frontpage method to make the skip from edit profile work more fluidly and stop 
