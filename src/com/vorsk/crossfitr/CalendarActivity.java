@@ -43,6 +43,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private static final String tag = "CalendarActivity";
 	private ImageView calJournalButton, preMonth, nextMonth;
 	private Button currentMonth;
+	private View calendar_bg;
 
 	private ListView calendarList;
 	private GridView calView;
@@ -51,6 +52,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private int month, year;
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
+	
 
 	private WorkoutSessionModel model_data;
 	private WorkoutSessionModel[] pulledData;
@@ -65,6 +67,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_main);
+		
+
+		calendar_bg = (View) findViewById(R.id.calendar_bg);
+		calendar_bg.setOnClickListener(this);
+		
 		
 		// text setting for the days of the week
 		Typeface font = Typeface.createFromAsset(this.getAssets(),
@@ -103,24 +110,33 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View view) {
-		if (view == preMonth) {
+		switch (view.getId()){
+		
+		case R.id.preMonth:
 			if (month <= 1) {
 				month = 12;
 				year--;
-			} else {
+			} else 
 				month--;
-			}
 			setGridAdapterToDate(month, year);
+			break;
+			
+			case R.id.nextMonth:
+				if (month > 11) {
+					month = 1;
+					year++;
+				} else
+					month++;
+				setGridAdapterToDate(month, year);
+				break;
+			
+			case R.id.calendar_bg:
+				TextView defaultTextName = (TextView) this.findViewById(R.id.cal_workoutname);
+				TextView defaultTextRecord = (TextView) this.findViewById(R.id.cal_record);
+				defaultTextName.setText(" ");
+				defaultTextRecord.setText(" ");		
 		}
-
-		if (view == nextMonth) {
-			if (month > 11) {
-				month = 1;
-				year++;
-			} else
-				month++;
-		}
-		setGridAdapterToDate(month, year);
+		
 	}
 
 	public void onDestroy() {
