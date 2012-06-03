@@ -15,6 +15,7 @@ public class WorkoutSessionRow extends SQLiteRow
 	public long   workout_id;
 	public int    score;
 	public long   score_type_id;
+	public String comments;
 	
 	public WorkoutSessionRow() {}
 	
@@ -24,6 +25,7 @@ public class WorkoutSessionRow extends SQLiteRow
 		workout_id     = vals.getAsLong(WorkoutSessionModel.COL_WORKOUT);
 		score          = vals.getAsInteger(WorkoutSessionModel.COL_SCORE);
 		score_type_id  = vals.getAsLong(WorkoutSessionModel.COL_SCORE_TYPE);
+		comments       = vals.getAsString(WorkoutSessionModel.COL_CMNT);
 	}
 
 	public ContentValues toContentValues()
@@ -32,6 +34,7 @@ public class WorkoutSessionRow extends SQLiteRow
 		vals.put(WorkoutSessionModel.COL_WORKOUT,    workout_id);
 		vals.put(WorkoutSessionModel.COL_SCORE,      score);
 		vals.put(WorkoutSessionModel.COL_SCORE_TYPE, score_type_id);
+		vals.put(WorkoutSessionModel.COL_CMNT, comments);
 		return vals;
 	}
 }

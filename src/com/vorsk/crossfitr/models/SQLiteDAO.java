@@ -37,14 +37,14 @@ public abstract class SQLiteDAO
 	
 	// Pre-populated Type IDs
 		// Workout types
-	public static final int TYPE_NONE = -1;
+	public static final int TYPE_NONE = 0;
 	public static final int TYPE_WOD = 1;
 	public static final int TYPE_GIRL = 2;
 	public static final int TYPE_HERO = 3;
 	public static final int TYPE_CUSTOM = 4;
 	
 		// Score types
-	public static final int SCORE_NONE   = -1;
+	public static final int SCORE_NONE   = 0;
 	public static final int SCORE_TIME   = 1;
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;
@@ -131,9 +131,7 @@ public abstract class SQLiteDAO
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int over, int nver)
 		{
-			// TODO: This
-			// Just drop the database and recreate if we're lazy...
-			// though that would get rid of all existing data
+			context.deleteDatabase(DB_NAME);
 		}
 		
 		@Override
@@ -161,6 +159,24 @@ public abstract class SQLiteDAO
 	}
 
 	/*** Private ***/
+	
+	private String getWhereClause(String[] cols)
+	{
+		String sql = "";
+		if (cols == null)
+			return sql;
+		
+		// Build the WHERE clause (append each col-val)
+		if (cols.length > 0) {
+			sql += " WHERE ";
+		}
+		for (int ii = 0; ii < cols.length; ii++) {
+			if (ii != 0)
+				sql += ", ";
+			sql += cols[ii] + " = ?";
+		}
+		return sql;
+	}
 
 	/*** Protected ***/
 
@@ -181,6 +197,14 @@ public abstract class SQLiteDAO
 	{
 		if (where == null)
 			return -1; // GTFO. You are not updating everything.
+		
+		Date now = new Date();
+		long time = now.getTime();
+		
+		cv.remove(COL_ID);
+		cv.remove(COL_CDATE);
+		cv.remove(COL_MDATE);
+		cv.put(COL_MDATE, time);
 
 		return db.update(DB_TABLE, cv, where, null);
 	}
@@ -197,18 +221,25 @@ public abstract class SQLiteDAO
 	protected Cursor select(String[] cols, String[] vals) throws SQLException
 	{
 		String sql = "SELECT * FROM " + DB_TABLE;
-
-		// Build the WHERE clause (append each col-val)
-		if (cols.length > 0) {
-			sql += " WHERE ";
-		}
-		for (int ii = 0; ii < cols.length; ii++) {
-			if (ii != 0)
-				sql += ", ";
-			sql += cols[ii] + " = ?";
-		}
-
+		sql += getWhereClause(cols);
 		return db.rawQuery(sql, vals);
+	}
+	
+	protected int selectCount(String[] cols, String[] vals) throws SQLException
+	{
+		String sql = "SELECT COUNT(*) as count FROM " + DB_TABLE;
+		sql += getWhereClause(cols);
+		Cursor cr = db.rawQuery(sql, vals);
+		
+		if (cr == null) {
+			return -1;
+		}
+		if (!cr.moveToFirst()) {
+			return -1;
+		}
+		
+		int ind = cr.getColumnIndexOrThrow("count");
+		return cr.getInt(ind);
 	}
 
 	protected Cursor selectByID(long id) throws SQLException

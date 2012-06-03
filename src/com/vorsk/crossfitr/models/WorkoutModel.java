@@ -96,7 +96,9 @@ public class WorkoutModel extends SQLiteDAO
 	 *            Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(WorkoutRow row) {
+	public long insert(WorkoutRow row)
+	{
+		// TODO: Fix this? Seemed to be funky
 		return super.insert(row.toContentValues());
 	}
 
@@ -138,6 +140,17 @@ public class WorkoutModel extends SQLiteDAO
 		cv.put(COL_REC_TYPE, rtype);
 		cv.put(COL_RECORD, rec);
 		return super.insert(cv);
+	}
+	
+	/**
+	 * Call this to edit the properties of a workout entry
+	 * 
+	 * @param row The new data to replace
+	 * @return Number of rows affected
+	 */
+	public long edit(WorkoutRow row)
+	{
+		return super.update(row.toContentValues(), COL_ID + " = " + row._id);
 	}
 
 	/**
