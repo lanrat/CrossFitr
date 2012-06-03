@@ -86,7 +86,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		keyControl.hideSoftInputFromWindow(eBox.getWindowToken(), 0);
 	}
 
-	// called by the onClickListener
+	// called by the on	ClickListener
 	public void onClick(View v) {
 
 		switch (v.getId()) {
@@ -97,12 +97,23 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 			if (this.validateForm() == true) {
 				model.open();
 				Log.d("a0000000000000", "works hereeeeeeee");
-				workout.setName(nameTextField.getText().toString());
 				
-				workout.setDes(workoutTextField.getText().toString());
+
+				//workout.setName(nameTextField.getText().toString());
 				
-				workout.setRecord(recordConstant);
+				//workout.setDes(workoutTextField.getText().toString());
 				
+				//workout.setRecord(recordConstant);
+				
+				
+				workout.name = nameTextField.getText().toString();
+				
+				workout.description = workoutTextField.getText().toString();
+				
+				workout.record = recordConstant;
+				
+				model.edit(workout);
+
 				Log.d("!!!!!!!!!!!!!!!!!!", "works here");
 				model.close();
 				// go back into the custom activity class
