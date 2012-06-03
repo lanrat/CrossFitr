@@ -23,7 +23,7 @@ public class TabataActivity extends Activity {
 	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
-	private boolean newStart, cdRun;
+	private boolean newStart, cdRun, goStop;
 	private long id;
 	private MediaPlayer mp;
 
@@ -104,21 +104,22 @@ public class TabataActivity extends Activity {
 			
 			playSound(R.raw.countdown_3_0);
 			 
-			new CountDownTimer(3100, 1000) {
+			new CountDownTimer(3000, 100) {
 
 				public void onTick(long millisUntilFinished) {
+					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
 					mStateLabel.setText("Press To Stop");
 					mStateLabel.setTextColor(-65536);
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
-					mStartStop.setText("" + (millisUntilFinished / 1000));
 				}
 
 				public void onFinish() {
+					goStop = true;
 					playSound(R.raw.bell_ring);
-					mStartStop.setText("Go!");
+					//mStartStop.setText("Go!");
 					tabata.start();
 					cdRun = false;
 					mStartStop.setEnabled(true);
@@ -155,7 +156,6 @@ public class TabataActivity extends Activity {
 		newStart = true;
 		playSound(R.raw.boxing_bellx3);
 		tabata.reset();
-		//TODO: end alarm sound and popup??
 	}
 
 	public void updateElapsedTime() {
@@ -205,12 +205,19 @@ public class TabataActivity extends Activity {
 			this.endTabata();
 		}
 		if(remain > 10000 ){
+			if(!goStop){
+				playSound(R.raw.boxing_bellx3);
+				goStop = true;
+			}
 			this.setActivityBackgroundColor(green);
 			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
-			//TODO: beep, change color(green or red)
 			return formatElapsedTime(0, set);
 		}else{
+			if(goStop){
+				playSound(R.raw.air_horn);
+				goStop = false;
+			}
 			this.setActivityBackgroundColor(red);
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
