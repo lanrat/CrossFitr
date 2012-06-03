@@ -209,7 +209,7 @@ public class TabataActivity extends Activity {
 				playSound(R.raw.bell_ring);
 				goStop = true;
 			}
-			this.setActivityBackgroundColor(green);
+			this.setDisplayBackgroundColor(green);
 			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
 			return formatElapsedTime(0, set);
@@ -218,14 +218,18 @@ public class TabataActivity extends Activity {
 				playSound(R.raw.air_horn);
 				goStop = false;
 			}
-			this.setActivityBackgroundColor(red);
+			this.setDisplayBackgroundColor(red);
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
 	}
 	
-	public void setActivityBackgroundColor(int color){
-	    View view = this.getWindow().getDecorView();
-	    view.setBackgroundColor(color);
+	public void setDisplayBackgroundColor(int color){
+		if(color == Color.GREEN){
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_go);
+		}
+		else
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_rest);
+	    
 	}
 	
 	private void playSound(int r) {
