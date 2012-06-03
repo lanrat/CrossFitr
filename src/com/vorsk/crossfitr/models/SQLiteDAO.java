@@ -57,7 +57,7 @@ public abstract class SQLiteDAO
 	
 	// DB Properties
 	private static final String DB_NAME = "CrossFitr";
-	private static final int DB_VERSION = 1;
+	private static final int DB_VERSION = 3;
 	
 	
 	/**
@@ -132,6 +132,7 @@ public abstract class SQLiteDAO
 		public void onUpgrade(SQLiteDatabase db, int over, int nver)
 		{
 			context.deleteDatabase(DB_NAME);
+			onCreate(db);
 		}
 		
 		@Override
