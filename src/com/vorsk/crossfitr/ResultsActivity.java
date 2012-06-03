@@ -118,9 +118,6 @@ public class ResultsActivity extends Activity implements OnClickListener
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
-				model.open();
-				model.editComment(session_id, "HELLO");
-				model.close();
 				finish();
 				break;
 			// if user presses dont save button, go back to home screen.
