@@ -133,18 +133,20 @@ public class ResultsActivity extends Activity implements OnClickListener
 	public void onClick(View v)
 	{
 		WorkoutSessionModel model = new WorkoutSessionModel(this);
+		Intent intent;
+		
 		switch(v.getId())
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
-				Log.v("text", commentTextField.getText().toString());
-				WorkoutSessionRow session = validateAccess();
-				WorkoutSessionModel model1 = new WorkoutSessionModel(this);
-				model1.editComment(session_id, commentTextField.getText().toString());
+				model.open();
+				model.editComment(session_id,
+						commentTextField.getText().toString());
+				model.close();
 				finish();
 				
 				//close all activity except homepage activity
-				Intent intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
+				intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
                 startActivity(intent);
 
@@ -157,9 +159,10 @@ public class ResultsActivity extends Activity implements OnClickListener
 				finish();
 				
 				//close all activities except homepage
-				Intent intent2  = new Intent(getBaseContext(), CrossFitrActivity.class);
-                intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
-                startActivity(intent2);
+				intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
+                startActivity(intent);
+                
 				break;
 				   
 			// if user presses share on fb button, results will be shared on fb.			
