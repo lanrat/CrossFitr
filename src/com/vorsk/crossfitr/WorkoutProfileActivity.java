@@ -40,7 +40,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		TextView tvname = (TextView)findViewById(R.id.workout_profile_nameDB);
 		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
 		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
-		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB); 
+		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB);
 		
 		
 		//set the texts of the TextView objects from the data retrieved from the DB

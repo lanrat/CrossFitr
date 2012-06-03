@@ -4,13 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/main_button_userpic"
+    <ImageView
+        android:id="@+id/cal_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseheader" />
+    <ImageView
+        android:id="@+id/user_pic_button"
         android:layout_width="74dp"
         android:layout_height="74dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/user_pic" />
+        android:src="@drawable/user_pic" />
     
     <TextView
         android:id="@+id/click_change"
@@ -25,70 +29,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_name"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_bmi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_bmi"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_weight"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_goal_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_goal_weight"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_height"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_total_workouts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_total_workouts"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_last_workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_last_workout"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/user_total_achievements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_total_achievements"
-        android:textSize="24dp" />
-
-    <Button
-        android:id="@+id/open_timer_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Open Timer" />
-    
-    <Button
-        android:id="@+id/open_results_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Results page" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/edit_profile_button"
