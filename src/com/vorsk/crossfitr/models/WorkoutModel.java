@@ -52,6 +52,7 @@ public class WorkoutModel extends SQLiteDAO
 		}
 		WorkoutRow[] result = new WorkoutRow[cr.getCount()];
 		if (result.length == 0) {
+			cr.close();
 			return result;
 		}
 		

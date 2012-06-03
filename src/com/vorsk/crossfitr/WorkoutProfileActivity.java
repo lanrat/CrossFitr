@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 public class WorkoutProfileActivity extends Activity implements OnClickListener 
 {
+	//initialize variables
 	private WorkoutRow workout;
-	
 	private int ACT_TIMER = 1;
 	
 	//Its dynamic! android should use this by default

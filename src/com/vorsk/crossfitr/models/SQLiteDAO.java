@@ -237,11 +237,22 @@ public abstract class SQLiteDAO
 
 		return db.delete(DB_TABLE, where, null);
 	}
+	
+	protected Cursor select(String[] cols, String[] vals)
+			throws SQLException
+	{
+		return select(cols, vals, null, -1);
+	}
 
-	protected Cursor select(String[] cols, String[] vals) throws SQLException
+	protected Cursor select(String[] cols, String[] vals, String order, int limit)
+			throws SQLException
 	{
 		String sql = "SELECT * FROM " + DB_TABLE;
+		
 		sql += getWhereClause(cols);
+		if (order != null) sql += " ORDER BY " + order;
+		if (limit > 0) sql += " LIMIT " + limit;
+		
 		return db.rawQuery(sql, vals);
 	}
 	
