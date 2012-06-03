@@ -162,7 +162,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 				intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
                 startActivity(intent);
-
+                
 				break;
 				   
 			// if user presses share on fb button, results will be shared on fb.			

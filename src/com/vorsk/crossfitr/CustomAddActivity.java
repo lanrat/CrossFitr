@@ -92,6 +92,7 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 						.getText().toString(), workoutConstant, recordConstant);
 				model.close();
 				// go back into the custom activity class
+				finish();
 				Intent i = new Intent(this, CustomActivity.class);
 				startActivity(i);
 			} 
@@ -119,6 +120,7 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 				model.close();
 
 				//pass in id to WorkoutProfileActivity and start activity
+				finish();
 				Intent i = new Intent(this, WorkoutProfileActivity.class);
 				i.putExtra("ID", newId);
 				startActivity(i);
