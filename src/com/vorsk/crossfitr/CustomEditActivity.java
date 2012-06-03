@@ -29,7 +29,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 	private WorkoutRow workout;
 	
 	private int workoutConstant = WorkoutModel.TYPE_CUSTOM;
-	private int recordConstant = 0;
+	private int recordConstant = -5;
 	// Spinner workoutTypeDropDown; This constant belongs to commented out
 	// functionality
 	Spinner recordTypeDropDown;
@@ -44,7 +44,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 
 		WorkoutModel model = new WorkoutModel(this);
 		
-		long id = getIntent().getLongExtra("ID", -1);
+		long id = getIntent().getLongExtra("id", -1);
 		
 		View addCustomBg = findViewById(R.id.custom_add_background);
 		addCustomBg.setOnClickListener(this);
@@ -59,6 +59,11 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		
 		model.open();
 		workout = model.getByID(id);
+		
+		if( workout == null)
+		{
+			finish();
+		}
 		
 		// text field for the workout description to be added
 		workoutTextField = (EditText) findViewById(R.id.description_edittext_add);
@@ -110,9 +115,11 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 				
 				workout.description = workoutTextField.getText().toString();
 				
-				workout.record = recordConstant;
+				workout.record_type_id = recordConstant;
 				
-				model.edit(workout);
+				Log.v("UP_TEST", "id=" + workout._id + ", name=" + workout.name + ", rec=" + workout.record_type_id);
+				long res = model.edit(workout);
+				Log.v("RES", ""+res);
 
 				Log.d("!!!!!!!!!!!!!!!!!!", "works here");
 				model.close();
@@ -191,7 +198,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 			// the record dropdown.
 			if (parent.getItemAtPosition(pos).toString()
 					.equals("Please select a record type")) {
-				recordConstant = 0;
+				recordConstant = -5;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Timer")) {
 				recordConstant = WorkoutModel.SCORE_TIME;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Weight")) {
