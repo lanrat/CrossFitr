@@ -179,6 +179,7 @@ public class ProfileModel extends SQLiteDAO {
 	 * @return BMI of the user, -1 on Failure
 	 */
 	public BigDecimal calculateBMI() {
+		
 		if ((this.getByAttribute("height") != null)
 				&& this.getByAttribute("weight") != null) {
 			// BMI = mass(lb) * 703 / (height(in) ^ 2)
@@ -186,9 +187,17 @@ public class ProfileModel extends SQLiteDAO {
 					.parseDouble(this.getByAttribute("weight").value);
 			double height = Double
 					.parseDouble(this.getByAttribute("height").value);
+			
+			// Preventing division by 0
+			if(height == 0){
+				return (BigDecimal.valueOf(0));
+			}
+			
 			return (BigDecimal.valueOf(mass * 703 / (height * height)));
-		} else
+		} 
+		else{
 			return BigDecimal.valueOf(-1);
+		}
 	}
 
 }
