@@ -7,6 +7,7 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -16,6 +17,9 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	private WorkoutRow workout;
 	
 	private int ACT_TIMER = 1;
+	
+	//Its dynamic! android should use this by default
+	private String TAG = this.getClass().getName();
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -87,6 +91,9 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 				} else {
 					score = WorkoutModel.NOT_SCORED;
 				}
+				
+				//Test debugging!
+				//Log.d(TAG,"workoutID: "+workout._id+" score: "+score+" recotdTypeID: "+workout.record_type_id);
 				
 				// Save as a new session
 				long id = model.insert(workout._id, score,
