@@ -50,6 +50,9 @@ public class WorkoutModel extends SQLiteDAO
 	 */
 	private WorkoutRow[] fetchWorkoutRows(Cursor cr)
 	{
+		if (cr == null) {
+			return null;
+		}
 		WorkoutRow[] result = new WorkoutRow[cr.getCount()];
 		if (result.length == 0) {
 			return result;
@@ -158,13 +161,14 @@ public class WorkoutModel extends SQLiteDAO
 	
 	/**
 	 * Finds a workout matching a given name
+	 * 
 	 * @param name the name to search for
 	 * @return the row id containing that workout, -1 on failure;
 	 */
 	public long getIDFromName(String name){
-		Log.d(TAG,"looking up id for: "+name);
+		/*Log.d(TAG,"looking up id for: "+name);
 		Log.d(TAG,"Table: "+DB_TABLE);
-		Cursor cr = super.db.rawQuery(
+		Cursor cr = db.rawQuery(
 				"SELECT "+COL_ID+" FROM " + DB_TABLE + " WHERE " + COL_NAME + " = ?",new String[] {name});
 		if (cr != null && cr.getCount() > 0){
 			Log.d(TAG,"found id");
@@ -174,14 +178,15 @@ public class WorkoutModel extends SQLiteDAO
 			//return fetchWorkoutRows(cr)[0]._id;
 		}
 		Log.d(TAG,"name not found");
-		return -1;	
+		return -1;	*/
+		return selectIDByName(DB_TABLE, name);
 	}
 
 	/**
 	 * Fetch all workouts of a specific type (girl, hero, custom, wod)
 	 * 
 	 * @param type The workout type; use constants (TYPE_GIRL, etc)
-	 * @return
+	 * @return array of workouts, null on failure
 	 */
 	public WorkoutRow[] getAllByType(int type)
 	{
@@ -195,7 +200,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * Gets a workout_type's ID by its name
 	 * 
 	 * @param name
-	 * @return ID of the workout type, 0L on failure
+	 * @return ID of the workout type, -1 on failure
 	 */
 	public long getTypeID(String name)
 	{
@@ -206,7 +211,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * Gets a workout_type's name by its ID
 	 * 
 	 * @param id
-	 * @return name of the workout type, null on failure
+	 * @return name of the workout type, NULL on failure
 	 */
 	public String getTypeName(long id)
 	{
