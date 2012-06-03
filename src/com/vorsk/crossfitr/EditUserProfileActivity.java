@@ -93,27 +93,27 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 			}
 			break;
 		case R.id.button_userprofile_form_cancel:
-			model.open();
+/*			model.open();
 			if(model.getByAttribute("name") != null &&
 			   model.getByAttribute("weight") != null &&
 			   model.getByAttribute("goal_weight") != null &&
 			   model.getByAttribute("height") != null){  
-				model.close();
+				model.close();*/
 				Intent u = new Intent(this, UserProfileActivity.class);
 				startActivity(u);
-			}
+/*			}
 			else{
 				text = "Please save your details!";
 				toast = Toast.makeText(context, text, duration);
 				toast.show();
 				model.close();
-			}
+			}*/
 		}
 		
 	}
 	
 	// If back is pressed and no information is saved, go directly to the frontpage.
-	public void onBackPressed(){
+/*	public void onBackPressed(){
 		model.open();
 		if(model.getByAttribute("name") == null ||
 		   model.getByAttribute("weight") == null ||
@@ -128,7 +128,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 			Intent u = new Intent(this, UserProfileActivity.class);
 			startActivity(u);
 		}
-	}
+	}*/
 	
 	
 	private boolean isNotBlank(){
