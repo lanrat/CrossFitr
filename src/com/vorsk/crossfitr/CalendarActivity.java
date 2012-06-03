@@ -118,7 +118,15 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		currentMonth.setText(dateFormatter.format(dateTemplate, derpCal.getTime()));
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
-	}
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
@@ -454,6 +462,26 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
 	 */
