@@ -217,6 +217,43 @@ public abstract class SQLiteDAO
 			"SELECT * FROM " + DB_TABLE + " WHERE " + COL_ID + " = " + id,
 			null);
 	}
+	
+	protected String selectNameByID(String table, long id) throws SQLException
+	{
+		Cursor cr = db.rawQuery(
+			"SELECT * FROM " + table + " WHERE " + COL_ID + "=?",
+			new String[] { String.valueOf(id) });
+		if (cr == null || cr.getCount() < 1) {
+			return null;
+		}
+		
+		int col = cr.getColumnIndexOrThrow(COL_NAME);
+		cr.moveToFirst();
+		return cr.getString(col);
+	}
+	
+	protected long selectIDByName(String table, String name) throws SQLException
+	{
+		Cursor cr = db.rawQuery(
+			"SELECT * FROM " + table + " WHERE " + COL_NAME + "=?",
+			new String[] { name });
+		if (cr == null || cr.getCount() < 1) {
+			return -1;
+		}
+		
+		int col = cr.getColumnIndexOrThrow(COL_ID);
+		cr.moveToFirst();
+		return cr.getLong(col);
+	}
+	
+	protected void fetchBaseData(Cursor cr, SQLiteRow row,
+			int ind_id, int ind_dm, int ind_dc)
+	{
+		row._id = cr.getLong(ind_id);
+		// Gets as milliseconds
+		row.date_modified = cr.getInt(ind_dm);
+		row.date_created = cr.getInt(ind_dc);
+	}
 
 	/*** Public ***/
 
@@ -244,35 +281,6 @@ public abstract class SQLiteDAO
 		db.close();
 		DBHelper.close();
 		db = null;
-	}
-	
-	protected String selectNameByID(String table, long id) throws SQLException
-	{
-		Cursor cr = db.rawQuery(
-			"SELECT * FROM " + table + " WHERE " + COL_ID + "=?",
-			new String[] { String.valueOf(id) });
-		if (cr == null || cr.getCount() < 1) {
-			return null;
-		}
-		
-		int col = cr.getColumnIndexOrThrow(COL_NAME);
-		cr.moveToFirst();
-		return cr.getString(col);
-	}
-	
-	
-	protected long selectIDByName(String table, String name) throws SQLException
-	{
-		Cursor cr = db.rawQuery(
-			"SELECT * FROM " + table + " WHERE " + COL_NAME + "=?",
-			new String[] { name });
-		if (cr == null || cr.getCount() < 1) {
-			return -1;
-		}
-		
-		int col = cr.getColumnIndexOrThrow(COL_ID);
-		cr.moveToFirst();
-		return cr.getLong(col);
 	}
 
 }

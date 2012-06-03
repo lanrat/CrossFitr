@@ -67,11 +67,13 @@ public class AchievementModel extends SQLiteDAO
 		int ind_thres = cr.getColumnIndexOrThrow(COL_THRESH);
 		int ind_prog  = cr.getColumnIndexOrThrow(COL_PROG);
 		int ind_cnt   = cr.getColumnIndexOrThrow(COL_COUNT);
+		int ind_dm    = cr.getColumnIndexOrThrow(COL_MDATE);
+		int ind_dc    = cr.getColumnIndexOrThrow(COL_CDATE);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new AchievementRow();
-			result[ii]._id                 = cr.getLong(ind_id);
+			fetchBaseData(cr, result[ii], ind_id, ind_dm, ind_dc);
 			result[ii].name                = cr.getString(ind_name);
 			result[ii].description         = cr.getString(ind_desc);
 			result[ii].achievement_type_id = cr.getLong(ind_atid);

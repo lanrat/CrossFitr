@@ -61,11 +61,13 @@ public class InjuryModel extends SQLiteDAO
 		int ind_desc = cr.getColumnIndexOrThrow(COL_DESC);
 		int ind_bd   = cr.getColumnIndexOrThrow(COL_BDATE);
 		int ind_ed   = cr.getColumnIndexOrThrow(COL_EDATE);
+		int ind_dm   = cr.getColumnIndexOrThrow(COL_MDATE);
+		int ind_dc   = cr.getColumnIndexOrThrow(COL_CDATE);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new InjuryRow();
-			result[ii]._id         = cr.getLong(ind_id);
+			fetchBaseData(cr, result[ii], ind_id, ind_dm, ind_dc);
 			result[ii].description = cr.getString(ind_desc);
 			result[ii].date_begin  = cr.getInt(ind_bd);
 			result[ii].date_end    = cr.getInt(ind_ed);

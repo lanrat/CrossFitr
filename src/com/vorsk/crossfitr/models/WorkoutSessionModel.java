@@ -61,11 +61,13 @@ public class WorkoutSessionModel extends SQLiteDAO
 		int ind_wid   = cr.getColumnIndexOrThrow(COL_WORKOUT);
 		int ind_score = cr.getColumnIndexOrThrow(COL_SCORE);
 		int ind_stid  = cr.getColumnIndexOrThrow(COL_SCORE_TYPE);
+		int ind_dm    = cr.getColumnIndexOrThrow(COL_MDATE);
+		int ind_dc    = cr.getColumnIndexOrThrow(COL_CDATE);
 		
 		// Iterate over every row (move the cursor down the set)
 		while (valid) {
 			result[ii] = new WorkoutSessionRow();
-			result[ii]._id           = cr.getLong(ind_id);
+			fetchBaseData(cr, result[ii], ind_id, ind_dm, ind_dc);
 			result[ii].workout_id    = cr.getLong(ind_wid);
 			result[ii].score         = cr.getInt(ind_score);
 			result[ii].score_type_id = cr.getLong(ind_stid);
