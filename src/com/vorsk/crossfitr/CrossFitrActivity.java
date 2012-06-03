@@ -1,15 +1,17 @@
 package com.vorsk.crossfitr;
 
-import com.vorsk.crossfitr.models.WorkoutSessionModel;
-import com.vorsk.crossfitr.models.WorkoutSessionRow;
+import java.io.File;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CrossFitrActivity extends Activity implements OnClickListener {
@@ -19,6 +21,11 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	private TextView numOfWorkouts;
 	private TextView lastWorkouts;
 	private TextView numOfAchievments;
+	
+	private ImageView userPic;
+	
+	private File file;
+
 
 	/** Called when the activity is first created. */
 	@Override
@@ -29,6 +36,14 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 
 		Typeface font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
+		
+		// User photo
+		file = new File(Environment.getExternalStorageDirectory(), "profile.png");
+		userPic = (ImageView) this.findViewById(R.id.main_button_userpic);
+		Bitmap bMap = BitmapFactory.decodeFile(file.toString());
+		if(bMap != null){
+			userPic.setImageBitmap(bMap);
+		}
 
 		// workouts button
 		View workoutButton = findViewById(R.id.main_button_workouts);
@@ -58,6 +73,19 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
 		numOfAchievments.setText("###");
+	}
+	
+	public void onResume()
+	{
+		super.onResume();
+		
+		// User photo
+		file = new File(Environment.getExternalStorageDirectory(), "profile.png");
+		userPic = (ImageView) this.findViewById(R.id.main_button_userpic);
+		Bitmap bMap = BitmapFactory.decodeFile(file.toString());
+		if(bMap != null){
+			userPic.setImageBitmap(bMap);
+		}
 	}
 
 	public void onClick(View v)
