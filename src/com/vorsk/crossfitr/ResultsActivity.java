@@ -137,6 +137,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
+				Log.v("text", commentTextField.getText().toString());
 				WorkoutSessionRow session = validateAccess();
 				WorkoutSessionModel model1 = new WorkoutSessionModel(this);
 				model1.editComment(session_id, commentTextField.getText().toString());
@@ -159,7 +160,6 @@ public class ResultsActivity extends Activity implements OnClickListener
 				Intent intent2  = new Intent(getBaseContext(), CrossFitrActivity.class);
                 intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
                 startActivity(intent2);
-
 				break;
 				   
 			// if user presses share on fb button, results will be shared on fb.			
