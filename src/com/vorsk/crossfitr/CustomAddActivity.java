@@ -179,8 +179,6 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 				recordConstant = WorkoutModel.SCORE_WEIGHT;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Reps")) {
 				recordConstant = WorkoutModel.SCORE_REPS;
-			} else if (parent.getItemAtPosition(pos).toString().equals("None")) {
-				recordConstant = WorkoutModel.SCORE_NONE;
 			}
 		}
 
