@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_main"
+    android:gravity="top"
+    android:orientation="vertical" >
+
+    <!-- crossfitr logo -->
+
+    <ImageView
+        android:id="@+id/main_girls_header"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="-15dp"
+        android:src="@drawable/main_header" />
+
+    <!-- screen title + thin red line -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="top" >
+
+            <TextView
+                android:id="@+id/workouts_title"
+                style="@style/titleText"
+                android:text="Workouts" />
+
+            <TextView
+                android:id="@+id/girls_title"
+                style="@style/workoutTypeTitleText"
+                android:layout_toRightOf="@+id/workouts_title"
+                android:text="Girls"
+                android:textColor="@color/girls" />
+            
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/main_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background_redbar" />
+    </LinearLayout>
+
+    <!-- Custom workout list from the database -->
+
+    <ListView
+        android:id="@+id/heroes_workout_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucent_gray" >  <!-- button color -->
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!-- Add button -->
+
+        <Button
+            android:id="@+id/custom_add_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_custom_label" />
+    </LinearLayout>
+
+</LinearLayout>

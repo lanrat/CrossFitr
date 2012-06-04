@@ -25,10 +25,26 @@
         <item name="android:background">@drawable/numberpicker_input</item>
     </style>
 
+    <!-- screens' header text -->
+
     <style name="titleText">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">40sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginTop">-10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
     </style>
+
+    <style name="workoutTypeTitleText">
+        <item name="android:textSize">33sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <!-- homescreen styles -->
 
     <style name="mainButtonText">
         <item name="android:textColor">@color/blue</item>
