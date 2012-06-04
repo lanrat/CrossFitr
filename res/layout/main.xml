@@ -56,7 +56,7 @@
             android:layout_weight="0.55"
             android:orientation="horizontal"
             android:textColor="#ffffff"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/main_last_workout"
@@ -67,7 +67,7 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:textColor="#ffffff"
-            android:textSize="25dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/main_num_of_achievments"
@@ -77,7 +77,7 @@
             android:layout_weight="0.32"
             android:orientation="horizontal"
             android:textColor="#ffffff"
-            android:textSize="25dp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
     <LinearLayout

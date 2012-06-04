@@ -24,6 +24,8 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public static final String COL_SCORE_TYPE = "score_type_id";
 	public static final String COL_CMNT       = "comments";
 	
+	private Context context;
+	
 	
 	/*****   Constructors   *****/
 	
@@ -36,6 +38,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public WorkoutSessionModel(Context ctx)
 	{
 		super("workout_session", ctx);
+		context = ctx;
 	}
 	
 	/*****   Private   *****/
@@ -87,6 +90,41 @@ public class WorkoutSessionModel extends SQLiteDAO
 		return result;
 	}
 	
+	/**
+	 * Update the workout entry to reflect the new record
+	 * 
+	 * @param workout_id ID of the workout
+	 * @param score The new session's score
+	 */
+	private void checkUpdateRecord(long workout_id, int score)
+	{
+		WorkoutModel model = new WorkoutModel(context);
+		WorkoutRow workout = model.getByID(workout_id);
+		boolean update = false;
+
+		// Check if this session is the new best record
+		switch ((int)workout.record_type_id) {
+		case SCORE_TIME:
+			if (workout.record == 0 || score < workout.record) {
+				workout.record = score;
+				update = true;
+			}
+			break;
+		case SCORE_REPS:
+		case SCORE_WEIGHT:
+			if (workout.record == 0 || score > workout.record) {
+				workout.record = score;
+				update = true;
+			}
+			break;
+		}
+		
+		// If so, update the workout
+		if (update) {
+			model.edit(workout);
+		}
+	}
+	
 	/*****   Public   *****/
 	
 	/**
@@ -97,6 +135,8 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 */
 	public long insert(WorkoutSessionRow row)
 	{
+		checkUpdateRecord(row.workout_id, row.score);
+		// Insert this entry
 		return super.insert(row.toContentValues());
 	}
 	
@@ -111,9 +151,10 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 */
 	public long insert(long workout, long score, long score_type)
 	{
-		Long isc = (score == NOT_SCORED) ? null : score;
+		Integer isc = (score == NOT_SCORED) ? null : (int)score;
 		Long ist = (score_type == SCORE_NONE) ? null : score_type;
 		
+		checkUpdateRecord(workout, isc);
 		ContentValues cv = new ContentValues();
 		cv.put(COL_WORKOUT, workout);
 		cv.put(COL_SCORE, isc);
@@ -135,6 +176,17 @@ public class WorkoutSessionModel extends SQLiteDAO
 		ContentValues cv = new ContentValues();
 		cv.put(COL_CMNT, comment);
 		return super.update(cv, COL_ID + " = " + id);
+	}
+	
+	/**
+	 * Removes all sessions of a particular workout
+	 * 
+	 * @param id ID of the workout whose history to remove
+	 * @return Number of sessions removed
+	 */
+	public int deleteWorkoutHistory(long id)
+	{
+		return super.delete(COL_WORKOUT + " = " + id);
 	}
 	
 	/**
