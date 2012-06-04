@@ -76,7 +76,14 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		sessionModel.open();
 		numOfWorkouts.setText("Total Workouts: " + sessionModel.getTotal());
 
-		Date date = new Date((sessionModel.getMostRecent(null).date_created));
+		Date date;
+		
+		try{
+			date = new Date((sessionModel.getMostRecent(null).date_created));
+		}
+		catch(Exception e){
+			date = new Date(0);
+		}
 		
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
 		lastWorkouts.setText("Last Workout: " + date.toString());
