@@ -22,6 +22,8 @@ public class WorkoutModel extends SQLiteDAO
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
+	
+	private Context context;
 		
 	
 	/*****   Constructors   *****/
@@ -35,6 +37,7 @@ public class WorkoutModel extends SQLiteDAO
 	public WorkoutModel(Context ctx)
 	{
 		super("workout", ctx);
+		context = ctx;
 	}
 	
 	/*****   Private   *****/
@@ -152,6 +155,19 @@ public class WorkoutModel extends SQLiteDAO
 	public long edit(WorkoutRow row)
 	{
 		return super.update(row.toContentValues(), COL_ID + " = " + row._id);
+	}
+	
+	/**
+	 * Remove a workout definition. History for it will be removed
+	 * 
+	 * @param id Workout definition ID to remove
+	 * @return Number of removed workouts
+	 */
+	public long delete(long id)
+	{
+		WorkoutSessionModel model = new WorkoutSessionModel(context);
+		model.deleteWorkoutHistory(id);
+		return super.delete(COL_ID + " = " + id);
 	}
 
 	/**

@@ -24,6 +24,8 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public static final String COL_SCORE_TYPE = "score_type_id";
 	public static final String COL_CMNT       = "comments";
 	
+	private Context context;
+	
 	
 	/*****   Constructors   *****/
 	
@@ -36,6 +38,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public WorkoutSessionModel(Context ctx)
 	{
 		super("workout_session", ctx);
+		context = ctx;
 	}
 	
 	/*****   Private   *****/
@@ -97,6 +100,33 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 */
 	public long insert(WorkoutSessionRow row)
 	{
+		WorkoutModel model = new WorkoutModel(context);
+		WorkoutRow workout = model.getByID(row.workout_id);
+		boolean update = false;
+
+		// Check if this session is the new best record
+		switch ((int)workout.record_type_id) {
+		case SCORE_TIME:
+			if (workout.record == 0 || row.score < workout.record) {
+				workout.record = row.score;
+				update = true;
+			}
+			break;
+		case SCORE_REPS:
+		case SCORE_WEIGHT:
+			if (workout.record == 0 || row.score > workout.record) {
+				workout.record = row.score;
+				update = true;
+			}
+			break;
+		}
+		
+		// If so, update the workout
+		if (update) {
+			model.edit(workout);
+		}
+		
+		// Insert this entry
 		return super.insert(row.toContentValues());
 	}
 	
@@ -135,6 +165,17 @@ public class WorkoutSessionModel extends SQLiteDAO
 		ContentValues cv = new ContentValues();
 		cv.put(COL_CMNT, comment);
 		return super.update(cv, COL_ID + " = " + id);
+	}
+	
+	/**
+	 * Removes all sessions of a particular workout
+	 * 
+	 * @param id ID of the workout whose history to remove
+	 * @return Number of sessions removed
+	 */
+	public int deleteWorkoutHistory(long id)
+	{
+		return super.delete(COL_WORKOUT + " = " + id);
 	}
 	
 	/**
