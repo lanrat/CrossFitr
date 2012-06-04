@@ -51,7 +51,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		tvname.setText(workout.name);
 		tvdesc.setText(workout.description);
 		//tvrecordType.setText(model.getTypeName(workout.workout_type_id));
-		tvbestRecord.setText(String.valueOf(workout.record)); // TODO: Format
+		tvbestRecord.setText(StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
         
 		// begin workout button
         View beginButton = findViewById(R.id.button_begin_workout);

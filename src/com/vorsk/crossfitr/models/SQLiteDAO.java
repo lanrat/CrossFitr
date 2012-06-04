@@ -272,11 +272,14 @@ public abstract class SQLiteDAO
 			return -1;
 		}
 		if (!cr.moveToFirst()) {
+			cr.close();
 			return -1;
 		}
 		
 		int ind = cr.getColumnIndexOrThrow("count");
-		return cr.getInt(ind);
+		int result = cr.getInt(ind);
+		cr.close();
+		return result;
 	}
 
 	protected Cursor selectByID(long id) throws SQLException
