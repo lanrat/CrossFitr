@@ -34,6 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="15dp"
+        	android:textSize="18dp"
+        	android:textColor="@color/white"
             android:background="@drawable/ic_main_profile" />
     </LinearLayout>
 
@@ -85,11 +87,10 @@
                 android:textSize="40dp" />
 
         </RelativeLayout>
-
+
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
+            android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/status_display1"
                 android:layout_width="wrap_content"
@@ -98,9 +99,6 @@
                 android:text="total workouts"
                 android:textColor="@color/blue"
                 android:textSize="11dp" />
-
-"
-
             <TextView
                 android:id="@+id/status_display2"
                 android:layout_width="wrap_content"
@@ -110,7 +108,6 @@
                 android:text="last workout"
                 android:textColor="@color/blue"
                 android:textSize="11dp" />
-
             <TextView
                 android:id="@+id/status_display3"
                 android:layout_width="wrap_content"
