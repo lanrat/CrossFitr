@@ -1,6 +1,7 @@
 package com.vorsk.crossfitr;
 
 import java.io.File;
+import java.sql.Date;
 
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
 
@@ -27,6 +28,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	private ImageView userPic;
 	
 	private File file;
+	
+	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
 
 
 	/** Called when the activity is first created. */
@@ -36,7 +39,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
+		
 
 		Typeface font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
@@ -68,17 +71,20 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		profileText.setTypeface(font);
 
 		/** user status dialog **/
-		// TODO
+		
 		numOfWorkouts = (TextView) findViewById(R.id.main_num_of_workouts);
 		sessionModel.open();
-		//numOfWorkouts.setText(sessionModel.getTotal());
+		numOfWorkouts.setText("Total Workouts: " + sessionModel.getTotal());
 
+		Date date = new Date((sessionModel.getMostRecent(null).date_created));
+		
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
-		lastWorkouts.setText("###");
+		lastWorkouts.setText("Last Workout: " + date.toString());
 
+		
 		sessionModel.close();
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
-		numOfAchievments.setText("0");
+		numOfAchievments.setText("Achievements: " + "0");
 	}
 	
 	public void onResume()
