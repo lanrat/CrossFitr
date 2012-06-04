@@ -3,6 +3,7 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * DAO for "workout_session" table.
@@ -190,6 +191,35 @@ public class WorkoutSessionModel extends SQLiteDAO
 	}
 	
 	/**
+	 * Remove a previously created session
+	 * 
+	 * Currently used by ResultsActivity is you don't want to save. This
+	 * should be cleaned up so this method can be removed.
+	 * 
+	 * @param id session_id to delete
+	 * @return result of deletion, -1 on failure
+	 */
+	public int delete(long id)
+	{
+		WorkoutModel model = new WorkoutModel(context);
+		WorkoutSessionRow session = getByID(id);
+		if (session == null) {
+			return 0;
+		}
+		Log.v("TEST", "WK: " + session.workout_id);
+		WorkoutRow workout = model.getByID(session.workout_id);
+		
+		int result = super.delete(COL_ID + " = " + id);
+		
+		Log.v("TEST", "?: " + (workout.record == session.score));
+		if (workout.record == session.score) {
+			model.calculateRecord(workout._id, workout.workout_type_id);
+		}
+
+		return result;
+	}
+	
+	/**
 	 * Fetch an entry via the ID
 	 * 
 	 * @param id
@@ -313,20 +343,6 @@ public class WorkoutSessionModel extends SQLiteDAO
 			return null;
 		}
 		return rows[0];
-	}
-	
-	/**
-	 * Remove a previously created session
-	 * 
-	 * Currently used by ResultsActivity is you don't want to save. This
-	 * should be cleaned up so this method can be removed.
-	 * 
-	 * @param id session_id to delete
-	 * @return result of deletion, -1 on failure
-	 */
-	public int delete(long id)
-	{
-		return super.delete(COL_ID + " = " + id);
 	}
 
 }
