@@ -29,7 +29,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -72,7 +73,6 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
 		numOfAchievments.setText("###");
-
 	}
 	
 	public void onResume()
@@ -88,7 +88,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public void onClick(View v) {
+	public void onClick(View v)
+	{
 		switch (v.getId()) {
 		case R.id.main_button_workouts:
 			Intent i = new Intent(this, WorkoutsActivity.class);

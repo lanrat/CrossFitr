@@ -48,8 +48,12 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 */
 	private WorkoutSessionRow[] fetchWorkoutSessionRows(Cursor cr)
 	{
+		if (cr == null) {
+			return null;
+		}
 		WorkoutSessionRow[] result = new WorkoutSessionRow[cr.getCount()];
 		if (result.length == 0) {
+			cr.close();
 			return result;
 		}
 		
@@ -162,9 +166,11 @@ public class WorkoutSessionModel extends SQLiteDAO
 	{
 		String sql = "SELECT * FROM " + DB_TABLE + " WHERE "
 			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ?";
+		String[] params = {
+			String.valueOf(mintime), String.valueOf(maxtime)
+		};
 		
-		Cursor cr = db.rawQuery(sql, new String[] { 
-				String.valueOf(mintime), String.valueOf(maxtime) });
+		Cursor cr = db.rawQuery(sql, params);
 		return fetchWorkoutSessionRows(cr);
 	}
 	
@@ -228,6 +234,33 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public int getTotal()
 	{
 		return selectCount(null, null);
+	}
+	
+	/**
+	 * Get the most recent session
+	 * 
+	 * @type Workout type, or NULL to search all sessions
+	 * @return Most recently created session; NULL on failure
+	 */
+	public WorkoutSessionRow getMostRecent(Integer type)
+	{
+		String[] col = (type == null) ? null : new String[1];
+		String[] val = (type == null) ? null : new String[1];
+		
+		if (type != null) {
+			col[0] = WorkoutModel.COL_WK_TYPE;
+			val[0] = type.toString();
+		}
+		
+		String order = COL_CDATE + " DESC";
+		
+		Cursor cr = select(col, val, order, 1);
+		
+		WorkoutSessionRow[] rows = fetchWorkoutSessionRows(cr);
+		if (rows == null || rows.length < 1) {
+			return null;
+		}
+		return rows[0];
 	}
 	
 	/**

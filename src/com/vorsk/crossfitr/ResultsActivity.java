@@ -6,10 +6,14 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -25,6 +29,8 @@ import android.widget.TextView;
 public class ResultsActivity extends Activity implements OnClickListener
 {
 	private long session_id;
+	private EditText commentTextField;
+	private InputMethodManager keyControl;
 	
 	/**
 	 * Automatically ends this activity and returns control to the caller
@@ -70,6 +76,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		
 		WorkoutSessionRow session = validateAccess();
 		
@@ -77,7 +84,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 		WorkoutModel wmodel = new WorkoutModel(this);
 		wmodel.open();
 		WorkoutRow workout = wmodel.getByID(session.workout_id);
-		if (workout == null) {
+		if (workout == null) 
+		{
 			Log.e("DB_Inconsistency", "Invalid workout id on session");
 			finish();
 		}
@@ -91,6 +99,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		View btn_nosave = findViewById(R.id.button_results_dontsav_workout);
 		View btn_sharefb = findViewById(R.id.button_results_share_workout_FB);
 		
+		// text views
 		TextView txt_name = (TextView)findViewById(R.id.text_workout_name);
 		TextView txt_desc = (TextView)findViewById(R.id.text_workout_desc);
 		TextView txt_record = (TextView)findViewById(R.id.text_workout_record);
@@ -101,6 +110,10 @@ public class ResultsActivity extends Activity implements OnClickListener
 		txt_desc.setText(workout.description);
 		txt_record.setText(StopwatchActivity.formatElapsedTime(workout.record)); // Formatted using Stopwatch Activity
 		txt_score.setText(StopwatchActivity.formatElapsedTime(session.score)); // Formatted using Stopwatch Activity
+		
+		//edittext handler
+		commentTextField = (EditText) findViewById(R.id.results_comment_edittext_add);
+		commentTextField.setOnClickListener(this);
 
 		// Set handlers
 		btn_save.setOnClickListener(this);
@@ -108,31 +121,60 @@ public class ResultsActivity extends Activity implements OnClickListener
 		btn_sharefb.setOnClickListener(this);
 	}
 	
+	//method to hide the keyboard
+	private void hideKeyboard(EditText eBox) 
+	{
+		keyControl.hideSoftInputFromWindow(eBox.getWindowToken(), 0);
+	}
+	
 	/**
 	 * Handles all the button clicks
 	 */
 	public void onClick(View v)
 	{
+		WorkoutSessionModel model = new WorkoutSessionModel(this);
+		Intent intent;
+		
 		switch(v.getId())
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
 			case R.id.button_results_sav_workout:
+				model.open();
+				model.editComment(session_id,
+						commentTextField.getText().toString());
+				model.close();
 				finish();
+				
+				//close all activity except homepage activity
+				intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
+                startActivity(intent);
+
 				break;
 			// if user presses dont save button, go back to home screen.
 			case R.id.button_results_dontsav_workout:
-				WorkoutSessionModel model = new WorkoutSessionModel(this);
 				model.open();
 				model.delete(session_id);
 				model.close();
 				finish();
+				
+				//close all activities except homepage
+				intent  = new Intent(getBaseContext(), CrossFitrActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);        
+                startActivity(intent);
+                
 				break;
 				   
 			// if user presses share on fb button, results will be shared on fb.			
 			case R.id.button_results_share_workout_FB:
 				//TODO: implement fb functionality
 			    // if user presses this button, user will now go into the timer page.
-				break;		
+				break;
+				
+			//should close keyboard if clicks on background
+			case R.id.results_background:
+				hideKeyboard(commentTextField);
+				break;
 		}
 	}
 	

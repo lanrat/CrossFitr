@@ -143,6 +143,12 @@ public abstract class SQLiteDAO
 				while (sqlfile.read(reader) != -1){}
 				sqltext = new String(reader);
 				statements = sqltext.split("--###--");
+				
+				// Delete the db
+				Log.v("DB", "Deleting data...");
+				for (int ii=0; ii<statements.length; ii++) {
+					db.execSQL(statements[ii]);
+				}
 			} catch (SQLException e) {
 				// TODO: this
 				Log.e("DB", "Error occurred during creation");
@@ -237,11 +243,22 @@ public abstract class SQLiteDAO
 
 		return db.delete(DB_TABLE, where, null);
 	}
+	
+	protected Cursor select(String[] cols, String[] vals)
+			throws SQLException
+	{
+		return select(cols, vals, null, -1);
+	}
 
-	protected Cursor select(String[] cols, String[] vals) throws SQLException
+	protected Cursor select(String[] cols, String[] vals, String order, int limit)
+			throws SQLException
 	{
 		String sql = "SELECT * FROM " + DB_TABLE;
+		
 		sql += getWhereClause(cols);
+		if (order != null) sql += " ORDER BY " + order;
+		if (limit > 0) sql += " LIMIT " + limit;
+		
 		return db.rawQuery(sql, vals);
 	}
 	
