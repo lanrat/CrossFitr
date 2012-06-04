@@ -95,6 +95,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		mFinish = (Button) findViewById(R.id.finish_workout_button);
 		mFinish.setTypeface(roboto);
 		mFinish.setEnabled(false);
+		mFinish.setTextColor(Color.GRAY);
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
 				mFrequency);
@@ -214,8 +215,10 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					.getChildTabViewAt(2).setEnabled(true);
 			setDisplayBackgroundColor(2);
 			mSetTimer.setEnabled(true);
+			mSetTimer.setTextColor(Color.WHITE);
 			mStartStop.setEnabled(false);
 			mFinish.setEnabled(true);
+			mFinish.setTextColor(Color.WHITE);
 			return true;
 		}
 		return false;
@@ -251,7 +254,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					setDisplayBackgroundColor(2);
 					mStateLabel.setText("");
 					mSetTimer.setEnabled(false);
+					mSetTimer.setTextColor(Color.GRAY);
 					mFinish.setEnabled(false);
+					mFinish.setTextColor(Color.GRAY);
 					cdRun = true;
 				}
 
@@ -277,7 +282,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			mStateLabel.setTextColor(Color.GREEN);
 			setDisplayBackgroundColor(0);
 			mSetTimer.setEnabled(true);
+			mSetTimer.setTextColor(Color.WHITE);
 			mFinish.setEnabled(true);
+			mFinish.setTextColor(Color.WHITE);
 		}
 	}
 

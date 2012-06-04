@@ -61,4 +61,13 @@
         <item name="android:gravity">left</item>
     </style>
 
+    <!-- timer styles -->
+    <style name="finishButton">
+        <item name="android:background">@drawable/finish_button</item>
+    </style>
+    
+    <style name="setButton">
+        <item name="android:background">@drawable/set_buttons_time</item>
+    </style>
+    
 </resources>
