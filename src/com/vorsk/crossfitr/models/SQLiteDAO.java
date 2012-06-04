@@ -309,12 +309,15 @@ public abstract class SQLiteDAO
 			"SELECT * FROM " + table + " WHERE " + COL_NAME + "=?",
 			new String[] { name });
 		if (cr == null || cr.getCount() < 1) {
+			cr.close();
 			return -1;
 		}
 		
 		int col = cr.getColumnIndexOrThrow(COL_ID);
 		cr.moveToFirst();
-		return cr.getLong(col);
+		long out = cr.getLong(col);
+		cr.close();
+		return out;
 	}
 	
 	protected void fetchBaseData(Cursor cr, SQLiteRow row,
