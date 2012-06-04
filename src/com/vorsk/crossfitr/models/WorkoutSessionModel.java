@@ -211,7 +211,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 		int result = super.delete(COL_ID + " = " + id);
 		
 		if (workout.record == session.score) {
-			model.calculateRecord(workout._id, workout.workout_type_id);
+			model.calculateRecord(workout._id, workout.record_type_id);
 		}
 
 		return result;
