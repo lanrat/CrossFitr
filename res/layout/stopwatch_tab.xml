@@ -30,6 +30,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/state_label"
+        android:layout_above="@+id/reset_button"
         android:orientation="vertical" >
 
         <TextView
@@ -45,14 +46,15 @@
             android:id="@+id/text_workout_desc_scroll"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
-
+
             <TextView
                 android:id="@+id/workout_des_time"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="263dp"
                 android:gravity="center_vertical"
                 android:text="@string/workoutdes_default_label"
                 android:textSize="18sp" />
+
         </ScrollView>
     </LinearLayout>
 
