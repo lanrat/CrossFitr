@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class WodActivity extends Activity  implements OnItemClickListener
@@ -27,10 +29,21 @@ public class WodActivity extends Activity  implements OnItemClickListener
 	ArrayAdapter<WorkoutRow> adapter;
 	private static String TAG = "WODActivity";
 	
+	private TextView titleTextHeader1;
+	private TextView titleTextHeader2;
+	private Typeface font;
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.workout_list);
+		setContentView(R.layout.wod_workouts_list);
+		
+		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
+		
+		titleTextHeader1 = (TextView) findViewById(R.id.workouts_title);		
+		titleTextHeader1.setTypeface(font);		
+		titleTextHeader2 = (TextView) findViewById(R.id.custom_title);		
+		titleTextHeader2.setTypeface(font);
 		
 		listView = (ListView) findViewById(R.id.workout_list_view);
 		

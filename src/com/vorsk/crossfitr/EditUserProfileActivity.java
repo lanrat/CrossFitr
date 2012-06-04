@@ -88,6 +88,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 				long current_weight_id = model.updateInsert("weight", weightTextField.getText().toString());
 				long goal_weight_id = model.updateInsert("goal_weight", goalWeightTextField.getText().toString());
 				model.close();
+				finish();
 				Intent u = new Intent(this, UserProfileActivity.class);
 				startActivity(u);
 			}
@@ -99,6 +100,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 			   model.getByAttribute("goal_weight") != null &&
 			   model.getByAttribute("height") != null){  
 				model.close();*/
+				finish();
 				Intent u = new Intent(this, UserProfileActivity.class);
 				startActivity(u);
 /*			}

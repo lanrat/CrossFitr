@@ -37,7 +37,7 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 	public void onCreate(Bundle savedInstanceState){
 				
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.girls_workouts_main);	
+		setContentView(R.layout.girls_workouts_list);	
 		
 		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		
