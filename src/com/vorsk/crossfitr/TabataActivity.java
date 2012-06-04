@@ -247,7 +247,7 @@ public class TabataActivity extends Activity {
 		if(color == Color.GREEN){
 			mStartStop.setBackgroundResource(R.drawable.tabata_display_go);
 		}
-		else
+		else if(color == Color.RED)
 			mStartStop.setBackgroundResource(R.drawable.tabata_display_rest);
 	}
 	

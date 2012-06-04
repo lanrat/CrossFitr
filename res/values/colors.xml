@@ -23,4 +23,8 @@
     
     <!-- Calendar font colors-->
     <color name="weekendBlue">#93d2f3</color>
+    
+    <!--  workout lists  -->
+    <color name="translucent_gray">#80414141</color>
+    <color name="light_gray">#aaaaaa</color>
 </resources>

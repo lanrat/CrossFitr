@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 public class WorkoutProfileActivity extends Activity implements OnClickListener 
 {
+	//initialize variables
 	private WorkoutRow workout;
-	
 	private int ACT_TIMER = 1;
 	
 	//Its dynamic! android should use this by default
@@ -83,7 +83,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 				
 				// Get the score returned
 				if (workout.record_type_id == WorkoutModel.SCORE_TIME) {
-					score = data.getLongExtra("time", -1);
+					score = data.getLongExtra("time", WorkoutModel.NOT_SCORED);
 				} else if (workout.record_type_id == WorkoutModel.SCORE_REPS) {
 					score = WorkoutModel.NOT_SCORED; // TODO: this
 				} else if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT) {

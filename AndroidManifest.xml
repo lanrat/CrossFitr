@@ -115,6 +115,7 @@
             android:name=".ResultsActivity"
             android:label="@string/results_title"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".CalendarActivity"

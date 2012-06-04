@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class HeroesActivity extends Activity implements OnItemClickListener{
-	private static final String tag = "HeroesActivity";
 	private ListView heroesView;
 	private WorkoutModel model_data;
 	private WorkoutRow[] pulledData;
@@ -30,35 +30,40 @@ public class HeroesActivity extends Activity implements OnItemClickListener{
 	private ListView derp_heroes_list;
 	private HeroesListHelper listAdapter;
 	
+	private TextView titleTextHeader1;
+	private TextView titleTextHeader2;
+	private Typeface font;
+	
 	public void onCreate(Bundle savedInstanceState){
 		
-		Log.d(tag,"at least here!!!  #1");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.heroes_workout_main);		
+		setContentView(R.layout.heroes_workout_main);
+		
+		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
+		
+		titleTextHeader1 = (TextView) findViewById(R.id.workouts_title);		
+		titleTextHeader1.setTypeface(font);		
+		titleTextHeader2 = (TextView) findViewById(R.id.heroes_title);		
+		titleTextHeader2.setTypeface(font);
+		
 		workoutrowList = new ArrayList<WorkoutRow>();
 		
 		heroesView = (ListView) findViewById(R.id.workout_list_view);		
 		
 		model_data= new WorkoutModel(this);
 
-		Log.d(tag,"at least here!!!  #2");
-	
 		//Access the database and retrieve all heroes workouts
 		model_data.open();	
 		pulledData = model_data.getAllByType(WorkoutModel.TYPE_HERO);
 		model_data.close();
-
-		Log.d(tag,"at least here!!!  #3");
-	
-		Log.d(tag,"at least here!!!  #4");
 		
 		if (pulledData.length != 0) {
 			for (int i = 0; i < pulledData.length; i++) {
 				workoutrowList.add(pulledData[i]);
 			}		
 
-			Log.d(tag,"at least here!!!  #5");
 		derp_heroes_list = (ListView) findViewById(R.id.heroes_workout_list);
+		
 		listAdapter = new HeroesListHelper(getApplicationContext(), workoutrowList);
 		listAdapter.notifyDataSetChanged();
 		
@@ -94,6 +99,7 @@ public class HeroesActivity extends Activity implements OnItemClickListener{
 		}
 		
 		public View getView(int index, View convertView, ViewGroup parent) {
+		
 			if (convertView == null)
 				convertView = inflater
 						.inflate(R.layout.custom_list_item, parent, false);
@@ -107,11 +113,15 @@ public class HeroesActivity extends Activity implements OnItemClickListener{
 			nameTView = (TextView) convertView
 					.findViewById(R.id.string_nameofworkout);
 			nameTView.setText(arrayList.get(index).name);
+			nameTView.setTextColor(getResources().getColor(R.color.heroes));	
+			nameTView.setTypeface(font);		
 
 			descTView = (TextView) convertView
 					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
+			descTView.setTextColor(getResources().getColor(R.color.light_gray));
 			descTView.setSelected(true);
+			descTView.setTypeface(font);
 
 			return convertView;
 		}
