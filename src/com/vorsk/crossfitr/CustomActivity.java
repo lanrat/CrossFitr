@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +32,23 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 	private ArrayList<WorkoutRow> workoutrowList;
 	private CustomListhelper listAdapter;
 	private ListView derp_custom_List;
+	
+	private TextView titleTextHeader1;
+	private TextView titleTextHeader2;
+	private Typeface font;
 
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.custom_workout_main);
+		
+		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
+		
+		titleTextHeader1 = (TextView) findViewById(R.id.workouts_title);		
+		titleTextHeader1.setTypeface(font);		
+		titleTextHeader2 = (TextView) findViewById(R.id.custom_title);		
+		titleTextHeader2.setTypeface(font);
+		
 		workoutrowList = new ArrayList<WorkoutRow>();
 
 		// create the ListView object
@@ -44,15 +58,12 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 		add_custom_button = findViewById(R.id.custom_add_button);
 		add_custom_button.setOnClickListener(this);
 
-		// create model
 		model_data = new WorkoutModel(this);
 
 		// Access the database and retrieve all custom workouts
 		model_data.open();
 		pulledData = model_data.getAllByType(WorkoutModel.TYPE_CUSTOM);
 		model_data.close();
-
-		Log.d(tag, "pulledData.legnth : " + pulledData.length);
 
 		if (pulledData.length != 0) {
 			for (int i = 0; i < pulledData.length; i++) {
@@ -62,9 +73,7 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 
 			derp_custom_List = (ListView) this.findViewById(R.id.custom_workout_list);
 
-			listAdapter = new CustomListhelper(getApplicationContext(),
-					workoutrowList);
-
+			listAdapter = new CustomListhelper(getApplicationContext(), workoutrowList);
 			listAdapter.notifyDataSetChanged();
 
 			derp_custom_List.setAdapter(listAdapter);
@@ -108,6 +117,7 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 		}
 
 		public View getView(int index, View convertView, ViewGroup parent) {
+			
 			if (convertView == null)
 				convertView = inflater
 						.inflate(R.layout.custom_list_item, parent, false);
@@ -121,11 +131,15 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 			nameTView = (TextView) convertView
 					.findViewById(R.id.string_nameofworkout);
 			nameTView.setText(arrayList.get(index).name);
+			nameTView.setTextColor(getResources().getColor(R.color.custom));	
+			nameTView.setTypeface(font);	
 
 			descTView = (TextView) convertView
 					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
+			descTView.setTextColor(getResources().getColor(R.color.light_gray));
 			descTView.setSelected(true);
+			descTView.setTypeface(font);
 
 			return convertView;
 		}

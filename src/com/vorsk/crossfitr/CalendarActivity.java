@@ -552,7 +552,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			numberofRecord = _data.size();
 		}
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Log.d(tag,"It works");
+		//	Log.d(tag,"It works");
 			if(convertView == null)
 				convertView = inflater
 				.inflate(R.layout.calendar_list_item, parent, false);
@@ -564,6 +564,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
+				
 				WorkoutModel tempModel = new WorkoutModel(listContext);
 				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
 				String score = Integer.toString(arrayList.get(position).score);	

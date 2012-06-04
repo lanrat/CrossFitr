@@ -97,6 +97,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		
 		//add the selected workout to the DB
 		WorkoutModel model = new WorkoutModel(this);
+		
 		model.open();
 		
 		long entry_id = model.getIDFromName(workout.name);
@@ -117,6 +118,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 
 		}
 		model.close();
+		
 		if (entry_id == -1){
 			Log.e(TAG,"could not insert WOD into DB, unknown error");
 			return;
