@@ -206,12 +206,10 @@ public class WorkoutSessionModel extends SQLiteDAO
 		if (session == null) {
 			return 0;
 		}
-		Log.v("TEST", "WK: " + session.workout_id);
 		WorkoutRow workout = model.getByID(session.workout_id);
 		
 		int result = super.delete(COL_ID + " = " + id);
 		
-		Log.v("TEST", "?: " + (workout.record == session.score));
 		if (workout.record == session.score) {
 			model.calculateRecord(workout._id, workout.workout_type_id);
 		}
