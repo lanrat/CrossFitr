@@ -271,7 +271,9 @@ public class TabataActivity extends Activity {
 	
 	public void onBackPressed() {
         super.onBackPressed();
-        mp.release();
+        if (mp != null) {
+			 mp.release();
+		 }
         active = false;
 	 }
 }

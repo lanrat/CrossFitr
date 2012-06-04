@@ -261,7 +261,9 @@ public class StopwatchActivity extends Activity implements
 	
 	public void onBackPressed() {
         super.onBackPressed();
-        mp.release();
+        if (mp != null) {
+			 mp.release();
+		 }
         active = false;
 	 }
 }

@@ -338,7 +338,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	
 	 public void onBackPressed() {
          super.onBackPressed();
-         mp.release();
+         if (mp != null) {
+			 mp.release();
+		 }
          active = false;
 	 }
 }
