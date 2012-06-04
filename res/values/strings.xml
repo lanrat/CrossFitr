@@ -20,7 +20,8 @@
     <string name="stopwatch_label">Stopwatch</string>
     <string name="start_label">Start</string>
     <string name="stop_label">Stop</string>
-    <string name="reset_label">Reset</string>
+    <string name="reset_stopwatch_label">Reset Stopwatch</string>
+    <string name="reset_tabata_label">Reset Tabata</string>
     <string name="finish_label">Finish Workout</string>
     <string name="timerset_label">Set Timer</string>
     <string name="workoutdes_default_label">Workout Description</string>
