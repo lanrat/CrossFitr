@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.ScrollingMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -29,11 +28,12 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
 	private boolean cdRun;
+	private boolean active = true;
 	NumberPicker mNumberPicker;
 	Button mSetTimer, mFinish, mStartStop;
 	TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	Time timer = new Time();
-	private MediaPlayer mp;
+	protected MediaPlayer mp;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
@@ -327,11 +327,18 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private void playSound(int r) {
 		//Release any resources from previous MediaPlayer
 		 if (mp != null) {
-		 mp.release();
+			 mp.release();
 		 }
-		
-		 // Create a new MediaPlayer to play this sound
-		 mp = MediaPlayer.create(this, r);
-		 mp.start();
+		if(active){
+			// Create a new MediaPlayer to play this sound
+			mp = MediaPlayer.create(this, r);
+			mp.start();
+		}
 	}
+	
+	 public void onBackPressed() {
+         super.onBackPressed();
+         mp.release();
+         active = false;
+	 }
 }
