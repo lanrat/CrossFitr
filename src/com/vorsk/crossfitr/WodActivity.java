@@ -38,12 +38,14 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wod_workouts_list);
 		
+		/*
 		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		
 		titleTextHeader1 = (TextView) findViewById(R.id.workouts_title);		
 		titleTextHeader1.setTypeface(font);		
 		titleTextHeader2 = (TextView) findViewById(R.id.custom_title);		
 		titleTextHeader2.setTypeface(font);
+		*/
 		
 		listView = (ListView) findViewById(R.id.workout_list_view);
 		
