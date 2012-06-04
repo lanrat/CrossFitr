@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When selected, use grey -->
+    <item android:drawable="@drawable/finish_image_enabled"
+          android:state_enabled="true" />
+    <!-- When not selected, use white-->
+    <item android:drawable="@drawable/button_image"
+          android:state_enabled="false"
+          />
+</selector>

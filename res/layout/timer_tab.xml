@@ -25,18 +25,18 @@
         android:layout_below="@+id/start_stop_button"
         android:text="@string/workoutstate_default_label"
         android:textSize="24sp" />
-
+
     <Button
         android:id="@+id/SetTimer"
-        android:layout_width="174dp"
-        android:layout_height="48dp"
+        style="@style/setButton"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/state_label"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_image"
-        android:paddingBottom="10dp"
+        android:gravity="center_vertical|center_horizontal"
         android:text="@string/timerset_label"
         android:textColor="@android:color/white"
-        android:textSize="36sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/description_header"
@@ -46,14 +46,14 @@
         android:layout_below="@+id/SetTimer"
         android:orientation="vertical" >
 
-	        <TextView
-	            android:id="@+id/workout_name_time"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:gravity="center"
-	            android:paddingTop="5dp"
-	            android:text="Workout Name"
-	            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/workout_name_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="Workout Name"
+            android:textSize="22sp" />
 		
         <ScrollView
 	        android:id="@+id/text_workout_desc_scroll"
@@ -69,16 +69,16 @@
 	            android:textSize="18sp" />
         </ScrollView>
     </LinearLayout>
-
+
     <Button
         android:id="@+id/finish_workout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/finishButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="onFinishedClicked"
         android:text="@string/finish_label" />
-
-
 
 </RelativeLayout>
