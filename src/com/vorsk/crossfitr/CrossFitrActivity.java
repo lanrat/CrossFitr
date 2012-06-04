@@ -2,6 +2,8 @@ package com.vorsk.crossfitr;
 
 import java.io.File;
 
+import com.vorsk.crossfitr.models.WorkoutSessionModel;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +35,8 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
 
 		Typeface font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
@@ -66,13 +70,15 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		/** user status dialog **/
 		// TODO
 		numOfWorkouts = (TextView) findViewById(R.id.main_num_of_workouts);
-		numOfWorkouts.setText("###");
+		sessionModel.open();
+		//numOfWorkouts.setText(sessionModel.getTotal());
 
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
 		lastWorkouts.setText("###");
 
+		sessionModel.close();
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
-		numOfAchievments.setText("###");
+		numOfAchievments.setText("0");
 	}
 	
 	public void onResume()
