@@ -40,7 +40,7 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.custom_workout_main);
+		setContentView(R.layout.custom_workouts_list);
 		
 		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		
