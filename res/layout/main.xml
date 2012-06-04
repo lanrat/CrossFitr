@@ -36,48 +36,92 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/ic_main_profile" />
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="300dp"
-        android:layout_height="81dp"
+        android:layout_height="75dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/main_status"
-        android:orientation="horizontal"
-        android:paddingBottom="30dp" >
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <TextView
+                android:id="@+id/main_num_of_workouts"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:gravity="bottom|center"
+                android:orientation="horizontal"
+                android:textColor="#ffffff"
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/main_last_workout"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/main_num_of_workouts"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/main_num_of_achievments"
+                android:layout_width="77dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/main_last_workout"
+                android:layout_weight="0.32"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:textColor="#ffffff"
+                android:textSize="40dp" />
 
-        <TextView
-            android:id="@+id/main_num_of_workouts"
-            android:layout_width="69dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.55"
-            android:orientation="horizontal"
-            android:textColor="#ffffff"
-            android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView
+                android:id="@+id/status_display1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="total workouts"
+                android:textColor="@color/blue"
+                android:textSize="11dp" />
 
-        <TextView
-            android:id="@+id/main_last_workout"
-            android:layout_width="88dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:textColor="#ffffff"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/main_num_of_achievments"
-            android:layout_width="77dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.32"
-            android:orientation="horizontal"
-            android:textColor="#ffffff"
-            android:textSize="15dp" />
+"
+
+            <TextView
+                android:id="@+id/status_display2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48dp"
+                android:layout_toRightOf="@id/status_display1"
+                android:text="last workout"
+                android:textColor="@color/blue"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/status_display3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="27dp"
+                android:layout_toRightOf="@id/status_display2"
+                android:text="achievements"
+                android:textColor="@color/blue"
+                android:textSize="11dp" />
+                
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout

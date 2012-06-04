@@ -25,9 +25,14 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	private TextView lastWorkouts;
 	private TextView numOfAchievments;
 	
+	private TextView statusDisplay1;
+	private TextView statusDisplay2;
+	private TextView statusDisplay3;
+	
 	private ImageView userPic;
 	
 	private File file;
+	private Typeface font;
 	
 	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
 
@@ -41,7 +46,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		
 		
 
-		Typeface font = Typeface.createFromAsset(this.getAssets(),
+		font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
 		
 		// User photo
@@ -69,12 +74,23 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		profileButton.setOnClickListener(this);
 		profileText = (TextView) findViewById(R.id.main_button_profile);
 		profileText.setTypeface(font);
+		
+		// status displays
+		statusDisplay1 = (TextView) findViewById(R.id.status_display1);
+		statusDisplay1.setTypeface(font);
+		
+		statusDisplay2 = (TextView) findViewById(R.id.status_display2);
+		statusDisplay2.setTypeface(font);
+		
+		statusDisplay3 = (TextView) findViewById(R.id.status_display3);
+		statusDisplay3.setTypeface(font);
 
 		/** user status dialog **/
 		
 		numOfWorkouts = (TextView) findViewById(R.id.main_num_of_workouts);
 		sessionModel.open();
-		numOfWorkouts.setText("Total Workouts: " + sessionModel.getTotal());
+		numOfWorkouts.setText(" " + sessionModel.getTotal());
+		numOfWorkouts.setTypeface(font);
 
 		Date date;
 		
@@ -86,12 +102,14 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		}
 		
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
-		lastWorkouts.setText("Last Workout: " + date.toString());
+		lastWorkouts.setText(" " + date.toString());
+		lastWorkouts.setTypeface(font);
 
 		
 		sessionModel.close();
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
-		numOfAchievments.setText("Achievements: " + "0");
+		numOfAchievments.setText("0");
+		numOfAchievments.setTypeface(font);
 	}
 	
 	public void onResume()

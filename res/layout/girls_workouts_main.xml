@@ -55,7 +55,7 @@
         android:id="@+id/heroes_workout_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black" >  <!-- button color -->
+        android:background="@color/translucent_gray" >  <!-- button color -->
     </ListView>
 
 </LinearLayout>
