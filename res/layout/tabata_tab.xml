@@ -32,7 +32,7 @@
         android:minWidth="150dip"
         android:paddingLeft="24dip"
         android:paddingRight="24dip"
-        android:text="@string/reset_label"
+        android:text="@string/reset_tabata_label"
         android:onClick="onResetClicked" />
     
     <TextView
