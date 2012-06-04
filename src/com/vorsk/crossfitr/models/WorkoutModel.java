@@ -3,6 +3,7 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * DAO for "workout" table.
@@ -168,6 +169,25 @@ public class WorkoutModel extends SQLiteDAO
 		WorkoutSessionModel model = new WorkoutSessionModel(context);
 		model.deleteWorkoutHistory(id);
 		return super.delete(COL_ID + " = " + id);
+	}
+	
+	public void calculateRecord(long id, long type)
+	{
+		String cond;
+		if (type == SCORE_TIME) {
+			cond = "MIN";
+		} else if (type == SCORE_WEIGHT || type == SCORE_REPS) {
+			cond = "MAX";
+		} else {
+			return;
+		}
+		
+		String recsql = "SELECT " + cond + "(score) FROM workout_session";
+		
+		String sql = "UPDATE " + DB_TABLE + " SET " + COL_RECORD
+			+ " = (" + recsql + ") WHERE " + COL_ID + " = " + id;
+		
+		db.rawQuery(sql, null);
 	}
 
 	/**
