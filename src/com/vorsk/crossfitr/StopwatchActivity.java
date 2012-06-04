@@ -243,7 +243,7 @@ public class StopwatchActivity extends Activity implements
 
 	/**
 	 * method to change background color
-	 * @param color
+	 * @param int 0 for green, 1 for red, 2 for black
 	 */
 	private void setDisplayBackgroundColor(int color){
 		if(color == 0){
