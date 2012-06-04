@@ -69,7 +69,7 @@ public class TabataActivity extends Activity {
 	  	mStateLabel = (TextView)findViewById(R.id.state_label);
 		mStateLabel.setTypeface(roboto);
 		mStateLabel.setText("Press To Start");
-		mStateLabel.setTextColor(-16711936);
+		mStateLabel.setTextColor(Color.GREEN);
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
@@ -114,6 +114,7 @@ public class TabataActivity extends Activity {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
 					mStateLabel.setText("");
+					setDisplayBackgroundColor(2);
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
 				}
@@ -124,7 +125,7 @@ public class TabataActivity extends Activity {
 					//mStartStop.setText("Go!");
 					tabata.start();
 					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
+					mStateLabel.setTextColor(Color.RED);
 					cdRun = false;
 					mStartStop.setEnabled(true);
 				}
@@ -136,7 +137,7 @@ public class TabataActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 			mStateLabel.setText("Press To Start");
-			mStateLabel.setTextColor(-16711936);
+			mStateLabel.setTextColor(Color.GREEN);
 			mReset.setEnabled(true);
 			mFinish.setEnabled(true);
 		}
@@ -201,20 +202,17 @@ public class TabataActivity extends Activity {
 
 	public String getFormattedElapsedTime() {
 		long time = tabata.getElapsedTime();
-		
+
 		int set = 1 + ((int)time / 30000);
 		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
-		
-		int green = Color.GREEN;
-		int red = Color.RED;
-		
+
 		//reset at end of set 8 workout. no last 10 sec break
 		if(diff <= 10000){
 			set = 1;
 			this.endTabata();
 		}
-		
+
 		// if logic to display sets and time for tabata
 		if(remain > 10000 ){
 			if(!goStop){
@@ -223,7 +221,7 @@ public class TabataActivity extends Activity {
 				}
 				goStop = true;
 			}
-			this.setDisplayBackgroundColor(green);
+			setDisplayBackgroundColor(0);
 			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
 			return formatElapsedTime(0, set);
@@ -234,7 +232,7 @@ public class TabataActivity extends Activity {
 				}
 				goStop = false;
 			}
-			this.setDisplayBackgroundColor(red);
+			setDisplayBackgroundColor(1);
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
 	}
@@ -242,14 +240,19 @@ public class TabataActivity extends Activity {
 
 	/**
 	 * method to change background color
-	 * @param color
+	 * @param int 0 for green, 1 for red, 2 for black
 	 */
-	public void setDisplayBackgroundColor(int color){
-		if(color == Color.GREEN){
+	private void setDisplayBackgroundColor(int color){
+		if(color == 0){
 			mStartStop.setBackgroundResource(R.drawable.tabata_display_go);
 		}
-		else if(color == Color.RED)
+		else if(color == 1){
 			mStartStop.setBackgroundResource(R.drawable.tabata_display_rest);
+		}
+		else if(color == 2){
+			mStartStop.setBackgroundResource(R.drawable.background_main);
+		}
+			
 	}
 	
 	/**
@@ -271,7 +274,9 @@ public class TabataActivity extends Activity {
 	
 	public void onBackPressed() {
         super.onBackPressed();
-        mp.release();
+        if (mp != null) {
+			 mp.release();
+		 }
         active = false;
 	 }
 }

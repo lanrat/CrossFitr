@@ -5,6 +5,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -70,7 +71,10 @@ public class StopwatchActivity extends Activity implements
 		Typeface roboto = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
 
+		
 		mStateLabel = (TextView) findViewById(R.id.state_label);
+		mStateLabel.setText("Press To Start");
+		mStateLabel.setTextColor(Color.GREEN);
 		mStateLabel.setTypeface(roboto);
 
 		mWorkoutDescription = (TextView) findViewById(R.id.workout_des_time);
@@ -94,6 +98,8 @@ public class StopwatchActivity extends Activity implements
 		mFinish = (Button) findViewById(R.id.finish_workout_button);
 		mFinish.setTypeface(roboto);
 		mFinish.setEnabled(false);
+		
+		setDisplayBackgroundColor(0);
 
 		mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT),
 				mFrequency);
@@ -123,8 +129,8 @@ public class StopwatchActivity extends Activity implements
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + ((millisUntilFinished / 1000)+1));
 					mStartStop.setEnabled(false);
-					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
+					setDisplayBackgroundColor(2);
+					mStateLabel.setText("");
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
@@ -135,6 +141,9 @@ public class StopwatchActivity extends Activity implements
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
 					stopwatch.start();
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(Color.RED);
+					setDisplayBackgroundColor(1);
 					cdRun = false;
 					mStartStop.setEnabled(true);
 				}
@@ -145,7 +154,8 @@ public class StopwatchActivity extends Activity implements
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
-			mStateLabel.setTextColor(-16711936);
+			mStateLabel.setTextColor(Color.GREEN);
+			setDisplayBackgroundColor(0);
 			mFinish.setEnabled(true);
 			mReset.setEnabled(true);
 			mFinish.setEnabled(true);
@@ -183,7 +193,7 @@ public class StopwatchActivity extends Activity implements
 
 	/**
 	 * formatting time display
-	 * @param now  takes in lond time value to display
+	 * @param now  takes in long time value to display
 	 * @return String  with time formatted numbers
 	 */
 	public static String formatElapsedTime(long now) {
@@ -231,6 +241,22 @@ public class StopwatchActivity extends Activity implements
 		return formatElapsedTime(stopwatch.getElapsedTime());
 	}
 
+	/**
+	 * method to change background color
+	 * @param int 0 for green, 1 for red, 2 for black
+	 */
+	private void setDisplayBackgroundColor(int color){
+		if(color == 0){
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_go);
+		}
+		else if(color == 1){
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_rest);
+		}
+		else if(color == 2){
+			mStartStop.setBackgroundResource(R.drawable.background_main);
+		}
+			
+	}
 
 	/**
 	 * Resizes mStartStop dynamically for smaller screen sizes
@@ -261,7 +287,9 @@ public class StopwatchActivity extends Activity implements
 	
 	public void onBackPressed() {
         super.onBackPressed();
-        mp.release();
+        if (mp != null) {
+			 mp.release();
+		 }
         active = false;
 	 }
 }

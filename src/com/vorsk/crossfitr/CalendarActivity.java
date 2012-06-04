@@ -133,8 +133,15 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			case R.id.calendar_bg:
 				TextView defaultTextName = (TextView) this.findViewById(R.id.cal_workoutname);
 				TextView defaultTextRecord = (TextView) this.findViewById(R.id.cal_record);
-				defaultTextName.setText(" ");
-				defaultTextRecord.setText(" ");		
+				try{
+					defaultTextName.setText(" ");
+					defaultTextRecord.setText(" ");					
+				}catch(NullPointerException e){
+					Log.d(tag, "e.toString()= " + e.toString());
+					Log.d(tag, "e = " + e.toString());
+				}
+				
+				break;	
 		}
 		
 	}
@@ -206,7 +213,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			this.month = month;
 			this.year = year;
 
-			Calendar tempcal = Calendar.getInstance(TimeZone.getTimeZone("PST"));
+			Calendar tempcal = Calendar.getInstance();
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
@@ -353,7 +360,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			int numberofRecords = recordChecker(day_color[0], day_color[2],
 					day_color[3]);
-//			Log.d(tag, "numberofRecords = " + numberofRecords);
+			Log.d(tag, "numberofRecords = " + numberofRecords);
 
 			if (numberofRecords == 0) {
 				gridcell.setBackgroundResource(R.drawable.calendar_cellfiller);
@@ -426,8 +433,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		public int getCurrentDayOfMonth() {
 
-			Calendar calendar = Calendar.getInstance();			
-			return calendar.get(Calendar.DAY_OF_MONTH);
+			Calendar tempcal = Calendar.getInstance();
+			Log.d(tag,"Timezone : " + tempcal.getTimeZone().getID());
+			Log.d(tag,"Time? : " + tempcal.getTime());
+			Log.d(tag,"getDay() : " + tempcal.getTime().getDay());
+			Log.d(tag,"getDate() : " + tempcal.getTime().getDate());
+
+			return tempcal.getTime().getDate();
 		}
 
 		private void setCurrentDayOfMonth(int currentDayOfMonth) {
@@ -498,23 +510,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			derp_calList.setAdapter(listAdapter);			
 		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -552,7 +547,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			numberofRecord = _data.size();
 		}
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Log.d(tag,"It works");
+		//	Log.d(tag,"It works");
 			if(convertView == null)
 				convertView = inflater
 				.inflate(R.layout.calendar_list_item, parent, false);
@@ -564,6 +559,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
+				Log.d(tag,"It works");
 				WorkoutModel tempModel = new WorkoutModel(listContext);
 				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
 				String score = Integer.toString(arrayList.get(position).score);	
@@ -578,12 +574,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public int getCount() {
-			Log.d(tag,"On getCount() ");
 			return numberofRecord;
 		}
 
 		public String  getItem(int position) {
-			Log.d(tag,"On getItem() ");
 			return null;
 		}
 
