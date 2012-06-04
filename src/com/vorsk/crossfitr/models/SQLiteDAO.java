@@ -37,14 +37,14 @@ public abstract class SQLiteDAO
 	
 	// Pre-populated Type IDs
 		// Workout types
-	public static final int TYPE_NONE = -1;
+	public static final int TYPE_NONE = 0;
 	public static final int TYPE_WOD = 1;
 	public static final int TYPE_GIRL = 2;
 	public static final int TYPE_HERO = 3;
 	public static final int TYPE_CUSTOM = 4;
 	
 		// Score types
-	public static final int SCORE_NONE   = -1;
+	public static final int SCORE_NONE   = 0;
 	public static final int SCORE_TIME   = 1;
 	public static final int SCORE_REPS   = 2;
 	public static final int SCORE_WEIGHT = 3;
@@ -57,7 +57,7 @@ public abstract class SQLiteDAO
 	
 	// DB Properties
 	private static final String DB_NAME = "CrossFitr";
-	private static final int DB_VERSION = 1;
+	private static final int DB_VERSION = 4;
 	
 	
 	/**
@@ -131,9 +131,33 @@ public abstract class SQLiteDAO
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int over, int nver)
 		{
-			// TODO: This
-			// Just drop the database and recreate if we're lazy...
-			// though that would get rid of all existing data
+			InputStream sqlfile = context.getResources().openRawResource(
+					R.raw.db_delete);
+			byte[] reader;
+			String sqltext;
+			String[] statements;
+			
+			try {
+				// Read in the deletion script
+				reader = new byte[sqlfile.available()];
+				while (sqlfile.read(reader) != -1){}
+				sqltext = new String(reader);
+				statements = sqltext.split("--###--");
+				
+				// Delete the db
+				Log.v("DB", "Deleting data...");
+				for (int ii=0; ii<statements.length; ii++) {
+					db.execSQL(statements[ii]);
+				}
+			} catch (SQLException e) {
+				// TODO: this
+				Log.e("DB", "Error occurred during creation");
+			} catch (IOException e) {
+				// TODO: this
+				Log.e("DB", "Error reading DB creation files");
+			}
+			
+			onCreate(db);
 		}
 		
 		@Override
@@ -161,6 +185,24 @@ public abstract class SQLiteDAO
 	}
 
 	/*** Private ***/
+	
+	private String getWhereClause(String[] cols)
+	{
+		String sql = "";
+		if (cols == null)
+			return sql;
+		
+		// Build the WHERE clause (append each col-val)
+		if (cols.length > 0) {
+			sql += " WHERE ";
+		}
+		for (int ii = 0; ii < cols.length; ii++) {
+			if (ii != 0)
+				sql += ", ";
+			sql += cols[ii] + " = ?";
+		}
+		return sql;
+	}
 
 	/*** Protected ***/
 
@@ -181,6 +223,14 @@ public abstract class SQLiteDAO
 	{
 		if (where == null)
 			return -1; // GTFO. You are not updating everything.
+		
+		Date now = new Date();
+		long time = now.getTime();
+		
+		cv.remove(COL_ID);
+		cv.remove(COL_CDATE);
+		cv.remove(COL_MDATE);
+		cv.put(COL_MDATE, time);
 
 		return db.update(DB_TABLE, cv, where, null);
 	}
@@ -193,22 +243,43 @@ public abstract class SQLiteDAO
 
 		return db.delete(DB_TABLE, where, null);
 	}
+	
+	protected Cursor select(String[] cols, String[] vals)
+			throws SQLException
+	{
+		return select(cols, vals, null, -1);
+	}
 
-	protected Cursor select(String[] cols, String[] vals) throws SQLException
+	protected Cursor select(String[] cols, String[] vals, String order, int limit)
+			throws SQLException
 	{
 		String sql = "SELECT * FROM " + DB_TABLE;
-
-		// Build the WHERE clause (append each col-val)
-		if (cols.length > 0) {
-			sql += " WHERE ";
-		}
-		for (int ii = 0; ii < cols.length; ii++) {
-			if (ii != 0)
-				sql += ", ";
-			sql += cols[ii] + " = ?";
-		}
-
+		
+		sql += getWhereClause(cols);
+		if (order != null) sql += " ORDER BY " + order;
+		if (limit > 0) sql += " LIMIT " + limit;
+		
 		return db.rawQuery(sql, vals);
+	}
+	
+	protected int selectCount(String[] cols, String[] vals) throws SQLException
+	{
+		String sql = "SELECT COUNT(*) as count FROM " + DB_TABLE;
+		sql += getWhereClause(cols);
+		Cursor cr = db.rawQuery(sql, vals);
+		
+		if (cr == null) {
+			return -1;
+		}
+		if (!cr.moveToFirst()) {
+			cr.close();
+			return -1;
+		}
+		
+		int ind = cr.getColumnIndexOrThrow("count");
+		int result = cr.getInt(ind);
+		cr.close();
+		return result;
 	}
 
 	protected Cursor selectByID(long id) throws SQLException
@@ -238,12 +309,15 @@ public abstract class SQLiteDAO
 			"SELECT * FROM " + table + " WHERE " + COL_NAME + "=?",
 			new String[] { name });
 		if (cr == null || cr.getCount() < 1) {
+			cr.close();
 			return -1;
 		}
 		
 		int col = cr.getColumnIndexOrThrow(COL_ID);
 		cr.moveToFirst();
-		return cr.getLong(col);
+		long out = cr.getLong(col);
+		cr.close();
+		return out;
 	}
 	
 	protected void fetchBaseData(Cursor cr, SQLiteRow row,

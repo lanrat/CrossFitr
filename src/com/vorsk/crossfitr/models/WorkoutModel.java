@@ -3,6 +3,7 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * DAO for "workout" table.
@@ -22,6 +23,8 @@ public class WorkoutModel extends SQLiteDAO
 	public static final String COL_WK_TYPE  = "workout_type_id";
 	public static final String COL_RECORD   = "record";
 	public static final String COL_REC_TYPE = "record_type_id";
+	
+	private Context context;
 		
 	
 	/*****   Constructors   *****/
@@ -35,6 +38,7 @@ public class WorkoutModel extends SQLiteDAO
 	public WorkoutModel(Context ctx)
 	{
 		super("workout", ctx);
+		context = ctx;
 	}
 	
 	/*****   Private   *****/
@@ -52,6 +56,7 @@ public class WorkoutModel extends SQLiteDAO
 		}
 		WorkoutRow[] result = new WorkoutRow[cr.getCount()];
 		if (result.length == 0) {
+			cr.close();
 			return result;
 		}
 		
@@ -96,7 +101,9 @@ public class WorkoutModel extends SQLiteDAO
 	 *            Add this entry to the DB
 	 * @return ID of newly added entry, -1 on failure
 	 */
-	public long insert(WorkoutRow row) {
+	public long insert(WorkoutRow row)
+	{
+		// TODO: Fix this? Seemed to be funky
 		return super.insert(row.toContentValues());
 	}
 
@@ -138,6 +145,49 @@ public class WorkoutModel extends SQLiteDAO
 		cv.put(COL_REC_TYPE, rtype);
 		cv.put(COL_RECORD, rec);
 		return super.insert(cv);
+	}
+	
+	/**
+	 * Call this to edit the properties of a workout entry
+	 * 
+	 * @param row The new data to replace
+	 * @return Number of rows affected
+	 */
+	public long edit(WorkoutRow row)
+	{
+		return super.update(row.toContentValues(), COL_ID + " = " + row._id);
+	}
+	
+	/**
+	 * Remove a workout definition. History for it will be removed
+	 * 
+	 * @param id Workout definition ID to remove
+	 * @return Number of removed workouts
+	 */
+	public long delete(long id)
+	{
+		WorkoutSessionModel model = new WorkoutSessionModel(context);
+		model.deleteWorkoutHistory(id);
+		return super.delete(COL_ID + " = " + id);
+	}
+	
+	public void calculateRecord(long id, long type)
+	{
+		String cond;
+		if (type == SCORE_TIME) {
+			cond = "MIN";
+		} else if (type == SCORE_WEIGHT || type == SCORE_REPS) {
+			cond = "MAX";
+		} else {
+			return;
+		}
+		
+		String recsql = "SELECT " + cond + "(score) FROM workout_session";
+		
+		String sql = "UPDATE " + DB_TABLE + " SET " + COL_RECORD
+			+ " = (" + recsql + ") WHERE " + COL_ID + " = " + id;
+		
+		db.rawQuery(sql, null);
 	}
 
 	/**

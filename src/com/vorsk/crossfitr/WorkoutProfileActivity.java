@@ -7,15 +7,19 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class WorkoutProfileActivity extends Activity implements OnClickListener 
 {
+	//initialize variables
 	private WorkoutRow workout;
-	
 	private int ACT_TIMER = 1;
+	
+	//Its dynamic! android should use this by default
+	private String TAG = this.getClass().getName();
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -47,7 +51,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		tvname.setText(workout.name);
 		tvdesc.setText(workout.description);
 		//tvrecordType.setText(model.getTypeName(workout.workout_type_id));
-		tvbestRecord.setText(String.valueOf(workout.record)); // TODO: Format
+		tvbestRecord.setText(StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
         
 		// begin workout button
         View beginButton = findViewById(R.id.button_begin_workout);
@@ -79,7 +83,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 				
 				// Get the score returned
 				if (workout.record_type_id == WorkoutModel.SCORE_TIME) {
-					score = data.getLongExtra("time", -1);
+					score = data.getLongExtra("time", WorkoutModel.NOT_SCORED);
 				} else if (workout.record_type_id == WorkoutModel.SCORE_REPS) {
 					score = WorkoutModel.NOT_SCORED; // TODO: this
 				} else if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT) {
@@ -87,6 +91,9 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 				} else {
 					score = WorkoutModel.NOT_SCORED;
 				}
+				
+				//Test debugging!
+				//Log.d(TAG,"workoutID: "+workout._id+" score: "+score+" recotdTypeID: "+workout.record_type_id);
 				
 				// Save as a new session
 				long id = model.insert(workout._id, score,

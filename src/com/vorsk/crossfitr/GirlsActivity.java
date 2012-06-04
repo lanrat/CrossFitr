@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +22,30 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class GirlsActivity extends Activity implements OnItemClickListener{
+public class GirlsActivity extends Activity implements OnItemClickListener {
 	private ListView girlsView;
 	private WorkoutModel model_data;
 	private WorkoutRow[] pulledData;
 	private ArrayList<WorkoutRow> workoutrowList;
 	private ListView derp_girls_list;
 	private GirlsListHelper listAdapter;
-	
+
+	private TextView titleTextHeader1;
+	private TextView titleTextHeader2;
+	private Typeface font;
+
 	public void onCreate(Bundle savedInstanceState){
 				
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.heroes_workout_main);		
+		setContentView(R.layout.girls_workouts_main);	
+		
+		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
+		
+		titleTextHeader1 = (TextView) findViewById(R.id.workouts_title);		
+		titleTextHeader1.setTypeface(font);		
+		titleTextHeader2 = (TextView) findViewById(R.id.girls_title);		
+		titleTextHeader2.setTypeface(font);
+				
 		workoutrowList = new ArrayList<WorkoutRow>();
 		
 		girlsView = (ListView) findViewById(R.id.workout_list_view);		
@@ -59,8 +72,8 @@ public class GirlsActivity extends Activity implements OnItemClickListener{
 		derp_girls_list.setOnItemClickListener(this);
 		}
 	}
-	
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
 	{
 		WorkoutRow workout = listAdapter.get(position);
 		Intent x = new Intent(this, WorkoutProfileActivity.class);
@@ -68,25 +81,25 @@ public class GirlsActivity extends Activity implements OnItemClickListener{
 		startActivity(x);
 	}
 
+	public class GirlsListHelper extends BaseAdapter implements OnClickListener {
 
-	public class GirlsListHelper extends BaseAdapter implements OnClickListener{
-		
 		private static final String tag = "HeroesListHelper";
 		private final Context listContext;
 		private ArrayList<WorkoutRow> arrayList;
 		private ImageView listArrow;
 		private TextView nameTView;
 		private TextView descTView;
-		private LayoutInflater inflater;		
-		
-		public GirlsListHelper(Context _context, ArrayList<WorkoutRow> _data){
+		private LayoutInflater inflater;
+
+		public GirlsListHelper(Context _context, ArrayList<WorkoutRow> _data) {
 			this.listContext = _context;
 			this.arrayList = _data;
 			inflater = (LayoutInflater) _context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
-		
+
 		public View getView(int index, View convertView, ViewGroup parent) {
+			
 			if (convertView == null)
 				convertView = inflater
 						.inflate(R.layout.custom_list_item, parent, false);
@@ -96,19 +109,24 @@ public class GirlsActivity extends Activity implements OnItemClickListener{
 
 			Log.d(tag, "arrayList.get(" + index + ").name : "
 					+ arrayList.get(index).name);
-
+			
+			// workout name
 			nameTView = (TextView) convertView
 					.findViewById(R.id.string_nameofworkout);
 			nameTView.setText(arrayList.get(index).name);
-
+			nameTView.setTextColor(getResources().getColor(R.color.girls));	
+			nameTView.setTypeface(font);		
+			
+			//workout description
 			descTView = (TextView) convertView
 					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
+			descTView.setTextColor(getResources().getColor(R.color.light_gray));
 			descTView.setSelected(true);
+			descTView.setTypeface(font);
 
 			return convertView;
 		}
-		
 
 		public int getCount() {
 			// TODO Auto-generated method stub
@@ -119,19 +137,17 @@ public class GirlsActivity extends Activity implements OnItemClickListener{
 			return arrayList.get(index).name;
 		}
 
-		public <T> T get(int arg0)
-		{
-		   return (T) arrayList.get(arg0);
+		public <T> T get(int arg0) {
+			return (T) arrayList.get(arg0);
 		}
-		
-		public long getItemId(int id) {			
+
+		public long getItemId(int id) {
 			return id;
 		}
 
-
 		public void onClick(View arg0) {
-			
+
 		}
 
-	}	
+	}
 }

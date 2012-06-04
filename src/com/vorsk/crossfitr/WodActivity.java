@@ -8,6 +8,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.AsyncTask;
@@ -37,7 +38,26 @@ public class WodActivity extends Activity  implements OnItemClickListener
 
 		listView.setOnItemClickListener(this);
 		
-		new DownloadWOD(WODmodel,this).execute(0);
+		DownloadWOD downloadTask = new DownloadWOD(WODmodel,this);
+		startLoadingScreen(downloadTask);
+		downloadTask.execute(0);
+	}
+	
+	protected void startLoadingScreen(final AsyncTask task){
+		 pd = ProgressDialog.show(this, "Loading...", "Retrieving Workouts", true, true,
+				 new DialogInterface.OnCancelListener(){
+             public void onCancel(DialogInterface dialog) {
+                 task.cancel(true);
+                 finish();
+             }
+         }
+		);
+	}
+	
+	protected void stopLoadingScreen(){
+		if (pd != null){
+			pd.dismiss();
+		}
 	}
 	
 	/**
@@ -50,7 +70,6 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		 public DownloadWOD(WODModel model,Activity parent){
 			 this.model = model;
 			 this.context = parent;
-			 pd = ProgressDialog.show(context, "Loading...", "Retrieving Workouts", true, false);
 		 }
 	     protected ArrayList<WorkoutRow> doInBackground(Integer... models) {
 	    	 model.fetchAll();
@@ -66,9 +85,9 @@ public class WodActivity extends Activity  implements OnItemClickListener
 			
 			adapter = new ArrayAdapter<WorkoutRow>(context,
 					android.R.layout.simple_list_item_1, android.R.id.text1,results);
-	    	 
+			stopLoadingScreen();
 	 		listView.setAdapter(adapter);
-	 		pd.dismiss();
+
 	     }
 	 }
 
@@ -78,6 +97,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		
 		//add the selected workout to the DB
 		WorkoutModel model = new WorkoutModel(this);
+		
 		model.open();
 		
 		long entry_id = model.getIDFromName(workout.name);
@@ -86,6 +106,8 @@ public class WodActivity extends Activity  implements OnItemClickListener
 			Log.d(TAG,"WOD not in DB, inserting");
 			try {
 				//entry_id = model.insert(workout);
+				
+				//Log.d(TAG,"WODTypeID: "+workout.record_type_id);
 				entry_id = model.insert(workout.name, workout.description, (int)workout.workout_type_id,
 														(int)workout.record_type_id, workout.record);
 			} catch (SQLException e) {
@@ -96,6 +118,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 
 		}
 		model.close();
+		
 		if (entry_id == -1){
 			Log.e(TAG,"could not insert WOD into DB, unknown error");
 			return;

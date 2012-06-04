@@ -1,11 +1,20 @@
 package com.vorsk.crossfitr;
 
+import java.io.File;
+import java.sql.Date;
+
+import com.vorsk.crossfitr.models.WorkoutSessionModel;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CrossFitrActivity extends Activity implements OnClickListener {
@@ -15,15 +24,33 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	private TextView numOfWorkouts;
 	private TextView lastWorkouts;
 	private TextView numOfAchievments;
+	
+	private ImageView userPic;
+	
+	private File file;
+	
+	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
+
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		
 
 		Typeface font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
+		
+		// User photo
+		file = new File(Environment.getExternalStorageDirectory(), "profile.png");
+		userPic = (ImageView) this.findViewById(R.id.main_button_userpic);
+		Bitmap bMap = BitmapFactory.decodeFile(file.toString());
+		if(bMap != null){
+			userPic.setImageBitmap(bMap);
+		}
 
 		// workouts button
 		View workoutButton = findViewById(R.id.main_button_workouts);
@@ -44,19 +71,44 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		profileText.setTypeface(font);
 
 		/** user status dialog **/
-		// TODO
+		
 		numOfWorkouts = (TextView) findViewById(R.id.main_num_of_workouts);
-		numOfWorkouts.setText("###");
+		sessionModel.open();
+		numOfWorkouts.setText("Total Workouts: " + sessionModel.getTotal());
 
+		Date date;
+		
+		try{
+			date = new Date((sessionModel.getMostRecent(null).date_created));
+		}
+		catch(Exception e){
+			date = new Date(0);
+		}
+		
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
-		lastWorkouts.setText("###");
+		lastWorkouts.setText("Last Workout: " + date.toString());
 
+		
+		sessionModel.close();
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
-		numOfAchievments.setText("###");
-
+		numOfAchievments.setText("Achievements: " + "0");
+	}
+	
+	public void onResume()
+	{
+		super.onResume();
+		
+		// User photo
+		file = new File(Environment.getExternalStorageDirectory(), "profile.png");
+		userPic = (ImageView) this.findViewById(R.id.main_button_userpic);
+		Bitmap bMap = BitmapFactory.decodeFile(file.toString());
+		if(bMap != null){
+			userPic.setImageBitmap(bMap);
+		}
 	}
 
-	public void onClick(View v) {
+	public void onClick(View v)
+	{
 		switch (v.getId()) {
 		case R.id.main_button_workouts:
 			Intent i = new Intent(this, WorkoutsActivity.class);

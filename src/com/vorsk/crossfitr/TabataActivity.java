@@ -26,12 +26,14 @@ public class TabataActivity extends Activity {
 	private boolean newStart, cdRun, goStop;
 	private long id;
 	private MediaPlayer mp;
+	private boolean active = true;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
+			if(!cdRun)
 			updateElapsedTime();
 			sendMessageDelayed(Message.obtain(this, TICK_WHAT), mFrequency);
 		}
@@ -66,7 +68,8 @@ public class TabataActivity extends Activity {
 	  	
 	  	mStateLabel = (TextView)findViewById(R.id.state_label);
 		mStateLabel.setTypeface(roboto);
-		mStateLabel.setText("");
+		mStateLabel.setText("Press To Start");
+		mStateLabel.setTextColor(-16711936);
 		
 		mWorkoutDescription = (TextView)findViewById(R.id.workout_des_time);
 		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
@@ -103,17 +106,16 @@ public class TabataActivity extends Activity {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(false);
 			
 			playSound(R.raw.countdown_3_0);
+			cdRun = true;
 			 
 			new CountDownTimer(3000, 100) {
 
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
-					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
+					mStateLabel.setText("");
 					mReset.setEnabled(false);
 					mFinish.setEnabled(false);
-					cdRun = true;
 				}
 
 				public void onFinish() {
@@ -121,6 +123,8 @@ public class TabataActivity extends Activity {
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
 					tabata.start();
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(-65536);
 					cdRun = false;
 					mStartStop.setEnabled(true);
 				}
@@ -157,12 +161,15 @@ public class TabataActivity extends Activity {
 	 */
 	private void endTabata() {
 		newStart = true;
-		//playSound(R.raw.boxing_bellx3);
+		playSound(R.raw.boxing_bellx3);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(0).setEnabled(true);
+		((TimeTabWidget) getParent()).getTabHost().getTabWidget().getChildTabViewAt(1).setEnabled(true);
 		tabata.reset();
+		mFinish.setEnabled(true);
 	}
 
 	public void updateElapsedTime() {
-		if(!cdRun)
+		//if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
@@ -211,30 +218,38 @@ public class TabataActivity extends Activity {
 		// if logic to display sets and time for tabata
 		if(remain > 10000 ){
 			if(!goStop){
-				playSound(R.raw.bell_ring);
+				if(tabata.isRunning()){
+					playSound(R.raw.bell_ring);
+				}
 				goStop = true;
 			}
-			this.setActivityBackgroundColor(green);
+			this.setDisplayBackgroundColor(green);
 			return formatElapsedTime(20000 - (time % 30000), set);
 		}else if(remain == 10000){
 			return formatElapsedTime(0, set);
 		}else{
 			if(goStop){
-				playSound(R.raw.air_horn);
+				if(diff > 20000 && tabata.isRunning()){
+					playSound(R.raw.air_horn);
+				}
 				goStop = false;
 			}
-			this.setActivityBackgroundColor(red);
+			this.setDisplayBackgroundColor(red);
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
 	}
 	
+
 	/**
 	 * method to change background color
 	 * @param color
 	 */
-	public void setActivityBackgroundColor(int color){
-	    View view = this.getWindow().getDecorView();
-	    view.setBackgroundColor(color);
+	public void setDisplayBackgroundColor(int color){
+		if(color == Color.GREEN){
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_go);
+		}
+		else if(color == Color.RED)
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_rest);
 	}
 	
 	/**
@@ -244,11 +259,21 @@ public class TabataActivity extends Activity {
 	private void playSound(int r) {
 		//Release any resources from previous MediaPlayer
 		 if (mp != null) {
-		 mp.release();
+			 mp.release();
 		 }
 		
-		 // Create a new MediaPlayer to play this sound
-		 mp = MediaPlayer.create(this, r);
-		 mp.start();
+		 if(active){
+			 // Create a new MediaPlayer to play this sound
+			 mp = MediaPlayer.create(this, r);
+			 mp.start();
+		 }
 	}
+	
+	public void onBackPressed() {
+        super.onBackPressed();
+        if (mp != null) {
+			 mp.release();
+		 }
+        active = false;
+	 }
 }

@@ -92,9 +92,12 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 						.getText().toString(), workoutConstant, recordConstant);
 				model.close();
 				// go back into the custom activity class
+				finish();
 				Intent i = new Intent(this, CustomActivity.class);
 				startActivity(i);
-			} else {
+			} 
+			else 
+			{
 				// error prompt
 				Context context = getApplicationContext();
 				CharSequence text = "Please fill out all fields!";
@@ -112,13 +115,18 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 				model.open();
 				// save data into database, saves data from textfields, and selected
 				// workout in dropdowns
-				model.insert(nameTextField.getText().toString(), workoutTextField
+				long newId = model.insert(nameTextField.getText().toString(), workoutTextField
 						.getText().toString(), workoutConstant, recordConstant);
 				model.close();
 
+				//pass in id to WorkoutProfileActivity and start activity
+				finish();
 				Intent i = new Intent(this, WorkoutProfileActivity.class);
+				i.putExtra("ID", newId);
 				startActivity(i);
-			} else {
+			} 
+			else 
+			{
 				// error prompt
 				Context context = getApplicationContext();
 				CharSequence text = "Please fill out all fields!";
@@ -173,8 +181,6 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 				recordConstant = WorkoutModel.SCORE_WEIGHT;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Reps")) {
 				recordConstant = WorkoutModel.SCORE_REPS;
-			} else if (parent.getItemAtPosition(pos).toString().equals("None")) {
-				recordConstant = WorkoutModel.SCORE_NONE;
 			}
 		}
 

@@ -47,8 +47,12 @@ public class InjuryModel extends SQLiteDAO
 	 */
 	private InjuryRow[] fetchInjuryRows(Cursor cr)
 	{
+		if (cr == null) {
+			return null;
+		}
 		InjuryRow[] result = new InjuryRow[cr.getCount()];
 		if (result.length == 0) {
+			cr.close();
 			return result;
 		}
 		

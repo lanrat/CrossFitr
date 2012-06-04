@@ -30,6 +30,7 @@ public class StopwatchActivity extends Activity implements
 	private boolean cdRun;
 	private Time stopwatch = new Time();
 	private MediaPlayer mp;
+	private boolean active = true;
 
 	/**
 	 * Handler object that updates time display on the button
@@ -251,8 +252,18 @@ public class StopwatchActivity extends Activity implements
 		 mp.release();
 		 }
 		
-		 // Create a new MediaPlayer to play this sound
-		 mp = MediaPlayer.create(this, r);
-		 mp.start();
+		 if(active){
+			 // Create a new MediaPlayer to play this sound
+			 mp = MediaPlayer.create(this, r);
+			 mp.start();
+		 }
 	}
+	
+	public void onBackPressed() {
+        super.onBackPressed();
+        if (mp != null) {
+			 mp.release();
+		 }
+        active = false;
+	 }
 }

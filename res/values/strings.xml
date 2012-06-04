@@ -53,6 +53,7 @@
 	<string name="results_record_type_header">Record Type</string>
 	<string name="results_record_header">Personal Record</string>
 	<string name="results_time_header">Your Time</string>
+	<string name="comment_field_header">Comments(Optional):</string>
 	
 	<!-- Strings for user profile. -->
 	<string name="user_name">Name:</string>

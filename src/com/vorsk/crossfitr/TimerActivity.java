@@ -6,6 +6,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,7 +14,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.ScrollingMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -28,16 +28,19 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
 	private boolean cdRun;
+	private boolean active = true;
 	NumberPicker mNumberPicker;
 	Button mSetTimer, mFinish, mStartStop;
 	TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	Time timer = new Time();
-	private MediaPlayer mp;
+	protected MediaPlayer mp;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
+			if(!cdRun)
 			updateElapsedTime();
 			sendMessageDelayed(Message.obtain(this, TICK_WHAT), mFrequency);
+			
 		}
 	};
 
@@ -69,7 +72,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		mStateLabel.setText("");
 
 		mWorkoutDescription = (TextView) findViewById(R.id.workout_des_time);
-		mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
+		//mWorkoutDescription.setMovementMethod(new ScrollingMovementMethod());
 		mWorkoutDescription.setTypeface(roboto);
 		String workoutDesc = workout.description;
 		workoutDesc.replace(",", "\n");
@@ -115,6 +118,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 				mMin = selectedMin;
 				mSec = selectedSec;
 				mStartStop.setEnabled(true);
+				setDisplayBackgroundColor(0);
 			}
 		}
 
@@ -129,7 +133,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		mSec = 0;
 		startTime = 0;
 		mStateLabel.setText("Press To Start");
-		mStateLabel.setTextColor(-16711936);
+		mStateLabel.setTextColor(Color.GREEN);
 
 		timer.reset();
 		updateElapsedTime();
@@ -142,7 +146,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	}
 
 	private void updateElapsedTime() {
-		if(!cdRun)
+		//if(!cdRun)
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
@@ -208,6 +212,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					.getChildTabViewAt(1).setEnabled(true);
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
 					.getChildTabViewAt(2).setEnabled(true);
+			setDisplayBackgroundColor(2);
 			mSetTimer.setEnabled(true);
 			mStartStop.setEnabled(false);
 			mFinish.setEnabled(true);
@@ -243,8 +248,8 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
-					mStateLabel.setText("Press To Stop");
-					mStateLabel.setTextColor(-65536);
+					setDisplayBackgroundColor(2);
+					mStateLabel.setText("");
 					mSetTimer.setEnabled(false);
 					mFinish.setEnabled(false);
 					cdRun = true;
@@ -253,6 +258,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 				public void onFinish() {
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
+					setDisplayBackgroundColor(1);
+					mStateLabel.setText("Press To Stop");
+					mStateLabel.setTextColor(Color.RED);
 					timer.start();
 					cdRun = false;
 					mStartStop.setEnabled(true);
@@ -266,8 +274,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			((TimeTabWidget) getParent()).getTabHost().getTabWidget()
 					.getChildTabViewAt(2).setEnabled(true);
 			mStateLabel.setText("Press To Start");
+			mStateLabel.setTextColor(Color.GREEN);
+			setDisplayBackgroundColor(0);
 			mSetTimer.setEnabled(true);
-			mStateLabel.setTextColor(-16711936);
 			mFinish.setEnabled(true);
 		}
 	}
@@ -298,14 +307,40 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		}
 	}
 	
+	/**
+	 * method to change background color
+	 * @param color
+	 */
+	private void setDisplayBackgroundColor(int color){
+		if(color == 0){
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_go);
+		}
+		else if(color == 1){
+			mStartStop.setBackgroundResource(R.drawable.tabata_display_rest);
+		}
+		else if(color == 2){
+			mStartStop.setBackgroundResource(R.drawable.background_main);
+		}
+			
+	}
+	
 	private void playSound(int r) {
 		//Release any resources from previous MediaPlayer
 		 if (mp != null) {
-		 mp.release();
+			 mp.release();
 		 }
-		
-		 // Create a new MediaPlayer to play this sound
-		 mp = MediaPlayer.create(this, r);
-		 mp.start();
+		if(active){
+			// Create a new MediaPlayer to play this sound
+			mp = MediaPlayer.create(this, r);
+			mp.start();
+		}
 	}
+	
+	 public void onBackPressed() {
+         super.onBackPressed();
+         if (mp != null) {
+			 mp.release();
+		 }
+         active = false;
+	 }
 }
