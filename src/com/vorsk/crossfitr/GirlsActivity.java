@@ -45,7 +45,6 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 		titleTextHeader1.setTypeface(font);		
 		titleTextHeader2 = (TextView) findViewById(R.id.girls_title);		
 		titleTextHeader2.setTypeface(font);
-			
 				
 		workoutrowList = new ArrayList<WorkoutRow>();
 		
@@ -74,8 +73,8 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 		}
 	}
 
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+	{
 		WorkoutRow workout = listAdapter.get(position);
 		Intent x = new Intent(this, WorkoutProfileActivity.class);
 		x.putExtra("ID", workout._id);
@@ -102,15 +101,14 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 		public View getView(int index, View convertView, ViewGroup parent) {
 			
 			if (convertView == null)
-				convertView = inflater.inflate(R.layout.custom_list_item,
-						parent, false);
+				convertView = inflater
+						.inflate(R.layout.custom_list_item, parent, false);
 
 			listArrow = (ImageView) convertView.findViewById(R.id.image_arrow);
 			listArrow.setOnClickListener(this);
 
-			Log.d(tag,
-					"arrayList.get(" + index + ").name : "
-							+ arrayList.get(index).name);
+			Log.d(tag, "arrayList.get(" + index + ").name : "
+					+ arrayList.get(index).name);
 			
 			// workout name
 			nameTView = (TextView) convertView

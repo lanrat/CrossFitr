@@ -26,6 +26,7 @@ public class TabataActivity extends Activity {
 	private boolean newStart, cdRun, goStop;
 	private long id;
 	private MediaPlayer mp;
+	private boolean active = true;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -258,11 +259,19 @@ public class TabataActivity extends Activity {
 	private void playSound(int r) {
 		//Release any resources from previous MediaPlayer
 		 if (mp != null) {
-		 mp.release();
+			 mp.release();
 		 }
 		
-		 // Create a new MediaPlayer to play this sound
-		 mp = MediaPlayer.create(this, r);
-		 mp.start();
+		 if(active){
+			 // Create a new MediaPlayer to play this sound
+			 mp = MediaPlayer.create(this, r);
+			 mp.start();
+		 }
 	}
+	
+	public void onBackPressed() {
+        super.onBackPressed();
+        mp.release();
+        active = false;
+	 }
 }

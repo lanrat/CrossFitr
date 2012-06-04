@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Date;
 
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -108,25 +109,21 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// Getting data from workout model
 		sessionModel.open();
 		
-		// TODO: Figure out how to get all workouts in results
-		WorkoutSessionRow[] results = sessionModel.getByType(0);
-		
-		
 		// Total Workouts
 		userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
-		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + results.length);
+		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + sessionModel.getTotal());
 		
 		// Last Workout
-		// TODO: Figure out if most recent workout is last or first. Implement date into WorkoutSession
-		if(results != null){
+		if(sessionModel.getMostRecent(null) != null){
 			userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
-			//userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + model.getByAttribute("last_workout").value);
+			Date date = new Date((sessionModel.getMostRecent(null).date_created));
+			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + date.toString());
 		}
 		
 		// Total Achievements
 		if(model.getByAttribute("total_achievements") != null){
 			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
-			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + model.getByAttribute("total_achievements").value);
+			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + "0");//model.getByAttribute("total_achievements").value);
 		}
 		
 		// Edit Profile button
@@ -181,21 +178,20 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		}
 		
 		// Total Workouts
-		if(model.getByAttribute("total_workouts") != null){
-			userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
-			userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + model.getByAttribute("total_workouts").value);
-		}
-		
+		userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
+		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + sessionModel.getTotal());
+				
 		// Last Workout
-		if(model.getByAttribute("last_workout") != null){
+		if(sessionModel.getMostRecent(null) != null){
 			userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
-			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + model.getByAttribute("last_workout").value);
+			Date date = new Date((sessionModel.getMostRecent(null).date_created));
+			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + date.toString());
 		}
 		
 		// Total Achievements
 		if(model.getByAttribute("total_achievements") != null){
 			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
-			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + model.getByAttribute("total_achievements").value);
+			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + "0"); //model.getByAttribute("total_achievements").value);
 		}
 		model.close();
 	}
