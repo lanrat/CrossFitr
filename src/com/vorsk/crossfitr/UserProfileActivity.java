@@ -1,16 +1,12 @@
 package com.vorsk.crossfitr;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
-import com.vorsk.crossfitr.models.WorkoutSessionRow;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -52,7 +47,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile);
-		
+	}
+	
+	public void onResume()
+	{
+		super.onResume();
 		// Displaying user data
 		model.open();
 		
@@ -121,10 +120,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		}
 		
 		// Total Achievements
-		if(model.getByAttribute("total_achievements") != null){
+		//if(model.getByAttribute("total_achievements") != null){
 			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
 			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + "0");//model.getByAttribute("total_achievements").value);
-		}
+		//}
 		
 		// Edit Profile button
 		View user_profile_button = findViewById(R.id.edit_profile_button);
@@ -138,61 +137,6 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		View achievements_button = findViewById(R.id.achievements_button);
 		achievements_button.setOnClickListener(this);
 		
-		model.close();
-	}
-	
-	public void onResume()
-	{
-		super.onResume();
-		
-		// Displaying user data
-		model.open();
-
-		if(model.getByAttribute("name") != null){
-			userNameText = (TextView) findViewById(R.id.user_name);
-			userNameText.setText(this.getString(R.string.user_name) + " " + model.getByAttribute("name").value);
-		}
-		
-		// BMI
-		userBMIText = (TextView) findViewById(R.id.user_bmi);
-		if((model.getByAttribute("weight") != null) && (model.getByAttribute("height") != null)){
-			userBMIText.setText(this.getString(R.string.user_bmi) + " " + model.calculateBMI().setScale(2, BigDecimal.ROUND_HALF_UP).toString());
-		}
-		
-		// Weight
-		if(model.getByAttribute("weight") != null){
-			userWeightText = (TextView) findViewById(R.id.user_weight);
-			userWeightText.setText(this.getString(R.string.user_weight) + " " + model.getByAttribute("weight").value);
-		}
-		
-		// Goal Weight
-		if(model.getByAttribute("goal_weight") != null){
-			userGoalWeightText = (TextView) findViewById(R.id.user_goal_weight);
-			userGoalWeightText.setText(this.getString(R.string.user_goal_weight) + " " + model.getByAttribute("goal_weight").value);
-		}
-		
-		// Height
-		if(model.getByAttribute("height") != null){
-			userHeightText = (TextView) findViewById(R.id.user_height);
-			userHeightText.setText(this.getString(R.string.user_height) + " " + model.getByAttribute("height").value);
-		}
-		
-		// Total Workouts
-		userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
-		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + sessionModel.getTotal());
-				
-		// Last Workout
-		if(sessionModel.getMostRecent(null) != null){
-			userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
-			Date date = new Date((sessionModel.getMostRecent(null).date_created));
-			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + date.toString());
-		}
-		
-		// Total Achievements
-		if(model.getByAttribute("total_achievements") != null){
-			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
-			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + "0"); //model.getByAttribute("total_achievements").value);
-		}
 		model.close();
 	}
 
@@ -238,10 +182,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
         }
 	}
 	
-	// Back to frontpage method to make the skip from edit profile work more fluidly and stop 
-	// a back pressing cycle between the two pages.
-	/*public void onBackPressed(){
+	//Back to frontpage method to make the skip from edit profile work more fluidly and stop 
+	//a back pressing cycle between the two pages.
+	public void onBackPressed() {
 			Intent u = new Intent(this, CrossFitrActivity.class);
 			startActivity(u);
-		}*/
+		}
 }

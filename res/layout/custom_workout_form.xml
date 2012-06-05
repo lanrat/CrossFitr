@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	android:padding="5dip"
+	android:orientation="vertical"
+	android:id="@+id/custom_add_background">
+	
+    <!-- crossfitr logo -->
 
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="fill_parent"
-android:layout_width="fill_parent"
-android:padding="5dip"
-android:orientation="vertical"
-android:id="@+id/workout_background" >
+   	<ImageView
+        android:id="@+id/main_custom_header"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="-15dp"
+        android:src="@drawable/main_header" />
 
 	<TextView
 	        android:layout_width="wrap_content"
@@ -26,8 +33,7 @@ android:id="@+id/workout_background" >
 	        android:id="@+id/description_edittext_add"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:maxLines="5"
-	        android:imeOptions="actionDone"/>
+	         android:maxLines="5"/>
 	<TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"

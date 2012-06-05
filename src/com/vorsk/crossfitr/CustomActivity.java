@@ -1,14 +1,15 @@
 package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
+
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,6 +94,7 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.custom_add_button:
+			finish();
 			Intent u = new Intent(this, CustomAddActivity.class);
 			startActivity(u);
 			break;
@@ -137,7 +139,7 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 			descTView = (TextView) convertView
 					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
-			descTView.setTextColor(getResources().getColor(R.color.light_gray));
+			descTView.setTextColor(getResources().getColor(R.color.white));
 			descTView.setSelected(true);
 			descTView.setTypeface(font);
 
@@ -161,7 +163,14 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 			return id;
 		}
 
-		public void onClick(View v) {
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			
 		}
+	}
+	
+	public void onBackPressed() {
+		Intent u = new Intent(this, WorkoutsActivity.class);
+		startActivity(u);
 	}
 }

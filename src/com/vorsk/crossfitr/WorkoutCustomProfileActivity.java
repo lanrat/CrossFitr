@@ -19,13 +19,12 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 	
 	private View edit_custom_button;
 	
+	WorkoutModel model = new WorkoutModel(this);
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		
-		
-		//create model object
-		WorkoutModel model = new WorkoutModel(this);
 		//get the id passed from previous activity (workout lists)
 		long id = getIntent().getLongExtra("ID", -1);
 		//if ID is invalid, go back to home screen
@@ -60,6 +59,9 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
         
         edit_custom_button = findViewById(R.id.button_custom_edit_button);
         edit_custom_button.setOnClickListener(this);
+        
+        View deleteButton = findViewById(R.id.button_custom_delete_button);
+        deleteButton.setOnClickListener(this);
 	}
 	
 	public void onClick(View v) 
@@ -78,7 +80,15 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 				u.putExtra("id", workout._id);
 				startActivity(u);
 				break;
+			case R.id.button_custom_delete_button:
+				model.open();
+				model.delete(workout._id);
+				model.close();
+					
+				Intent j = new Intent(this, CustomActivity.class);
+				startActivity(j);
 				
+				break;
 		}
 	}
 	
