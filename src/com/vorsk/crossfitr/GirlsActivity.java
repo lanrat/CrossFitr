@@ -62,7 +62,7 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 				workoutrowList.add(pulledData[i]);
 			}		
 
-		derp_girls_list = (ListView) findViewById(R.id.heroes_workout_list);
+		derp_girls_list = (ListView) findViewById(R.id.girls_workout_list);
 		
 		listAdapter = new GirlsListHelper(getApplicationContext(), workoutrowList);
 		listAdapter.notifyDataSetChanged();
@@ -121,7 +121,7 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 			descTView = (TextView) convertView
 					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
-			descTView.setTextColor(getResources().getColor(R.color.light_gray));
+			descTView.setTextColor(getResources().getColor(R.color.white));
 			descTView.setSelected(true);
 			descTView.setTypeface(font);
 

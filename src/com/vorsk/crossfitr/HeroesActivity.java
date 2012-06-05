@@ -119,7 +119,7 @@ public class HeroesActivity extends Activity implements OnItemClickListener{
 			descTView = (TextView) convertView
 					.findViewById(R.id.string_description);
 			descTView.setText(arrayList.get(index).description);
-			descTView.setTextColor(getResources().getColor(R.color.light_gray));
+			descTView.setTextColor(getResources().getColor(R.color.white));
 			descTView.setSelected(true);
 			descTView.setTypeface(font);
 
