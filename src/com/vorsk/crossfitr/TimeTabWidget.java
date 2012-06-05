@@ -29,7 +29,7 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	  		finish();
 	  	}
 	  	
-	  	custom_score = getIntent().getIntExtra("score", -1);
+	  	custom_score = getIntent().getIntExtra("workout_score", -1);
 	  	if (custom_score <= 0) custom_score = -1;
 	  	
 	  	
