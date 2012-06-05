@@ -556,18 +556,22 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemRecord.setText("No data existing on this day");
 			}else{
 				WorkoutModel tempModel = new WorkoutModel(listContext);
-
 				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
-				SimpleDateFormat timeFormatter = new SimpleDateFormat("mm:ss");
 				
-				String score = Integer.toString(arrayList.get(position).score);
-				Log.d(tag, "arrayList.get(position) : " + arrayList.get(position).score);
-				try {
+				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);				
+				
+				double tempdouble = arrayList.get(position).score / 1000;
+		
+				String score = Double.toString(tempdouble);
+				Log.d(tag, "score : " + arrayList.get(position).score);
+				Log.d(tag, "score_type " + arrayList.get(position).score_type_id);
+				Log.d(tag, "score_type with getByID " + tempSession.getByID(arrayList.get(position).score_type_id).toString());
+			/*	try {
 					Date date = (Date) timeFormatter.parse(score);
 					Log.d(tag,"timeFormatter.parse(score : " + date.getTime());
 				} catch (ParseException e) {
 					e.printStackTrace();
-				}
+				}*/
 				
 
 				itemWorkout.setText(tempRowName.name);
