@@ -54,11 +54,6 @@
         android:layout_marginBottom="5dp"
         android:textSize="20sp"
         android:id="@+id/label_extra_info" />
-   <EditText 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-		android:id="@+id/text_extra_info"/>
 
     <Button
         android:id="@+id/button_begin_workout"
