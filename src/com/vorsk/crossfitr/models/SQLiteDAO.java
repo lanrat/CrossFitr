@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.io.*;
-import java.util.Date;
+import java.util.Calendar;
 
 import com.vorsk.crossfitr.R;
 
@@ -208,8 +208,7 @@ public abstract class SQLiteDAO
 
 	protected long insert(ContentValues cv)
 	{
-		Date now = new Date();
-		long time = now.getTime(); // Milliseconds
+		Long time = Calendar.getInstance().getTimeInMillis();
 
 		// Automated input for global columns
 		cv.put(COL_ID, (Integer)null); // Always let this autoincrement
@@ -224,13 +223,10 @@ public abstract class SQLiteDAO
 		if (where == null)
 			return -1; // GTFO. You are not updating everything.
 		
-		Date now = new Date();
-		long time = now.getTime();
-		
 		cv.remove(COL_ID);
 		cv.remove(COL_CDATE);
 		cv.remove(COL_MDATE);
-		cv.put(COL_MDATE, time);
+		cv.put(COL_MDATE, Calendar.getInstance().getTimeInMillis());
 
 		return db.update(DB_TABLE, cv, where, null);
 	}
@@ -325,8 +321,8 @@ public abstract class SQLiteDAO
 	{
 		row._id = cr.getLong(ind_id);
 		// Gets as milliseconds
-		row.date_modified = cr.getInt(ind_dm);
-		row.date_created = cr.getInt(ind_dc);
+		row.date_modified = cr.getLong(ind_dm);
+		row.date_created = cr.getLong(ind_dc);
 	}
 
 	/*** Public ***/

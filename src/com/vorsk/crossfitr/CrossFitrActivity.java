@@ -6,7 +6,6 @@ import java.util.Date;
 
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

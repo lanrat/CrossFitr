@@ -3,7 +3,6 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 /**
  * DAO for "workout_session" table.
@@ -245,12 +244,11 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public WorkoutSessionRow[] getByTime(int mintime, int maxtime)
 	{
 		String sql = "SELECT * FROM " + DB_TABLE + " WHERE "
-			+ COL_CDATE + ">" + mintime + " AND " + COL_CDATE + "<" + maxtime;
-		String[] params = {
-			String.valueOf(mintime), String.valueOf(maxtime)
-		};
+			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ?";
 		
-		Cursor cr = db.rawQuery(sql, null);
+		Cursor cr = db.rawQuery(sql, new String[] {
+			Integer.toString(mintime), Integer.toString(maxtime)
+		});
 		return fetchWorkoutSessionRows(cr);
 	}
 	

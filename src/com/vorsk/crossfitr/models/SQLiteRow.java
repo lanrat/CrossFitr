@@ -14,16 +14,16 @@ public class SQLiteRow
 {
 	// Cols
 	public long   _id;
-	public int    date_modified;
-	public int    date_created;
+	public long    date_modified;
+	public long    date_created;
 	
 	public SQLiteRow() {}
 	public SQLiteRow(ContentValues vals)
 	{
 		// These columns are present in EVERY table
 		_id             = vals.getAsLong(SQLiteDAO.COL_ID);
-		date_modified   = vals.getAsInteger(SQLiteDAO.COL_MDATE);
-		date_created    = vals.getAsInteger(SQLiteDAO.COL_CDATE);
+		date_modified   = vals.getAsLong(SQLiteDAO.COL_MDATE);
+		date_created    = vals.getAsLong(SQLiteDAO.COL_CDATE);
 	}
 	
 	/**
@@ -36,8 +36,8 @@ public class SQLiteRow
 	{
 		ContentValues vals = new ContentValues();
 		vals.put(SQLiteDAO.COL_ID,    _id);
-		vals.put(SQLiteDAO.COL_MDATE, date_modified);
-		vals.put(SQLiteDAO.COL_CDATE, date_created);
+		vals.put(SQLiteDAO.COL_MDATE, (Long)date_modified);
+		vals.put(SQLiteDAO.COL_CDATE, (Long)date_created);
 		return vals;
 	}
 	
