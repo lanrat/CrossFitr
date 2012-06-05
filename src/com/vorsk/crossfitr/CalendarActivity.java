@@ -54,10 +54,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private static final String dateTemplate = "MMMM yyyy";
 	
 
-	private WorkoutSessionModel model_data;
-	private WorkoutSessionModel[] pulledData;
-	private ArrayList<WorkoutSessionModel> workoutSessionList;
-	private CalendarList calenderAdapter;
+	private WorkoutSessionModel model_data = new WorkoutSessionModel(this);;
 	
 	// font type for days of the week
 	private TextView daysOfWeekText1;
@@ -102,11 +99,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		nextMonth.setOnClickListener(this);
 
 		calView = (GridView) this.findViewById(R.id.calendargrid);
-		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data);
+//		gridAdapter = new GridAdapter(getApplicationContext(), 12, 1969, model_data);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 
-		model_data = new WorkoutSessionModel(this);
 	}
 
 	public void onClick(View view) {
@@ -152,7 +149,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	}
 
 	private void setGridAdapterToDate(int month, int year) {
-		gridAdapter = new GridAdapter(getApplicationContext(), month, year);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data);
 		derpCal.set(year, month - 1, derpCal.get(Calendar.DAY_OF_MONTH));
 		// Field number for get and set indicating the day of the month.
 		// This is a synonym for DATE. The first day of the month has value 1.
@@ -206,20 +203,19 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private WorkoutSessionRow[] pulledData;
 		private ListView derp_calList;
 
-		public GridAdapter(Context context, int month, int year) {
+		public GridAdapter(Context context, int month, int year, WorkoutSessionModel model_data) {
 			super();
+			this.calendar_WSession = model_data;
 			this.cal_context = context;
 			this.list = new ArrayList<String>();
 			this.month = month;
-			this.year = year;
+			this.year = year;			
 
 			Calendar tempcal = Calendar.getInstance();
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
-			currentYear_value = tempcal.get(Calendar.YEAR);
-
-			calendar_WSession = new WorkoutSessionModel(context);
+			currentYear_value = tempcal.get(Calendar.YEAR);		
 
 			createMonth(month, year);
 		}
@@ -378,14 +374,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return row;
 		}
 
-		//Unused
-		private String removeColorfromTag(String _target) {
-			String[] tempHelper = _target.split("-");
-			String noColoronIt = new String(tempHelper[1] + "-" + tempHelper[2] + "-"
-					+ tempHelper[3]);
-			return noColoronIt;
-		}
-
 		private int recordChecker(String day, String month, String year) {
 
 			String startDate = new String(day + "-" + month + "-" + year);
@@ -396,18 +384,23 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			Log.d(tag, "startDate : " + startDate);
 			Log.d(tag, "endDate : " + endDate);
 
-			try {
+			calendar_WSession.open();
+
+/*			try {
+				
 				WorkoutSessionRow[] tempWS = calendar_WSession.getByTime(
 						stampTime(startDate), stampTime(endDate));
 			} catch (NullPointerException e) {
 				return 0;
 			}
-
+	*/		
 			pulledData = calendar_WSession.getByTime(
 					stampTime(startDate), stampTime(endDate));
+			pulledData = calendar_WSession.getByType(WorkoutModel.TYPE_GIRL);
+//			calendar_WSession.close();
 
 //			Log.d(tag, "tempWS : " + tempWS.getClass().toString());
-//			Log.d(tag, "tempWS.length : " + tempWS.length);
+//			Log.d(tag, "pulledData.length : " + pulledData.length);
 
 			return pulledData.length;
 		}
@@ -431,13 +424,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		}
 
+		
 		public int getCurrentDayOfMonth() {
 
 			Calendar tempcal = Calendar.getInstance();
-			Log.d(tag,"Timezone : " + tempcal.getTimeZone().getID());
-			Log.d(tag,"Time? : " + tempcal.getTime());
-			Log.d(tag,"getDay() : " + tempcal.getTime().getDay());
-			Log.d(tag,"getDate() : " + tempcal.getTime().getDate());
+		//	Log.d(tag,"Timezone : " + tempcal.getTimeZone().getID());
+		//	Log.d(tag,"Time? : " + tempcal.getTime());
+		//	Log.d(tag,"getDay() : " + tempcal.getTime().getDay());
+		//	Log.d(tag,"getDate() : " + tempcal.getTime().getDate());
 
 			return tempcal.getTime().getDate();
 		}
@@ -499,7 +493,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			
 			if(numberofRecord == 0)
 				listAdapter = new CalendarList(getApplicationContext());
-			else{			
+			else{
+				this.workoutList = new ArrayList<WorkoutSessionRow>();
 				for(int i = 0; i < numberofRecord;i++){
 					workoutList.add(pulledData[i]);
 				}
@@ -530,7 +525,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private TextView itemRecord;
 		
 		public CalendarList(Context _context){
-//			Log.d(tag,"It works #####");
 			this.listContext = _context;
 			this.havenoRecord = true;
 			inflater = (LayoutInflater) _context
@@ -546,6 +540,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			numberofRecord = _data.size();
 		}
+		
+		
 		public View getView(int position, View convertView, ViewGroup parent) {
 		//	Log.d(tag,"It works");
 			if(convertView == null)
@@ -559,12 +555,21 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
-				Log.d(tag,"It works");
 				WorkoutModel tempModel = new WorkoutModel(listContext);
+
 				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
-				String score = Integer.toString(arrayList.get(position).score);	
+				SimpleDateFormat timeFormatter = new SimpleDateFormat("mm:ss");
 				
+				String score = Integer.toString(arrayList.get(position).score);
+				Log.d(tag, "arrayList.get(position) : " + arrayList.get(position).score);
+				try {
+					Date date = (Date) timeFormatter.parse(score);
+					Log.d(tag,"timeFormatter.parse(score : " + date.getTime());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				
+
 				itemWorkout.setText(tempRowName.name);
 				itemRecord.setText(score);
 								
