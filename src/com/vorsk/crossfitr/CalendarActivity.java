@@ -513,6 +513,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private LayoutInflater inflater;
 		private int numberofRecord;
 		
+		private String stringSecond;
+		private String stringMinutes;
+		private String finalResult;
+		
 		private TextView itemWorkout;
 		private TextView itemRecord;
 		
@@ -564,8 +568,28 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				Log.d(tag, "score_type " + arrayList.get(position).score_type_id);
 				Log.d(tag, "score_type with getByID " + tempSession.getByID(arrayList.get(position).score_type_id).toString());
 
+				if(arrayList.get(position).score_type_id == 1){
+					int seconds = (int) (arrayList.get(position).score / 1000) % 60 ;
+					int minutes = (int) ((arrayList.get(position).score / (1000*60)) % 60);
+					int hours   = (int) ((arrayList.get(position).score / (1000*60*60)) % 24);
+					
+					if(seconds < 10)
+						stringSecond = new String("0" + Integer.toString(seconds));
+					else
+						stringSecond = new String(Integer.toString(seconds));
+					
+					if(minutes < 10)
+						stringMinutes = new String("0" + Integer.toString(minutes));
+					else
+						stringMinutes = new String(Integer.toString(minutes));
+					
+					finalResult = new String (stringMinutes + ":" + stringSecond);
+					
+				}
+				
+				
 				itemWorkout.setText(tempRowName.name);
-				itemRecord.setText(score);
+				itemRecord.setText(finalResult);
 								
 			}	
 			
