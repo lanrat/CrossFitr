@@ -3,7 +3,6 @@ package com.vorsk.crossfitr.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 /**
  * DAO for "workout_session" table.

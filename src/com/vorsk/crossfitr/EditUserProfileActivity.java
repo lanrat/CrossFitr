@@ -5,20 +5,24 @@ import com.vorsk.crossfitr.models.ProfileModel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditUserProfileActivity extends Activity implements OnClickListener 
 {
-	
 	private EditText nameTextField;
 	private EditText weightTextField;
 	private EditText heightTextField;
 	private EditText goalWeightTextField;
 	ProfileModel model = new ProfileModel(this);
+	
+	private Typeface font;
 	
 	
 	public void onCreate(Bundle savedInstanceState) 
@@ -27,14 +31,33 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		setContentView(R.layout.userprofile_form);
 		model.open();
 	
+		// Setting typeface
+		font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Thin.ttf");
+		
+		TextView fontSetter = (TextView) findViewById(R.id.edit_user_name);
+		fontSetter.setTypeface(font);
+		
+		fontSetter = (TextView) findViewById(R.id.edit_height);
+		fontSetter.setTypeface(font);
+		
+		fontSetter = (TextView) findViewById(R.id.edit_weight);
+		fontSetter.setTypeface(font);
+		
+		fontSetter = (TextView) findViewById(R.id.edit_goal_weight);
+		fontSetter.setTypeface(font);
 
 		// Save button
 		View saveButton = findViewById(R.id.button_userprofile_form_save);
 		saveButton.setOnClickListener(this);
-		
+		fontSetter = (TextView) findViewById(R.id.button_userprofile_form_save);
+		fontSetter.setTypeface(font);
+
 		// Cancel button
 		View cancelButton = findViewById(R.id.button_userprofile_form_cancel);
 		cancelButton.setOnClickListener(this);
+		fontSetter = (TextView) findViewById(R.id.button_userprofile_form_cancel);
+		fontSetter.setTypeface(font);
 		
 		// Name field
         nameTextField = (EditText) findViewById(R.id.user_name_field);
