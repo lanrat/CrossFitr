@@ -114,6 +114,12 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 			profileDetails += profileModel.getByAttribute("goal_weight").value + " lbs";
 		}
 		
+		if((profileModel.getByAttribute("name") == null) &&
+		   (profileModel.getByAttribute("weight") == null) &&
+		   (profileModel.getByAttribute("goal_weight") == null)){
+			profileDetails = " Press here to\n create your new\n profile!";
+		}
+		
 		profileText.setText(profileDetails);
 		
 		// Status Displays
@@ -150,8 +156,10 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		
 		if(sinceLastWorkout != 0){
 			lastWorkouts.setText(String.valueOf(sinceLastWorkout) + " days");
+			lastWorkouts.setTextSize(40);
 		}
 		else{
+			lastWorkouts.setTextSize(22);
 			lastWorkouts.setText("N/A");
 		}
 			
