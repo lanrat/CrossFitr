@@ -34,6 +34,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	Time timer = new Time();
 	protected MediaPlayer mp;
+	private WorkoutRow workout;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message m) {
@@ -61,7 +62,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 
 		// open model to put data into database
 		model.open();
-		WorkoutRow workout = model.getByID(id);
+		workout = model.getByID(id);
 		model.close();
 
 		Typeface roboto = Typeface.createFromAsset(getAssets(),
@@ -291,6 +292,12 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", getStartTime());
+		
+		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
+				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+			result.putExtra("score", getIntent().getIntExtra("score", 0));
+		}
+		
 		getParent().setResult(RESULT_OK, result);
 		finish();
 	}

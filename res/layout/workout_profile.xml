@@ -38,7 +38,7 @@
     <ScrollView 
     android:id="@+id/details_scroll"
     android:layout_width="fill_parent"
-    android:layout_height="270dp" >
+    android:layout_height="210dp" >
 	    <TextView
 	        android:id="@+id/workout_profile_descDB"
 	        android:layout_width="match_parent"
@@ -47,6 +47,18 @@
 	        android:textSize="25sp" />
     
     </ScrollView>
+    
+    <TextView 
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="20sp"
+        android:id="@+id/label_extra_info" />
+   <EditText 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+		android:id="@+id/text_extra_info"/>
 
     <Button
         android:id="@+id/button_begin_workout"
