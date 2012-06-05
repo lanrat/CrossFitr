@@ -143,19 +143,27 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		// Days since last workout
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
 		Date oldDate;
+		boolean noWorkout = false;
 		try{
 			oldDate = new Date((sessionModel.getMostRecent(null).date_created));
 		}
 		catch(Exception e){
 			oldDate = new Date();
+			noWorkout = true;
 		}
 		
 		Date newDate = new Date();
 		long sinceLastWorkout = newDate.getTime() - oldDate.getTime();
 		
-		if(sinceLastWorkout != 0){
+		// Converting from milliseconds to days
+		sinceLastWorkout /= 1000;
+		sinceLastWorkout /= 60;
+		sinceLastWorkout /= 60;
+		sinceLastWorkout /= 24;
+		
+		if(noWorkout == false){
 			lastWorkouts.setText(String.valueOf(sinceLastWorkout) + " days");
-			lastWorkouts.setTextSize(15);
+			lastWorkouts.setTextSize(20);
 		}
 		else{
 			lastWorkouts.setTextSize(22);
