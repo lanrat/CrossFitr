@@ -2,13 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main"
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/cal_header"
+        android:id="@+id/main_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseheader" />
+        android:layout_marginTop="-15dp"
+        android:src="@drawable/main_header" />
+
     <ImageView
         android:id="@+id/user_pic_button"
         android:layout_width="74dp"
@@ -87,12 +90,13 @@
         android:layout_gravity="center"
         android:text="@string/button_edit_profile" />
 
+    <!--  
     <Button
         android:id="@+id/injuries_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/button_injuries" />
+        android:text="@string/button_injuries" /> -->
 
     <Button
         android:id="@+id/achievements_button"

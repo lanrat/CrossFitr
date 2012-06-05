@@ -52,7 +52,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	{
 		super.onResume();
 		
-setContentView(R.layout.main);
+		setContentView(R.layout.main);
 		
 		font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");

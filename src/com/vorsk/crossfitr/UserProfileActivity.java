@@ -12,10 +12,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -41,6 +43,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	private ImageView photoButton;
 	
 	private File file;
+	private Typeface font;
 
 	
 	public void onCreate(Bundle savedInstanceState) 
@@ -54,6 +57,8 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		super.onResume();
 		// Displaying user data
 		model.open();
+		font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Thin.ttf");
 		
 		// Setting up photobutton
 		file = new File(Environment.getExternalStorageDirectory(), "profile.png");
@@ -72,38 +77,44 @@ public class UserProfileActivity extends Activity implements OnClickListener
 
 		// If nothing entered, redirect the user to the edit profile page
 		// Name
+		userNameText = (TextView) findViewById(R.id.user_name);
 		/*if(model.getByAttribute("name") == null){
 			Intent u = new Intent(this, EditUserProfileActivity.class);
 			startActivity(u);
 		}
 		else */if(model.getByAttribute("name") != null){
-			userNameText = (TextView) findViewById(R.id.user_name);
 			userNameText.setText(this.getString(R.string.user_name) + " " + model.getByAttribute("name").value);
 		}
+		userNameText.setTypeface(font);
 		
 		// BMI
 		userBMIText = (TextView) findViewById(R.id.user_bmi);
 		if((model.getByAttribute("weight") != null) && (model.getByAttribute("height") != null)){
 			userBMIText.setText(this.getString(R.string.user_bmi) + " " + model.calculateBMI().setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 		}
+		userBMIText.setTypeface(font);
 		
+		userWeightText = (TextView) findViewById(R.id.user_weight);
 		// Current Weight
 		if(model.getByAttribute("weight") != null){
-			userWeightText = (TextView) findViewById(R.id.user_weight);
 			userWeightText.setText(this.getString(R.string.user_weight) + " " + model.getByAttribute("weight").value);
 		}
+		userWeightText.setTypeface(font);
 		
 		// Goal Weight
+		userGoalWeightText = (TextView) findViewById(R.id.user_goal_weight);
 		if(model.getByAttribute("goal_weight") != null){
-			userGoalWeightText = (TextView) findViewById(R.id.user_goal_weight);
 			userGoalWeightText.setText(this.getString(R.string.user_goal_weight) + " " + model.getByAttribute("goal_weight").value);
 		}
+		userGoalWeightText.setTypeface(font);
 		
 		// Current Height
+		userHeightText = (TextView) findViewById(R.id.user_height);
 		if(model.getByAttribute("height") != null){
-			userHeightText = (TextView) findViewById(R.id.user_height);
 			userHeightText.setText(this.getString(R.string.user_height) + " " + model.getByAttribute("height").value);
 		}
+		userHeightText.setTypeface(font);
+		
 		
 		// Getting data from workout model
 		sessionModel.open();
@@ -111,31 +122,38 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		// Total Workouts
 		userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
 		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + sessionModel.getTotal());
+		userTotalWorkoutsText.setTypeface(font);
 		
 		// Last Workout
+		userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
 		if(sessionModel.getMostRecent(null) != null){
-			userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
 			Date date = new Date((sessionModel.getMostRecent(null).date_created));
 			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + date.toString());
 		}
+		userLastWorkoutText.setTypeface(font);
 		
 		// Total Achievements
 		//if(model.getByAttribute("total_achievements") != null){
 			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
-			userLastWorkoutText.setText(this.getString(R.string.user_total_achievements) + " " + "0");//model.getByAttribute("total_achievements").value);
+			userTotalAchievementsText.setText(this.getString(R.string.user_total_achievements) + " " + "0");//model.getByAttribute("total_achievements").value);
+			userTotalAchievementsText.setTypeface(font);
 		//}
 		
 		// Edit Profile button
 		View user_profile_button = findViewById(R.id.edit_profile_button);
 		user_profile_button.setOnClickListener(this);
+		Button fontButton = (Button) findViewById(R.id.edit_profile_button);
+		fontButton.setTypeface(font);
 		
-		// Injuries button
+		/*// Injuries button
 		View injuries_button = findViewById(R.id.injuries_button);
-		injuries_button.setOnClickListener(this);
+		injuries_button.setOnClickListener(this);*/
 		
 		// Achievements button
 		View achievements_button = findViewById(R.id.achievements_button);
 		achievements_button.setOnClickListener(this);
+		fontButton = (Button) findViewById(R.id.achievements_button);
+		fontButton.setTypeface(font);
 		
 		model.close();
 	}
@@ -148,9 +166,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			Intent u = new Intent(this, EditUserProfileActivity.class);
 			startActivity(u);
 			break;
-		case R.id.injuries_button:
+		//case R.id.injuries_button:
 			// TODO add injuries intent
-			break;
+			//break;
 		case R.id.achievements_button:
 			// TODO add achievements intent
 			break;
