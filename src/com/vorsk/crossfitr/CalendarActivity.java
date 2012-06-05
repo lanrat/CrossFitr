@@ -547,10 +547,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
-				WorkoutModel tempModel = new WorkoutModel(listContext);
-
-				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
 				
+				Log.d(tag,"It reaches here ");
+				WorkoutModel tempModel = new WorkoutModel(listContext);
+				Log.d(tag, "position = " + position);
+				Log.d(tag, "workout_id = " + arrayList.get(position).workout_id);
+				
+				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
+				Log.d(tag,"It reaches here 2");
 				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);				
 				
 				double tempdouble = arrayList.get(position).score / 1000;
@@ -559,13 +563,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				Log.d(tag, "score : " + arrayList.get(position).score);
 				Log.d(tag, "score_type " + arrayList.get(position).score_type_id);
 				Log.d(tag, "score_type with getByID " + tempSession.getByID(arrayList.get(position).score_type_id).toString());
-			/*	try {
-					Date date = (Date) timeFormatter.parse(score);
-					Log.d(tag,"timeFormatter.parse(score : " + date.getTime());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}*/
-				
 
 				itemWorkout.setText(tempRowName.name);
 				itemRecord.setText(score);
