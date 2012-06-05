@@ -6,12 +6,15 @@
 	android:layout_height="fill_parent"
 	android:background="@drawable/calendar_background"
 	android:id = "@+id/calendar_bg">
-	<ImageView
-			android:id="@+id/cal_header"
-			android:src="@drawable/baseheader"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
-		</ImageView>
+	
+    <!-- crossfitr logo -->
+
+    <ImageView
+        android:id="@+id/cal_header"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="-15dp"
+        android:src="@drawable/main_header" />
 
 	<LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
