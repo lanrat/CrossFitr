@@ -94,7 +94,6 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.custom_add_button:
-			finish();
 			Intent u = new Intent(this, CustomAddActivity.class);
 			startActivity(u);
 			break;
