@@ -37,7 +37,7 @@
                 android:id="@+id/heroes_title"
                 style="@style/workoutTypeTitleText"
                 android:layout_toRightOf="@+id/workouts_title"
-                android:text="Heroes"
+                android:text="Hero"
                 android:textColor="@color/heroes" />
             
         </RelativeLayout>

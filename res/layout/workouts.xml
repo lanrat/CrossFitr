@@ -60,7 +60,7 @@
             android:layout_marginBottom="7dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_workoutlist_heroes" 
-            android:text="Heroes"
+            android:text="Hero"
             android:textColor="@color/heroes"/>
 
         <Button
