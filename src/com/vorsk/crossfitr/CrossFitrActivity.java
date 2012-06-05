@@ -2,7 +2,7 @@ package com.vorsk.crossfitr;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -129,18 +129,22 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		sessionModel.open();
 		numOfWorkouts.setText(" " + sessionModel.getTotal());
 		numOfWorkouts.setTypeface(font);
-
 		
-		// Date of last workout
-		Date date;
+		
+		// Days since last workout
+		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
+		Date oldDate;
 		try{
-			date = new Date((sessionModel.getMostRecent(null).date_created));
+			oldDate = new Date((sessionModel.getMostRecent(null).date_created));
 		}
 		catch(Exception e){
-			date = new Date(0);
+			oldDate = new Date(0);
 		}
 		
-		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
+		Date newDate = new Date();
+		long sinceLastWorkout = 
+		
+		
 		lastWorkouts.setText(" " + date.toString());
 		lastWorkouts.setTypeface(font);
 		sessionModel.close();
