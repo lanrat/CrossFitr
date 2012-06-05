@@ -77,4 +77,9 @@ public class WorkoutsActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
+	
+	public void onBackPressed() {
+		Intent u = new Intent(this, CrossFitrActivity.class);
+		startActivity(u);
+	}
 }
