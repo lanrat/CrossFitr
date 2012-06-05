@@ -9,11 +9,13 @@ import java.util.List;
 import org.horrabin.horrorss.*;
 
 import android.app.Activity;
+import android.util.Log;
 
 public class WODModel {
 	public static final String feed_url = "http://feeds.feedburner.com/crossfit/eRTq?format=xml";
 
 	RssParser rss = new RssParser();
+	private static final String TAG = "WODModel";
 
 	private String title;
 	private ArrayList<WorkoutRow> list = new ArrayList<WorkoutRow>();
@@ -57,7 +59,7 @@ public class WODModel {
 				
 				row.name = parseTitle(item.getTitle(), item.getPubDate());
 				//row.description = "Test";
-				row.description = android.text.Html.fromHtml(item.getDescription()).toString();
+				row.description = parseDescription(android.text.Html.fromHtml(item.getDescription()).toString());
 				//row._id = 999999;
 				row.workout_type_id = SQLiteDAO.TYPE_WOD;
 				row.record = WorkoutModel.NOT_SCORED;
@@ -74,6 +76,36 @@ public class WODModel {
 			row.name = "Error Loading RSS";
 			list.add(row);
 		}
+	}
+	
+	/**
+	 * Reduces the junk in the RSS description
+	 * @param rss the description to parse
+	 * @return a trimmed version of the string
+	 */
+	private static String parseDescription(String rss){
+		int end = rss.indexOf("Enlarge image");
+		if (end == -1){
+			//could not find substring
+			Log.e(TAG,"could not shorten description");
+			return rss;
+		}
+		rss = rss.substring(0, end);
+		//try to shorten it again, this will fail on rest days
+		int end2 = rss.indexOf("Post ");
+		//if it was a rest day
+		//trim obj and newline
+		if (end2 == -1){
+			if (end > 5){
+				end -=5;
+			}
+			return rss.substring(0, end);
+		}
+		//remove ending newline char
+		if (end2 > 2){
+			end2 -=2;
+		}
+		return rss.substring(0, end2);
 	}
 	
 	/**
