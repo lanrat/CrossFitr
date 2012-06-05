@@ -150,9 +150,9 @@ public class TabataActivity extends Activity {
 		mFinish.setEnabled(false);
 	}
 	
-	public void onFinishClicked(View v) {
+	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
-		result.putExtra("time", getFormattedElapsedTime());
+		result.putExtra("time", tabata.getElapsedTime());
 		getParent().setResult(RESULT_OK, result);
 		finish();
 	}

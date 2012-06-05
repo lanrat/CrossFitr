@@ -45,14 +45,14 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	    intent = new Intent().setClass(this, StopwatchActivity.class);
 	    intent.putExtra("ID", id);
 	    spec = tabhost.newTabSpec("stopwatch").setIndicator("Stopwatch",
-	                      res.getDrawable(R.drawable.tab_stopwatch))
+	                      res.getDrawable(R.drawable.stopwatch_tab_icons))
 	                  .setContent(intent);
 	    tabhost.addTab(spec);
 
 	    intent = new Intent().setClass(this, TabataActivity.class);
 	    intent.putExtra("ID", id);
 	    spec = tabhost.newTabSpec("tabata").setIndicator("Tabata",
-	                      res.getDrawable(R.drawable.tab_tabata))
+	                      res.getDrawable(R.drawable.tabata_tab_icons))
 	                  .setContent(intent);
 	    tabhost.addTab(spec);
 

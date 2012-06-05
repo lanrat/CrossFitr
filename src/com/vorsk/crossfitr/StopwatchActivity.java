@@ -176,7 +176,7 @@ public class StopwatchActivity extends Activity implements
 	 * when finish workout button is clicked
 	 * @param v
 	 */
-	public void onFinishClicked(View v) {
+	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", stopwatch.getElapsedTime());
 		getParent().setResult(RESULT_OK, result);
