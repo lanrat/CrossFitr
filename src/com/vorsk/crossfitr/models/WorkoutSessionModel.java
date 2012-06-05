@@ -246,11 +246,10 @@ public class WorkoutSessionModel extends SQLiteDAO
 	{
 		String sql = "SELECT * FROM " + DB_TABLE + " WHERE "
 			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ?";
-		String[] params = {
-			String.valueOf(mintime), String.valueOf(maxtime)
-		};
 		
-		Cursor cr = db.rawQuery(sql, params);
+		Cursor cr = db.rawQuery(sql, new String[] {
+			Integer.toString(mintime), Integer.toString(maxtime)
+		});
 		return fetchWorkoutSessionRows(cr);
 	}
 	

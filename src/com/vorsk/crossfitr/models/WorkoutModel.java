@@ -186,6 +186,7 @@ public class WorkoutModel extends SQLiteDAO
 		
 		String sql = "UPDATE " + DB_TABLE + " SET " + COL_RECORD
 			+ " = (" + recsql + ") WHERE " + COL_ID + " = " + id;
+		Log.v("SQL", sql);
 		
 		db.rawQuery(sql, null);
 	}

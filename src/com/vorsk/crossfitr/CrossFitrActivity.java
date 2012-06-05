@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import com.vorsk.crossfitr.models.ProfileModel;
+import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
+import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -129,24 +132,23 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		sessionModel.open();
 		numOfWorkouts.setText(" " + sessionModel.getTotal());
 		numOfWorkouts.setTypeface(font);
-
 		
 		// Date of last workout
 		Date date;
 		try{
-			date = new Date((sessionModel.getMostRecent(null).date_created));
+			date = new Date(sessionModel.getMostRecent(null).date_created);
 		}
 		catch(Exception e){
 			date = new Date(0);
 		}
-		/*
+		
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
 		if (date.after(new Date(100))){
 			lastWorkouts.setText(" " + date.toString());
 		}
 		lastWorkouts.setTypeface(font);
-		sessionModel.close();*/
-		
+		sessionModel.close();
+	
 		// Achievements
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
 		numOfAchievments.setText("0");
