@@ -31,6 +31,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 	private long session_id;
 	private EditText commentTextField;
 	private InputMethodManager keyControl;
+	private WorkoutRow workout;
 	
 	/**
 	 * Automatically ends this activity and returns control to the caller
@@ -83,7 +84,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		// Get the relevant Workout performed
 		WorkoutModel wmodel = new WorkoutModel(this);
 		wmodel.open();
-		WorkoutRow workout = wmodel.getByID(session.workout_id);
+		workout = wmodel.getByID(session.workout_id);
 		if (workout == null) 
 		{
 			Log.e("DB_Inconsistency", "Invalid workout id on session");
@@ -178,7 +179,7 @@ public class ResultsActivity extends Activity implements OnClickListener
                 share.setType("text/plain");
                 share.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.app_name));
                 share.putExtra(android.content.Intent.EXTRA_TEXT, "I just used "+getText(R.string.app_name)+
-                		" to complete a workout with score: "+row.score+"!" );
+                		" to complete "+workout.name+" with score: "+row.score+"!" );
                 startActivity(share);
                 
 				break;
