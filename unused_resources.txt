@@ -1,0 +1,259 @@
+Running in: /home/lanrat/git/CrossFitr
+423 resources found
+
+Not generating usage matrices. If you would like them, create a directory named 'resource-matrices' in the base of your project.
+
+113 unused resources were found:
+array     : workouttype_array
+    /home/lanrat/git/CrossFitr/res/values/ddm_workouttype.xml
+attr      : maxValue
+    /home/lanrat/git/CrossFitr/res/values/attrs.xml
+attr      : numberPickerDownButtonStyle
+    /home/lanrat/git/CrossFitr/res/values/attrs.xml
+attr      : numberPickerInputTextStyle
+    /home/lanrat/git/CrossFitr/res/values/attrs.xml
+attr      : numberPickerStyle
+    /home/lanrat/git/CrossFitr/res/values/attrs.xml
+attr      : numberPickerUpButtonStyle
+    /home/lanrat/git/CrossFitr/res/values/attrs.xml
+color     : journal_entry_listitem_text_color
+    /home/lanrat/git/CrossFitr/res/values/colors.xml
+color     : light_gray
+    /home/lanrat/git/CrossFitr/res/values/colors.xml
+color     : note_text_disabled
+    /home/lanrat/git/CrossFitr/res/values/colors.xml
+color     : reaction_color_selected
+    /home/lanrat/git/CrossFitr/res/values/colors.xml
+color     : symptom_color_selected
+    /home/lanrat/git/CrossFitr/res/values/colors.xml
+drawable  : baseheader
+    /home/lanrat/git/CrossFitr/res/drawable/baseheader.jpg
+drawable  : button_calendar2
+    /home/lanrat/git/CrossFitr/res/drawable/button_calendar2.png
+drawable  : button_customworkout1
+    /home/lanrat/git/CrossFitr/res/drawable/button_customworkout1.png
+drawable  : button_customworkout2
+    /home/lanrat/git/CrossFitr/res/drawable/button_customworkout2.png
+drawable  : button_girlsworkout1
+    /home/lanrat/git/CrossFitr/res/drawable/button_girlsworkout1.png
+drawable  : button_girlsworkout2
+    /home/lanrat/git/CrossFitr/res/drawable/button_girlsworkout2.png
+drawable  : button_heroesworkout1
+    /home/lanrat/git/CrossFitr/res/drawable/button_heroesworkout1.png
+drawable  : button_heroesworkout2
+    /home/lanrat/git/CrossFitr/res/drawable/button_heroesworkout2.png
+drawable  : button_profile2
+    /home/lanrat/git/CrossFitr/res/drawable/button_profile2.png
+drawable  : button_wodworkout1
+    /home/lanrat/git/CrossFitr/res/drawable/button_wodworkout1.png
+drawable  : button_wodworkout2
+    /home/lanrat/git/CrossFitr/res/drawable/button_wodworkout2.png
+drawable  : button_workout1
+    /home/lanrat/git/CrossFitr/res/drawable/button_workout1.png
+drawable  : button_workout2
+    /home/lanrat/git/CrossFitr/res/drawable/button_workout2.png
+drawable  : calendar_bg_orange
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_bg_orange.png
+drawable  : calendar_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_button_click.xml
+drawable  : calendar_fri
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_fri.jpg
+drawable  : calendar_listheader
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_listheader.jpg
+drawable  : calendar_monday
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_monday.jpg
+drawable  : calendar_sat
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_sat.jpg
+drawable  : calendar_sunday
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_sunday.jpg
+drawable  : calendar_thu
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_thu.jpg
+drawable  : calendar_tues
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_tues.jpg
+drawable  : calendar_wed
+    /home/lanrat/git/CrossFitr/res/drawable/calendar_wed.jpg
+drawable  : custom_background
+    /home/lanrat/git/CrossFitr/res/drawable/custom_background.png
+drawable  : custom_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/custom_button_click.xml
+drawable  : custom_middle_pic
+    /home/lanrat/git/CrossFitr/res/drawable/custom_middle_pic.png
+drawable  : custom_separating_bar
+    /home/lanrat/git/CrossFitr/res/drawable/custom_separating_bar.png
+drawable  : girl_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/girl_button_click.xml
+drawable  : hero_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/hero_button_click.xml
+drawable  : home
+    /home/lanrat/git/CrossFitr/res/drawable/home.png
+drawable  : homepage1
+    /home/lanrat/git/CrossFitr/res/drawable/homepage1.png
+drawable  : main_homepage
+    /home/lanrat/git/CrossFitr/res/drawable/main_homepage.png
+drawable  : numberpicker_down_longpressed_holo_light
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_down_longpressed_holo_light.png
+drawable  : numberpicker_up_disabled
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_disabled.9.png
+drawable  : numberpicker_up_disabled_focused
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_disabled_focused.9.png
+drawable  : numberpicker_up_disabled_focused_holo_dark
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_disabled_focused_holo_dark.png
+drawable  : numberpicker_up_disabled_holo_dark
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_disabled_holo_dark.png
+drawable  : numberpicker_up_disabled_holo_light
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_disabled_holo_light.png
+drawable  : numberpicker_up_longpressed_holo_dark
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_longpressed_holo_dark.png
+drawable  : numberpicker_up_longpressed_holo_light
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_longpressed_holo_light.png
+drawable  : numberpicker_up_normal
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_normal.9.png
+drawable  : numberpicker_up_normal_holo_dark
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_normal_holo_dark.png
+drawable  : numberpicker_up_pressed
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_pressed.9.png
+drawable  : numberpicker_up_pressed_holo_dark
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_pressed_holo_dark.png
+drawable  : numberpicker_up_selected
+    /home/lanrat/git/CrossFitr/res/drawable-hdpi/numberpicker_up_selected.9.png
+drawable  : profile_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/profile_button_click.xml
+drawable  : tab_stopwatch
+    /home/lanrat/git/CrossFitr/res/drawable/tab_stopwatch.xml
+drawable  : tab_tabata
+    /home/lanrat/git/CrossFitr/res/drawable/tab_tabata.xml
+drawable  : text_workouts
+    /home/lanrat/git/CrossFitr/res/drawable/text_workouts.png
+drawable  : wod_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/wod_button_click.xml
+drawable  : wod_loading
+    /home/lanrat/git/CrossFitr/res/drawable/wod_loading.gif
+drawable  : workout_button_click
+    /home/lanrat/git/CrossFitr/res/drawable/workout_button_click.xml
+id        : LinearLayout1
+    /home/lanrat/git/CrossFitr/res/layout/main.xml
+id        : bottom_bar
+    /home/lanrat/git/CrossFitr/res/layout/results.xml
+id        : cal_header
+    /home/lanrat/git/CrossFitr/res/layout/calendar_main.xml
+id        : calendar_selected_button
+    /home/lanrat/git/CrossFitr/res/layout/calendar_selected_button.xml
+id        : calendarheader
+    /home/lanrat/git/CrossFitr/res/layout/calendar_main.xml
+id        : click_change
+    /home/lanrat/git/CrossFitr/res/layout/userprofile.xml
+id        : colon1
+    /home/lanrat/git/CrossFitr/res/layout/number_picker.xml
+id        : colon2
+    /home/lanrat/git/CrossFitr/res/layout/number_picker.xml
+id        : commentfield
+    /home/lanrat/git/CrossFitr/res/layout/results.xml
+id        : description_header
+    /home/lanrat/git/CrossFitr/res/layout/stopwatch_tab.xml
+    /home/lanrat/git/CrossFitr/res/layout/tabata_tab.xml
+    /home/lanrat/git/CrossFitr/res/layout/timer_tab.xml
+id        : details_scroll
+    /home/lanrat/git/CrossFitr/res/layout/workout_custom_profile.xml
+    /home/lanrat/git/CrossFitr/res/layout/workout_profile.xml
+id        : hour_label
+    /home/lanrat/git/CrossFitr/res/layout/number_picker.xml
+id        : main_custom_header
+    /home/lanrat/git/CrossFitr/res/layout/custom_workout_form.xml
+    /home/lanrat/git/CrossFitr/res/layout/custom_workout_main.xml
+    /home/lanrat/git/CrossFitr/res/layout/custom_workouts_list.xml
+id        : main_girls_header
+    /home/lanrat/git/CrossFitr/res/layout/girls_workouts_list.xml
+    /home/lanrat/git/CrossFitr/res/layout/girls_workouts_main.xml
+    /home/lanrat/git/CrossFitr/res/layout/wod_workouts_list.xml
+id        : main_header
+    /home/lanrat/git/CrossFitr/res/layout/custom_workout_main.xml
+    /home/lanrat/git/CrossFitr/res/layout/custom_workouts_list.xml
+    /home/lanrat/git/CrossFitr/res/layout/girls_workouts_list.xml
+    /home/lanrat/git/CrossFitr/res/layout/girls_workouts_main.xml
+    /home/lanrat/git/CrossFitr/res/layout/heroes_workout_main.xml
+    /home/lanrat/git/CrossFitr/res/layout/heroes_workouts_list.xml
+    /home/lanrat/git/CrossFitr/res/layout/main.xml
+    /home/lanrat/git/CrossFitr/res/layout/time_tab_widget.xml
+    /home/lanrat/git/CrossFitr/res/layout/userprofile.xml
+    /home/lanrat/git/CrossFitr/res/layout/userprofile_form.xml
+    /home/lanrat/git/CrossFitr/res/layout/wod_workouts_list.xml
+    /home/lanrat/git/CrossFitr/res/layout/workouts.xml
+id        : main_heroes_header
+    /home/lanrat/git/CrossFitr/res/layout/heroes_workout_main.xml
+    /home/lanrat/git/CrossFitr/res/layout/heroes_workouts_list.xml
+id        : min_label
+    /home/lanrat/git/CrossFitr/res/layout/number_picker.xml
+id        : num_events_per_day
+    /home/lanrat/git/CrossFitr/res/layout/calendar_gridcell.xml
+id        : score_header
+    /home/lanrat/git/CrossFitr/res/layout/results.xml
+id        : sec_label
+    /home/lanrat/git/CrossFitr/res/layout/number_picker.xml
+id        : text_workout_desc_scroll
+    /home/lanrat/git/CrossFitr/res/layout/results.xml
+    /home/lanrat/git/CrossFitr/res/layout/stopwatch_tab.xml
+    /home/lanrat/git/CrossFitr/res/layout/tabata_tab.xml
+    /home/lanrat/git/CrossFitr/res/layout/timer_tab.xml
+id        : titlebar
+    /home/lanrat/git/CrossFitr/res/layout/workout_custom_profile.xml
+    /home/lanrat/git/CrossFitr/res/layout/workout_profile.xml
+layout    : calendar_selected_button
+    /home/lanrat/git/CrossFitr/res/layout/calendar_selected_button.xml
+layout    : custom_workout_main
+    /home/lanrat/git/CrossFitr/res/layout/custom_workout_main.xml
+layout    : girls_workouts_main
+    /home/lanrat/git/CrossFitr/res/layout/girls_workouts_main.xml
+layout    : heroes_workout_main
+    /home/lanrat/git/CrossFitr/res/layout/heroes_workout_main.xml
+layout    : workout_list
+    /home/lanrat/git/CrossFitr/res/layout/workout_list.xml
+raw       : countdown_00
+    /home/lanrat/git/CrossFitr/res/raw/countdown_00.mp3
+raw       : countdown_01
+    /home/lanrat/git/CrossFitr/res/raw/countdown_01.mp3
+raw       : countdown_02
+    /home/lanrat/git/CrossFitr/res/raw/countdown_02.mp3
+raw       : countdown_03
+    /home/lanrat/git/CrossFitr/res/raw/countdown_03.mp3
+raw       : countdown_04
+    /home/lanrat/git/CrossFitr/res/raw/countdown_04.mp3
+raw       : countdown_05
+    /home/lanrat/git/CrossFitr/res/raw/countdown_05.mp3
+string    : button_begin_workout
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : button_dontsav_workout
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : button_sav_workout
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : button_share_workout_fb
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : description_header
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : dialog_picker_title
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : main_title
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : record_type_header
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : results_description_header
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : results_record_header
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : results_record_type_header
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : results_time_header
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : start_label
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : stop_label
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : workout_profile_title
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+string    : workout_type_add
+    /home/lanrat/git/CrossFitr/res/values/strings.xml
+styleable : numberpicker_maxValue
+    /home/lanrat/git/CrossFitr/res/values/attrs.xml
+
+If any of the above resources are used, please submit your project as a test case so this application can be improved.
+
+This application does not maintain a dependency graph, so you should run it again after removing the above resources.
