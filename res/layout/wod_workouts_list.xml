@@ -50,6 +50,7 @@
         
     </LinearLayout>
         
+    <!-- Custom workout list from the database -->
     
     <ListView
         android:id="@+id/wod_workout_list"

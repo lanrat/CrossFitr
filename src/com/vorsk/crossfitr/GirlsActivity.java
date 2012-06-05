@@ -83,7 +83,7 @@ public class GirlsActivity extends Activity implements OnItemClickListener {
 
 	public class GirlsListHelper extends BaseAdapter implements OnClickListener {
 
-		private static final String tag = "HeroesListHelper";
+		private static final String tag = "GirlsListHelper";
 		private final Context listContext;
 		private ArrayList<WorkoutRow> arrayList;
 		private ImageView listArrow;
