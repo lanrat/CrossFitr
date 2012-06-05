@@ -9,6 +9,7 @@ import android.widget.TabHost;
 public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
 	long id;
 	TabHost tabhost;
+	int custom_score;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -28,10 +29,14 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	  		finish();
 	  	}
 	  	
+	  	custom_score = getIntent().getIntExtra("score", -1);
+	  	if (custom_score <= 0) custom_score = -1;
+	  	
 	  	
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, TimerActivity.class);
 	    intent.putExtra("ID", id);
+	    intent.putExtra("score", custom_score);
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
 	    spec = tabhost.newTabSpec("timer").setIndicator("Timer",
@@ -44,6 +49,7 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	    // Do the same for the other tabs
 	    intent = new Intent().setClass(this, StopwatchActivity.class);
 	    intent.putExtra("ID", id);
+	    intent.putExtra("score", custom_score);
 	    spec = tabhost.newTabSpec("stopwatch").setIndicator("Stopwatch",
 	                      res.getDrawable(R.drawable.stopwatch_tab_icons))
 	                  .setContent(intent);
@@ -51,6 +57,7 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 
 	    intent = new Intent().setClass(this, TabataActivity.class);
 	    intent.putExtra("ID", id);
+	    intent.putExtra("score", custom_score);
 	    spec = tabhost.newTabSpec("tabata").setIndicator("Tabata",
 	                      res.getDrawable(R.drawable.tabata_tab_icons))
 	                  .setContent(intent);

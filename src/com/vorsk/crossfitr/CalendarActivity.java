@@ -550,12 +550,15 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				
 				Log.d(tag,"It reaches here ");
 				WorkoutModel tempModel = new WorkoutModel(listContext);
+				tempModel.open();
 				Log.d(tag, "position = " + position);
 				Log.d(tag, "workout_id = " + arrayList.get(position).workout_id);
 				
 				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
 				Log.d(tag,"It reaches here 2");
-				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);				
+				tempModel.close();
+				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);
+				tempSession.open();
 				
 				double tempdouble = arrayList.get(position).score / 1000;
 		
@@ -566,6 +569,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 				itemWorkout.setText(tempRowName.name);
 				itemRecord.setText(score);
+				tempSession.close();
 								
 			}	
 			

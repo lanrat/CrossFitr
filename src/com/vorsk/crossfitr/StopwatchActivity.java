@@ -32,6 +32,7 @@ public class StopwatchActivity extends Activity implements
 	private Time stopwatch = new Time();
 	private MediaPlayer mp;
 	private boolean active = true;
+	private WorkoutRow workout;
 
 	/**
 	 * Handler object that updates time display on the button
@@ -65,7 +66,7 @@ public class StopwatchActivity extends Activity implements
 		}
 
 		model.open();
-		WorkoutRow workout = model.getByID(id);
+		workout = model.getByID(id);
 		model.close();
 
 		Typeface roboto = Typeface.createFromAsset(getAssets(),
@@ -179,6 +180,12 @@ public class StopwatchActivity extends Activity implements
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", stopwatch.getElapsedTime());
+		
+		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
+				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+			result.putExtra("score", getIntent().getIntExtra("score", 0));
+		}
+		
 		getParent().setResult(RESULT_OK, result);
 		finish();
 	}

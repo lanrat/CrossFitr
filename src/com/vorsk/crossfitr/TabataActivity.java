@@ -27,6 +27,7 @@ public class TabataActivity extends Activity {
 	private long id;
 	private MediaPlayer mp;
 	private boolean active = true;
+	private WorkoutRow workout;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
@@ -61,7 +62,7 @@ public class TabataActivity extends Activity {
 	    WorkoutModel model = new WorkoutModel(this);
 
 	  	model.open();
-	  	WorkoutRow workout = model.getByID(id);
+	  	workout = model.getByID(id);
 		model.close();
 		
 		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
@@ -153,6 +154,12 @@ public class TabataActivity extends Activity {
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		result.putExtra("time", tabata.getElapsedTime());
+		
+		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
+				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+			result.putExtra("score", getIntent().getIntExtra("score", 0));
+		}
+		
 		getParent().setResult(RESULT_OK, result);
 		finish();
 	}
