@@ -238,10 +238,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
         }
 	}
 	
-	// Back to frontpage method to make the skip from edit profile work more fluidly and stop 
-	// a back pressing cycle between the two pages.
-	/*public void onBackPressed(){
+	//Back to frontpage method to make the skip from edit profile work more fluidly and stop 
+	//a back pressing cycle between the two pages.
+	public void onBackPressed() {
 			Intent u = new Intent(this, CrossFitrActivity.class);
 			startActivity(u);
-		}*/
+		}
 }
