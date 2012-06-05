@@ -52,7 +52,7 @@
     <!-- Custom workout list from the database -->
 
     <ListView
-        android:id="@+id/heroes_workout_list"
+        android:id="@+id/girls_workout_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black" >  <!-- button color -->

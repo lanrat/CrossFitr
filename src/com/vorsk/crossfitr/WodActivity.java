@@ -24,7 +24,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class WodActivity extends Activity  implements OnItemClickListener
 {
-	private ListView listView;
+	private ListView wodView;
 	protected ProgressDialog pd;
 	ArrayAdapter<WorkoutRow> adapter;
 	private static String TAG = "WODActivity";
@@ -38,20 +38,18 @@ public class WodActivity extends Activity  implements OnItemClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wod_workouts_list);
 		
-		/*
 		font = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		
 		titleTextHeader1 = (TextView) findViewById(R.id.workouts_title);		
 		titleTextHeader1.setTypeface(font);		
-		titleTextHeader2 = (TextView) findViewById(R.id.custom_title);		
+		titleTextHeader2 = (TextView) findViewById(R.id.wod_title);		
 		titleTextHeader2.setTypeface(font);
-		*/
 		
-		listView = (ListView) findViewById(R.id.workout_list_view);
+		wodView = (ListView) findViewById(R.id.wod_workout_list);
 		
 		WODModel WODmodel = new WODModel(this);
 
-		listView.setOnItemClickListener(this);
+		wodView.setOnItemClickListener(this);
 		
 		DownloadWOD downloadTask = new DownloadWOD(WODmodel,this);
 		startLoadingScreen(downloadTask);
@@ -101,7 +99,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 			adapter = new ArrayAdapter<WorkoutRow>(context,
 					android.R.layout.simple_list_item_1, android.R.id.text1,results);
 			stopLoadingScreen();
-	 		listView.setAdapter(adapter);
+	 		wodView.setAdapter(adapter);
 
 	     }
 	 }
