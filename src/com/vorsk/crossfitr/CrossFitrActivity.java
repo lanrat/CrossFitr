@@ -139,11 +139,13 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		catch(Exception e){
 			date = new Date(0);
 		}
-		
+		/*
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
-		lastWorkouts.setText(" " + date.toString());
+		if (date.after(new Date(100))){
+			lastWorkouts.setText(" " + date.toString());
+		}
 		lastWorkouts.setTypeface(font);
-		sessionModel.close();
+		sessionModel.close();*/
 		
 		// Achievements
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
@@ -214,7 +216,9 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		}
 		
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
-		lastWorkouts.setText(" " + date.toString());
+		if (date.after(new Date(100))){
+			lastWorkouts.setText(" " + date.toString());
+		}
 		lastWorkouts.setTypeface(font);
 		sessionModel.close();
 	}
