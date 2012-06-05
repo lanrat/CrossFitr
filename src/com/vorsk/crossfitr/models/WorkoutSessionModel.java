@@ -340,5 +340,29 @@ public class WorkoutSessionModel extends SQLiteDAO
 		}
 		return rows[0];
 	}
+	
+	/**
+	 * Gets an aggregate value of the scores for a workout
+	 * 
+	 * @param id Workout ID to calculate the scores
+	 * @param agg Type of aggregation (MIN, MAX, COUNT)
+	 * @return Calculated value
+	 */
+	public int getWorkoutAggScore(long id, String agg)
+	{
+		if (agg != "MIN" && agg != "MAX" && agg != "COUNT")
+			return -1;
+		String sql = "SELECT " + agg + "(" + COL_SCORE + ") as agg FROM "
+			+ DB_TABLE + " WHERE " + COL_WORKOUT + "=" + id;
+		
+		Cursor cr = db.rawQuery(sql, null);
+		if (cr == null || !cr.moveToFirst()) {
+			return -1;
+		}
+		
+		int result = cr.getInt(cr.getColumnIndexOrThrow("agg"));
+		cr.close();
+		return result;
+	}
 
 }
