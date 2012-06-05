@@ -99,12 +99,6 @@
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
-		<ImageView
-			android:src="@drawable/calendar_listheader"
-			android:layout_gravity="center"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
-		</ImageView>
 
 		<ListView
 		  android:id="@+id/calendar_listView"

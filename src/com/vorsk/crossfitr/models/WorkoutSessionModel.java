@@ -245,12 +245,12 @@ public class WorkoutSessionModel extends SQLiteDAO
 	public WorkoutSessionRow[] getByTime(int mintime, int maxtime)
 	{
 		String sql = "SELECT * FROM " + DB_TABLE + " WHERE "
-			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ?";
+			+ COL_CDATE + ">" + mintime + " AND " + COL_CDATE + "<" + maxtime;
 		String[] params = {
 			String.valueOf(mintime), String.valueOf(maxtime)
 		};
 		
-		Cursor cr = db.rawQuery(sql, params);
+		Cursor cr = db.rawQuery(sql, null);
 		return fetchWorkoutSessionRows(cr);
 	}
 	
