@@ -167,8 +167,20 @@ public class ResultsActivity extends Activity implements OnClickListener
 				   
 			// if user presses share on fb button, results will be shared on fb.			
 			case R.id.button_results_share_workout_FB:
-				//TODO: implement fb functionality
+				//get the string to share:
+				model.open();
+				WorkoutSessionRow row = model.getByID(session_id);
+				model.close();
+				
+				//share functionality
 			    // if user presses this button, user will now go into the timer page.
+        	    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.app_name));
+                share.putExtra(android.content.Intent.EXTRA_TEXT, "I just used "+getText(R.string.app_name)+
+                		" to complete a workout with score: "+row.score+"!" );
+                startActivity(share);
+                
 				break;
 				
 			//should close keyboard if clicks on background
