@@ -56,7 +56,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		// button to save and start workout
 		View saveAndStartButton = findViewById(R.id.button_workout_form_start);
 		saveAndStartButton.setOnClickListener(this);
-		
+
 		model.open();
 		workout = model.getByID(id);
 		
@@ -101,15 +101,6 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 
 			if (this.validateForm() == true) {
 				model.open();
-				Log.d("a0000000000000", "works hereeeeeeee");
-				
-
-				//workout.setName(nameTextField.getText().toString());
-				
-				//workout.setDes(workoutTextField.getText().toString());
-				
-				//workout.setRecord(recordConstant);
-				
 				
 				workout.name = nameTextField.getText().toString();
 				
@@ -117,11 +108,8 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 				
 				workout.record_type_id = recordConstant;
 				
-				Log.v("UP_TEST", "id=" + workout._id + ", name=" + workout.name + ", rec=" + workout.record_type_id);
-				long res = model.edit(workout);
-				Log.v("RES", ""+res);
-
-				Log.d("!!!!!!!!!!!!!!!!!!", "works here");
+				model.edit(workout);
+				
 				model.close();
 				// go back into the custom activity class
 				Intent i = new Intent(this, CustomActivity.class);
@@ -142,11 +130,17 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		case R.id.button_workout_form_start:
 			if (this.validateForm() == true) {
 				
+				model.open();
+				
 				workout.name = nameTextField.getText().toString();
 				
 				workout.description = workoutTextField.getText().toString();
-
-				Log.d("adsf", "works here");
+				
+				workout.record_type_id = recordConstant;
+				
+				model.edit(workout);
+				
+				model.close();
 				
 				Intent i = new Intent(this, WorkoutProfileActivity.class);
 				startActivity(i);
