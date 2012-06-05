@@ -35,7 +35,7 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(tag,"### at least here 1 ###");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.custom_workout_add);
+		setContentView(R.layout.custom_workout_form);
 
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 

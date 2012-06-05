@@ -38,7 +38,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 	// onCreate method called at the beginning of activity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.custom_workout_add);
+		setContentView(R.layout.custom_workout_form);
 
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
