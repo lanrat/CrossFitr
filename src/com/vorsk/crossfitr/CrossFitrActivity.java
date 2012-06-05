@@ -156,7 +156,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		
 		if(sinceLastWorkout != 0){
 			lastWorkouts.setText(String.valueOf(sinceLastWorkout) + " days");
-			lastWorkouts.setTextSize(40);
+			lastWorkouts.setTextSize(15);
 		}
 		else{
 			lastWorkouts.setTextSize(22);
