@@ -23,8 +23,11 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	//initialize variables
 	private WorkoutRow workout;
 	private int ACT_TIMER = 1;
+<<<<<<< HEAD
 	private TextView tvextra;
 	private Typeface font;
+=======
+>>>>>>> 50d84c3c02340137dcbc02867ac347097ce93b19
 	
 	//Its dynamic! android should use this by default
 	private String TAG = this.getClass().getName();
@@ -49,6 +52,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		workout = model.getByID(id);
 		
 		//TextView objects
+
 		font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
 		TextView screenName = (TextView) findViewById(R.id.screenTitle);
@@ -59,6 +63,12 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		tvbestRecord.setTypeface(font);
 		TextView tvdesc = (TextView) findViewById(R.id.workout_profile_descDB);
 		tvdesc.setTypeface(font);
+
+		TextView tvname = (TextView)findViewById(R.id.workout_profile_nameDB);
+		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
+		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
+		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB);
+
 		
 		//set the texts of the TextView objects from the data retrieved from the DB
 		Resources res = getResources();
