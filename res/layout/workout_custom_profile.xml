@@ -90,35 +90,47 @@
         android:layout_weight="0.01"
         android:orientation="horizontal" >
 	    
-	    <Button
-	        android:id="@+id/button_begin_workout"
-	        android:layout_width="100dp"
-	        android:layout_height="62dp"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="2dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_marginTop="50dp"
-	        android:background="@drawable/begin_workout_clicked" />
+        <Button
+        android:id="@+id/button_begin_workout"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Begin"
+        android:textColor="@color/wod"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-	    <Button
-	        android:id="@+id/button_custom_edit_button"
-	        android:layout_width="100dp"
-	        android:layout_height="62dp"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_marginTop="50dp"
-	        android:text="@string/edit_profile_label" />
+        <Button
+        android:id="@+id/button_edit_workout"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Edit"
+        android:textColor="@color/wod"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 	    
-	      <Button
-	        android:id="@+id/button_custom_delete_button"
-	        android:layout_width="100dp"
-	        android:layout_height="62dp"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_marginTop="50dp"
-	        android:text="@string/delete_profile_label" />
+        <Button
+        android:id="@+id/button_delete_workout"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Delete"
+        android:textColor="@color/wod"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 	</LinearLayout>
 

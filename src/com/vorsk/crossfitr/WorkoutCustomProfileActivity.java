@@ -73,11 +73,11 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
         ((TextView) beginButton).setTypeface(font);
         beginButton.setOnClickListener(this);
         
-        View editButton = findViewById(R.id.button_custom_edit_button);
+        View editButton = findViewById(R.id.button_edit_workout);
         ((TextView) editButton).setTypeface(font);
         editButton.setOnClickListener(this);
         
-        View deleteButton = findViewById(R.id.button_custom_delete_button);
+        View deleteButton = findViewById(R.id.button_delete_workout);
         ((TextView) deleteButton).setTypeface(font);
         deleteButton.setOnClickListener(this);
         
@@ -103,12 +103,12 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 				startActivityForResult(i, ACT_TIMER);
 				break;
 				
-			case R.id.button_custom_edit_button:
+			case R.id.button_edit_workout:
 				Intent u = new Intent(this, CustomEditActivity.class);
 				u.putExtra("id", workout._id);
 				startActivity(u);
 				break;
-			case R.id.button_custom_delete_button:
+			case R.id.button_delete_workout:
 				model.open();
 				model.delete(workout._id);
 				model.close();
