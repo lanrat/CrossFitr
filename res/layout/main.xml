@@ -28,15 +28,17 @@
             android:layout_marginRight="12dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/user_pic" />
-
+
         <Button
             android:id="@+id/main_button_profile"
             android:layout_width="match_parent"
+            android:paddingTop="14dp"
             android:layout_height="120dp"
             android:layout_marginTop="15dp"
-        	android:textSize="18dp"
-        	android:textColor="@color/white"
-            android:background="@drawable/ic_main_profile" />
+            android:background="@drawable/ic_main_profile"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
     </LinearLayout>
 
     <LinearLayout

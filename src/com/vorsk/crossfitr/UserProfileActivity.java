@@ -84,7 +84,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			startActivity(u);
 		}
 		else */if(model.getByAttribute("name") != null){
-			userNameText.setText(this.getString(R.string.user_name) + " " + model.getByAttribute("name").value);
+			userNameText.setText(model.getByAttribute("name").value);
 		}
 		userNameText.setTypeface(font);
 		
@@ -94,6 +94,8 @@ public class UserProfileActivity extends Activity implements OnClickListener
 			userBMIText.setText(this.getString(R.string.user_bmi) + " " + model.calculateBMI().setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 		}
 		userBMIText.setTypeface(font);
+	
+		
 		
 		userWeightText = (TextView) findViewById(R.id.user_weight);
 		// Current Weight
@@ -152,10 +154,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		injuries_button.setOnClickListener(this);*/
 		
 		// Achievements button
-		View achievements_button = findViewById(R.id.achievements_button);
+		/*View achievements_button = findViewById(R.id.achievements_button);
 		achievements_button.setOnClickListener(this);
 		fontButton = (Button) findViewById(R.id.achievements_button);
-		fontButton.setTypeface(font);
+		fontButton.setTypeface(font);*/
 		
 		model.close();
 	}
@@ -171,9 +173,9 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		//case R.id.injuries_button:
 			// TODO add injuries intent
 			//break;
-		case R.id.achievements_button:
+		//case R.id.achievements_button:
 			// TODO add achievements intent
-			break;
+			//break;
 		}
 	}
 	
