@@ -36,7 +36,7 @@
                 android:text="Workout" />
 
             <TextView
-                android:id="@+id/workout_profile_nameDB"
+                android:id="@+id/workout_results_nameDB"
                 style="@style/workoutTypeTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,56 +47,54 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/redLine" />
+        
     </LinearLayout>
     
-    <TextView
-	    android:id="@+id/text_workout_name"
-	    android:layout_alignParentTop="true"
-	    android:layout_width="fill_parent"
-	    android:layout_marginTop="80dp"
-	    android:layout_height="wrap_content"
-	    android:text="A"
-	    android:textSize="30dp"/>
-    
-    <LinearLayout
-        android:id="@+id/score_header"
-        android:layout_below="@+id/text_workout_name"
+        <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-		        
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="30dp"
-		        android:id="@+id/text_workout_record" 
-		                   android:text="B"
-		        android:textSize="20dp"/>
-		    
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="30dp"
-		        android:id="@+id/text_session_score" 
-		                   android:text="C"
-		        android:textSize="20dp"/>
-	</LinearLayout>
+        android:layout_height="150dp"
+        android:layout_weight="0.27"
+        android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/text_workout_desc_scroll"
-        android:layout_below="@+id/score_header"
-        android:layout_above="@+id/commentfield"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-	    <TextView
+        <ScrollView
+            android:id="@+id/details_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.48" >
 
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="15dp"
-	        android:layout_marginLeft="10dp"
-	                   android:text="lolol"
-	        android:id="@+id/text_workout_desc" />
-	    </ScrollView>
+            <TextView
+                android:id="@+id/workout_results_descDB"
+                android:layout_width="match_parent"
+                android:layout_height="117dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="45dp"
+                android:textSize="25sp" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/workout_results_score"
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_weight="0.37"
+            android:textColor="#ffbb33"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+        
+         <TextView
+            android:id="@+id/workout_results_best_recordDB"             
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_weight="0.37"
+            android:textColor="#ffbb33"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+         
+    </LinearLayout>
 	
 	<LinearLayout
 	    android:id="@+id/commentfield"
@@ -117,6 +115,8 @@
 	        android:imeOptions="actionDone"
 	        android:maxLines="5"/>
     </LinearLayout>
+    
+	<!-- Buttons -->
 	
 	<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

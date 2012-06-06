@@ -83,7 +83,7 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
         
         if (workout.description.indexOf("Rest Day") == -1){
         	//It is not a rest day
-    		tvbestRecord.setText("personal record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
+    		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
         	beginButton.setOnClickListener(this);
         }else{
         	//it is a rest day
