@@ -92,6 +92,8 @@ public class TabataActivity extends Activity {
         mFinish.setTypeface(roboto);
         mFinish.setEnabled(false);
         
+        setDisplayBackgroundColor(0);
+        
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
 	}
 
@@ -239,7 +241,9 @@ public class TabataActivity extends Activity {
 				}
 				goStop = false;
 			}
-			setDisplayBackgroundColor(1);
+			if(tabata.isRunning()){
+				setDisplayBackgroundColor(1);
+			}
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
 	}
