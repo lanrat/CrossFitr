@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="total workouts"
+                android:text="Total Workouts"
                 android:textColor="@color/blue"
                 android:textSize="11dp" />
             <TextView
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="48dp"
                 android:layout_toRightOf="@id/status_display1"
-                android:text="last workout"
+                android:text="Last Workout"
                 android:textColor="@color/blue"
                 android:textSize="11dp" />
             <TextView
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
                 android:layout_toRightOf="@id/status_display2"
-                android:text="achievements"
+                android:text="Achievements"
                 android:textColor="@color/blue"
                 android:textSize="11dp" />
                 
