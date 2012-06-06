@@ -7,6 +7,8 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -14,10 +16,9 @@ import android.widget.TextView;
 public class WorkoutCustomProfileActivity extends Activity implements OnClickListener 
 {
 	private WorkoutRow workout;
-	
 	private int ACT_TIMER = 1;
-	
-	private View edit_custom_button;
+	private Typeface font;
+	TextView screenName, tvname, tvdesc, tvbestRecord;
 	
 	WorkoutModel model = new WorkoutModel(this);
 	
@@ -40,28 +41,55 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 		workout = model.getByID(id);
 		
 		//TextView objects
-		TextView tvname = (TextView)findViewById(R.id.workout_profile_nameDB);
-		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
-		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
-		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB); 
+
+		font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Thin.ttf");
+		screenName = (TextView) findViewById(R.id.screenTitle);
+		screenName.setTypeface(font);
+		tvname = (TextView) findViewById(R.id.workout_profile_nameDB);
+		tvname.setTypeface(font);
+		tvbestRecord = (TextView) findViewById(R.id.workout_profile_best_recordDB);
+		tvbestRecord.setTypeface(font);
+		tvdesc = (TextView) findViewById(R.id.workout_profile_descDB);
+		tvdesc.setTypeface(font);
 		
-		
-		//set the texts of the TextView objects from the data retrieved from the DB
+		//set the text of the TextView objects from the data retrieved from the DB
+		Resources res = getResources();
 		tvname.setText(workout.name);
+		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+			tvname.setTextColor(res.getColor(R.color.wod));
+		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
+			tvname.setTextColor(res.getColor(R.color.heroes));
+		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
+			tvname.setTextColor(res.getColor(R.color.girls));
+		else if(model.getTypeName(workout.workout_type_id).equals("Custom"))
+			tvname.setTextColor(res.getColor(R.color.custom));
 		tvdesc.setText(workout.description);
 		//tvrecordType.setText(model.getTypeName(workout.workout_type_id));
-		tvbestRecord.setText(String.valueOf(workout.record)); // TODO: Format
+        model.close();
         
 		// begin workout button
         View beginButton = findViewById(R.id.button_begin_workout);
+        ((TextView) beginButton).setTypeface(font);
         beginButton.setOnClickListener(this);
-        model.close();
         
-        edit_custom_button = findViewById(R.id.button_custom_edit_button);
-        edit_custom_button.setOnClickListener(this);
+        View editButton = findViewById(R.id.button_custom_edit_button);
+        ((TextView) editButton).setTypeface(font);
+        editButton.setOnClickListener(this);
         
         View deleteButton = findViewById(R.id.button_custom_delete_button);
+        ((TextView) deleteButton).setTypeface(font);
         deleteButton.setOnClickListener(this);
+        
+        if (workout.description.indexOf("Rest Day") == -1){
+        	//It is not a rest day
+    		tvbestRecord.setText("personal record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
+        	beginButton.setOnClickListener(this);
+        }else{
+        	//it is a rest day
+        	beginButton.setVisibility(View.GONE);
+        	tvbestRecord.setVisibility(View.GONE);
+        }
 	}
 	
 	public void onClick(View v) 
