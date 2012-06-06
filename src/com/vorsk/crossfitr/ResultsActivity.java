@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -117,6 +118,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		tvdesc.setTypeface(font);
 		commentField = (TextView) findViewById(R.id.comment_field);
 		commentField.setTypeface(font);
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
 		//set the text of the TextView objects from the data retrieved from the DB
 		Resources res = getResources();
