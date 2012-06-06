@@ -67,8 +67,10 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		//set the text of the TextView objects from the data retrieved from the DB
 		Resources res = getResources();
 		tvname.setText(workout.name);
-		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+		if (model.getTypeName(workout.workout_type_id).equals("WOD")){
+			tvname.setText("WOD");
 			tvname.setTextColor(res.getColor(R.color.wod));
+		}
 		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
 			tvname.setTextColor(res.getColor(R.color.heroes));
 		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
@@ -84,8 +86,15 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
         ((TextView) beginButton).setTypeface(font);
         if (workout.description.indexOf("Rest Day") == -1){
         	//It is not a rest day
-    		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
-        	beginButton.setOnClickListener(this);
+        	long time = Long.parseLong(String.valueOf(workout.record));
+        	if(time == 0){
+        		tvbestRecord.setText("Personal Record:" + '\n' + "    No personal record yet!");
+        		beginButton.setOnClickListener(this);
+        	}
+        	else{
+        		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(time));
+            	beginButton.setOnClickListener(this);
+        	}
         }else{
         	//it is a rest day
         	beginButton.setVisibility(View.GONE);
