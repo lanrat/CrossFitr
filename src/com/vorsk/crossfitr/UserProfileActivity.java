@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -128,7 +129,8 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
 		if(sessionModel.getMostRecent(null) != null){
 			Date date = new Date((sessionModel.getMostRecent(null).date_created));
-			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + date.toString());
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy h:mm a");
+			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + formatter.format(date));
 		}
 		userLastWorkoutText.setTypeface(font);
 		
