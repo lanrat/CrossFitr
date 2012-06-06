@@ -6,6 +6,7 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,7 +63,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		tvdesc.setTypeface(font);
 
 		
-		//set the texts of the TextView objects from the data retrieved from the DB
+		//set the text of the TextView objects from the data retrieved from the DB
 		Resources res = getResources();
 		tvname.setText(workout.name);
 		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
@@ -75,13 +76,21 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 			tvname.setTextColor(res.getColor(R.color.custom));
 		tvdesc.setText(workout.description);
 		//tvrecordType.setText(model.getTypeName(workout.workout_type_id));
-		tvbestRecord.setText("personal record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
-		
+        model.close();
+        
 		// begin workout button
         View beginButton = findViewById(R.id.button_begin_workout);
         ((TextView) beginButton).setTypeface(font);
-        beginButton.setOnClickListener(this);
-        model.close();
+        if (workout.description.indexOf("Rest Day") == -1){
+        	//It is not a rest day
+    		tvbestRecord.setText("personal record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
+        	beginButton.setOnClickListener(this);
+        }else{
+        	//it is a rest day
+        	beginButton.setVisibility(View.GONE);
+        	tvbestRecord.setVisibility(View.GONE);
+        }
+
 	}
 	
 	public void onClick(View v) 
