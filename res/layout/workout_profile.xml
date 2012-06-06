@@ -82,6 +82,8 @@
             android:textSize="20sp"
             android:textStyle="italic" />
     </LinearLayout>
+    
+    <!-- Buttons -->
 
     <Button
         android:id="@+id/button_begin_workout"
