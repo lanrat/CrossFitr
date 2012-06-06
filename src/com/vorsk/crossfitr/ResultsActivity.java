@@ -12,12 +12,14 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Creates and displays the Results view after completing a workout.
@@ -84,6 +86,15 @@ public class ResultsActivity extends Activity implements OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		
+		Context context = getApplicationContext();
+		CharSequence text;
+		int duration = Toast.LENGTH_LONG;
+		Toast toast;
+		text = "You earned the 1st Time CrossFitr achievement!";
+		toast = Toast.makeText(context, text, duration);
+		toast.setGravity(Gravity.TOP, 0, 50);
+		toast.show();
 		
 		WorkoutSessionRow session = validateAccess();
 		

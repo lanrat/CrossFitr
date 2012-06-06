@@ -174,12 +174,13 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
 		
 		lastWorkouts.setTypeface(font);
-		sessionModel.close();
+		
 		
 		// Achievements
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
-		numOfAchievments.setText("0");
+		numOfAchievments.setText(" " + sessionModel.getTotal());
 		numOfAchievments.setTypeface(font);
+		sessionModel.close();
 	}
 
 	public void onClick(View v)
