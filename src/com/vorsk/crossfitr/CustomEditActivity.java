@@ -67,10 +67,12 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		
 		// text field for the workout description to be added
 		workoutTextField = (EditText) findViewById(R.id.description_edittext_add);
+		workoutTextField.setText(workout.description);
 		workoutTextField.setOnClickListener(this);
 
 		// text field for the workout name to be added
 		nameTextField = (EditText) findViewById(R.id.nameofworkout_edittext_add);
+		nameTextField.setText(workout.name);
 		nameTextField.setOnClickListener(this);
 
 
@@ -128,7 +130,8 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 
 		// user clicks the save and start workout button
 		case R.id.button_workout_form_start:
-			if (this.validateForm() == true) {
+			if (this.validateForm() == true) 
+			{
 				
 				model.open();
 				
@@ -144,7 +147,9 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 				
 				Intent i = new Intent(this, WorkoutProfileActivity.class);
 				startActivity(i);
-			} else {
+			}
+			else 
+			{
 				// error prompt
 				Context context = getApplicationContext();
 				CharSequence text = "Please fill out all fields!";
@@ -192,7 +197,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 			// the record dropdown.
 			if (parent.getItemAtPosition(pos).toString()
 					.equals("Please select a record type")) {
-				recordConstant = -5;
+				recordConstant = 0;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Timer")) {
 				recordConstant = WorkoutModel.SCORE_TIME;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Weight")) {
