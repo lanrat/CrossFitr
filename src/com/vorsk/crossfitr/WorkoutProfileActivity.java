@@ -21,7 +21,6 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	//initialize variables
 	private WorkoutRow workout;
 	private int ACT_TIMER = 1;
-	private TextView tvextra;
 	
 	//Its dynamic! android should use this by default
 	private String TAG = this.getClass().getName();
@@ -50,7 +49,6 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
 		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
 		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB);
-		tvextra = (TextView)findViewById(R.id.label_extra_info);
 		
 		//set the texts of the TextView objects from the data retrieved from the DB
 		tvname.setText(workout.name);
