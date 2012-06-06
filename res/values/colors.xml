@@ -27,4 +27,8 @@
     <!--  workout lists  -->
     <color name="translucent_gray">#80414141</color>
     <color name="light_gray">#aaaaaa</color>
+    
+    <!-- red line  -->
+    <color name = "redLine">#560f10</color>
+    
 </resources>

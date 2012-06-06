@@ -6,10 +6,14 @@ import com.vorsk.crossfitr.models.WorkoutSessionModel;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +25,8 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	//initialize variables
 	private WorkoutRow workout;
 	private int ACT_TIMER = 1;
+	private Typeface font;
+	TextView screenName, tvname, tvdesc, tvbestRecord;
 	
 	//Its dynamic! android should use this by default
 	private String TAG = this.getClass().getName();
@@ -45,21 +51,47 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		workout = model.getByID(id);
 		
 		//TextView objects
-		TextView tvname = (TextView)findViewById(R.id.workout_profile_nameDB);
-		TextView tvbestRecord = (TextView)findViewById(R.id.workout_profile_best_recordDB);
-		TextView tvdesc = (TextView)findViewById(R.id.workout_profile_descDB);
-		//TextView tvrecordType = (TextView)findViewById(R.id.workout_profile_recordtypeDB);
+
+		font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Thin.ttf");
+		screenName = (TextView) findViewById(R.id.screenTitle);
+		screenName.setTypeface(font);
+		tvname = (TextView) findViewById(R.id.workout_profile_nameDB);
+		tvname.setTypeface(font);
+		tvbestRecord = (TextView) findViewById(R.id.workout_profile_best_recordDB);
+		tvbestRecord.setTypeface(font);
+		tvdesc = (TextView) findViewById(R.id.workout_profile_descDB);
+		tvdesc.setTypeface(font);
+
 		
-		//set the texts of the TextView objects from the data retrieved from the DB
+		//set the text of the TextView objects from the data retrieved from the DB
+		Resources res = getResources();
 		tvname.setText(workout.name);
+		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+			tvname.setTextColor(res.getColor(R.color.wod));
+		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
+			tvname.setTextColor(res.getColor(R.color.heroes));
+		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
+			tvname.setTextColor(res.getColor(R.color.girls));
+		else if(model.getTypeName(workout.workout_type_id).equals("Custom"))
+			tvname.setTextColor(res.getColor(R.color.custom));
 		tvdesc.setText(workout.description);
 		//tvrecordType.setText(model.getTypeName(workout.workout_type_id));
-		tvbestRecord.setText(StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
-		
+        model.close();
+        
 		// begin workout button
         View beginButton = findViewById(R.id.button_begin_workout);
-        beginButton.setOnClickListener(this);
-        model.close();
+        ((TextView) beginButton).setTypeface(font);
+        if (workout.description.indexOf("Rest Day") == -1){
+        	//It is not a rest day
+    		tvbestRecord.setText("personal record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
+        	beginButton.setOnClickListener(this);
+        }else{
+        	//it is a rest day
+        	beginButton.setVisibility(View.GONE);
+        	tvbestRecord.setVisibility(View.GONE);
+        }
+
 	}
 	
 	public void onClick(View v) 
@@ -94,10 +126,11 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		final Intent i = new Intent(this, TimeTabWidget.class);
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
-		alert.setMessage("Enter the number of reps:");
+		alert.setTitle("Enter Number of Reps:");
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		alert.setView(input);
 
 		alert.setPositiveButton("Begin", new DialogInterface.OnClickListener() {
@@ -124,10 +157,11 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		final Intent i = new Intent(this, TimeTabWidget.class);
 		
-		alert.setMessage("Enter the weight you'll use:");
+		alert.setTitle("Input Weight For Workout (lbs):");
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		alert.setView(input);
 
 		alert.setPositiveButton("Begin", new DialogInterface.OnClickListener() {

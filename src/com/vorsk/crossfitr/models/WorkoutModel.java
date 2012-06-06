@@ -255,7 +255,7 @@ public class WorkoutModel extends SQLiteDAO
 	 * @param id
 	 * @return name of the workout type, NULL on failure
 	 */
-	public String getTypeName(long id)
+	public  String getTypeName(long id)
 	{
 		return selectNameByID("workout_type", id);
 	}

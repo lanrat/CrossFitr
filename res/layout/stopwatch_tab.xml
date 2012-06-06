@@ -60,20 +60,20 @@
 
     <Button
         android:id="@+id/reset_button"
+        style="@style/finishButton"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/button_image"
         android:onClick="onResetClicked"
         android:text="@string/reset_stopwatch_label"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/finish_workout_button"
+        style="@style/finishButton"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:background="@drawable/button_image"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:onClick="onFinishedClicked"
