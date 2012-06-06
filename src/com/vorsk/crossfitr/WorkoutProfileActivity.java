@@ -67,8 +67,10 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		//set the text of the TextView objects from the data retrieved from the DB
 		Resources res = getResources();
 		tvname.setText(workout.name);
-		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+		if (model.getTypeName(workout.workout_type_id).equals("WOD")){
+			tvname.setText("WOD");
 			tvname.setTextColor(res.getColor(R.color.wod));
+		}
 		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
 			tvname.setTextColor(res.getColor(R.color.heroes));
 		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
