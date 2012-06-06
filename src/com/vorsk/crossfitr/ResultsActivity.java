@@ -34,8 +34,9 @@ public class ResultsActivity extends Activity implements OnClickListener
 	private EditText commentTextField;
 	private InputMethodManager keyControl;
 	private WorkoutRow workout;
-	private Typeface font;
-	TextView screenName, tvname, tvdesc, tvbestRecord, tvscore;
+	private Typeface font, regFont;
+	TextView screenName, tvname, tvdesc, tvbestRecord, tvscore, commentField;
+	
 	
 	/**
 	 * Automatically ends this activity and returns control to the caller
@@ -102,6 +103,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 
 		font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
+		regFont = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Regular.ttf");
 		screenName = (TextView) findViewById(R.id.screenTitle);
 		screenName.setTypeface(font);
 		tvname = (TextView) findViewById(R.id.workout_results_nameDB);
@@ -109,9 +112,11 @@ public class ResultsActivity extends Activity implements OnClickListener
 		tvbestRecord = (TextView) findViewById(R.id.workout_results_best_recordDB);
 		tvbestRecord.setTypeface(font);
 		tvscore = (TextView) findViewById(R.id.workout_results_score);
-		tvscore.setTypeface(font);
+		tvscore.setTypeface(regFont);
 		tvdesc = (TextView) findViewById(R.id.workout_results_descDB);
 		tvdesc.setTypeface(font);
+		commentField = (TextView) findViewById(R.id.comment_field);
+		commentField.setTypeface(font);
 		
 		//set the text of the TextView objects from the data retrieved from the DB
 		Resources res = getResources();
