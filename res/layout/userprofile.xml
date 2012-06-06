@@ -122,19 +122,20 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:gravity="center_horizontal" >
-
+
         <Button
             android:id="@+id/edit_profile_button"
-            android:layout_width="202dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
             android:layout_gravity="center"
             android:background="@drawable/button"
             android:drawableRight="@drawable/custom_rightarrow"
             android:text="@string/button_edit_profile"
             android:textColor="@color/white"
             android:textSize="20dp" />
+
     </LinearLayout>
 
     <!--
