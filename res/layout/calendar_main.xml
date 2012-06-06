@@ -92,7 +92,8 @@
 		android:id="@+id/calendargrid"
 		android:numColumns="7"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:background="@drawable/calendar_grid_background">
 	</GridView>
 		<LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
