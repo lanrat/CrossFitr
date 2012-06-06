@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -125,10 +126,11 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		final Intent i = new Intent(this, TimeTabWidget.class);
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
-		alert.setMessage("Enter the number of reps:");
+		alert.setTitle("Enter Number of Reps:");
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		alert.setView(input);
 
 		alert.setPositiveButton("Begin", new DialogInterface.OnClickListener() {
@@ -155,10 +157,11 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		final Intent i = new Intent(this, TimeTabWidget.class);
 		
-		alert.setMessage("Enter the weight you'll use:");
+		alert.setTitle("Input Weight For Workout (lbs):");
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		alert.setView(input);
 
 		alert.setPositiveButton("Begin", new DialogInterface.OnClickListener() {
