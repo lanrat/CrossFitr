@@ -86,8 +86,15 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
         ((TextView) beginButton).setTypeface(font);
         if (workout.description.indexOf("Rest Day") == -1){
         	//It is not a rest day
-    		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
-        	beginButton.setOnClickListener(this);
+        	long time = Long.parseLong(String.valueOf(workout.record));
+        	if(time == 0){
+        		tvbestRecord.setText("Personal Record:" + '\n' + "    No personal record yet!");
+        		beginButton.setOnClickListener(this);
+        	}
+        	else{
+        		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(time));
+            	beginButton.setOnClickListener(this);
+        	}
         }else{
         	//it is a rest day
         	beginButton.setVisibility(View.GONE);
