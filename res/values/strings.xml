@@ -57,7 +57,7 @@
 	<string name="comment_field_header">Comments(Optional):</string>
 	
 	<!-- Strings for user profile. -->
-	<string name="user_name">Name:</string>
+	<string name="user_name">Name</string>
 	<string name="user_bmi">BMI:</string>
 	<string name="user_height">Height(in):</string>
 	<string name="user_weight">Current Weight(lbs):</string>
