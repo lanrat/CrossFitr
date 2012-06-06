@@ -154,7 +154,9 @@ public class WorkoutSessionModel extends SQLiteDAO
 		Integer isc = (score == NOT_SCORED) ? null : (int)score;
 		Long ist = (score_type == SCORE_NONE) ? null : score_type;
 		
-		checkUpdateRecord(workout, isc);
+		if (isc != null) {
+			checkUpdateRecord(workout, isc);
+		}
 		ContentValues cv = new ContentValues();
 		cv.put(COL_WORKOUT, workout);
 		cv.put(COL_SCORE, isc);
@@ -241,13 +243,13 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 * @param maxtime End time of interval (unix timestamp)
 	 * @return Sessions within the time period; NULL on failure
 	 */
-	public WorkoutSessionRow[] getByTime(int mintime, int maxtime)
+	public WorkoutSessionRow[] getByTime(long mintime, long maxtime)
 	{
 		String sql = "SELECT * FROM " + DB_TABLE + " WHERE "
 			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ?";
 		
 		Cursor cr = db.rawQuery(sql, new String[] {
-			Integer.toString(mintime), Integer.toString(maxtime)
+			Long.toString(mintime), Long.toString(maxtime)
 		});
 		return fetchWorkoutSessionRows(cr);
 	}
@@ -259,7 +261,7 @@ public class WorkoutSessionModel extends SQLiteDAO
 	 * @param maxtime End time of interval (unix timestamp)
 	 * @param type Workout type; use constants (TYPE_GIRL, etc)
 	 */
-	public WorkoutSessionRow[] getByTime(int mintime, int maxtime, int type)
+	public WorkoutSessionRow[] getByTime(long mintime, long maxtime, int type)
 	{
 		String sql = "SELECT * FROM " + DB_TABLE + " ws WHERE "
 			+ COL_CDATE + "> ? AND " + COL_CDATE + "< ? AND "

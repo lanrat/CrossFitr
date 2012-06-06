@@ -376,32 +376,27 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		private int recordChecker(String day, String month, String year) {
 
-			String startDate = new String(day + "-" + month + "-" + year);
-			int tempconverter = Integer.parseInt(day) + 1;
-			String endDate = new String(Integer.toString(tempconverter) + "-" + month
-					+ "-" + year);
+			// Get the date range
+			int nextday = Integer.parseInt(day) + 1;
+			String startDate = day + "-" + month + "-" + year;
+			String endDate = nextday + "-" + month + "-" + year;
 
 			Log.d(tag, "startDate : " + startDate);
 			Log.d(tag, "endDate : " + endDate);
 
 			calendar_WSession.open();
-
-/*			try {
-				
-				WorkoutSessionRow[] tempWS = calendar_WSession.getByTime(
-						stampTime(startDate), stampTime(endDate));
-			} catch (NullPointerException e) {
+			
+			// Fetch data within the range
+			try {
+				pulledData = calendar_WSession.getByTime(
+					stampTime(startDate), stampTime(endDate));
+			} catch (Exception e) {
 				return 0;
 			}
-	*/		
-			pulledData = calendar_WSession.getByTime(
-					stampTime(startDate), stampTime(endDate));
-			pulledData = calendar_WSession.getByType(WorkoutModel.TYPE_GIRL);
-//			calendar_WSession.close();
 
-//			Log.d(tag, "tempWS : " + tempWS.getClass().toString());
-//			Log.d(tag, "pulledData.length : " + pulledData.length);
-
+			Log.d(tag, "pulledData.length : " + pulledData.length);
+			
+			calendar_WSession.close();
 			return pulledData.length;
 		}
 
@@ -448,21 +443,16 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return currentWeekDay;
 		}
 
-		public int stampTime(String _sDate) {
+		public long stampTime(String _sDate) {
 	  		Log.d("stampTime", "_sDate = " + _sDate);
 			try {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-		//		Log.d("stampTime", "formatter = " + formatter.toString());
 				Date date = (Date) formatter.parse(_sDate);
-		//		Log.d("stampTime", "date = " + date.toString());
 
-				java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
-		//		Log.d("stampTime", "date.getTime() = " + date.getTime());
-		//		Log.d("stampTime", "timeStampDate = " + timeStampDate);
-				long milliTime = timeStampDate.getTime() / 1000L;
+				long milliTime = date.getTime();
 				Log.d("stampTime", "milliTime = " + milliTime);
-				return (int) milliTime;
-
+				return milliTime;
+				
 			} catch (ParseException e) {
 				return 0;
 			}
@@ -494,11 +484,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			if(numberofRecord == 0)
 				listAdapter = new CalendarList(getApplicationContext());
 			else{
-				this.workoutList = new ArrayList<WorkoutSessionRow>();
+				Log.d(tag, "Count: " + numberofRecord);
+				// Construct a new one so further calls do not destroy previous references
+				ArrayList<WorkoutSessionRow> workouts = new ArrayList<WorkoutSessionRow>();
 				for(int i = 0; i < numberofRecord;i++){
-					workoutList.add(pulledData[i]);
+					workouts.add(pulledData[i]);
 				}
-				listAdapter = new CalendarList(getApplicationContext(), workoutList);				
+				listAdapter = new CalendarList(getApplicationContext(), workouts);
 			}
 			
 			listAdapter.notifyDataSetChanged();
@@ -520,6 +512,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private boolean havenoRecord;
 		private LayoutInflater inflater;
 		private int numberofRecord;
+		
+		private String stringSecond;
+		private String stringMinutes;
+		private String finalResult;
 		
 		private TextView itemWorkout;
 		private TextView itemRecord;
@@ -555,10 +551,18 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				itemWorkout.setText("No data existing on this day");
 				itemRecord.setText("No data existing on this day");
 			}else{
-				WorkoutModel tempModel = new WorkoutModel(listContext);
-				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
 				
-				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);				
+				Log.d(tag,"It reaches here ");
+				WorkoutModel tempModel = new WorkoutModel(listContext);
+				tempModel.open();
+				Log.d(tag, "position = " + position);
+				Log.d(tag, "workout_id = " + arrayList.get(position).workout_id);
+				
+				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
+				Log.d(tag,"It reaches here 2");
+				tempModel.close();
+				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);
+				tempSession.open();
 				
 				double tempdouble = arrayList.get(position).score / 1000;
 		
@@ -566,16 +570,30 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				Log.d(tag, "score : " + arrayList.get(position).score);
 				Log.d(tag, "score_type " + arrayList.get(position).score_type_id);
 				Log.d(tag, "score_type with getByID " + tempSession.getByID(arrayList.get(position).score_type_id).toString());
-			/*	try {
-					Date date = (Date) timeFormatter.parse(score);
-					Log.d(tag,"timeFormatter.parse(score : " + date.getTime());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}*/
-				
 
+				if(arrayList.get(position).score_type_id == 1){
+					int seconds = (int) (arrayList.get(position).score / 1000) % 60 ;
+					int minutes = (int) ((arrayList.get(position).score / (1000*60)) % 60);
+					int hours   = (int) ((arrayList.get(position).score / (1000*60*60)) % 24);
+					
+					if(seconds < 10)
+						stringSecond = new String("0" + Integer.toString(seconds));
+					else
+						stringSecond = new String(Integer.toString(seconds));
+					
+					if(minutes < 10)
+						stringMinutes = new String("0" + Integer.toString(minutes));
+					else
+						stringMinutes = new String(Integer.toString(minutes));
+					
+					finalResult = new String (stringMinutes + ":" + stringSecond);
+					
+				}
+				
+				
 				itemWorkout.setText(tempRowName.name);
-				itemRecord.setText(score);
+				itemRecord.setText(finalResult);
+				tempSession.close();
 								
 			}	
 			

@@ -27,12 +27,10 @@
             android:text="Workouts" />
 
 
-        <ImageView
-            android:id="@+id/main_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/background_redbar" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/redLine" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +58,7 @@
             android:layout_marginBottom="7dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_workoutlist_heroes" 
-            android:text="Heroes"
+            android:text="Hero"
             android:textColor="@color/heroes"/>
 
         <Button

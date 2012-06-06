@@ -37,16 +37,15 @@
                 android:id="@+id/heroes_title"
                 style="@style/workoutTypeTitleText"
                 android:layout_toRightOf="@+id/workouts_title"
-                android:text="Heroes"
+                android:text="Hero"
                 android:textColor="@color/heroes" />
             
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/main_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/background_redbar" />
+         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/redLine" />
     </LinearLayout>
     
     <!-- Custom workout list from the database -->
