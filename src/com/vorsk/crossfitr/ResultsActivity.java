@@ -93,11 +93,11 @@ public class ResultsActivity extends Activity implements OnClickListener
 		wmodel.close();
 		
 		// Create the initial view objects
-		setContentView(R.layout.results);
+		setContentView(R.layout.workout_results);
 		
 		// Get views
-		View btn_save = findViewById(R.id.button_results_sav_workout);
-		View btn_nosave = findViewById(R.id.button_results_dontsav_workout);
+		View btn_save = findViewById(R.id.button_results_save_workout);
+		View btn_nosave = findViewById(R.id.button_results_dontsave_workout);
 		View btn_sharefb = findViewById(R.id.button_results_share_workout_FB);
 		
 		// text views
@@ -139,7 +139,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		switch(v.getId())
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
-			case R.id.button_results_sav_workout:
+			case R.id.button_results_save_workout:
 				model.open();
 				model.editComment(session_id,
 						commentTextField.getText().toString());
@@ -153,7 +153,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 
 				break;
 			// if user presses dont save button, go back to home screen.
-			case R.id.button_results_dontsav_workout:
+			case R.id.button_results_dontsave_workout:
 				model.open();
 				model.delete(session_id);
 				model.close();
@@ -183,11 +183,12 @@ public class ResultsActivity extends Activity implements OnClickListener
                 startActivity(share);
                 
 				break;
-				
+			/*	
 			//should close keyboard if clicks on background
 			case R.id.results_background:
 				hideKeyboard(commentTextField);
 				break;
+		    */
 		}
 	}
 	
