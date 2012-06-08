@@ -11,7 +11,7 @@ import android.database.Cursor;
  * Data is returned as instances of AchievementRow where each column
  * is a publicly accessible property.
  * 
- * @author Vivek
+ * @author Vivek and Sam
  * @since 1.0
  */
 public class AchievementModel extends SQLiteDAO
@@ -131,6 +131,49 @@ public class AchievementModel extends SQLiteDAO
 	}
 	
 	/**
+	 * Attempts to update a previously entered achievement. If the update fails,
+	 * it returns null
+	 * 
+	 * @param attr
+	 *            Attribute name
+	 * @return AchievementRow containing achievement if threshold
+	 * 		   is passed, null if not, or failed.
+	 */
+	public AchievementRow updateProgress(String name) {
+		AchievementRow achievement = this.getByName(name);
+		if(achievement == null)
+			return null;
+		
+		int newProgress = achievement.progress;
+		newProgress += 1;
+		if(newProgress >= (achievement.progress_thresh) &&
+		   achievement.count == 0)
+		ContentValues cv = new ContentValues();
+		cv.put(COL_NAME, name);
+		
+		return null;
+	}
+	
+	/**
+	 * Fetch a specific achievement by name
+	 * 
+	 * @param name
+	 *            Achievement name to retrieve
+	 * @return Associated entry or NULL on failure
+	 */
+	public AchievementRow getByName(String name) {
+		Cursor cr = select(new String[] { COL_NAME }, new String[] { name});
+
+		// Name should be unique
+		/*
+		 * if (cr.getCount() > 1) { // TODO: Throw exception? }
+		 */
+
+		AchievementRow[] rows = fetchAchievementRows(cr);
+		return (rows.length == 0) ? null : rows[0];
+	}
+	
+	/**
 	 * Fetch an entry via the ID
 	 * 
 	 * @param id
@@ -146,6 +189,16 @@ public class AchievementModel extends SQLiteDAO
 		
 		AchievementRow[] rows = fetchAchievementRows(cr);
 		return (rows.length == 0) ? null : rows[0];
+	}
+	
+	/**
+	 * Gets the total number of sessions performed
+	 * 
+	 * @return Total sessions
+	 */
+	public int getTotal()
+	{
+		return selectCount(null, null);
 	}
 
 }
