@@ -132,26 +132,41 @@ public class AchievementModel extends SQLiteDAO
 	
 	/**
 	 * Attempts to update a previously entered achievement. If the update fails,
-	 * it returns null
+	 * or the achievement has not yet passed the threshold it returns false. If it 
+	 * has passed the threshold it will return the description for a display toast.
 	 * 
 	 * @param attr
 	 *            Attribute name
 	 * @return AchievementRow containing achievement if threshold
 	 * 		   is passed, null if not, or failed.
 	 */
-	public AchievementRow updateProgress(String name) {
+	public String updateProgress(String name) {
 		AchievementRow achievement = this.getByName(name);
+		
+		// If no achievement returned, return null
 		if(achievement == null)
 			return null;
 		
-		int newProgress = achievement.progress;
-		newProgress += 1;
-		if(newProgress >= (achievement.progress_thresh) &&
-		   achievement.count == 0)
-		ContentValues cv = new ContentValues();
+		ContentValues cv  = new ContentValues();
 		cv.put(COL_NAME, name);
 		
-		return null;
+		// Increment progress of achievement
+		int newProgress = achievement.progress;
+		newProgress += 1;
+		cv.put(COL_PROG, newProgress);
+		
+		// If the progress has passed the threshold, update the count
+		// and return the name of the achievement
+		if(newProgress >= (achievement.progress_thresh) &&
+		   achievement.count == 0){
+			cv.put(COL_COUNT, 1);
+			super.update(cv, "name='" + name + "'");
+			return name;
+		}
+		else{
+			super.update(cv, "name='" + name + "'");
+			return null;
+		}
 	}
 	
 	/**
