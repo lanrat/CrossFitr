@@ -10,7 +10,6 @@
     <color name="static_text_yellow">#FFCC00</color>
     <color name="static_text_green">#008000</color>
     <color name="journal_entry_listitem_text_color">#003366</color>
-    <color name="note_text_disabled">#333333</color>
 
     <!-- Font colors -->
     <color name="blue">#0099CC</color>
@@ -26,9 +25,9 @@
     
     <!--  workout lists  -->
     <color name="translucent_gray">#80414141</color>
-    <color name="light_gray">#aaaaaa</color>
     
     <!-- red line  -->
     <color name = "redLine">#560f10</color>
+    <color name="light_gray">#aaaaaaaa</color>
     
 </resources>
