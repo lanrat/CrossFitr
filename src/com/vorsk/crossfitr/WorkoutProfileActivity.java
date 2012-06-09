@@ -6,17 +6,12 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.text.Editable;
-import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class WorkoutProfileActivity extends Activity implements OnClickListener 
@@ -28,7 +23,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	TextView screenName, tvname, tvdesc, tvbestRecord;
 	
 	//Its dynamic! android should use this by default
-	private String TAG = this.getClass().getName();
+	//private String TAG = this.getClass().getName();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -109,29 +104,20 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		{
 		    // if user presses begin button, user will now go into the timer page.
 			case R.id.button_begin_workout:
-				if(workout.record_type_id == SQLiteDAO.SCORE_WEIGHT){
-					weightPopup();
-				}
-				
-				else if(workout.record_type_id == SQLiteDAO.SCORE_REPS){
-					repsPopup();
-				}
-				
-				else{	
-					Intent i = new Intent(this, TimeTabWidget.class);
-					i.putExtra("workout_id", workout._id);
-					//i.putExtra("workout_score",
-							//Integer.parseInt(etextra.getText().toString()));
-					startActivityForResult(i, ACT_TIMER);
-				} 
+				Intent i = new Intent(this, TimeTabWidget.class);
+				i.putExtra("workout_id", workout._id);
+				//i.putExtra("workout_score",
+				//Integer.parseInt(etextra.getText().toString()));
+				startActivityForResult(i, ACT_TIMER);
 				break;
 		}
 	}
 	
 	
+/*	Saved for possible implementation in the future */
 	
+/*
 	private void repsPopup() {
-		// TODO Auto-generated method stub
 		final Intent i = new Intent(this, TimeTabWidget.class);
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
@@ -162,7 +148,6 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 	}
 
 	private void weightPopup() {
-		// TODO Auto-generated method stub
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		final Intent i = new Intent(this, TimeTabWidget.class);
 		
@@ -193,7 +178,7 @@ public class WorkoutProfileActivity extends Activity implements OnClickListener
 		alert.show();
 		
 	}
-
+*/
 	@Override
 	protected void onActivityResult(int request, int result, Intent data)
 	{
