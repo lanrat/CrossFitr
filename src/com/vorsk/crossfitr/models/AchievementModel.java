@@ -135,13 +135,13 @@ public class AchievementModel extends SQLiteDAO
 	 * or the achievement has not yet passed the threshold it returns false. If it 
 	 * has passed the threshold it will return the description for a display toast.
 	 * 
-	 * @param attr
-	 *            Attribute name
+	 * @param achievementType
+	 *            Type of achievement to update
 	 * @return AchievementRow containing achievement if threshold
 	 * 		   is passed, null if not, or failed.
 	 */
-	public String updateProgress(String name) {
-		AchievementRow achievement = this.getByName(name);
+	public String updateProgress(int achievementType) {
+		AchievementRow[] achievement = this.getByName(name);
 		
 		// If no achievement returned, return null
 		if(achievement == null)
@@ -169,6 +169,19 @@ public class AchievementModel extends SQLiteDAO
 		}
 	}
 	
+	/**
+	 * Fetch all achievements of a specific type (girl, hero, custom, all)
+	 * 
+	 * @param type The achievement type; use constants (TYPE_GIRL, etc)
+	 * @return array of workouts, null on failure
+	 */
+	public AchievementRow[] getAllByType(int type)
+	{
+		String[] col = { COL_ACH_TYPE };
+		String[] val = { String.valueOf(type) };
+		Cursor cr = select(col, val);
+		return fetchAchievementRows(cr);
+	}
 	/**
 	 * Fetch a specific achievement by name
 	 * 
