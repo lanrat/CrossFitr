@@ -73,15 +73,17 @@
 
         <TextView
             android:id="@+id/workout_profile_best_recordDB"
-            android:layout_width="151dp"
+               android:layout_width="276dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="left"
             android:layout_marginRight="20dp"
-            android:layout_weight="0.37"
-            android:textColor="#ffbb33"
+            android:layout_weight="0.41"
+            android:textColor="#aaaaaa"
             android:textSize="20sp"
             android:textStyle="italic" />
-    </LinearLayout>
+    </LinearLayout>
+    
+    <!-- Buttons -->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -90,35 +92,47 @@
         android:layout_weight="0.01"
         android:orientation="horizontal" >
 	    
-	    <Button
-	        android:id="@+id/button_begin_workout"
-	        android:layout_width="100dp"
-	        android:layout_height="62dp"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="2dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_marginTop="50dp"
-	        android:background="@drawable/begin_workout_clicked" />
+        <Button
+        android:id="@+id/button_begin_workout"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Begin"
+        android:textColor="@color/wod"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-	    <Button
-	        android:id="@+id/button_custom_edit_button"
-	        android:layout_width="100dp"
-	        android:layout_height="62dp"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_marginTop="50dp"
-	        android:text="@string/edit_profile_label" />
+        <Button
+        android:id="@+id/button_edit_workout"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Edit"
+        android:textColor="@color/wod"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 	    
-	      <Button
-	        android:id="@+id/button_custom_delete_button"
-	        android:layout_width="100dp"
-	        android:layout_height="62dp"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_marginTop="50dp"
-	        android:text="@string/delete_profile_label" />
+        <Button
+        android:id="@+id/button_delete_workout"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Delete"
+        android:textColor="@color/wod"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 	</LinearLayout>
 

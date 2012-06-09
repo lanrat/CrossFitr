@@ -26,11 +26,7 @@
     </declare-styleable>
 
     <!-- NumberPicker style. -->
-    <attr name="numberPickerStyle" format="reference" />
     <!-- NumberPicker up button style. -->
-    <attr name="numberPickerUpButtonStyle" format="reference" />
     <!-- NumberPicker down button style. -->
-    <attr name="numberPickerDownButtonStyle" format="reference" />
     <!-- NumberPicker input text style. -->
-    <attr name="numberPickerInputTextStyle" format="reference" />
 </resources>

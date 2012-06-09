@@ -78,6 +78,7 @@ public class WorkoutsActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	@Override
 	public void onBackPressed() {
 		Intent u = new Intent(this, CrossFitrActivity.class);
 		startActivity(u);

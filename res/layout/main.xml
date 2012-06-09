@@ -29,16 +29,23 @@
             android:layout_marginTop="36dp"
             android:background="@drawable/user_pic" />
 
+
         <Button
             android:id="@+id/main_button_profile"
             android:layout_width="match_parent"
+            android:paddingTop="14dp"
+            android:paddingLeft="5dp"
             android:layout_height="120dp"
             android:layout_marginTop="15dp"
-        	android:textSize="18dp"
-        	android:textColor="@color/white"
-            android:background="@drawable/ic_main_profile" />
+            android:background="@drawable/ic_main_profile"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
     </LinearLayout>
-
+
+
+
+
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="300dp"
@@ -46,12 +53,16 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/main_status"
         android:orientation="vertical" >
-
+
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp" >
-
+
+
+
+
             <TextView
                 android:id="@+id/main_num_of_workouts"
                 android:layout_width="75dp"
@@ -62,7 +73,10 @@
                 android:orientation="horizontal"
                 android:textColor="#ffffff"
                 android:textSize="40dp" />
-
+
+
+
+
             <TextView
                 android:id="@+id/main_last_workout"
                 android:layout_width="90dp"
@@ -74,7 +88,8 @@
                 android:orientation="horizontal"
                 android:textColor="#ffffff"
                 android:textSize="15dp" />
-
+
+
             <TextView
                 android:id="@+id/main_num_of_achievments"
                 android:layout_width="77dp"
@@ -90,7 +105,8 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" >
+
             <TextView
                 android:id="@+id/status_display1"
                 android:layout_width="wrap_content"

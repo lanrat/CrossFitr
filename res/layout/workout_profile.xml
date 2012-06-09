@@ -70,19 +70,22 @@
                 android:layout_marginTop="45dp"
                 android:textSize="25sp" />
         </ScrollView>
-
+
         <TextView
             android:id="@+id/workout_profile_best_recordDB"
-            android:layout_width="151dp"
+            android:layout_width="276dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="left"
             android:layout_marginRight="20dp"
-            android:layout_weight="0.37"
-            android:textColor="#ffbb33"
+            android:layout_weight="0.41"
+            android:textColor="#aaaaaa"
             android:textSize="20sp"
             android:textStyle="italic" />
+
     </LinearLayout>
-
+    
+    <!-- Buttons -->
+
     <Button
         android:id="@+id/button_begin_workout"
         android:layout_width="wrap_content"
@@ -91,8 +94,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/button"
-        android:drawableRight="@drawable/custom_rightarrow"
-        android:text="begin workout"
+        android:text="Begin Workout"
         android:textColor="@color/wod"
         android:textSize="20sp"
         android:textStyle="bold" />

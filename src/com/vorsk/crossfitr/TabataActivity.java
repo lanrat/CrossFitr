@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -33,6 +34,7 @@ public class TabataActivity extends Activity {
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
 	private Handler mHandler = new Handler() {
+		@Override
 		public void handleMessage(Message m) {
 			if(!cdRun)
 			updateElapsedTime();
@@ -92,6 +94,8 @@ public class TabataActivity extends Activity {
         mFinish.setTypeface(roboto);
         mFinish.setEnabled(false);
         
+        setDisplayBackgroundColor(0);
+        
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
 	}
 
@@ -111,6 +115,7 @@ public class TabataActivity extends Activity {
 			 
 			new CountDownTimer(3000, 100) {
 
+				@Override
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
@@ -120,6 +125,7 @@ public class TabataActivity extends Activity {
 					mFinish.setEnabled(false);
 				}
 
+				@Override
 				public void onFinish() {
 					goStop = true;
 					playSound(R.raw.bell_ring);
@@ -155,8 +161,8 @@ public class TabataActivity extends Activity {
 		Intent result = new Intent();
 		result.putExtra("time", tabata.getElapsedTime());
 		
-		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
-				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
+				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
 			result.putExtra("score", getIntent().getIntExtra("score", 0));
 		}
 		
@@ -239,7 +245,9 @@ public class TabataActivity extends Activity {
 				}
 				goStop = false;
 			}
-			setDisplayBackgroundColor(1);
+			if(tabata.isRunning()){
+				setDisplayBackgroundColor(1);
+			}
 			return formatElapsedTime(30000 - (time % 30000), set);
 		}
 	}
@@ -279,6 +287,7 @@ public class TabataActivity extends Activity {
 		 }
 	}
 	
+	@Override
 	public void onBackPressed() {
         super.onBackPressed();
         if (mp != null) {

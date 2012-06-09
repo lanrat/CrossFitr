@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import android.app.Activity;
@@ -38,6 +39,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 	
 	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
 	ProfileModel profileModel = new ProfileModel(this);
+	AchievementModel achievementModel = new AchievementModel(this);
 
 
 	/** Called when the activity is first created. */
@@ -47,6 +49,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 	}
 	
+	@Override
 	public void onResume()
 	{
 		super.onResume();
@@ -174,12 +177,14 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		lastWorkouts = (TextView) findViewById(R.id.main_last_workout);
 		
 		lastWorkouts.setTypeface(font);
-		sessionModel.close();
+		
 		
 		// Achievements
+		achievementModel.open();
 		numOfAchievments = (TextView) findViewById(R.id.main_num_of_achievments);
-		numOfAchievments.setText("0");
+		numOfAchievments.setText(" " + achievementModel.getTotal());
 		numOfAchievments.setTypeface(font);
+		sessionModel.close();
 	}
 
 	public void onClick(View v)

@@ -11,7 +11,7 @@ import android.database.Cursor;
  * Data is returned as instances of AchievementRow where each column
  * is a publicly accessible property.
  * 
- * @author Vivek
+ * @author Vivek and Sam
  * @since 1.0
  */
 public class AchievementModel extends SQLiteDAO
@@ -131,6 +131,112 @@ public class AchievementModel extends SQLiteDAO
 	}
 	
 	/**
+	 * Attempts to update a previously entered achievement. If the update fails,
+	 * or the achievement has not yet passed the threshold it returns null. If it 
+	 * has passed the threshold it will return the description for a display toast.
+	 * 
+	 * @param achievementType
+	 *            Type of achievement to update
+	 * @return AchievementRow containing achievement if threshold
+	 * 		   is passed, null if not, or failed.
+	 */
+	public String getProgress(int achievementType) {
+		AchievementRow[] achievement;
+		
+		// Check if the all workout achievements need to be updated.
+		if(achievementType == SQLiteDAO.TYPE_GIRL || achievementType == SQLiteDAO.TYPE_HERO){
+			AchievementRow[] all = this.getAllByType(SQLiteDAO.TYPE_ALL);
+			AchievementRow[] other = this.getAllByType(achievementType);
+			achievement = new AchievementRow[all.length + other.length];
+			System.arraycopy(all, 0, achievement, 0, all.length);
+			System.arraycopy(other, 0, achievement, all.length, other.length);
+		}
+		else{
+			achievement = this.getAllByType(achievementType);
+		}
+		
+		ContentValues cv;
+		String totalAchievement = null;
+		
+		for(int i = 0; i < achievement.length; i++)
+		{
+			cv  = new ContentValues();
+			cv.put(COL_NAME, achievement[i].name);
+		
+			// Increment progress of achievement
+			int newProgress = achievement[i].progress;
+			newProgress += 1;
+			cv.put(COL_PROG, newProgress);
+			
+	
+			
+			// If the progress has passed the threshold, update the count
+			// and return the name of the achievement
+			if(newProgress >= (achievement[i].progress_thresh) &&
+			   achievement[i].count == 0){
+				cv.put(COL_COUNT, 1);
+				super.update(cv, "name='" + achievement[i].name + "'");
+				if(totalAchievement == null){
+					totalAchievement = "Achievement Earned: " + achievement[i].name;
+				}
+				else{
+				totalAchievement += "\nAchievement Earned: " + achievement[i].name;
+				}
+			}
+			else{
+				super.update(cv, "name='" + achievement[i].name + "'");
+			}
+		}
+		return totalAchievement;
+	}
+	
+	/**
+	 * Gets the total number of achievements earned
+	 * 
+	 * @return Total achievements
+	 */
+	public int getTotal()
+	{
+		String[] count = new String[1];
+		count[0] = "count";
+		String[] one = new String[1];
+		one[0] = "one";
+		return selectCount(count, one);
+	}
+	
+	/**
+	 * Fetch all achievements of a specific type (girl, hero, custom, all)
+	 * 
+	 * @param type The achievement type; use constants (TYPE_GIRL, etc)
+	 * @return array of achievements, null on failure
+	 */
+	public AchievementRow[] getAllByType(int type)
+	{
+		String[] col = { COL_ACH_TYPE };
+		String[] val = { String.valueOf(type) };
+		Cursor cr = select(col, val);
+		return fetchAchievementRows(cr);
+	}
+	/**
+	 * Fetch a specific achievement by name
+	 * 
+	 * @param name
+	 *            Achievement name to retrieve
+	 * @return Associated entry or NULL on failure
+	 */
+	public AchievementRow getByName(String name) {
+		Cursor cr = select(new String[] { COL_NAME }, new String[] { name});
+
+		// Name should be unique
+		/*
+		 * if (cr.getCount() > 1) { // TODO: Throw exception? }
+		 */
+
+		AchievementRow[] rows = fetchAchievementRows(cr);
+		return (rows.length == 0) ? null : rows[0];
+	}
+	
+	/**
 	 * Fetch an entry via the ID
 	 * 
 	 * @param id
@@ -147,5 +253,4 @@ public class AchievementModel extends SQLiteDAO
 		AchievementRow[] rows = fetchAchievementRows(cr);
 		return (rows.length == 0) ? null : rows[0];
 	}
-
 }

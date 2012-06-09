@@ -12,7 +12,7 @@ public class DateToTimestamp {
 			DateFormat formatter;
 			Date date;
 			formatter = new SimpleDateFormat("dd-MMM-yy");
-			date = (Date) formatter.parse(str_date);
+			date = formatter.parse(str_date);
 			java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
 			System.out.println("Today is " + timeStampDate);
 		} catch (ParseException e) {

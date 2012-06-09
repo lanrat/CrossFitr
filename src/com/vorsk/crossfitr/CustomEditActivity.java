@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -7,7 +8,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -36,6 +36,7 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 	WorkoutModel model = new WorkoutModel(this);
 	
 	// onCreate method called at the beginning of activity
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.custom_workout_form);
@@ -67,10 +68,12 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 		
 		// text field for the workout description to be added
 		workoutTextField = (EditText) findViewById(R.id.description_edittext_add);
+		workoutTextField.setText(workout.description);
 		workoutTextField.setOnClickListener(this);
 
 		// text field for the workout name to be added
 		nameTextField = (EditText) findViewById(R.id.nameofworkout_edittext_add);
+		nameTextField.setText(workout.name);
 		nameTextField.setOnClickListener(this);
 
 
@@ -128,7 +131,8 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 
 		// user clicks the save and start workout button
 		case R.id.button_workout_form_start:
-			if (this.validateForm() == true) {
+			if (this.validateForm() == true) 
+			{
 				
 				model.open();
 				
@@ -144,7 +148,9 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 				
 				Intent i = new Intent(this, WorkoutProfileActivity.class);
 				startActivity(i);
-			} else {
+			}
+			else 
+			{
 				// error prompt
 				Context context = getApplicationContext();
 				CharSequence text = "Please fill out all fields!";
@@ -192,15 +198,15 @@ public class CustomEditActivity extends Activity implements OnClickListener {
 			// the record dropdown.
 			if (parent.getItemAtPosition(pos).toString()
 					.equals("Please select a record type")) {
-				recordConstant = -5;
+				recordConstant = 0;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Timer")) {
-				recordConstant = WorkoutModel.SCORE_TIME;
+				recordConstant = SQLiteDAO.SCORE_TIME;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Weight")) {
-				recordConstant = WorkoutModel.SCORE_WEIGHT;
+				recordConstant = SQLiteDAO.SCORE_WEIGHT;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Reps")) {
-				recordConstant = WorkoutModel.SCORE_REPS;
+				recordConstant = SQLiteDAO.SCORE_REPS;
 			} else if (parent.getItemAtPosition(pos).toString().equals("None")) {
-				recordConstant = WorkoutModel.SCORE_NONE;
+				recordConstant = SQLiteDAO.SCORE_NONE;
 			}
 		}
 

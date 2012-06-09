@@ -8,10 +8,13 @@ import com.vorsk.crossfitr.models.WorkoutSessionRow;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +35,9 @@ public class ResultsActivity extends Activity implements OnClickListener
 	private EditText commentTextField;
 	private InputMethodManager keyControl;
 	private WorkoutRow workout;
+	private Typeface font, regFont;
+	TextView screenName, tvname, tvdesc, tvbestRecord, tvscore, commentField;
+	
 	
 	/**
 	 * Automatically ends this activity and returns control to the caller
@@ -74,10 +80,12 @@ public class ResultsActivity extends Activity implements OnClickListener
 		return session;
 	}
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		
 		
 		WorkoutSessionRow session = validateAccess();
 		
@@ -90,28 +98,60 @@ public class ResultsActivity extends Activity implements OnClickListener
 			Log.e("DB_Inconsistency", "Invalid workout id on session");
 			finish();
 		}
-		wmodel.close();
 		
 		// Create the initial view objects
-		setContentView(R.layout.results);
+		setContentView(R.layout.workout_results);
+		
+		//TextView objects
+
+		font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Thin.ttf");
+		regFont = Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Regular.ttf");
+		screenName = (TextView) findViewById(R.id.screenTitle);
+		screenName.setTypeface(font);
+		tvname = (TextView) findViewById(R.id.workout_results_nameDB);
+		tvname.setTypeface(font);
+		tvbestRecord = (TextView) findViewById(R.id.workout_results_best_recordDB);
+		tvbestRecord.setTypeface(font);
+		tvscore = (TextView) findViewById(R.id.workout_results_score);
+		tvscore.setTypeface(regFont);
+		tvdesc = (TextView) findViewById(R.id.workout_results_descDB);
+		tvdesc.setTypeface(font);
+		commentField = (TextView) findViewById(R.id.comment_field);
+		commentField.setTypeface(font);
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		
+		//set the text of the TextView objects from the data retrieved from the DB
+		Resources res = getResources();
+		tvname.setText(workout.name);
+		if (wmodel.getTypeName(workout.workout_type_id).equals("WOD"))
+			tvname.setTextColor(res.getColor(R.color.wod));
+		else if (wmodel.getTypeName(workout.workout_type_id).equals("Hero"))
+			tvname.setTextColor(res.getColor(R.color.heroes));
+		else if (wmodel.getTypeName(workout.workout_type_id).equals("Girl"))
+			tvname.setTextColor(res.getColor(R.color.girls));
+		else if(wmodel.getTypeName(workout.workout_type_id).equals("Custom"))
+			tvname.setTextColor(res.getColor(R.color.custom));
+		tvdesc.setText(workout.description);
+  		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
+  		tvscore.setText("Your Score: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(session.score))));
+		
+		wmodel.close();
 		
 		// Get views
-		View btn_save = findViewById(R.id.button_results_sav_workout);
-		View btn_nosave = findViewById(R.id.button_results_dontsav_workout);
+		View btn_save = findViewById(R.id.button_results_save_workout);
+        ((TextView) btn_save).setTypeface(font);
+        btn_save.setOnClickListener(this);
+        
+		View btn_nosave = findViewById(R.id.button_results_dontsave_workout);
+        ((TextView) btn_nosave).setTypeface(font);
+        btn_nosave.setOnClickListener(this);
+        
 		View btn_sharefb = findViewById(R.id.button_results_share_workout_FB);
-		
-		// text views
-		TextView txt_name = (TextView)findViewById(R.id.text_workout_name);
-		TextView txt_desc = (TextView)findViewById(R.id.text_workout_desc);
-		TextView txt_record = (TextView)findViewById(R.id.text_workout_record);
-		TextView txt_score = (TextView)findViewById(R.id.text_session_score);
-		
-		// Set content
-		txt_name.setText(workout.name);
-		txt_desc.setText(workout.description);
-		txt_record.setText(StopwatchActivity.formatElapsedTime(workout.record)); // Formatted using Stopwatch Activity
-		txt_score.setText(StopwatchActivity.formatElapsedTime(session.score)); // Formatted using Stopwatch Activity
-		
+        ((TextView) btn_sharefb).setTypeface(font);
+        btn_sharefb.setOnClickListener(this);
+        
 		//edittext handler
 		commentTextField = (EditText) findViewById(R.id.results_comment_edittext_add);
 		commentTextField.setOnClickListener(this);
@@ -139,7 +179,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		switch(v.getId())
 		{
 			// if user presses save and end button button, will go back to home screen after saving.
-			case R.id.button_results_sav_workout:
+			case R.id.button_results_save_workout:
 				model.open();
 				model.editComment(session_id,
 						commentTextField.getText().toString());
@@ -153,7 +193,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 
 				break;
 			// if user presses dont save button, go back to home screen.
-			case R.id.button_results_dontsav_workout:
+			case R.id.button_results_dontsave_workout:
 				model.open();
 				model.delete(session_id);
 				model.close();
@@ -183,11 +223,12 @@ public class ResultsActivity extends Activity implements OnClickListener
                 startActivity(share);
                 
 				break;
-				
+			/*	
 			//should close keyboard if clicks on background
 			case R.id.results_background:
 				hideKeyboard(commentTextField);
 				break;
+		    */
 		}
 	}
 	
