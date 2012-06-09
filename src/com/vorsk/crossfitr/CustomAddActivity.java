@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.WorkoutModel;
 
 import android.app.Activity;
@@ -30,6 +31,7 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 	// functionality
 	Spinner recordTypeDropDown;
 	WorkoutModel model = new WorkoutModel(this);
+	AchievementModel achievementModel = new AchievementModel(this);
 
 	// onCreate method called at the beginning of activity
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,10 +80,18 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		Log.d(tag, "View : " + v.getId());
 
+		Context context = getApplicationContext();
+		CharSequence text;
+		int duration;
+		Toast toast;
+		
 		switch (v.getId()) {
 		// if user clicks the save button
 		case R.id.button_workout_form_save:
 			// validate that inputs are not junk
+			
+
+
 
 			if (this.validateForm() == true) {
 
@@ -90,6 +100,14 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 				// workout in dropdowns
 				model.insert(nameTextField.getText().toString(), workoutTextField
 						.getText().toString(), workoutConstant, recordConstant);
+				
+				text = achievementModel.getProgress(AchievementModel.TYPE_CUSTOM);
+				duration = Toast.LENGTH_LONG;
+				if(text != null){
+					toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				
 				model.close();
 				// go back into the custom activity class
 				finish();
@@ -99,11 +117,10 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 			else 
 			{
 				// error prompt
-				Context context = getApplicationContext();
-				CharSequence text = "Please fill out all fields!";
-				int duration = Toast.LENGTH_SHORT;
+				text = "Please fill out all fields!";
+				duration = Toast.LENGTH_SHORT;
 
-				Toast toast = Toast.makeText(context, text, duration);
+				toast = Toast.makeText(context, text, duration);
 				toast.show();
 			}
 
@@ -117,6 +134,13 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 				// workout in dropdowns
 				long newId = model.insert(nameTextField.getText().toString(), workoutTextField
 						.getText().toString(), workoutConstant, recordConstant);
+				text = achievementModel.getProgress(AchievementModel.TYPE_CUSTOM);
+				duration = Toast.LENGTH_LONG;
+				if(text != null){
+					toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				
 				model.close();
 
 				//pass in id to WorkoutProfileActivity and start activity
@@ -128,11 +152,10 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 			else 
 			{
 				// error prompt
-				Context context = getApplicationContext();
-				CharSequence text = "Please fill out all fields!";
-				int duration = Toast.LENGTH_SHORT;
+				text = "Please fill out all fields!";
+				duration = Toast.LENGTH_SHORT;
 
-				Toast toast = Toast.makeText(context, text, duration);
+				toast = Toast.makeText(context, text, duration);
 				toast.show();
 			}
 

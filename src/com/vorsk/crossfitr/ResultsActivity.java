@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -40,6 +41,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 	private Typeface font, regFont;
 	TextView screenName, tvname, tvdesc, tvbestRecord, tvscore, commentField;
 	
+	AchievementModel achievementModel = new AchievementModel(this);
+	
 	
 	/**
 	 * Automatically ends this activity and returns control to the caller
@@ -77,6 +80,8 @@ public class ResultsActivity extends Activity implements OnClickListener
 		if (session == null) {
 			reject("Page_Requirement", "invalid session id was provided");
 		}
+		
+		
 		wsmodel.close();
 		
 		return session;
@@ -87,18 +92,41 @@ public class ResultsActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		
+
 		
 		WorkoutSessionRow session = validateAccess();
 		
 		// Get the relevant Workout performed
 		WorkoutModel wmodel = new WorkoutModel(this);
 		wmodel.open();
+		achievementModel.open();
+		
 		workout = wmodel.getByID(session.workout_id);
 		if (workout == null) 
 		{
 			Log.e("DB_Inconsistency", "Invalid workout id on session");
 			finish();
 		}
+		
+		// Achievement implementation
+		Context context = getApplicationContext();
+		CharSequence text;
+		int duration = Toast.LENGTH_LONG;
+		Toast toast;
+		
+		
+		if(workout.workout_type_id != AchievementModel.TYPE_CUSTOM){
+			text = achievementModel.getProgress((int) workout.workout_type_id);
+		}
+		else{
+			text = achievementModel.getProgress(achievementModel.TYPE_ALL);
+		}
+		
+		if(text != null){
+			toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+	
 		
 		// Create the initial view objects
 		setContentView(R.layout.workout_results);
