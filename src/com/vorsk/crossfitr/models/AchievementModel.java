@@ -132,7 +132,7 @@ public class AchievementModel extends SQLiteDAO
 	
 	/**
 	 * Attempts to update a previously entered achievement. If the update fails,
-	 * or the achievement has not yet passed the threshold it returns false. If it 
+	 * or the achievement has not yet passed the threshold it returns null. If it 
 	 * has passed the threshold it will return the description for a display toast.
 	 * 
 	 * @param achievementType
@@ -140,40 +140,54 @@ public class AchievementModel extends SQLiteDAO
 	 * @return AchievementRow containing achievement if threshold
 	 * 		   is passed, null if not, or failed.
 	 */
-	public String updateProgress(int achievementType) {
-		AchievementRow[] achievement = this.getByName(name);
+	public String getProgress(int achievementType) {
+		AchievementRow[] achievement;
 		
-		// If no achievement returned, return null
-		if(achievement == null)
-			return null;
-		
-		ContentValues cv  = new ContentValues();
-		cv.put(COL_NAME, name);
-		
-		// Increment progress of achievement
-		int newProgress = achievement.progress;
-		newProgress += 1;
-		cv.put(COL_PROG, newProgress);
-		
-		// If the progress has passed the threshold, update the count
-		// and return the name of the achievement
-		if(newProgress >= (achievement.progress_thresh) &&
-		   achievement.count == 0){
-			cv.put(COL_COUNT, 1);
-			super.update(cv, "name='" + name + "'");
-			return name;
+		// Check if the all workout achievements need to be updated.
+		if(achievementType == AchievementModel.TYPE_GIRL || achievementType == AchievementModel.TYPE_HERO){
+			AchievementRow[] all = this.getAllByType(AchievementModel.TYPE_ALL);
+			AchievementRow[] other = this.getAllByType(achievementType);
+			achievement = new AchievementRow[all.length + other.length];
+			System.arraycopy(all, 0, achievement, 0, all.length);
+			System.arraycopy(other, 0, achievement, all.length, other.length);
 		}
 		else{
-			super.update(cv, "name='" + name + "'");
-			return null;
+			achievement = this.getAllByType(achievementType);
 		}
+		
+		ContentValues cv;
+		String totalAchievement = null;
+		
+		for(int i = 0; i < achievement.length; i++)
+		{
+			cv  = new ContentValues();
+			cv.put(COL_NAME, achievement[i].name);
+		
+			// Increment progress of achievement
+			int newProgress = achievement[i].progress;
+			newProgress += 1;
+			cv.put(COL_PROG, newProgress);
+			
+			// If the progress has passed the threshold, update the count
+			// and return the name of the achievement
+			if(newProgress >= (achievement[i].progress_thresh) &&
+			   achievement[i].count == 0){
+				cv.put(COL_COUNT, 1);
+				super.update(cv, "name='" + achievement[i].name + "'");
+				totalAchievement += achievement[i].name + "\n";
+			}
+			else{
+				super.update(cv, "name='" + achievement[i].name + "'");
+			}
+		}
+		return totalAchievement;
 	}
 	
 	/**
 	 * Fetch all achievements of a specific type (girl, hero, custom, all)
 	 * 
 	 * @param type The achievement type; use constants (TYPE_GIRL, etc)
-	 * @return array of workouts, null on failure
+	 * @return array of achievements, null on failure
 	 */
 	public AchievementRow[] getAllByType(int type)
 	{
