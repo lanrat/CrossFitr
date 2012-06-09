@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.ProfileModel;
 
 import android.app.Activity;
@@ -21,6 +22,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	private EditText heightTextField;
 	private EditText goalWeightTextField;
 	ProfileModel model = new ProfileModel(this);
+	AchievementModel achievementModel = new AchievementModel(this);
 	
 	private Typeface font;
 	
@@ -110,6 +112,13 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 				long height_id = model.updateInsert("height", heightTextField.getText().toString());
 				long current_weight_id = model.updateInsert("weight", weightTextField.getText().toString());
 				long goal_weight_id = model.updateInsert("goal_weight", goalWeightTextField.getText().toString());
+				
+				text = achievementModel.getProgress(AchievementModel.TYPE_MISC);
+				if(text != null){
+					toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				
 				model.close();
 				finish();
 				Intent u = new Intent(this, UserProfileActivity.class);

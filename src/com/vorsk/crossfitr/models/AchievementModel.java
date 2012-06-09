@@ -168,13 +168,20 @@ public class AchievementModel extends SQLiteDAO
 			newProgress += 1;
 			cv.put(COL_PROG, newProgress);
 			
+	
+			
 			// If the progress has passed the threshold, update the count
 			// and return the name of the achievement
 			if(newProgress >= (achievement[i].progress_thresh) &&
 			   achievement[i].count == 0){
 				cv.put(COL_COUNT, 1);
 				super.update(cv, "name='" + achievement[i].name + "'");
-				totalAchievement += achievement[i].name + "\n";
+				if(totalAchievement == null){
+					totalAchievement = "Achievement Earned: " + achievement[i].name;
+				}
+				else{
+				totalAchievement += "\nAchievement Earned: " + achievement[i].name;
+				}
 			}
 			else{
 				super.update(cv, "name='" + achievement[i].name + "'");

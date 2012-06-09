@@ -123,6 +123,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="80dp"
+        android:orientation="vertical"
         android:gravity="center_horizontal" >
 
         <Button
@@ -133,6 +134,17 @@
             android:background="@drawable/button"
             android:drawableRight="@drawable/custom_rightarrow"
             android:text="@string/button_edit_profile"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+        
+        <Button
+            android:id="@+id/achievements_button"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button"
+            android:drawableRight="@drawable/custom_rightarrow"
+            android:text="@string/button_achievements"
             android:textColor="@color/white"
             android:textSize="20dp" />
 
