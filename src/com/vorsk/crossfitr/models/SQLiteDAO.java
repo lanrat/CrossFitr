@@ -61,7 +61,7 @@ public abstract class SQLiteDAO
 	
 	// DB Properties
 	private static final String DB_NAME = "CrossFitr";
-	private static final int DB_VERSION = 4;
+	private static final int DB_VERSION = 5;
 	
 	
 	/**
@@ -294,13 +294,19 @@ public abstract class SQLiteDAO
 		Cursor cr = db.rawQuery(
 			"SELECT * FROM " + table + " WHERE " + COL_ID + "=?",
 			new String[] { String.valueOf(id) });
-		if (cr == null || cr.getCount() < 1) {
+		if (cr == null) {
+			return null;
+		}
+		if (cr.getCount() < 1) {
+			cr.close();
 			return null;
 		}
 		
 		int col = cr.getColumnIndexOrThrow(COL_NAME);
 		cr.moveToFirst();
-		return cr.getString(col);
+		String result = cr.getString(col);
+		cr.close();
+		return result;
 	}
 	
 	protected long selectIDByName(String table, String name) throws SQLException
@@ -308,7 +314,10 @@ public abstract class SQLiteDAO
 		Cursor cr = db.rawQuery(
 			"SELECT * FROM " + table + " WHERE " + COL_NAME + "=?",
 			new String[] { name });
-		if (cr == null || cr.getCount() < 1) {
+		if (cr == null) {
+			return -1;
+		}
+		if (cr.getCount() < 1) {
 			cr.close();
 			return -1;
 		}
