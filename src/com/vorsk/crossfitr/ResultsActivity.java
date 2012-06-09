@@ -109,23 +109,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		}
 		
 		// Achievement implementation
-		Context context = getApplicationContext();
-		CharSequence text;
-		int duration = Toast.LENGTH_LONG;
-		Toast toast;
 		
-		
-		if(workout.workout_type_id != AchievementModel.TYPE_CUSTOM){
-			text = achievementModel.getProgress((int) workout.workout_type_id);
-		}
-		else{
-			text = achievementModel.getProgress(achievementModel.TYPE_ALL);
-		}
-		
-		if(text != null){
-			toast = Toast.makeText(context, text, duration);
-			toast.show();
-		}
 	
 		
 		// Create the initial view objects
@@ -212,6 +196,25 @@ public class ResultsActivity extends Activity implements OnClickListener
 				model.open();
 				model.editComment(session_id,
 						commentTextField.getText().toString());
+				
+				Context context = getApplicationContext();
+				CharSequence text;
+				int duration = Toast.LENGTH_LONG;
+				Toast toast;
+				
+				
+				if(workout.workout_type_id != AchievementModel.TYPE_CUSTOM){
+					text = achievementModel.getProgress((int) workout.workout_type_id);
+				}
+				else{
+					text = achievementModel.getProgress(AchievementModel.TYPE_ALL);
+				}
+				
+				if(text != null){
+					toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
+				
 				model.close();
 				finish();
 				
