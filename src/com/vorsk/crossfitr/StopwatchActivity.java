@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 public class StopwatchActivity extends Activity implements
 		OnGlobalLayoutListener {
+	private static boolean timerFinished = false;
 	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
 	private final long mFrequency = 100;
@@ -182,6 +183,7 @@ public class StopwatchActivity extends Activity implements
 	 * @param v
 	 */
 	public void onFinishedClicked(View v) {
+		timerFinished = true;
 		Intent result = new Intent();
 		result.putExtra("time", stopwatch.getElapsedTime());
 		
@@ -304,4 +306,8 @@ public class StopwatchActivity extends Activity implements
 		 }
         active = false;
 	 }
+
+	public static boolean getTimerFinished() {
+		return timerFinished;
+	}
 }

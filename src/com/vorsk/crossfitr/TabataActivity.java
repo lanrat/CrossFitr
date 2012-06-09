@@ -25,9 +25,10 @@ public class TabataActivity extends Activity {
 	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
 	private boolean newStart, cdRun, goStop;
-	private long id;
+	private long id, set;
 	private MediaPlayer mp;
 	private boolean active = true;
+	private static boolean tabataFinished = false;
 	private WorkoutRow workout;
 
 	// Timer to update the elapsedTime display
@@ -96,6 +97,8 @@ public class TabataActivity extends Activity {
         
         setDisplayBackgroundColor(0);
         
+        tabataFinished = false;;
+        
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
 	}
 
@@ -159,7 +162,8 @@ public class TabataActivity extends Activity {
 	
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
-		result.putExtra("time", tabata.getElapsedTime());
+		tabataFinished = true;
+		result.putExtra("time", set);
 		
 		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
 				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
@@ -168,6 +172,15 @@ public class TabataActivity extends Activity {
 		
 		getParent().setResult(RESULT_OK, result);
 		finish();
+	}
+	
+	/**
+	 * 
+	 * Returns true if the tabata finish button was clicked
+	 * @return if tabata was finished
+	 */
+	public static boolean getTabataFinished(){
+		return tabataFinished;
 	}
 
 	/**
@@ -187,7 +200,7 @@ public class TabataActivity extends Activity {
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
-	private String formatElapsedTime(long now, int set) {
+	private String formatElapsedTime(long now, long set) {
 		long seconds = 0, tenths = 0;
 		StringBuilder sb = new StringBuilder();
 
@@ -216,7 +229,7 @@ public class TabataActivity extends Activity {
 	public String getFormattedElapsedTime() {
 		long time = tabata.getElapsedTime();
 
-		int set = 1 + ((int)time / 30000);
+		set = 1 + ((int)time / 30000);
 		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
 
