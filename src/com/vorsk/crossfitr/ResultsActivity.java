@@ -87,14 +87,6 @@ public class ResultsActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		
-		Context context = getApplicationContext();
-		CharSequence text;
-		int duration = Toast.LENGTH_LONG;
-		Toast toast;
-		text = "You earned the 1st Time CrossFitr achievement!";
-		toast = Toast.makeText(context, text, duration);
-		toast.setGravity(Gravity.TOP, 0, 50);
-		toast.show();
 		
 		WorkoutSessionRow session = validateAccess();
 		

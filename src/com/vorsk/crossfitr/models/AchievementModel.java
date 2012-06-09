@@ -184,6 +184,20 @@ public class AchievementModel extends SQLiteDAO
 	}
 	
 	/**
+	 * Gets the total number of achievements earned
+	 * 
+	 * @return Total achievements
+	 */
+	public int getTotal()
+	{
+		String[] count = new String[1];
+		count[0] = "count";
+		String[] one = new String[1];
+		one[0] = "one";
+		return selectCount(count, one);
+	}
+	
+	/**
 	 * Fetch all achievements of a specific type (girl, hero, custom, all)
 	 * 
 	 * @param type The achievement type; use constants (TYPE_GIRL, etc)
@@ -232,15 +246,4 @@ public class AchievementModel extends SQLiteDAO
 		AchievementRow[] rows = fetchAchievementRows(cr);
 		return (rows.length == 0) ? null : rows[0];
 	}
-	
-	/**
-	 * Gets the total number of sessions performed
-	 * 
-	 * @return Total sessions
-	 */
-	public int getTotal()
-	{
-		return selectCount(null, null);
-	}
-
 }
