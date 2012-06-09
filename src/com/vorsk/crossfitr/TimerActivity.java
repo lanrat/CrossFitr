@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	static final int NUMBER_DIALOG_ID = 0; // Dialog variable
+	private static boolean timerFinished = false;
 	private int mHour, mMin, mSec;
 	private long startTime, id;
 	private final long mFrequency = 100; // milliseconds
@@ -236,6 +237,14 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - getElapsedTime());
 	}
+	
+	private long getTotalTime(){
+		 if(getStartTime() - getElapsedTime() == 0){
+			 return 0;
+		 }
+		 else
+			 return 1;
+	}
 
 	private long getElapsedTime() {
 		return timer.getElapsedTime();
@@ -295,8 +304,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	}
 
 	public void onFinishedClicked(View v) {
+		timerFinished = true;
 		Intent result = new Intent();
-		result.putExtra("time", getStartTime());
+		result.putExtra("time", getTotalTime());
 		
 		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
 				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
@@ -363,4 +373,8 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		 }
          active = false;
 	 }
+
+	public static boolean getTimerFinished() {
+		return timerFinished;
+	}
 }
