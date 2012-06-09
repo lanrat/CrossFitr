@@ -24,6 +24,7 @@ public class ProfileRow extends SQLiteRow
 		value = vals.getAsString(ProfileModel.COL_VALUE);
 	}
 
+	@Override
 	public ContentValues toContentValues()
 	{
 		ContentValues vals = super.toContentValues();

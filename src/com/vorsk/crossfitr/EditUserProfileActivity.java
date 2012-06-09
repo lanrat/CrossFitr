@@ -2,6 +2,7 @@ package com.vorsk.crossfitr;
 
 import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.ProfileModel;
+import com.vorsk.crossfitr.models.SQLiteDAO;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +11,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +27,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	private Typeface font;
 	
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -113,7 +114,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 				long current_weight_id = model.updateInsert("weight", weightTextField.getText().toString());
 				long goal_weight_id = model.updateInsert("goal_weight", goalWeightTextField.getText().toString());
 				
-				text = achievementModel.getProgress(AchievementModel.TYPE_MISC);
+				text = achievementModel.getProgress(SQLiteDAO.TYPE_MISC);
 				if(text != null){
 					toast = Toast.makeText(context, text, duration);
 					toast.show();

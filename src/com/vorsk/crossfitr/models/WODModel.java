@@ -62,8 +62,8 @@ public class WODModel {
 				row.description = parseDescription(android.text.Html.fromHtml(item.getDescription()).toString());
 				//row._id = 999999;
 				row.workout_type_id = SQLiteDAO.TYPE_WOD;
-				row.record = WorkoutModel.NOT_SCORED;
-				row.record_type_id = WorkoutModel.SCORE_TIME;
+				row.record = SQLiteDAO.NOT_SCORED;
+				row.record_type_id = SQLiteDAO.SCORE_TIME;
 				//row.record_type_id = WorkoutModel.SCORE_NONE; 
 				 if (!list.contains(row)){
 					 list.add(row);
@@ -112,7 +112,7 @@ public class WODModel {
 	 *  adds DB results to internal list
 	 */
 	public void fetchDB(){
-		WorkoutRow[] DBworkouts = workoutModel.getAllByType(WorkoutModel.TYPE_WOD);
+		WorkoutRow[] DBworkouts = workoutModel.getAllByType(SQLiteDAO.TYPE_WOD);
 	   	 for (int i = 0; i < DBworkouts.length; i++){
 			 if (!list.contains(DBworkouts[i])){
 				 list.add(DBworkouts[i]);

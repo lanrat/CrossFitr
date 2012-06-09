@@ -26,6 +26,7 @@ public class InjuryRow extends SQLiteRow
 		date_end    = vals.getAsInteger(InjuryModel.COL_EDATE);
 	}
 
+	@Override
 	public ContentValues toContentValues()
 	{
 		ContentValues vals = super.toContentValues();

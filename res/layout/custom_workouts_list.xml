@@ -58,7 +58,6 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/button"
-        android:drawableRight="@drawable/custom_rightarrow"
         android:text="New Custom Workout"
         android:textColor="@color/wod"
         android:textSize="20sp"

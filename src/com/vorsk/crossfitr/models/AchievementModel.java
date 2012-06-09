@@ -144,8 +144,8 @@ public class AchievementModel extends SQLiteDAO
 		AchievementRow[] achievement;
 		
 		// Check if the all workout achievements need to be updated.
-		if(achievementType == AchievementModel.TYPE_GIRL || achievementType == AchievementModel.TYPE_HERO){
-			AchievementRow[] all = this.getAllByType(AchievementModel.TYPE_ALL);
+		if(achievementType == SQLiteDAO.TYPE_GIRL || achievementType == SQLiteDAO.TYPE_HERO){
+			AchievementRow[] all = this.getAllByType(SQLiteDAO.TYPE_ALL);
 			AchievementRow[] other = this.getAllByType(achievementType);
 			achievement = new AchievementRow[all.length + other.length];
 			System.arraycopy(all, 0, achievement, 0, all.length);

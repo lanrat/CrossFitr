@@ -32,6 +32,7 @@ public class AchievementRow extends SQLiteRow
 		count               = vals.getAsInteger(AchievementModel.COL_COUNT);
 	}
 
+	@Override
 	public ContentValues toContentValues()
 	{
 		ContentValues vals = super.toContentValues();

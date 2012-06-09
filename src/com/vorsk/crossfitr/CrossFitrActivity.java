@@ -49,6 +49,7 @@ public class CrossFitrActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 	}
 	
+	@Override
 	public void onResume()
 	{
 		super.onResume();

@@ -11,6 +11,7 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	TabHost tabhost;
 	int custom_score;
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.time_tab_widget);

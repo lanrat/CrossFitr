@@ -51,12 +51,14 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	private Typeface font;
 
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile);
 	}
 	
+	@Override
 	public void onResume()
 	{
 		super.onResume();
@@ -192,6 +194,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	}
 	
 	// Method for taking in photo from camera and setting as profile pic
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
         if (requestCode == CAMERA_REQUEST && data != null) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -218,6 +221,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	
 	//Back to frontpage method to make the skip from edit profile work more fluidly and stop 
 	//a back pressing cycle between the two pages.
+	@Override
 	public void onBackPressed() {
 			Intent u = new Intent(this, CrossFitrActivity.class);
 			startActivity(u);

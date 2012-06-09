@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -22,6 +23,7 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 	
 	WorkoutModel model = new WorkoutModel(this);
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -120,6 +122,7 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 		}
 	}
 	
+	@Override
 	protected void onActivityResult(int request, int result, Intent data)
 	{
 		if (request == ACT_TIMER) {
@@ -130,14 +133,14 @@ public class WorkoutCustomProfileActivity extends Activity implements OnClickLis
 				model.open();
 				
 				// Get the score returned
-				if (workout.record_type_id == WorkoutModel.SCORE_TIME) {
+				if (workout.record_type_id == SQLiteDAO.SCORE_TIME) {
 					score = data.getLongExtra("time", -1);
-				} else if (workout.record_type_id == WorkoutModel.SCORE_REPS) {
-					score = WorkoutModel.NOT_SCORED; // TODO: this
-				} else if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT) {
-					score = WorkoutModel.NOT_SCORED; // TODO: this
+				} else if (workout.record_type_id == SQLiteDAO.SCORE_REPS) {
+					score = SQLiteDAO.NOT_SCORED; // TODO: this
+				} else if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT) {
+					score = SQLiteDAO.NOT_SCORED; // TODO: this
 				} else {
-					score = WorkoutModel.NOT_SCORED;
+					score = SQLiteDAO.NOT_SCORED;
 				}
 				
 				// Save as a new session

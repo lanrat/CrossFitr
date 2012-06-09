@@ -36,8 +36,8 @@ public class SQLiteRow
 	{
 		ContentValues vals = new ContentValues();
 		vals.put(SQLiteDAO.COL_ID,    _id);
-		vals.put(SQLiteDAO.COL_MDATE, (Long)date_modified);
-		vals.put(SQLiteDAO.COL_CDATE, (Long)date_created);
+		vals.put(SQLiteDAO.COL_MDATE, date_modified);
+		vals.put(SQLiteDAO.COL_CDATE, date_created);
 		return vals;
 	}
 	

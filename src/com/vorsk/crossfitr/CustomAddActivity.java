@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 
 import android.app.Activity;
@@ -32,6 +33,7 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 	WorkoutModel model = new WorkoutModel(this);
 
 	// onCreate method called at the beginning of activity
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(tag,"### at least here 1 ###");
 		super.onCreate(savedInstanceState);
@@ -176,11 +178,11 @@ public class CustomAddActivity extends Activity implements OnClickListener {
 					.equals("Please select a record type")) {
 				recordConstant = 0;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Timer")) {
-				recordConstant = WorkoutModel.SCORE_TIME;
+				recordConstant = SQLiteDAO.SCORE_TIME;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Weight")) {
-				recordConstant = WorkoutModel.SCORE_WEIGHT;
+				recordConstant = SQLiteDAO.SCORE_WEIGHT;
 			} else if (parent.getItemAtPosition(pos).toString().equals("Reps")) {
-				recordConstant = WorkoutModel.SCORE_REPS;
+				recordConstant = SQLiteDAO.SCORE_REPS;
 			}
 		}
 
