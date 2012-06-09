@@ -28,6 +28,7 @@ public class WorkoutSessionRow extends SQLiteRow
 		comments       = vals.getAsString(WorkoutSessionModel.COL_CMNT);
 	}
 
+	@Override
 	public ContentValues toContentValues()
 	{
 		ContentValues vals = super.toContentValues();

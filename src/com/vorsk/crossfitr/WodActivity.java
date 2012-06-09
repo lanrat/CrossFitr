@@ -2,7 +2,6 @@ package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
 
-import com.vorsk.crossfitr.GirlsActivity.GirlsListHelper;
 import com.vorsk.crossfitr.models.WODModel;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
@@ -41,6 +40,7 @@ public class WodActivity extends Activity  implements OnItemClickListener
 	private TextView titleTextHeader2;
 	private Typeface font;
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -92,17 +92,20 @@ public class WodActivity extends Activity  implements OnItemClickListener
 			 this.model = model;
 			 this.context = parent;
 		 }
-	     protected ArrayList<WorkoutRow> doInBackground(Integer... models) {
+	     @Override
+		protected ArrayList<WorkoutRow> doInBackground(Integer... models) {
 	    	 model.fetchAll();
 	         //publishProgress((int) ((i / (float) count) * 100));
 	         return model.getWodRows();
 	     }
 
-	     protected void onProgressUpdate(Integer... progress) {
+	     @Override
+		protected void onProgressUpdate(Integer... progress) {
 	         //setProgressPercent(progress[0]);
 	     }
 
-	     protected void onPostExecute(ArrayList<WorkoutRow> results) {
+	     @Override
+		protected void onPostExecute(ArrayList<WorkoutRow> results) {
 			
 			workoutrowList = new ArrayAdapter<WorkoutRow>(context,
 					android.R.layout.simple_list_item_1, android.R.id.text1,results);

@@ -2,6 +2,7 @@ package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -34,6 +35,7 @@ public class HeroesActivity extends Activity implements OnItemClickListener{
 	private TextView titleTextHeader2;
 	private Typeface font;
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState){
 		
 		super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class HeroesActivity extends Activity implements OnItemClickListener{
 
 		//Access the database and retrieve all heroes workouts
 		model_data.open();	
-		pulledData = model_data.getAllByType(WorkoutModel.TYPE_HERO);
+		pulledData = model_data.getAllByType(SQLiteDAO.TYPE_HERO);
 		model_data.close();
 		
 		if (pulledData.length != 0) {

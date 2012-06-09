@@ -119,31 +119,31 @@
         android:layout_height="wrap_content"
         android:text="@string/user_total_achievements"
         android:textSize="22dp" />
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="80dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal" >
-
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+
         <Button
             android:id="@+id/edit_profile_button"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="47dp"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button"
-            android:drawableRight="@drawable/custom_rightarrow"
             android:text="@string/button_edit_profile"
             android:textColor="@color/white"
             android:textSize="20dp" />
-        
+
         <Button
             android:id="@+id/achievements_button"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="47dp"
-            android:layout_gravity="center"
             android:background="@drawable/button"
-            android:drawableRight="@drawable/custom_rightarrow"
             android:text="@string/button_achievements"
             android:textColor="@color/white"
             android:textSize="20dp" />

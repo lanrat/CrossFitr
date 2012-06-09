@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -24,15 +25,17 @@ public class TabataActivity extends Activity {
 	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
 	private boolean newStart, cdRun, goStop;
-	private long id;
+	private long id, set;
 	private MediaPlayer mp;
 	private boolean active = true;
+	private static boolean tabataFinished = false;
 	private WorkoutRow workout;
 
 	// Timer to update the elapsedTime display
 	private final long mFrequency = 100; // milliseconds
 	private final int TICK_WHAT = 2;
 	private Handler mHandler = new Handler() {
+		@Override
 		public void handleMessage(Message m) {
 			if(!cdRun)
 			updateElapsedTime();
@@ -94,6 +97,8 @@ public class TabataActivity extends Activity {
         
         setDisplayBackgroundColor(0);
         
+        tabataFinished = false;;
+        
         mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), mFrequency);
 	}
 
@@ -113,6 +118,7 @@ public class TabataActivity extends Activity {
 			 
 			new CountDownTimer(3000, 100) {
 
+				@Override
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
@@ -122,6 +128,7 @@ public class TabataActivity extends Activity {
 					mFinish.setEnabled(false);
 				}
 
+				@Override
 				public void onFinish() {
 					goStop = true;
 					playSound(R.raw.bell_ring);
@@ -155,15 +162,25 @@ public class TabataActivity extends Activity {
 	
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
-		result.putExtra("time", tabata.getElapsedTime());
+		tabataFinished = true;
+		result.putExtra("time", set);
 		
-		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
-				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
+				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
 			result.putExtra("score", getIntent().getIntExtra("score", 0));
 		}
 		
 		getParent().setResult(RESULT_OK, result);
 		finish();
+	}
+	
+	/**
+	 * 
+	 * Returns true if the tabata finish button was clicked
+	 * @return if tabata was finished
+	 */
+	public static boolean getTabataFinished(){
+		return tabataFinished;
 	}
 
 	/**
@@ -183,7 +200,7 @@ public class TabataActivity extends Activity {
 		mStartStop.setText(getFormattedElapsedTime());
 	}
 
-	private String formatElapsedTime(long now, int set) {
+	private String formatElapsedTime(long now, long set) {
 		long seconds = 0, tenths = 0;
 		StringBuilder sb = new StringBuilder();
 
@@ -212,7 +229,7 @@ public class TabataActivity extends Activity {
 	public String getFormattedElapsedTime() {
 		long time = tabata.getElapsedTime();
 
-		int set = 1 + ((int)time / 30000);
+		set = 1 + ((int)time / 30000);
 		long diff = TOTAL_TIME - time;
 		long remain = diff % 30000;
 
@@ -283,6 +300,7 @@ public class TabataActivity extends Activity {
 		 }
 	}
 	
+	@Override
 	public void onBackPressed() {
         super.onBackPressed();
         if (mp != null) {

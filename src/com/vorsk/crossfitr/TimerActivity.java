@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	static final int NUMBER_DIALOG_ID = 0; // Dialog variable
+	private static boolean timerFinished = false;
 	private int mHour, mMin, mSec;
 	private long startTime, id;
 	private final long mFrequency = 100; // milliseconds
@@ -37,6 +39,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private WorkoutRow workout;
 
 	private Handler mHandler = new Handler() {
+		@Override
 		public void handleMessage(Message m) {
 			if(!cdRun)
 			updateElapsedTime();
@@ -45,6 +48,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		}
 	};
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
@@ -233,6 +237,14 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - getElapsedTime());
 	}
+	
+	private long getTotalTime(){
+		 if(getStartTime() - getElapsedTime() == 0){
+			 return 0;
+		 }
+		 else
+			 return 1;
+	}
 
 	private long getElapsedTime() {
 		return timer.getElapsedTime();
@@ -249,6 +261,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			 
 			new CountDownTimer(3000, 100) {
 
+				@Override
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
@@ -261,6 +274,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					cdRun = true;
 				}
 
+				@Override
 				public void onFinish() {
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
@@ -290,11 +304,12 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	}
 
 	public void onFinishedClicked(View v) {
+		timerFinished = true;
 		Intent result = new Intent();
-		result.putExtra("time", getStartTime());
+		result.putExtra("time", getTotalTime());
 		
-		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
-				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
+				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
 			result.putExtra("score", getIntent().getIntExtra("score", 0));
 		}
 		
@@ -350,11 +365,16 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		}
 	}
 	
-	 public void onBackPressed() {
+	 @Override
+	public void onBackPressed() {
          super.onBackPressed();
          if (mp != null) {
 			 mp.release();
 		 }
          active = false;
 	 }
+
+	public static boolean getTimerFinished() {
+		return timerFinished;
+	}
 }

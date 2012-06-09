@@ -13,7 +13,6 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -87,6 +86,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		return session;
 	}
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -148,7 +148,24 @@ public class ResultsActivity extends Activity implements OnClickListener
 			tvname.setTextColor(res.getColor(R.color.custom));
 		tvdesc.setText(workout.description);
   		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
-  		tvscore.setText("Your Score: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(session.score))));
+  		if(TabataActivity.getTabataFinished()){
+  			if(session.score == 1){
+  				tvscore.setText("Your Score: "+ session.score + " Set");
+  			}
+  			else
+  				tvscore.setText("Your Score: "+ session.score + " Sets");
+  		}
+  		else if(TimerActivity.getTimerFinished()){
+  			if(session.score == 0){
+  				tvscore.setText("Your Score:" + '\n' + "Workout Finished");
+  			}
+  			else{
+  				tvscore.setText("Your Score:" + '\n' + "Workout Not Finished");
+  			}
+  		}
+  		else if(StopwatchActivity.getTimerFinished()){
+  			tvscore.setText("Your Score: "+StopwatchActivity.formatElapsedTime(session.score));
+  		}
 		
 		wmodel.close();
 		

@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 public class StopwatchActivity extends Activity implements
 		OnGlobalLayoutListener {
+	private static boolean timerFinished = false;
 	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
 	private final long mFrequency = 100;
@@ -38,6 +40,7 @@ public class StopwatchActivity extends Activity implements
 	 * Handler object that updates time display on the button
 	 */
 	private Handler mHandler = new Handler() {
+		@Override
 		public void handleMessage(Message m) {
 			if (!cdRun)
 			updateElapsedTime();
@@ -127,6 +130,7 @@ public class StopwatchActivity extends Activity implements
 			new CountDownTimer(3000, 100) {
 				
 				// while time is ticking
+				@Override
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + ((millisUntilFinished / 1000)+1));
 					mStartStop.setEnabled(false);
@@ -138,6 +142,7 @@ public class StopwatchActivity extends Activity implements
 				}
 
 				// when count down is done
+				@Override
 				public void onFinish() {
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
@@ -178,11 +183,12 @@ public class StopwatchActivity extends Activity implements
 	 * @param v
 	 */
 	public void onFinishedClicked(View v) {
+		timerFinished = true;
 		Intent result = new Intent();
 		result.putExtra("time", stopwatch.getElapsedTime());
 		
-		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
-				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
+				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
 			result.putExtra("score", getIntent().getIntExtra("score", 0));
 		}
 		
@@ -292,6 +298,7 @@ public class StopwatchActivity extends Activity implements
 		 }
 	}
 	
+	@Override
 	public void onBackPressed() {
         super.onBackPressed();
         if (mp != null) {
@@ -299,4 +306,8 @@ public class StopwatchActivity extends Activity implements
 		 }
         active = false;
 	 }
+
+	public static boolean getTimerFinished() {
+		return timerFinished;
+	}
 }

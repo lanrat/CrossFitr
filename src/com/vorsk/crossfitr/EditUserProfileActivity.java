@@ -2,6 +2,7 @@ package com.vorsk.crossfitr;
 
 import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.ProfileModel;
+import com.vorsk.crossfitr.models.SQLiteDAO;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	private Typeface font;
 	
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
