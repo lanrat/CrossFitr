@@ -6,9 +6,11 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.ProfileModel;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 
@@ -30,6 +33,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	
 	ProfileModel model = new ProfileModel(this);
 	WorkoutSessionModel sessionModel = new WorkoutSessionModel(this);
+	AchievementModel achievementModel = new AchievementModel(this);
 
 	
 	private TextView userNameText;
@@ -47,12 +51,14 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	private Typeface font;
 
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.userprofile);
 	}
 	
+	@Override
 	public void onResume()
 	{
 		super.onResume();
@@ -124,8 +130,10 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		
 		// Total Workouts
 		userTotalWorkoutsText = (TextView) findViewById(R.id.user_total_workouts);
-		userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + sessionModel.getTotal());
 		userTotalWorkoutsText.setTypeface(font);
+		if(model.getByAttribute("name") != null){
+			userTotalWorkoutsText.setText(this.getString(R.string.user_total_workouts) + " " + sessionModel.getTotal());
+		}
 		
 		// Last Workout
 		userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
@@ -137,11 +145,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		userLastWorkoutText.setTypeface(font);
 		
 		// Total Achievements
-		//if(model.getByAttribute("total_achievements") != null){
-			userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
-			userTotalAchievementsText.setText(this.getString(R.string.user_total_achievements) + " " + "0");//model.getByAttribute("total_achievements").value);
-			userTotalAchievementsText.setTypeface(font);
-		//}
+		userTotalAchievementsText = (TextView) findViewById(R.id.user_total_achievements);
+		userTotalAchievementsText.setTypeface(font);
+		if(model.getByAttribute("name") != null){
+			userTotalAchievementsText.setText(this.getString(R.string.user_total_achievements) + " " + achievementModel.getTotal());
+		}
 		
 		// Edit Profile button
 		View user_profile_button = findViewById(R.id.edit_profile_button);
@@ -149,15 +157,21 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		Button fontButton = (Button) findViewById(R.id.edit_profile_button);
 		fontButton.setTypeface(font);
 		
-		/*// Injuries button
-		View injuries_button = findViewById(R.id.injuries_button);
-		injuries_button.setOnClickListener(this);*/
 		
-		// Achievements button
-		/*View achievements_button = findViewById(R.id.achievements_button);
+		//Achievements button
+		View achievements_button = findViewById(R.id.achievements_button);
 		achievements_button.setOnClickListener(this);
 		fontButton = (Button) findViewById(R.id.achievements_button);
-		fontButton.setTypeface(font);*/
+		fontButton.setTypeface(font);
+		
+		/*Context context = getApplicationContext();
+		CharSequence text;
+		int duration = Toast.LENGTH_LONG;
+		Toast toast;
+		
+		text = "Achievement Earned: All Profiled Up\n";
+		toast = Toast.makeText(context, text, duration);
+		toast.show();*/
 		
 		model.close();
 	}
@@ -180,6 +194,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	}
 	
 	// Method for taking in photo from camera and setting as profile pic
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
         if (requestCode == CAMERA_REQUEST && data != null) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -206,6 +221,7 @@ public class UserProfileActivity extends Activity implements OnClickListener
 	
 	//Back to frontpage method to make the skip from edit profile work more fluidly and stop 
 	//a back pressing cycle between the two pages.
+	@Override
 	public void onBackPressed() {
 			Intent u = new Intent(this, CrossFitrActivity.class);
 			startActivity(u);

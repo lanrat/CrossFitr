@@ -2,6 +2,7 @@ package com.vorsk.crossfitr;
 
 import java.util.ArrayList;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -34,10 +35,12 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 	private CustomListhelper listAdapter;
 	private ListView derp_custom_List;
 	
+	private TextView buttonString;
 	private TextView titleTextHeader1;
 	private TextView titleTextHeader2;
 	private Typeface font;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -58,12 +61,15 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 		// add buttons and add to listener
 		add_custom_button = findViewById(R.id.custom_add_button);
 		add_custom_button.setOnClickListener(this);
+		buttonString = (TextView) findViewById(R.id.custom_add_button);
+		buttonString.setTypeface(font);
+		
 
 		model_data = new WorkoutModel(this);
 
 		// Access the database and retrieve all custom workouts
 		model_data.open();
-		pulledData = model_data.getAllByType(WorkoutModel.TYPE_CUSTOM);
+		pulledData = model_data.getAllByType(SQLiteDAO.TYPE_CUSTOM);
 		model_data.close();
 
 		if (pulledData.length != 0) {
@@ -168,6 +174,7 @@ public class CustomActivity extends Activity implements OnClickListener, OnItemC
 		}
 	}
 	
+	@Override
 	public void onBackPressed() {
 		Intent u = new Intent(this, WorkoutsActivity.class);
 		startActivity(u);

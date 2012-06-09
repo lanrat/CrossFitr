@@ -63,8 +63,8 @@ CREATE TABLE achievement_type
 	_id            INTEGER PRIMARY KEY,
 	name           TEXT UNIQUE NOT NULL,
 	description    TEXT,
-	date_created   INTEGER NOT NULL,
-	date_modified  INTEGER NOT NULL
+	date_created   INTEGER,
+	date_modified  INTEGER
 );
 --###--
 CREATE TABLE achievement
@@ -76,6 +76,6 @@ CREATE TABLE achievement
 	progress_thresh     INTEGER,
 	progress            INTEGER NOT NULL DEFAULT 0,
 	count               INTEGER NOT NULL DEFAULT 0,
-	date_created        INTEGER NOT NULL,
-	date_modified       INTEGER NOT NULL
+	date_created        INTEGER,
+	date_modified       INTEGER
 );

@@ -9,6 +9,22 @@ INSERT INTO 'score_type' ('_id', 'name', 'description')
 	UNION SELECT '2', 'Reps', 'Maximum repititions'
 	UNION SELECT '3', 'Weight', 'Most weight';
 --###--
+INSERT INTO 'achievement_type' ('_id', 'name', 'description')
+	SELECT '1' AS '_id', 'All' as 'name', 'All Achievements' AS 'description'
+	UNION SELECT '2', 'Girl', 'Girl Achievement'
+	UNION SELECT '3', 'Hero', 'Hero Achievement'
+	UNION SELECT '4', 'Custom', 'Custom Achievement';
+	UNION SELECT '5', 'Misc', 'Misc Achievement';
+--###--
+INSERT INTO 'achievement' ('name', 'description', 'achievement_type_id', 'progress_thresh')
+	SELECT 'First Time CrossFitr' AS 'name', 'One workout completed' AS 'description', '1' AS 'achievement_type_id', '1' AS 'progress_thresh'
+	UNION SELECT 'Serious CrossFitr' AS 'name', 'Twenty workouts completed' AS 'description', '1' AS 'achievement_type_id', '20' AS 'progress_thresh'
+	UNION SELECT 'Ladies Man' AS 'name', 'Ten  Girl workouts completed' AS 'description', '2' AS 'achievement_type_id', '10' AS 'progress_thresh'
+	UNION SELECT 'American Hero' AS 'name', 'Ten  Hero workouts completed' AS 'description', '3' AS 'achievement_type_id', '10' AS 'progress_thresh'
+	UNION SELECT 'Custom CrossFitr' AS 'name', 'Created a custom workout' AS 'description', '4' AS 'achievement_type_id', '1' AS 'progress_thresh'
+	UNION SELECT 'Workout Your Way' AS 'name', 'Created 5 custom workouts' AS 'description', '4' AS 'achievement_type_id', '5' AS 'progress_thresh'
+	UNION SELECT 'All Profiled Up' AS 'name', 'Set up your profile for the first time' AS 'description', '5' AS 'achievement_type_id', '1' AS 'progress_thresh'
+--###--
 INSERT INTO 'workout' ('name', 'description', 'workout_type_id', 'record_type_id')
 	-- Girls
 	SELECT 'Angie' AS 'name', '100 Pull-ups, 100 Push-ups, 100 Sit-ups, 100 squats' AS 'description', '2' AS 'workout_type_id', '1' AS 'record_type_id'

@@ -1,5 +1,6 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.SQLiteDAO;
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 
@@ -37,6 +38,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	private WorkoutRow workout;
 
 	private Handler mHandler = new Handler() {
+		@Override
 		public void handleMessage(Message m) {
 			if(!cdRun)
 			updateElapsedTime();
@@ -45,6 +47,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		}
 	};
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
@@ -249,6 +252,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 			 
 			new CountDownTimer(3000, 100) {
 
+				@Override
 				public void onTick(long millisUntilFinished) {
 					mStartStop.setText("" + (millisUntilFinished / 1000 + 1));
 					mStartStop.setEnabled(false);
@@ -261,6 +265,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 					cdRun = true;
 				}
 
+				@Override
 				public void onFinish() {
 					playSound(R.raw.bell_ring);
 					//mStartStop.setText("Go!");
@@ -293,8 +298,8 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		Intent result = new Intent();
 		result.putExtra("time", getStartTime());
 		
-		if (workout.record_type_id == WorkoutModel.SCORE_WEIGHT
-				|| workout.record_type_id == WorkoutModel.SCORE_REPS) {
+		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
+				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
 			result.putExtra("score", getIntent().getIntExtra("score", 0));
 		}
 		
@@ -350,7 +355,8 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		}
 	}
 	
-	 public void onBackPressed() {
+	 @Override
+	public void onBackPressed() {
          super.onBackPressed();
          if (mp != null) {
 			 mp.release();

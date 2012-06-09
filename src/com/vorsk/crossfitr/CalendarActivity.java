@@ -14,8 +14,6 @@ package com.vorsk.crossfitr;
 
 import java.util.*;
 import java.text.*;
-import java.sql.Timestamp;
-
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -61,12 +59,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private TextView daysOfWeekText2;
 	private TextView daysOfWeekText3;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_main);
 		
 
-		calendar_bg = (View) findViewById(R.id.calendar_bg);
+		calendar_bg = findViewById(R.id.calendar_bg);
 		calendar_bg.setOnClickListener(this);
 		
 		
@@ -92,7 +91,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		preMonth.setOnClickListener(this);
 
 		currentMonth = (Button) this.findViewById(R.id.currentMonth);
-		currentMonth.setText(dateFormatter.format(dateTemplate, derpCal.getTime()));
+		currentMonth.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
 
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
@@ -141,6 +140,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		
 	}
 
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		// Activity shut down
@@ -152,7 +152,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		// Field number for get and set indicating the day of the month.
 		// This is a synonym for DATE. The first day of the month has value 1.
 
-		currentMonth.setText(dateFormatter.format(dateTemplate, derpCal.getTime()));
+		currentMonth.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 	}	
@@ -454,7 +454,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	  		Log.d("stampTime", "_sDate = " + _sDate);
 			try {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-				Date date = (Date) formatter.parse(_sDate);
+				Date date = formatter.parse(_sDate);
 
 				long milliTime = date.getTime();
 				Log.d("stampTime", "milliTime = " + milliTime);
@@ -574,8 +574,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				Log.d(tag, "score_type with getByID " + tempSession.getByID(arrayList.get(position).score_type_id).toString());
 
 				if(arrayList.get(position).score_type_id == 1){
-					int seconds = (int) (arrayList.get(position).score / 1000) % 60 ;
-					int minutes = (int) ((arrayList.get(position).score / (1000*60)) % 60);
+					int seconds = (arrayList.get(position).score / 1000) % 60 ;
+					int minutes = ((arrayList.get(position).score / (1000*60)) % 60);
 						
 					if(seconds < 10)
 						stringSecond = new String("0" + Integer.toString(seconds));
