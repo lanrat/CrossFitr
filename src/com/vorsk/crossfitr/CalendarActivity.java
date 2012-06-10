@@ -375,7 +375,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				gridcell.setBackgroundResource(R.drawable.calendar_has_three_records);
 			} else if (numberofRecords == 4) {
 				gridcell.setBackgroundResource(R.drawable.calendar_has_four_records);
-			} else if (numberofRecords >= 5) {
+			}
+			/* No more than five dots */
+			else if (numberofRecords >= 5) {
 				gridcell.setBackgroundResource(R.drawable.calendar_has_five_records);
 			}
 			return row;
