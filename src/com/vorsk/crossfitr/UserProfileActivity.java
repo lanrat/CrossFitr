@@ -137,8 +137,11 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		userLastWorkoutText = (TextView) findViewById(R.id.user_last_workout);
 		if(sessionModel.getMostRecent(null) != null){
 			Date date = new Date((sessionModel.getMostRecent(null).date_created));
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy h:mm a");
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a");
 			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " " + formatter.format(date));
+		}
+		else if(model.getByAttribute("name") != null){
+			userLastWorkoutText.setText(this.getString(R.string.user_last_workout) + " N/A");
 		}
 		userLastWorkoutText.setTypeface(font);
 		

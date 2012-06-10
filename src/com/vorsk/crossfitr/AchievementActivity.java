@@ -81,12 +81,12 @@ public class AchievementActivity extends Activity implements OnItemClickListener
 		
 		if(achievement.count >= 1){
 			Date date = new Date(achievement.date_modified);
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy");
 			text = "Achieved on " + formatter.format(date);
 		}
 		else{
 			int difference = achievement.progress_thresh - achievement.progress;
-			text = difference + " more workouts to go";
+			text = difference + " more workout(s) to go";
 		}
 		
 		toast = Toast.makeText(context, text, duration);
