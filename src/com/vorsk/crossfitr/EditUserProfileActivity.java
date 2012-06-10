@@ -133,6 +133,14 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 				startActivity(u);
 			}
 			break;
+			
+		case R.id.userprofile_form_bg:
+			hideKeyboard(nameTextField);
+			hideKeyboard(weightTextField);
+			hideKeyboard(heightTextField);
+			hideKeyboard(goalWeightTextField);
+			break;
+
 		case R.id.button_userprofile_form_cancel:
 /*			model.open();
 			if(model.getByAttribute("name") != null &&

@@ -33,9 +33,9 @@
 			android:layout_weight="0.6"
 			android:textColor="#FFFFFF"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:background="@drawable/calendar_bar"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:background="@drawable/calendar_header">
 		</Button>
 		<ImageView
 			android:id="@+id/nextMonth"
@@ -100,7 +100,13 @@
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
-
+        
+		<ImageView
+		    android:id="@+id/calendar_header_imageview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+		</ImageView>
+		
 		<ListView
 		  android:id="@+id/calendar_listView"
 		  android:layout_width="match_parent"

@@ -1,19 +1,9 @@
-/**
- * Calendar
- * 
- * @Process: In development 
- * TODO: 1. Make a list below the calendar (Ian)
- *       2. Access to the database (Ian)
- *       3. A little mark on the cell which has workout record (Darren)
- *          (got an idea. I will implement it soon)
- *       
- * Last update: May 29 12
- */
 
 package com.vorsk.crossfitr;
 
 import java.util.*;
 import java.text.*;
+
 import com.vorsk.crossfitr.models.WorkoutModel;
 import com.vorsk.crossfitr.models.WorkoutRow;
 import com.vorsk.crossfitr.models.WorkoutSessionModel;
@@ -39,11 +29,10 @@ import android.widget.TextView;
 
 public class CalendarActivity extends Activity implements OnClickListener {
 	private static final String tag = "CalendarActivity";
-	private ImageView calJournalButton, preMonth, nextMonth;
+	private ImageView calJournalButton, preMonth, nextMonth, cal_listheader;
 	private Button currentMonth;
 	private View calendar_bg;
 
-	private ListView calendarList;
 	private GridView calView;
 	private GridAdapter gridAdapter; // inner class to handle adapter
 	private Calendar derpCal;
@@ -89,6 +78,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		preMonth = (ImageView) this.findViewById(R.id.preMonth);
 		preMonth.setOnClickListener(this);
+		
+		cal_listheader = (ImageView) findViewById(R.id.calendar_header_imageview);
+		cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
 
 		currentMonth = (Button) this.findViewById(R.id.currentMonth);
 		currentMonth.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
@@ -97,7 +89,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		nextMonth.setOnClickListener(this);
 
 		calView = (GridView) this.findViewById(R.id.calendargrid);
-		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data, cal_listheader);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 
@@ -134,8 +126,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					Log.d(tag, "e.toString()= " + e.toString());
 					Log.d(tag, "e = " + e.toString());
 				}
-				
-				break;	
+							break;	
 		}
 		
 	}
@@ -147,7 +138,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	}
 
 	private void setGridAdapterToDate(int month, int year) {
-		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data, cal_listheader);
 		derpCal.set(year, month - 1, derpCal.get(Calendar.DAY_OF_MONTH));
 		// Field number for get and set indicating the day of the month.
 		// This is a synonym for DATE. The first day of the month has value 1.
@@ -193,6 +184,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
 		private Button buttonControl = null;
+		private boolean today = false;
 		
 		// For list
 		private CalendarList listAdapter;
@@ -200,21 +192,24 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private ArrayList<WorkoutSessionRow> workoutList;
 		private WorkoutSessionRow[] pulledData;
 		private ListView derp_calList;
+		private ImageView cal_listheader;
 
-		public GridAdapter(Context context, int month, int year, WorkoutSessionModel model_data) {
+		public GridAdapter(Context context, int month, int year, WorkoutSessionModel model_data , ImageView _cal) {
 			super();
 			this.calendar_WSession = model_data;
 			this.cal_context = context;
 			this.list = new ArrayList<String>();
 			this.month = month;
-			this.year = year;			
+			this.year = year;
 
 			Calendar tempcal = Calendar.getInstance();
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
-			currentYear_value = tempcal.get(Calendar.YEAR);	
-
+			currentYear_value = tempcal.get(Calendar.YEAR);		
+			this.cal_listheader = _cal;
+			derp_calList = (ListView) findViewById(R.id.calendar_listView);	
+			
 			createMonth(month, year);
 			
 		}
@@ -247,6 +242,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			int prevYear = 0;
 			int nextMonth = 0;
 			int nextYear = 0;
+	
+			
+			if (month == currentMonth_value && year == currentYear_value)
+				cal_listheader.setImageResource(R.drawable.calendar_listheader_today);
+			else 
+				cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
 
 			int currentMonth = mon - 1;
 			String currentMonthName = getMonthAsString(currentMonth);
@@ -306,16 +307,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					list.set(indexCount, tempString);
 				}
 
-				Log.d("Today is : ", "day: " + getCurrentDayOfMonth() + " month: "
-						+ currentMonth_value + " year : " + currentYear_value);
-
 				if (i == getCurrentDayOfMonth() && month == currentMonth_value
 						&& year == currentYear_value) {
 					tempString = String.valueOf(i) + "-YELLOW" + "-"
 							+ getMonthAsString(currentMonth) + "-" + year;
-					list.set(indexCount, tempString);
+					list.set(indexCount, tempString);								
 					
-					derp_calList = (ListView) findViewById(R.id.calendar_listView);					
+					
+									
 					int numberofRecord = recordChecker(Integer.toString(getCurrentDayOfMonth()),
 							getMonthAsString(currentMonth),Integer.toString(currentYear_value));
 					
@@ -332,16 +331,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					derp_calList.setAdapter(listAdapter);			
 				}
 			}	
+			
+			
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
 				list.add(String.valueOf(i + 1) + "-GREY" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
-
-			for (int i = 0; i < list.size(); i++) {
-				Log.d(tag, "Index [" + i + "] :" + list.get(i));
-			}
-
 		}
 
 		public View getView(int index, View convertView, ViewGroup parent) {
@@ -366,11 +362,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			gridcell.setTextColor(colorChanger(day_color[1]));
 
-//			Log.d(tag, "gridcell.getText : " + gridcell.getText());
-
 			int numberofRecords = recordChecker(day_color[0], day_color[2],
 					day_color[3]);
-			Log.d(tag, "numberofRecords = " + numberofRecords);
 
 			if (numberofRecords == 0) {
 				gridcell.setBackgroundResource(R.drawable.calendar_cellfiller);
@@ -390,13 +383,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		private int recordChecker(String day, String month, String year) {
 
+			
 			// Get the date range
 			int nextday = Integer.parseInt(day) + 1;
 			String startDate = day + "-" + month + "-" + year;
 			String endDate = nextday + "-" + month + "-" + year;
-
-			Log.d(tag, "startDate : " + startDate);
-			Log.d(tag, "endDate : " + endDate);	
 
 			calendar_WSession.open();
 			
@@ -407,8 +398,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			} catch (Exception e) {
 				return 0;
 			}
-
-			Log.d(tag, "pulledData.length : " + pulledData.length);
 
 			calendar_WSession.close();
 			
@@ -453,13 +442,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public long stampTime(String _sDate) {
-	  		Log.d("stampTime", "_sDate = " + _sDate);
+
 			try {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 				Date date = formatter.parse(_sDate);
 
 				long milliTime = date.getTime();
-				Log.d("stampTime", "milliTime = " + milliTime);
 				return milliTime;
 				
 			} catch (ParseException e) {
@@ -468,16 +456,17 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		public void onClick(View view) {
+			
+			cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
 			Button clickedButton = (Button) view;
 			if (buttonControl != null && buttonControl_color != null) {
 				buttonControl.setTextColor(colorChanger(buttonControl_color));
-				// buttonControl.setBackgroundResource(R.drawable.calendar_cellfiller);
 			}
+			
 
 			clickedButton.setOnClickListener(this);
 			clickedButton.setTextColor(getResources().getColor(
 					R.color.static_text_green));
-			// clickedButton.setBackgroundResource(R.drawable.calendar_bg_frame);
 
 			buttonControl = clickedButton;
 			String tempHelper = (String) buttonControl.getTag();
@@ -485,15 +474,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			buttonControl_color = colorHelper[0];
 
 			
-		//	derp_calList = (ListView) findViewById(R.id.calendar_listView);
-			
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
 			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
 			
-			if(numberofRecord == 0)
+			if(numberofRecord == 0){
 				listAdapter = new CalendarList(getApplicationContext());
+				}
 			else{
-				Log.d(tag, "Count: " + numberofRecord);
 				// Construct a new one so further calls do not destroy previous references
 				ArrayList<WorkoutSessionRow> workouts = new ArrayList<WorkoutSessionRow>();
 				for(int i = 0; i < numberofRecord;i++){
@@ -503,7 +490,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			}
 			
 			listAdapter.notifyDataSetChanged();
-			derp_calList.setAdapter(listAdapter);			
+			try{
+				derp_calList.setAdapter(listAdapter);				
+			}catch(NullPointerException e){
+			}			
 		}
 	}
 	
@@ -529,6 +519,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private TextView itemWorkout;
 		private TextView itemRecord;
 		
+		private ImageView cal_ImageView;
+		
 		public CalendarList(Context _context){
 			this.listContext = _context;
 			this.havenoRecord = true;
@@ -548,37 +540,30 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		
 		
 		public View getView(int position, View convertView, ViewGroup parent) {
-		//	Log.d(tag,"It works");
 			if(convertView == null)
 				convertView = inflater
 				.inflate(R.layout.calendar_list_item, parent, false);
-			
 			itemWorkout = (TextView) convertView.findViewById(R.id.cal_workoutname);
-			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);			
-			
+			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);
+
 			if(havenoRecord == true){
-				itemWorkout.setText("No data existing on this day");
-				itemRecord.setText("No data existing on this day");
+				itemWorkout.setText("No Record exists");
+				itemRecord.setText("No Record exists");
 			}else{
+
 				WorkoutModel tempModel = new WorkoutModel(listContext);
 				tempModel.open();
 				
 				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
 				tempModel.close();
 				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);
-				tempSession.open();
+				tempSession.open();	
 				
-				double tempdouble = arrayList.get(position).score / 1000;
-		
-				String score = Double.toString(tempdouble);
-				Log.d(tag, "score : " + arrayList.get(position).score);
-				Log.d(tag, "score_type " + arrayList.get(position).score_type_id);
-				Log.d(tag, "score_type with getByID " + tempSession.getByID(arrayList.get(position).score_type_id).toString());
 
-				if(arrayList.get(position).score_type_id == 1){
+				if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_TIME){
 					int seconds = (arrayList.get(position).score / 1000) % 60 ;
 					int minutes = ((arrayList.get(position).score / (1000*60)) % 60);
-						
+					Log.d(tag, "It gets here #7 ");
 					if(seconds < 10)
 						stringSecond = new String("0" + Integer.toString(seconds));
 					else
@@ -589,8 +574,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					else
 						stringMinutes = new String(Integer.toString(minutes));
 					
-					finalResult = new String (stringMinutes + ":" + stringSecond);
-					
+					finalResult = new String (stringMinutes + ":" + stringSecond);					
 				}
 				
 				
@@ -599,7 +583,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				tempSession.close();
 								
 			}	
-			
 			return convertView;
 		}
 

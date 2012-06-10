@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background_main"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/userprofile_form_bg">
 
  <ImageView
         android:id="@+id/main_header"
