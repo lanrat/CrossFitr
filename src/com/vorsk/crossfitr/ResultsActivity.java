@@ -264,7 +264,7 @@ public class ResultsActivity extends Activity implements OnClickListener
                 share.setType("text/plain");
                 share.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.app_name));
                 share.putExtra(android.content.Intent.EXTRA_TEXT, "I just used "+getText(R.string.app_name)+
-                		" to complete "+workout.name+" with score: "+row.score+"!" );
+                		" to complete "+workout.name+" with score: "+StopwatchActivity.formatElapsedTime(row.score)+"!" );
                 startActivity(share);
                 
 				break;
