@@ -7,6 +7,6 @@
 		android:state_selected="true"
 		android:drawable="@drawable/calendar_bg_focus" 
 		android:color="#ff0000ff"/> <!-- focused -->
-	<item
-		android:drawable="@drawable/calendar_cellfiller" /> <!-- default -->
+	  <item
+		android:drawable="@drawable/calendar_cellfiller" />  <!-- default -->
 </selector>

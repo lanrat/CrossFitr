@@ -147,6 +147,7 @@ public class ResultsActivity extends Activity implements OnClickListener
 		else if(wmodel.getTypeName(workout.workout_type_id).equals("Custom"))
 			tvname.setTextColor(res.getColor(R.color.custom));
 		tvdesc.setText(workout.description);
+		
   		if(TabataActivity.getTabataFinished()){
   			long sets = TabataActivity.getNumberSets();
   			if(sets == 1){

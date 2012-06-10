@@ -1,4 +1,3 @@
-
 package com.vorsk.crossfitr;
 
 import java.util.*;
@@ -11,6 +10,7 @@ import com.vorsk.crossfitr.models.WorkoutSessionRow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -38,28 +38,34 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private Calendar derpCal;
 	private int month, year;
 	private static final String dateTemplate = "MMMM yyyy";
-	
 
 	private WorkoutSessionModel model_data = new WorkoutSessionModel(this);;
-	
+
 	// font type for days of the week
 	private TextView daysOfWeekText1;
 	private TextView daysOfWeekText2;
 	private TextView daysOfWeekText3;
 
+	// calendar list view
+	private TextView workoutName;
+	private TextView workoutRecord;
+	private Typeface font;
+	private Typeface regFont;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar_main);
-		
 
 		calendar_bg = findViewById(R.id.calendar_bg);
 		calendar_bg.setOnClickListener(this);
-		
-		
+
 		// text setting for the days of the week
-		Typeface font = Typeface.createFromAsset(this.getAssets(),
+		font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/Roboto-Thin.ttf");
+		
+		regFont=  Typeface.createFromAsset(this.getAssets(),
+				"fonts/Roboto-Regular.ttf");
 
 		daysOfWeekText1 = (TextView) findViewById(R.id.calendarHeaderText1);
 		daysOfWeekText1.setTypeface(font);
@@ -77,57 +83,69 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		preMonth = (ImageView) this.findViewById(R.id.preMonth);
 		preMonth.setOnClickListener(this);
-		
+
 		cal_listheader = (ImageView) findViewById(R.id.calendar_header_imageview);
-		cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
+		cal_listheader
+				.setImageResource(R.drawable.calendar_listheader_selected);
 
 		currentMonth = (Button) this.findViewById(R.id.currentMonth);
-		currentMonth.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
+		currentMonth
+				.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
+		currentMonth.setTypeface(font); // type font for the month
 
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
 
 		calView = (GridView) this.findViewById(R.id.calendargrid);
-		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data, cal_listheader);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year,
+				model_data, cal_listheader);
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
 
 	}
 
 	public void onClick(View view) {
-		switch (view.getId()){
-		
+
+		switch (view.getId()) {
+
 		case R.id.preMonth:
 			if (month <= 1) {
 				month = 12;
 				year--;
-			} else 
+			} else
 				month--;
 			setGridAdapterToDate(month, year);
 			break;
-			
-			case R.id.nextMonth:
-				if (month > 11) {
-					month = 1;
-					year++;
-				} else
-					month++;
-				setGridAdapterToDate(month, year);
-				break;
-			
-			case R.id.calendar_bg:
-				TextView defaultTextName = (TextView) this.findViewById(R.id.cal_workoutname);
-				TextView defaultTextRecord = (TextView) this.findViewById(R.id.cal_record);
-				try{
-					defaultTextName.setText(" ");
-					defaultTextRecord.setText(" ");					
-				}catch(NullPointerException e){
-					Log.d(tag, "e.toString()= " + e.toString());
-					Log.d(tag, "e = " + e.toString());
-				}
-							break;	
+
+		case R.id.nextMonth:
+			if (month > 11) {
+				month = 1;
+				year++;
+			} else
+				month++;
+			setGridAdapterToDate(month, year);
+			break;
+
+		case R.id.calendar_bg:
+			// texts and font settings
+			TextView defaultTextName = (TextView) this
+					.findViewById(R.id.cal_workoutname);
+			defaultTextName.setTypeface(font);
+
+			TextView defaultTextRecord = (TextView) this
+					.findViewById(R.id.cal_record);
+			defaultTextRecord.setTypeface(font);
+
+			try {
+				defaultTextName.setText(" ");
+				defaultTextRecord.setText(" ");
+			} catch (NullPointerException e) {
+				Log.d(tag, "e.toString()= " + e.toString());
+				Log.d(tag, "e = " + e.toString());
+			}
+			break;
 		}
-		
+
 	}
 
 	@Override
@@ -137,23 +155,17 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	}
 
 	private void setGridAdapterToDate(int month, int year) {
-		gridAdapter = new GridAdapter(getApplicationContext(), month, year, model_data, cal_listheader);
+		gridAdapter = new GridAdapter(getApplicationContext(), month, year,
+				model_data, cal_listheader);
 		derpCal.set(year, month - 1, derpCal.get(Calendar.DAY_OF_MONTH));
 		// Field number for get and set indicating the day of the month.
 		// This is a synonym for DATE. The first day of the month has value 1.
 
-		currentMonth.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
+		currentMonth
+				.setText(DateFormat.format(dateTemplate, derpCal.getTime()));
 		gridAdapter.notifyDataSetChanged();
 		calView.setAdapter(gridAdapter);
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 
 	/**
 	 * Name: GridAdapter Inner class to handle the calendar grid adapter
@@ -166,11 +178,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private static final int DAY_OFFSET = 1;
 
 		// Strings for day
-		private final String[] months = { "January", "February", "March", "April",
-				"May", "June", "July", "August", "September", "October", "November",
-				"December" }; // Strings for month
-		private final int[] daysOfMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
-				30, 31 }; // the number of days of each month
+		private final String[] months = { "January", "February", "March",
+				"April", "May", "June", "July", "August", "September",
+				"October", "November", "December" }; // Strings for month
+		private final int[] daysOfMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30,
+				31, 30, 31 }; // the number of days of each month
 		private final int month, year;
 		private int daysInMonth;
 		private int currentDayOfMonth;
@@ -179,7 +191,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
 		private Button buttonControl = null;
-		
+
 		// For list
 		private CalendarList listAdapter;
 		private WorkoutSessionModel calendar_WSession;
@@ -187,7 +199,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private ListView derp_calList;
 		private ImageView cal_listheader;
 
-		public GridAdapter(Context context, int month, int year, WorkoutSessionModel model_data , ImageView _cal) {
+		public GridAdapter(Context context, int month, int year,
+				WorkoutSessionModel model_data, ImageView _cal) {
 			super();
 			this.calendar_WSession = model_data;
 			this.cal_context = context;
@@ -199,12 +212,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
-			currentYear_value = tempcal.get(Calendar.YEAR);		
+			currentYear_value = tempcal.get(Calendar.YEAR);
 			this.cal_listheader = _cal;
-			derp_calList = (ListView) findViewById(R.id.calendar_listView);	
-			
+			derp_calList = (ListView) findViewById(R.id.calendar_listView);
+
 			createMonth(month, year);
-			
+
 		}
 
 		private String getMonthAsString(int i) {
@@ -235,12 +248,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			int prevYear = 0;
 			int nextMonth = 0;
 			int nextYear = 0;
-	
-			
+
 			if (month == currentMonth_value && year == currentYear_value)
-				cal_listheader.setImageResource(R.drawable.calendar_listheader_today);
-			else 
-				cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
+				cal_listheader
+						.setImageResource(R.drawable.calendar_listheader_today);
+			else
+				cal_listheader
+						.setImageResource(R.drawable.calendar_listheader_selected);
 
 			int currentMonth = mon - 1;
 			daysInMonth = getNumberOfDaysOfMonth(currentMonth);
@@ -275,9 +289,14 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			}
 
 			for (int i = 0; i < trailingSpaces; i++) {
-				list.add(String.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET)
-						+ i)
-						+ "-GREY" + "-" + getMonthAsString(prevMonth) + "-" + prevYear);
+				list.add(String
+						.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET)
+								+ i)
+						+ "-GREY"
+						+ "-"
+						+ getMonthAsString(prevMonth)
+						+ "-"
+						+ prevYear);
 			}
 
 			int indexCount = trailingSpaces - 1;
@@ -290,41 +309,41 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				indexCount++;
 
 				if (indexCount % 7 == 6) {
-					tempString = String.valueOf(i) + "-BLUE" + "-"
+					tempString = String.valueOf(i) + "-WEEKEND_BLUE" + "-"
 							+ getMonthAsString(currentMonth) + "-" + year;
 					list.set(indexCount, tempString);
 				} else if (indexCount % 7 == 0) {
-					tempString = String.valueOf(i) + "-RED" + "-"
+					tempString = String.valueOf(i) + "-WEEKEND_BLUE" + "-"
 							+ getMonthAsString(currentMonth) + "-" + year;
 					list.set(indexCount, tempString);
 				}
 
 				if (i == getCurrentDayOfMonth() && month == currentMonth_value
 						&& year == currentYear_value) {
-					tempString = String.valueOf(i) + "-YELLOW" + "-"
+					tempString = String.valueOf(i) + "-GREEN" + "-"
 							+ getMonthAsString(currentMonth) + "-" + year;
-					list.set(indexCount, tempString);								
-					
-					
-									
-					int numberofRecord = recordChecker(Integer.toString(getCurrentDayOfMonth()),
-							getMonthAsString(currentMonth),Integer.toString(currentYear_value));
-					
-					if(numberofRecord == 0)
+					list.set(indexCount, tempString);
+
+					int numberofRecord = recordChecker(
+							Integer.toString(getCurrentDayOfMonth()),
+							getMonthAsString(currentMonth),
+							Integer.toString(currentYear_value));
+
+					if (numberofRecord == 0)
 						listAdapter = new CalendarList(getApplicationContext());
-					else{
+					else {
 						ArrayList<WorkoutSessionRow> workouts = new ArrayList<WorkoutSessionRow>();
-						for(int z = 0; z < numberofRecord;z++){
+						for (int z = 0; z < numberofRecord; z++) {
 							workouts.add(pulledData[z]);
 						}
-						listAdapter = new CalendarList(getApplicationContext(), workouts);
-					}					
+						listAdapter = new CalendarList(getApplicationContext(),
+								workouts);
+					}
 					listAdapter.notifyDataSetChanged();
-					derp_calList.setAdapter(listAdapter);			
+					derp_calList.setAdapter(listAdapter);
 				}
-			}	
-			
-			
+			}
+
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
 				list.add(String.valueOf(i + 1) + "-GREY" + "-"
@@ -337,7 +356,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			if (row == null) {
 				LayoutInflater inflater = (LayoutInflater) cal_context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				row = inflater.inflate(R.layout.calendar_gridcell, parent, false);
+				row = inflater.inflate(R.layout.calendar_gridcell, parent,
+						false);
 			}
 
 			// Get a reference to the Day
@@ -348,9 +368,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 			// set color for days
 			gridcell.setText(day_color[0]);
+			gridcell.setTypeface(font);
 
-			gridcell.setTag(day_color[1] + "-" + day_color[0] + "-" + day_color[2]
-					+ "-" + day_color[3]);
+			gridcell.setTag(day_color[1] + "-" + day_color[0] + "-"
+					+ day_color[2] + "-" + day_color[3]);
 
 			gridcell.setTextColor(colorChanger(day_color[1]));
 
@@ -376,47 +397,53 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		private int recordChecker(String day, String month, String year) {
-			
+
 			// Get the date range
 			int nextday = Integer.parseInt(day) + 1;
 			String startDate = day + "-" + month + "-" + year;
 			String endDate = nextday + "-" + month + "-" + year;
 
 			calendar_WSession.open();
-			
+
 			// Fetch data within the range
 			try {
-				pulledData = calendar_WSession.getByTime(
-					stampTime(startDate), stampTime(endDate));
+				pulledData = calendar_WSession.getByTime(stampTime(startDate),
+						stampTime(endDate));
 			} catch (Exception e) {
 				return 0;
 			}
 
 			calendar_WSession.close();
-			
+
 			return pulledData.length;
 		}
 
 		private int colorChanger(String sColor) {
+			Resources res = getResources();
 
 			if (sColor.equals("GREY")) {
-				return Color.GRAY;
+				return res.getColor(R.color.light_gray);
 			}
 			if (sColor.equals("BLUE")) {
-				return getResources().getColor(R.color.static_text_blue);
+				return res.getColor(R.color.blue);
+			}
+			if (sColor.equals("WEEKEND_BLUE")) {
+				return res.getColor(R.color.weekendBlue);
 			}
 			if (sColor.equals("YELLOW")) {
 				return getResources().getColor(R.color.static_text_yellow);
 			}
 			if (sColor.equals("RED")) {
-				return getResources().getColor(R.color.static_text_red);
+				return res.getColor(R.color.redLine);
+			}
+			if (sColor.equals("GREEN")) {
+				return res.getColor(R.color.wod);
 			} else {
 				return Color.WHITE;
 			}
 
 		}
 
-		
 		public int getCurrentDayOfMonth() {
 			Calendar tempcal = Calendar.getInstance();
 			return tempcal.getTime().getDate();
@@ -442,59 +469,57 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 				long milliTime = date.getTime();
 				return milliTime;
-				
+
 			} catch (ParseException e) {
 				return 0;
 			}
 		}
 
 		public void onClick(View view) {
-			
-			cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
+
+			cal_listheader
+					.setImageResource(R.drawable.calendar_listheader_selected);
 			Button clickedButton = (Button) view;
 			if (buttonControl != null && buttonControl_color != null) {
 				buttonControl.setTextColor(colorChanger(buttonControl_color));
 			}
-			
 
 			clickedButton.setOnClickListener(this);
-			clickedButton.setTextColor(getResources().getColor(
-					R.color.static_text_green));
+			clickedButton.setTextColor(getResources().getColor(R.color.blue));
 
 			buttonControl = clickedButton;
 			String tempHelper = (String) buttonControl.getTag();
 			String[] colorHelper = tempHelper.split("-");
 			buttonControl_color = colorHelper[0];
 
-			
 			String[] noColor = ((String) clickedButton.getTag()).split("-");
-			int numberofRecord = recordChecker(noColor[1],noColor[2],noColor[3]);
-			
-			if(numberofRecord == 0){
+			int numberofRecord = recordChecker(noColor[1], noColor[2],
+					noColor[3]);
+
+			if (numberofRecord == 0) {
 				listAdapter = new CalendarList(getApplicationContext());
-				}
-			else{
-				// Construct a new one so further calls do not destroy previous references
+			} else {
+				// Construct a new one so further calls do not destroy previous
+				// references
 				ArrayList<WorkoutSessionRow> workouts = new ArrayList<WorkoutSessionRow>();
-				for(int i = 0; i < numberofRecord;i++){
+				for (int i = 0; i < numberofRecord; i++) {
 					workouts.add(pulledData[i]);
 				}
-				listAdapter = new CalendarList(getApplicationContext(), workouts);
+				listAdapter = new CalendarList(getApplicationContext(),
+						workouts);
 			}
-			
+
 			listAdapter.notifyDataSetChanged();
-			try{
-				derp_calList.setAdapter(listAdapter);				
-			}catch(NullPointerException e){
-			}			
+			try {
+				derp_calList.setAdapter(listAdapter);
+			} catch (NullPointerException e) {
+			}
 		}
 	}
-	
-	
-	
-	
+
 	/**
-	 * Name: CalendarListActivity Inner class to handle the calendar list adapter
+	 * Name: CalendarListActivity Inner class to handle the calendar list
+	 * adapter
 	 */
 	public class CalendarList extends BaseAdapter {
 
@@ -503,24 +528,24 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private boolean havenoRecord;
 		private LayoutInflater inflater;
 		private int numberofRecord;
-		
+
 		private String stringMilli;
 		private String stringSecond;
 		private String stringMinutes;
 		private String finalResult;
-		
+
 		private TextView itemWorkout;
 		private TextView itemRecord;
-		
-		public CalendarList(Context _context){
+
+		public CalendarList(Context _context) {
 			this.listContext = _context;
 			this.havenoRecord = true;
 			inflater = (LayoutInflater) _context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);		
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			numberofRecord = 1;
 		}
 
-		public CalendarList(Context _context, ArrayList<WorkoutSessionRow> _data){
+		public CalendarList(Context _context, ArrayList<WorkoutSessionRow> _data) {
 			this.listContext = _context;
 			this.arrayList = _data;
 			this.havenoRecord = false;
@@ -528,65 +553,90 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			numberofRecord = _data.size();
 		}
-		
-		
+
 		public View getView(int position, View convertView, ViewGroup parent) {
-			if(convertView == null)
-				convertView = inflater
-				.inflate(R.layout.calendar_list_item, parent, false);
-			itemWorkout = (TextView) convertView.findViewById(R.id.cal_workoutname);
+			if (convertView == null)
+				convertView = inflater.inflate(R.layout.calendar_list_item,
+						parent, false);
+			itemWorkout = (TextView) convertView
+					.findViewById(R.id.cal_workoutname);
 			itemRecord = (TextView) convertView.findViewById(R.id.cal_record);
 
-			if(havenoRecord == true){
-				itemWorkout.setText("No Record exists");
-				itemRecord.setText("No Record exists");
-			}else{
+			if (havenoRecord == true) {
+				itemWorkout.setText("");
+				itemRecord.setText("");
+			} else {
 
 				WorkoutModel tempModel = new WorkoutModel(listContext);
 				tempModel.open();
-				
-				WorkoutRow tempRowName = tempModel.getByID(arrayList.get(position).workout_id);
-				tempModel.close();
-				WorkoutSessionModel tempSession = new WorkoutSessionModel(listContext);
-				tempSession.open();	
-				
 
-				if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_TIME){
-					int millisec = (arrayList.get(position).score / 10) % 100 ;
-					int seconds = (arrayList.get(position).score / 1000) % 60 ;
-					int minutes = ((arrayList.get(position).score / (1000*60)) % 60);
-					
-					if(millisec < 10)
-						stringMilli = new String("0" + Integer.toString(millisec));
+				WorkoutRow tempRowName = tempModel.getByID(arrayList
+						.get(position).workout_id);
+				tempModel.close();
+				WorkoutSessionModel tempSession = new WorkoutSessionModel(
+						listContext);
+				tempSession.open();
+
+				if (arrayList.get(position).score_type_id == WorkoutModel.SCORE_TIME) {
+					int millisec = (arrayList.get(position).score / 10) % 100;
+					int seconds = (arrayList.get(position).score / 1000) % 60;
+					int minutes = ((arrayList.get(position).score / (1000 * 60)) % 60);
+
+					if (millisec < 10)
+						stringMilli = new String("0"
+								+ Integer.toString(millisec));
 					else
-						stringMilli = new String(Integer.toString(millisec));						
-					
-					if(seconds < 10)
-						stringSecond = new String("0" + Integer.toString(seconds));
+						stringMilli = new String(Integer.toString(millisec));
+
+					if (seconds < 10)
+						stringSecond = new String("0"
+								+ Integer.toString(seconds));
 					else
 						stringSecond = new String(Integer.toString(seconds));
-					
-					if(minutes < 10)
-						stringMinutes = new String("0" + Integer.toString(minutes));
+
+					if (minutes < 10)
+						stringMinutes = new String("0"
+								+ Integer.toString(minutes));
 					else
 						stringMinutes = new String(Integer.toString(minutes));
-					
-					finalResult = new String (stringMinutes + ":" + stringSecond + "." + stringMilli);					
+
+					finalResult = new String(stringMinutes + ":" + stringSecond
+							+ "." + stringMilli);
 				}
-		/*		else if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_WEIGHT){					
-					String stringWeightResult = Integer.toString(arrayList.get(position).score);
-					finalResult = new String (stringWeightResult + " lb");
-				}
-				else if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_REPS){
-					String stringWeightResult = Integer.toString(arrayList.get(position).score);
-					finalResult = new String (stringWeightResult + " times");
-				}			
-		*/	
+				/*
+				 * else if(arrayList.get(position).score_type_id ==
+				 * WorkoutModel.SCORE_WEIGHT){ String stringWeightResult =
+				 * Integer.toString(arrayList.get(position).score); finalResult
+				 * = new String (stringWeightResult + " lb"); } else
+				 * if(arrayList.get(position).score_type_id ==
+				 * WorkoutModel.SCORE_REPS){ String stringWeightResult =
+				 * Integer.toString(arrayList.get(position).score); finalResult
+				 * = new String (stringWeightResult + " times"); }
+				 */
+				// set the text of the TextView objects from the data retrieved
+				// from the DB
+				Resources res = getResources();
+
+				if (tempModel.getTypeName(tempRowName.workout_type_id).equals(
+						"WOD"))
+					itemWorkout.setTextColor(res.getColor(R.color.wod));
+				else if (tempModel.getTypeName(tempRowName.workout_type_id)
+						.equals("Hero"))
+					itemWorkout.setTextColor(res.getColor(R.color.heroes));
+				else if (tempModel.getTypeName(tempRowName.workout_type_id)
+						.equals("Girl"))
+					itemWorkout.setTextColor(res.getColor(R.color.girls));
+				else if (tempModel.getTypeName(tempRowName.workout_type_id)
+						.equals("Custom"))
+					itemWorkout.setTextColor(res.getColor(R.color.custom));
+
 				itemWorkout.setText(tempRowName.name);
+				itemWorkout.setTypeface(font);
 				itemRecord.setText(finalResult);
+				itemRecord.setTypeface(font);
 				tempSession.close();
-								
-			}	
+
+			}
 			return convertView;
 		}
 
@@ -594,12 +644,12 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			return numberofRecord;
 		}
 
-		public String  getItem(int position) {
+		public String getItem(int position) {
 			return null;
 		}
 
 		public long getItemId(int position) {
 			return position;
-		}		
+		}
 	}
 }
