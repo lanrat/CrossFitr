@@ -162,15 +162,6 @@ public class UserProfileActivity extends Activity implements OnClickListener
 		fontButton = (Button) findViewById(R.id.achievements_button);
 		fontButton.setTypeface(font);
 		
-		/*Context context = getApplicationContext();
-		CharSequence text;
-		int duration = Toast.LENGTH_LONG;
-		Toast toast;
-		
-		text = "Achievement Earned: All Profiled Up\n";
-		toast = Toast.makeText(context, text, duration);
-		toast.show();*/
-		
 		model.close();
 	}
 

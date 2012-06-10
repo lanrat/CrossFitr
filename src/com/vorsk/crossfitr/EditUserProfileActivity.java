@@ -11,6 +11,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	private EditText weightTextField;
 	private EditText heightTextField;
 	private EditText goalWeightTextField;
+	private InputMethodManager keyControl;
 	ProfileModel model = new ProfileModel(this);
 	AchievementModel achievementModel = new AchievementModel(this);
 	
@@ -31,6 +35,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		keyControl = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		setContentView(R.layout.userprofile_form);
 		model.open();
 	
@@ -93,7 +98,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 	{
 		Context context = getApplicationContext();
 		CharSequence text;
-		int duration = Toast.LENGTH_SHORT;
+		int duration;
 		Toast toast;
 		
 		switch(v.getId())
@@ -104,6 +109,7 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 			if(this.isNotBlank() == false)
 			{
 				text = "Please fill out all fields!";
+				duration = Toast.LENGTH_SHORT;
 				toast = Toast.makeText(context, text, duration);
 				toast.show();
 			}
@@ -114,7 +120,8 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 				long current_weight_id = model.updateInsert("weight", weightTextField.getText().toString());
 				long goal_weight_id = model.updateInsert("goal_weight", goalWeightTextField.getText().toString());
 				
-				text = achievementModel.getProgress(SQLiteDAO.TYPE_MISC);
+				text = achievementModel.getProgress(AchievementModel.TYPE_MISC);
+				duration = Toast.LENGTH_LONG;
 				if(text != null){
 					toast = Toast.makeText(context, text, duration);
 					toast.show();
@@ -143,6 +150,13 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 				toast.show();
 				model.close();
 			}*/
+				
+		/*case d.background_main:
+			hideKeyboard(weightTextField);
+			hideKeyboard(nameTextField);
+			hideKeyboard(heightTextField);
+			hideKeyboard(goalWeightTextField);
+			break;*/
 		}
 		
 	}
@@ -165,6 +179,11 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		}
 	}*/
 	
+	//method to hide the keyboard
+	private void hideKeyboard(EditText eBox) 
+	{
+		keyControl.hideSoftInputFromWindow(eBox.getWindowToken(), 0);
+	}
 	
 	private boolean isNotBlank(){
 		if (nameTextField.getText().length() <= 0)
