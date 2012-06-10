@@ -35,7 +35,7 @@ public class StopwatchActivity extends Activity implements
 	private MediaPlayer mp;
 	private boolean active = true;
 	private WorkoutRow workout;
-
+// Testing git
 	/**
 	 * Handler object that updates time display on the button
 	 */
