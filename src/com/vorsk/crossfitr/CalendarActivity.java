@@ -512,14 +512,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private LayoutInflater inflater;
 		private int numberofRecord;
 		
+		private String stringMilli;
 		private String stringSecond;
 		private String stringMinutes;
 		private String finalResult;
 		
 		private TextView itemWorkout;
 		private TextView itemRecord;
-		
-		private ImageView cal_ImageView;
 		
 		public CalendarList(Context _context){
 			this.listContext = _context;
@@ -561,9 +560,15 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				
 
 				if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_TIME){
+					int millisec = (arrayList.get(position).score % 1000) /10 ;
 					int seconds = (arrayList.get(position).score / 1000) % 60 ;
 					int minutes = ((arrayList.get(position).score / (1000*60)) % 60);
-					Log.d(tag, "It gets here #7 ");
+					
+					if(seconds < 10)
+						stringMilli = new String("0" + Integer.toString(millisec));
+					else
+						stringMilli = new String(Integer.toString(millisec));						
+					
 					if(seconds < 10)
 						stringSecond = new String("0" + Integer.toString(seconds));
 					else
@@ -574,7 +579,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					else
 						stringMinutes = new String(Integer.toString(minutes));
 					
-					finalResult = new String (stringMinutes + ":" + stringSecond);					
+					finalResult = new String (stringMinutes + ":" + stringSecond + "." + stringMilli);					
 				}
 				
 				
