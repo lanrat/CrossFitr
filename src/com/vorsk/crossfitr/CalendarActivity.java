@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 public class CalendarActivity extends Activity implements OnClickListener {
 	private static final String tag = "CalendarActivity";
-	private ImageView calJournalButton, preMonth, nextMonth, cal_listheader;
+	private ImageView preMonth, nextMonth, cal_listheader;
 	private Button currentMonth;
 	private View calendar_bg;
 
@@ -37,7 +37,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private GridAdapter gridAdapter; // inner class to handle adapter
 	private Calendar derpCal;
 	private int month, year;
-	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
 	
 
@@ -162,14 +161,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	 */
 	public class GridAdapter extends BaseAdapter implements OnClickListener {
 
-		private static final String tag = "GridAdapter";
-
 		private final Context cal_context;
 		private List<String> list;
 		private static final int DAY_OFFSET = 1;
 
-		private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
-				"Wed", "Thu", "Fri", "Sat" };
 		// Strings for day
 		private final String[] months = { "January", "February", "March", "April",
 				"May", "June", "July", "August", "September", "October", "November",
@@ -184,12 +179,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		private int currentMonth_value, currentYear_value;
 		private String buttonControl_color = null;
 		private Button buttonControl = null;
-		private boolean today = false;
 		
 		// For list
 		private CalendarList listAdapter;
 		private WorkoutSessionModel calendar_WSession;
-		private ArrayList<WorkoutSessionRow> workoutList;
 		private WorkoutSessionRow[] pulledData;
 		private ListView derp_calList;
 		private ImageView cal_listheader;
@@ -250,7 +243,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				cal_listheader.setImageResource(R.drawable.calendar_listheader_selected);
 
 			int currentMonth = mon - 1;
-			String currentMonthName = getMonthAsString(currentMonth);
 			daysInMonth = getNumberOfDaysOfMonth(currentMonth);
 
 			GregorianCalendar cal = new GregorianCalendar(year, currentMonth, 1);
@@ -384,7 +376,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		}
 
 		private int recordChecker(String day, String month, String year) {
-
 			
 			// Get the date range
 			int nextday = Integer.parseInt(day) + 1;
@@ -507,7 +498,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	 */
 	public class CalendarList extends BaseAdapter {
 
-		private static final String tag = "CalendarList";
 		private final Context listContext;
 		private ArrayList<WorkoutSessionRow> arrayList;
 		private boolean havenoRecord;
