@@ -7,6 +7,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -53,6 +54,10 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		
+		TabataActivity.setTabataFinished(false);
+		StopwatchActivity.setStopwatchFinished(false);
+		
 		cdRun = false;
 		// create model object
 		WorkoutModel model = new WorkoutModel(this);
@@ -67,7 +72,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		// open model to put data into database
 		model.open();
 		workout = model.getByID(id);
-		model.close();
 
 		Typeface roboto = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
@@ -86,7 +90,16 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		mWorkoutName = (TextView) findViewById(R.id.workout_name_time);
 		mWorkoutName.setText(workout.name);
 		mWorkoutName.setTypeface(roboto);
-
+		Resources res = getResources();
+		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+			mWorkoutName.setTextColor(res.getColor(R.color.wod));
+		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
+			mWorkoutName.setTextColor(res.getColor(R.color.heroes));
+		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
+			mWorkoutName.setTextColor(res.getColor(R.color.girls));
+		else if(model.getTypeName(workout.workout_type_id).equals("Custom"))
+			mWorkoutName.setTextColor(res.getColor(R.color.custom));
+		model.close();
 		mStartStop = (Button) findViewById(R.id.start_stop_button);
 		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(this);
@@ -94,7 +107,7 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 		//mStartStop.setText("0:00:00.0");
 		mStartStop.setEnabled(false);
 
-		mSetTimer = (Button) findViewById(R.id.SetTimer);
+		mSetTimer = (Button) findViewById(R.id.set_button);
 		mSetTimer.setTypeface(roboto);
 
 		mFinish = (Button) findViewById(R.id.finish_workout_button);
@@ -237,14 +250,6 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	public String getFormattedElapsedTime() {
 		return formatElapsedTime(getStartTime() - getElapsedTime());
 	}
-	
-	private long getTotalTime(){
-		 if(getStartTime() - getElapsedTime() == 0){
-			 return 0;
-		 }
-		 else
-			 return 1;
-	}
 
 	private long getElapsedTime() {
 		return timer.getElapsedTime();
@@ -306,7 +311,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	public void onFinishedClicked(View v) {
 		timerFinished = true;
 		Intent result = new Intent();
-		result.putExtra("time", getTotalTime());
+		result.putExtra("score_type", SQLiteDAO.SCORE_NONE);
+		result.putExtra("score", SQLiteDAO.NOT_SCORED);
+
 		
 		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
 				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
@@ -377,4 +384,9 @@ public class TimerActivity extends Activity implements OnGlobalLayoutListener {
 	public static boolean getTimerFinished() {
 		return timerFinished;
 	}
+	
+	public static void setTimerFinished(boolean state) {
+		timerFinished = state;
+	}
+	
 }

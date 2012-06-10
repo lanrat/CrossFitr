@@ -147,24 +147,20 @@ public class ResultsActivity extends Activity implements OnClickListener
 		else if(wmodel.getTypeName(workout.workout_type_id).equals("Custom"))
 			tvname.setTextColor(res.getColor(R.color.custom));
 		tvdesc.setText(workout.description);
-  		tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(Long.parseLong(String.valueOf(workout.record))));
   		if(TabataActivity.getTabataFinished()){
-  			if(session.score == 1){
-  				tvscore.setText("Your Score: "+ session.score + " Set");
+  			long sets = TabataActivity.getNumberSets();
+  			if(sets == 1){
+  				tvscore.setText("Your Score: "+ sets + " Set");
   			}
   			else
-  				tvscore.setText("Your Score: "+ session.score + " Sets");
+  				tvscore.setText("Your Score: "+ sets + " Sets");
   		}
+
   		else if(TimerActivity.getTimerFinished()){
-  			if(session.score == 0){
-  				tvscore.setText("Your Score:" + '\n' + "Workout Finished");
-  			}
-  			else{
-  				tvscore.setText("Your Score:" + '\n' + "Workout Not Finished");
-  			}
   		}
-  		else if(StopwatchActivity.getTimerFinished()){
+  		else if(StopwatchActivity.getStopwatchFinished()){
   			tvscore.setText("Your Score: "+StopwatchActivity.formatElapsedTime(session.score));
+  			tvbestRecord.setText("Personal Record: "+StopwatchActivity.formatElapsedTime(workout.record));
   		}
 		
 		wmodel.close();

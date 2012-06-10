@@ -3,27 +3,63 @@
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="5dp"
         android:background="@drawable/background_main" >
         <ImageView
         	android:id="@+id/main_header"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_marginTop="-15dp"
+        	android:layout_alignParentTop="true"
         	android:src="@drawable/main_header" />
+        
+        <RelativeLayout
+            android:id="@+id/workout_name_header"
+            android:layout_below="@id/main_header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="-10dp"
+            android:gravity="top" >
+
+            <TextView
+                android:id="@+id/screenTitle"
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workout" />
+
+            <TextView
+                android:id="@+id/workout_profile_nameDB"
+                style="@style/workoutTypeTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/screenTitle" />
+           
+        </RelativeLayout>
+        
+         <View
+            android:id="@+id/red_line"
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:layout_marginBottom="4dp"
+	        android:layout_below="@id/workout_name_header"
+	        android:background="@color/redLine" />
+         
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" 
-            android:layout_marginTop="-13dp"/>
+            android:layout_below="@id/red_line"
+            />
         <FrameLayout
             android:id="@android:id/tabcontent"
+            android:layout_below="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="5dp" />
-    </LinearLayout>
+    </RelativeLayout>
 </TabHost>

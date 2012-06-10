@@ -6,6 +6,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -25,7 +26,8 @@ public class TabataActivity extends Activity {
 	private Button mStartStop, mReset, mFinish;
 	private Time tabata = new Time();
 	private boolean newStart, cdRun, goStop;
-	private long id, set;
+	private long id;
+	private static long set;
 	private MediaPlayer mp;
 	private boolean active = true;
 	private static boolean tabataFinished = false;
@@ -46,6 +48,10 @@ public class TabataActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		TimerActivity.setTimerFinished(false);
+		StopwatchActivity.setStopwatchFinished(false);
+
 
 		setContentView(R.layout.tabata_tab);
 		cdRun = false;
@@ -66,7 +72,6 @@ public class TabataActivity extends Activity {
 
 	  	model.open();
 	  	workout = model.getByID(id);
-		model.close();
 		
 		Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
 	  	
@@ -83,6 +88,16 @@ public class TabataActivity extends Activity {
 		mWorkoutName = (TextView)findViewById(R.id.workout_name_time);
 		mWorkoutName.setText(workout.name);
 		mWorkoutName.setTypeface(roboto);
+		Resources res = getResources();
+		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+			mWorkoutName.setTextColor(res.getColor(R.color.wod));
+		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
+			mWorkoutName.setTextColor(res.getColor(R.color.heroes));
+		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
+			mWorkoutName.setTextColor(res.getColor(R.color.girls));
+		else if(model.getTypeName(workout.workout_type_id).equals("Custom"))
+			mWorkoutName.setTextColor(res.getColor(R.color.custom));
+		model.close();
 		
 		mStartStop = (Button)findViewById(R.id.start_stop_button);
 		mStartStop.setTypeface(roboto);
@@ -163,7 +178,8 @@ public class TabataActivity extends Activity {
 	public void onFinishedClicked(View v) {
 		Intent result = new Intent();
 		tabataFinished = true;
-		result.putExtra("time", set);
+		result.putExtra("score_type", SQLiteDAO.NOT_SCORED);
+		result.putExtra("score", SQLiteDAO.NOT_SCORED);
 		
 		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
 				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
@@ -181,6 +197,10 @@ public class TabataActivity extends Activity {
 	 */
 	public static boolean getTabataFinished(){
 		return tabataFinished;
+	}
+	
+	public static void setTabataFinished(boolean state) {
+		tabataFinished = state;
 	}
 
 	/**
@@ -265,6 +285,14 @@ public class TabataActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * The number of sets completed in tabata
+	 * @return number of sets completed in tabata
+	 */
+	public static long getNumberSets(){
+		return set;
+	}
+	
 
 	/**
 	 * method to change background color
@@ -308,4 +336,5 @@ public class TabataActivity extends Activity {
 		 }
         active = false;
 	 }
+	
 }

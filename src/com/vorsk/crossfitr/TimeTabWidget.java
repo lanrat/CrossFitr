@@ -1,15 +1,23 @@
 package com.vorsk.crossfitr;
 
+import com.vorsk.crossfitr.models.WorkoutModel;
+import com.vorsk.crossfitr.models.WorkoutRow;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 public class TimeTabWidget extends TabActivity{ // Resource object to get Drawables
 	long id;
 	TabHost tabhost;
+	private WorkoutRow workout;
 	int custom_score;
+	TextView tvname, screenName;
+	private Typeface font;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +38,31 @@ public class TimeTabWidget extends TabActivity{ // Resource object to get Drawab
 	  		finish();
 	  	}
 	  	
+	  	WorkoutModel model = new WorkoutModel(this);
+	  	model.open();
+		workout = model.getByID(id);
+
+	  	
 	  	custom_score = getIntent().getIntExtra("workout_score", -1);
 	  	if (custom_score <= 0) custom_score = -1;
 	  	
+	  	font = Typeface.createFromAsset(this.getAssets(),"fonts/Roboto-Thin.ttf");
+	  	screenName = (TextView) findViewById(R.id.screenTitle);
+		screenName.setTypeface(font);
+		
+	  	tvname = (TextView) findViewById(R.id.workout_profile_nameDB);
+		tvname.setTypeface(font);
+		tvname.setText(workout.name);
+		
+		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+			tvname.setTextColor(res.getColor(R.color.wod));
+		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
+			tvname.setTextColor(res.getColor(R.color.heroes));
+		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
+			tvname.setTextColor(res.getColor(R.color.girls));
+		else if(model.getTypeName(workout.workout_type_id).equals("Custom"))
+			tvname.setTextColor(res.getColor(R.color.custom));
+		model.close();
 	  	
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, TimerActivity.class);
