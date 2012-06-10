@@ -13,6 +13,7 @@
     <string name="user_label">User Profile</string>
     <string name="edit_profile_label">Edit Profile</string>
     <string name="delete_profile_label">Delete Profile</string> 
+    <string name="achievement_label">Achievements</string> 
     <string name="workout_name">Workout</string>
     <string name="timer_tab_label">Timer Tab</string>
     <string name="timer_label">Timer</string>
@@ -78,13 +79,16 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_picker_title">Set Timer</string>
     
-  <!-- Strings for Calendar -->
-  <string name="CList">Calendar_listhelper</string>
-  <string name="Cmain">Calendar_main</string>
-  <string name="sun" >sun\u0020\u0020\u0020\u0020\u0020</string>
-  <string name="mon_thru_fri" >mon\u0020\u0020\u0020\u0020tue\u0020\u0020\u0020\u0020wed\u0020\u0020\u0020
+ 	<!-- Strings for Calendar -->
+  	<string name="CList">Calendar_listhelper</string>
+  	<string name="Cmain">Calendar_main</string>
+  	<string name="sun" >sun\u0020\u0020\u0020\u0020\u0020</string>
+  	<string name="mon_thru_fri" >mon\u0020\u0020\u0020\u0020tue\u0020\u0020\u0020\u0020wed\u0020\u0020\u0020
 							    \u0020thu\u0020\u0020\u0020\u0020\u0020fri\u0020\u0020\u0020\u0020\u0020\u0020</string>
-  <string name="sat">sat</string>
+  	<string name="sat">sat</string>
+  	
+  	<!-- Strings for Achievements -->
+  	<string name="achievements">Achievements</string>
 
 	
 </resources>

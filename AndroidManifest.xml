@@ -50,6 +50,11 @@
             android:label="@string/girl_label"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
+         <activity
+            android:name=".AchievementActivity"
+            android:label="@string/achievement_label"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".HeroesActivity"
             android:label="@string/hero_label"

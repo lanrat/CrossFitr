@@ -167,18 +167,17 @@ public class UserProfileActivity extends Activity implements OnClickListener
 
 	public void onClick(View v) 
 	{
+		Intent u;
 		switch (v.getId()) 
 		{
 		case R.id.edit_profile_button:
-			Intent u = new Intent(this, EditUserProfileActivity.class);
+			u = new Intent(this, EditUserProfileActivity.class);
 			startActivity(u);
 			break;
-		//case R.id.injuries_button:
-			// TODO add injuries intent
-			//break;
-		//case R.id.achievements_button:
-			// TODO add achievements intent
-			//break;
+		case R.id.achievements_button:
+			u = new Intent(this, AchievementActivity.class);
+			startActivity(u);
+			break;
 		}
 	}
 	

@@ -217,6 +217,17 @@ public class AchievementModel extends SQLiteDAO
 		Cursor cr = select(col, val);
 		return fetchAchievementRows(cr);
 	}
+	
+	/**
+	 * Fetch all achievements
+	 * 
+	 * @return List of each profile attribute and value
+	 */
+	public AchievementRow[] getAll() {
+		Cursor cr = select(new String[] {}, new String[] {});
+
+		return fetchAchievementRows(cr);
+	}
 	/**
 	 * Fetch a specific achievement by name
 	 * 

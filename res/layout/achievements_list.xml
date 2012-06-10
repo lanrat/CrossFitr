@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_main"
+    android:gravity="top"
+    android:orientation="vertical" >
+
+    <!-- crossfitr logo -->
+
+	 <ImageView
+	        android:id="@+id/main_header"
+	        android:layout_width="fill_parent"
+	        android:layout_height="55dp"
+	        android:layout_marginTop="-10dp"
+	        android:src="@drawable/main_header" />
+	
+	  <!-- screen title + thin red line -->
+	
+	  <LinearLayout
+	      android:layout_width="match_parent"
+	      android:layout_height="wrap_content"
+	      android:orientation="vertical" >
+	
+	      <RelativeLayout
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:layout_gravity="top"
+	          android:gravity="top" >
+	
+	          <TextView
+	              android:id="@+id/achievements_title"
+	              style="@style/titleText"
+	              android:text="Achievements" />
+	
+	          
+	      </RelativeLayout>
+	
+	      <View
+	          android:layout_width="match_parent"
+	          android:layout_height="1dp"
+	          android:background="@color/redLine" />
+  </LinearLayout>
+
+  <!-- Custom workout list from the database -->
+
+  <ListView
+      android:id="@+id/achievement_list_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/black" >  <!-- button color -->
+  </ListView>
+
+</LinearLayout>
