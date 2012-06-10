@@ -213,9 +213,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			setCurrentDayOfMonth(tempcal.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(tempcal.get(Calendar.DAY_OF_WEEK));
 			currentMonth_value = tempcal.get(Calendar.MONTH) + 1;
-			currentYear_value = tempcal.get(Calendar.YEAR);		
+			currentYear_value = tempcal.get(Calendar.YEAR);	
 
 			createMonth(month, year);
+			
 		}
 
 		private String getMonthAsString(int i) {
@@ -395,7 +396,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			String endDate = nextday + "-" + month + "-" + year;
 
 			Log.d(tag, "startDate : " + startDate);
-			Log.d(tag, "endDate : " + endDate);
+			Log.d(tag, "endDate : " + endDate);	
 
 			calendar_WSession.open();
 			
@@ -408,8 +409,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			}
 
 			Log.d(tag, "pulledData.length : " + pulledData.length);
-			
+
 			calendar_WSession.close();
+			
 			return pulledData.length;
 		}
 
