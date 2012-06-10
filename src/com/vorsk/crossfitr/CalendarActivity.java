@@ -573,8 +573,15 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					
 					finalResult = new String (stringMinutes + ":" + stringSecond + "." + stringMilli);					
 				}
-				
-				
+		/*		else if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_WEIGHT){					
+					String stringWeightResult = Integer.toString(arrayList.get(position).score);
+					finalResult = new String (stringWeightResult + " lb");
+				}
+				else if(arrayList.get(position).score_type_id == WorkoutModel.SCORE_REPS){
+					String stringWeightResult = Integer.toString(arrayList.get(position).score);
+					finalResult = new String (stringWeightResult + " times");
+				}			
+		*/	
 				itemWorkout.setText(tempRowName.name);
 				itemRecord.setText(finalResult);
 				tempSession.close();
