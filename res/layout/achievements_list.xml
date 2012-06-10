@@ -42,8 +42,6 @@
 	          android:background="@color/redLine" />
   </LinearLayout>
 
-  <!-- Custom workout list from the database -->
-
   <ListView
       android:id="@+id/achievement_list_view"
       android:layout_width="match_parent"

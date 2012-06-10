@@ -1,13 +1,17 @@
 package com.vorsk.crossfitr;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.vorsk.crossfitr.models.AchievementModel;
 import com.vorsk.crossfitr.models.AchievementRow;
+import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +21,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AchievementActivity extends Activity implements OnItemClickListener {
 	private AchievementModel model_data;
@@ -58,8 +62,35 @@ public class AchievementActivity extends Activity implements OnItemClickListener
 			listAdapter.notifyDataSetChanged();
 			
 			derp_achievements_list.setAdapter(listAdapter);
+			
+			derp_achievements_list.setOnItemClickListener(this);
 		
 		}
+	}
+	
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+	{
+		
+		AchievementRow achievement = listAdapter.get(position);
+		
+		Context context = getApplicationContext();
+		CharSequence text;
+		int duration;
+		Toast toast;
+		duration = Toast.LENGTH_SHORT;
+		
+		if(achievement.count >= 1){
+			Date date = new Date(achievement.date_modified);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+			text = "Achieved on " + formatter.format(date);
+		}
+		else{
+			int difference = achievement.progress_thresh - achievement.progress;
+			text = difference + " more workouts to go";
+		}
+		
+		toast = Toast.makeText(context, text, duration);
+		toast.show();
 	}
 
 
@@ -68,7 +99,6 @@ public class AchievementActivity extends Activity implements OnItemClickListener
 		private static final String tag = "AchievementListHelper";
 		private final Context listContext;
 		private ArrayList<AchievementRow> arrayList;
-		private ImageView listArrow;
 		private TextView nameTView;
 		private TextView descTView;
 		private LayoutInflater inflater;
@@ -133,11 +163,5 @@ public class AchievementActivity extends Activity implements OnItemClickListener
 
 		}
 
-	}
-
-
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
-		
 	}
 }
