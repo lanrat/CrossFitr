@@ -29,8 +29,8 @@ INSERT INTO 'workout' ('name', 'description', 'workout_type_id', 'record_type_id
 	-- Girls
 	SELECT 'Angie' AS 'name', '100 Pull-ups, 100 Push-ups, 100 Sit-ups, 100 squats' AS 'description', '2' AS 'workout_type_id', '1' AS 'record_type_id'
 	UNION SELECT 'Barbara', '20 Pull-ups, 30 Push-ups, 40 Sit-ups, 50 Squats, 5 rounds', '2', '1'
-	UNION SELECT 'Chelsea', '5 Pull-ups, 10 Push-ups, 15 Squats, 30 min', '2', '2'
-	UNION SELECT 'Cindy', '5 Pull-ups, 10 Push-ups, 15 Squats, 20 min', '2', '2'
+	UNION SELECT 'Chelsea', '5 Pull-ups, 10 Push-ups, 15 Squats, 30 min', '2', '1'
+	UNION SELECT 'Cindy', '5 Pull-ups, 10 Push-ups, 15 Squats, 20 min', '2', '1'
 	UNION SELECT 'Diane', 'Deadlift 225 lbs, Handstand push-ups, 21-5-9', '2', '1'
 	UNION SELECT 'Elizabeth', 'Clean 135lbs, Ring Dips, 21-5-9', '2', '1'
 	UNION SELECT 'Fran', 'Thruster 95lbs, Pull-ups, 21-5-9', '2', '1'
@@ -40,15 +40,15 @@ INSERT INTO 'workout' ('name', 'description', 'workout_type_id', 'record_type_id
 	UNION SELECT 'Jackie', '1000m row, 50 Thrusters 45lbs, 30 Pull-ups', '2', '1'
 	UNION SELECT 'Karen', '150 Wall-ball shots', '2', '1'
 	UNION SELECT 'Linda', 'Deadlift 1.5 BW, Bench BW, Clean 3/4 BW, 10/9/8/7/6/5/4/3/2/1 reps', '2', '1'
-	UNION SELECT 'Mary', '5 Handstand push-ups, 10 1-leg squats, 15 Pull-ups, 20min', '2', '2'
+	UNION SELECT 'Mary', '5 Handstand push-ups, 10 1-leg squats, 15 Pull-ups, 20min', '2', '1'
 	UNION SELECT 'Nancy', '400m run, 15 Overhead squat 95lbs, 5 rounds', '2', '1'
 	
 	-- New Girls
 	UNION SELECT 'Annie', 'Double unders, Sit-ups, 50/40/30/20/10 rounds', '2', '1'
 	UNION SELECT 'Eva', '800m Run, 2 pood KB swing x30, 30 Pull-ups, 5 rounds', '2', '1'
 	UNION SELECT 'Kelly', '400m Run, 30 24in box jump, 30 20lb Wall-ball shot, 5 rounds', '2', '1'
-	UNION SELECT 'Lynne', 'Bodyweight benchpress, Pull-ups, 5 rounds', '2', '2'
-	UNION SELECT 'Nicole', '400m Run, Pull-ups, 20min', '2', '2'
+	UNION SELECT 'Lynne', 'Bodyweight benchpress, Pull-ups, 5 rounds', '2', '1'
+	UNION SELECT 'Nicole', '400m Run, Pull-ups, 20min', '2', '1'
 	
 	-- Heroes? Holy shit there seem to be a lot of these...
 	UNION SELECT 'JT', 'Handstand push-ups, Ring dips, Push-ups, 21-15-9', '3', '1'
@@ -59,7 +59,7 @@ INSERT INTO 'workout' ('name', 'description', 'workout_type_id', 'record_type_id
 	UNION SELECT 'Jason', '100 Squats, 5 Muscle-ups, 75 Squats, 10 Muscle-ups, 50 Squats, 15 Muscle-ups, 25 Squats, 20 Muscle-ups', '3', '1'
 	UNION SELECT 'Badger', '95lb Squat clean x30, 30 Pull-ups, 800m, 3 rounds', '3', '1'
 	UNION SELECT 'Joshie', '40lb R Dumbbell snatch x21, 21 L Pull-ups, 40lb L Dumbbell snatch x21, 21 L pull-ups, 3 rounds', '3', '1'
-	UNION SELECT 'Nate', '2 muscle-ups, 4 Handstand Push-ups, 8 2 ppd KB swing, 20 min', '3', '2'
+	UNION SELECT 'Nate', '2 muscle-ups, 4 Handstand Push-ups, 8 2 ppd KB swing, 20 min', '3', '1'
 	UNION SELECT 'Randy', '75 power snatch, 75 reps', '3', '1';
 	-- TODO: More of these
 	
