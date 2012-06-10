@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 public class EditUserProfileActivity extends Activity implements OnClickListener 
 {
+	private View editBackground;
 	private EditText nameTextField;
 	private EditText weightTextField;
 	private EditText heightTextField;
@@ -54,6 +55,10 @@ public class EditUserProfileActivity extends Activity implements OnClickListener
 		
 		fontSetter = (TextView) findViewById(R.id.edit_goal_weight);
 		fontSetter.setTypeface(font);
+		
+		editBackground = (View) findViewById(R.id.userprofile_form_bg);
+		editBackground.setOnClickListener(this);
+		
 
 		// Save button
 		View saveButton = findViewById(R.id.button_userprofile_form_save);
