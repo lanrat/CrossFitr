@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="right"
     android:orientation="vertical" >
 
     <Button
@@ -25,25 +24,13 @@
         android:layout_below="@+id/start_stop_button"
         android:text="@string/workoutstate_default_label"
         android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/SetTimer"
-        style="@style/setButton"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/state_label"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/timerset_label"
-        android:textColor="@android:color/white"
-        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/description_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/finish_workout_button"
-        android:layout_below="@+id/SetTimer"
+        android:layout_below="@+id/state_label"
+        android:layout_above="@+id/set_button"
         android:orientation="vertical" >
 
         <TextView
@@ -54,31 +41,43 @@
             android:paddingTop="5dp"
             android:text="Workout Name"
             android:textSize="22sp" />
-		
+
         <ScrollView
-	        android:id="@+id/text_workout_desc_scroll"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent" >
-	        
-	        <TextView
-	            android:id="@+id/workout_des_time"
-	            android:layout_width="match_parent"
-	            android:layout_height="0dp"
-	            android:gravity="center_vertical"
-	            android:text="@string/workoutdes_default_label"
-	            android:textSize="18sp" />
+            android:id="@+id/text_workout_desc_scroll"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+
+            <TextView
+                android:id="@+id/workout_des_time"
+                android:layout_width="match_parent"
+                android:layout_height="263dp"
+                android:gravity="center_vertical"
+                android:text="@string/workoutdes_default_label"
+                android:textSize="18sp" />
+
         </ScrollView>
     </LinearLayout>
-
+
+    <Button
+        android:id="@+id/set_button"
+        style="@style/setButton"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/timerset_label"
+        android:textColor="@android:color/white" />
+
     <Button
         android:id="@+id/finish_workout_button"
         style="@style/finishButton"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
-        android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:onClick="onFinishedClicked"
-        android:text="@string/finish_label" />
+        android:text="@string/finish_label"
+        android:textColor="@android:color/white"  />
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import com.vorsk.crossfitr.models.WorkoutRow;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 
 public class StopwatchActivity extends Activity implements
 		OnGlobalLayoutListener {
-	private static boolean timerFinished = false;
+	private static boolean stopwatchFinished = false;
 	private TextView mWorkoutDescription, mStateLabel, mWorkoutName;
 	private Button mStartStop, mReset, mFinish;
 	private final long mFrequency = 100;
@@ -56,8 +57,11 @@ public class StopwatchActivity extends Activity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
 		setContentView(R.layout.stopwatch_tab);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		TimerActivity.setTimerFinished(false);
+		TabataActivity.setTabataFinished(false);
 
 		// count down is false
 		cdRun = false;
@@ -70,7 +74,6 @@ public class StopwatchActivity extends Activity implements
 
 		model.open();
 		workout = model.getByID(id);
-		model.close();
 
 		Typeface roboto = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
@@ -89,7 +92,17 @@ public class StopwatchActivity extends Activity implements
 		mWorkoutName = (TextView) findViewById(R.id.workout_name_time);
 		mWorkoutName.setText(workout.name);
 		mWorkoutName.setTypeface(roboto);
-
+		Resources res = getResources();
+		if (model.getTypeName(workout.workout_type_id).equals("WOD"))
+			mWorkoutName.setTextColor(res.getColor(R.color.wod));
+		else if (model.getTypeName(workout.workout_type_id).equals("Hero"))
+			mWorkoutName.setTextColor(res.getColor(R.color.heroes));
+		else if (model.getTypeName(workout.workout_type_id).equals("Girl"))
+			mWorkoutName.setTextColor(res.getColor(R.color.girls));
+		else if(model.getTypeName(workout.workout_type_id).equals("Custom"))
+			mWorkoutName.setTextColor(res.getColor(R.color.custom));
+		model.close();
+		
 		mStartStop = (Button) findViewById(R.id.start_stop_button);
 		ViewTreeObserver vto = mStartStop.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(this);
@@ -183,13 +196,13 @@ public class StopwatchActivity extends Activity implements
 	 * @param v
 	 */
 	public void onFinishedClicked(View v) {
-		timerFinished = true;
 		Intent result = new Intent();
 		result.putExtra("time", stopwatch.getElapsedTime());
+		stopwatchFinished = true;
 		
 		if (workout.record_type_id == SQLiteDAO.SCORE_WEIGHT
 				|| workout.record_type_id == SQLiteDAO.SCORE_REPS) {
-			result.putExtra("score", getIntent().getIntExtra("score", 0));
+			result.putExtra("score", stopwatch.getElapsedTime());
 		}
 		
 		getParent().setResult(RESULT_OK, result);
@@ -307,7 +320,12 @@ public class StopwatchActivity extends Activity implements
         active = false;
 	 }
 
-	public static boolean getTimerFinished() {
-		return timerFinished;
+	public static boolean getStopwatchFinished() {
+		return stopwatchFinished;
+	}
+
+	public static void setStopwatchFinished(boolean b) {
+		stopwatchFinished = b;
+		
 	}
 }
