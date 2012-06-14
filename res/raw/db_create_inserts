@@ -33,7 +33,7 @@ INSERT INTO 'workout' ('name', 'description', 'workout_type_id', 'record_type_id
 	UNION SELECT 'Cindy', '5 Pull-ups, 10 Push-ups, 15 Squats, 20 min', '2', '1'
 	UNION SELECT 'Diane', 'Deadlift 225 lbs, Handstand push-ups, 21-5-9', '2', '1'
 	UNION SELECT 'Elizabeth', 'Clean 135lbs, Ring Dips, 21-5-9', '2', '1'
-	UNION SELECT 'Fran', 'Thruster 95lbs, Pull-ups, 21-5-9', '2', '1'
+	UNION SELECT 'Fran', 'Thruster 95lbs, Pull-ups, 21-15-9', '2', '1'
 	UNION SELECT 'Grace', 'Clean and Jerk 135lbs, 30 reps', '2', '1'
 	UNION SELECT 'Helen', '400m run, 1.5 pood KB swing x21, Pull-ups 12 reps', '2', '1'
 	UNION SELECT 'Isabel', 'Snatch 135lbs, 30 reps', '2', '1'
