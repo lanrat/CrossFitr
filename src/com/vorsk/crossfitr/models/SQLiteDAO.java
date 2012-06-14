@@ -61,7 +61,7 @@ public abstract class SQLiteDAO
 	
 	// DB Properties
 	private static final String DB_NAME = "CrossFitr";
-	private static final int DB_VERSION = 5;
+	private static final int DB_VERSION = 6;
 	
 	
 	/**
