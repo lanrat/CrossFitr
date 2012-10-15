@@ -6,13 +6,13 @@
     android:orientation="vertical" >
 
     <!-- crossfitr logo -->
-
+<!-- 
     <ImageView
         android:id="@+id/main_header"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:layout_marginTop="-10dp"
-        android:src="@drawable/main_header" />
+        android:src="@drawable/main_header" /> -->
 
     <!-- screen title + thin red line -->
 
@@ -35,6 +35,7 @@
                 style="@style/titleText"
                 android:layout_width="wrap_content"
                 android:layout_alignParentTop="true"
+                 android:layout_marginTop="15dp"
                 android:text="myProfile" />
 
             <TextView
@@ -57,11 +58,12 @@
 
     <ImageView
         android:id="@+id/user_pic_button"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:src="@drawable/user_pic" />
+        android:src="@drawable/user_pic"
+        android:background="@drawable/user_pic_border" />
 
     <TextView
         android:id="@+id/click_change"
@@ -134,7 +136,7 @@
             android:layout_height="47dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button"
+            android:background="@drawable/rad_button"
             android:text="@string/button_edit_profile"
             android:textColor="@color/white"
             android:textSize="20dp" />
@@ -143,7 +145,7 @@
             android:id="@+id/achievements_button"
             android:layout_width="150dp"
             android:layout_height="47dp"
-            android:background="@drawable/button"
+            android:background="@drawable/rad_button"
             android:text="@string/button_achievements"
             android:textColor="@color/white"
             android:textSize="20dp" />

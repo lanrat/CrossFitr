@@ -5,12 +5,14 @@
     android:background="@drawable/background_main"
     android:orientation="vertical" >
 
+    <!--
     <ImageView
         android:id="@+id/main_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-15dp"
-        android:src="@drawable/main_header" />
+        android:src="@drawable/main_header" />
+    -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,9 +25,9 @@
             android:layout_width="182dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="4"
             android:text="Workouts" />
-
 
         <View
             android:layout_width="match_parent"
@@ -37,50 +39,38 @@
         android:layout_width="match_parent"
         android:layout_height="342dp"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/wod_button"
             style="@style/textButton"
-            android:layout_width="246dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/ic_workoutlist_wods" 
+            android:background="@drawable/rad_button"
+            android:drawableLeft="@drawable/icons_wod"
+            android:drawablePadding="15dp"
             android:text="WOD"
             android:textColor="@color/wod" />
 
         <Button
             android:id="@+id/hero_button"
             style="@style/textButton"
-            android:layout_width="246dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/ic_workoutlist_heroes" 
+            android:drawableLeft="@drawable/icons_heros"
             android:text="Hero"
-            android:textColor="@color/heroes"/>
+            android:textColor="@color/heroes" />
 
         <Button
             android:id="@+id/girl_button"
             style="@style/textButton"
-            android:layout_width="246dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/ic_workoutlist_girls"
+            android:drawableLeft="@drawable/icons_girls"
             android:text="Girls"
             android:textColor="@color/girls" />
 
         <Button
             android:id="@+id/custom_button"
             style="@style/textButton"
-            android:layout_width="246dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/ic_workoutlist_custom"
-            android:text= "Custom"
+            android:drawableLeft="@drawable/icons_custom"
+            android:drawablePadding="15dp"
+            android:text="Custom"
             android:textColor="@color/custom" />
     </LinearLayout>
 

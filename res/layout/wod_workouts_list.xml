@@ -8,12 +8,12 @@
     
     <!-- crossfitr logo -->
 
-    <ImageView
+<!--     <ImageView
         android:id="@+id/main_girls_header"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:layout_marginTop="-15dp"
-        android:src="@drawable/main_header" />
+        android:src="@drawable/main_header" /> -->
     
     <!-- screen title + thin red line -->
 
@@ -29,8 +29,10 @@
             android:gravity="top" >
 
             <TextView
+                android:layout_marginTop="15dp"
                 android:id="@+id/workouts_title"
                 style="@style/titleText"
+            
                 android:text="Workouts" />
 
             <TextView

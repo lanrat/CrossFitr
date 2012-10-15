@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/userprofile_form_bg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background_main"
-    android:orientation="vertical" 
-    android:id="@+id/userprofile_form_bg">
+    android:orientation="vertical" >
 
- <ImageView
+    <!--
+      <ImageView
         android:id="@+id/main_header"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:layout_marginTop="-10dp"
         android:src="@drawable/main_header" />
+    -->
+
 
     <!-- screen title + thin red line -->
 
@@ -34,6 +37,7 @@
                 style="@style/titleText"
                 android:layout_width="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
                 android:text="editProfile" />
         </RelativeLayout>
 
@@ -99,7 +103,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="number" />
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="80dp"
@@ -112,22 +116,20 @@
             android:id="@+id/button_userprofile_form_save"
             android:layout_width="140dp"
             android:layout_height="47dp"
-             android:layout_marginRight="10dp"
-            android:background="@drawable/button"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rad_button"
             android:text="@string/button_save_profile"
             android:textColor="@color/white"
             android:textSize="20dp" />
-
+
         <Button
             android:id="@+id/button_userprofile_form_cancel"
             android:layout_width="140dp"
             android:layout_height="47dp"
-           
-            android:background="@drawable/button"
+            android:background="@drawable/rad_button"
             android:text="@string/button_cancel_profile"
             android:textColor="@color/white"
             android:textSize="20dp" />
-
     </LinearLayout>
 
 </LinearLayout>

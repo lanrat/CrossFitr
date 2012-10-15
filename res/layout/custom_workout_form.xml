@@ -8,12 +8,12 @@
 	
     <!-- crossfitr logo -->
 
-   	<ImageView
+<!--    	<ImageView
         android:id="@+id/main_custom_header"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:layout_marginTop="-15dp"
-        android:src="@drawable/main_header" />
+        android:src="@drawable/main_header" /> -->
 
 	<TextView
 	        android:layout_width="wrap_content"
@@ -73,7 +73,8 @@
 	        android:layout_gravity="bottom"
 	        android:layout_marginBottom="10dp"
 	        android:layout_weight="1"
-	        android:text="@string/button_save_add" />
+	        android:text="@string/button_save_add" 
+	        android:background="@drawable/rad_button"/>
 	
 	    <Button
 	        android:id="@+id/button_workout_form_start"
@@ -82,7 +83,8 @@
 	        android:layout_gravity="bottom"
 	        android:layout_marginBottom="10dp"
 	        android:layout_weight="1"
-	        android:text="@string/button_start_add" />
+	        android:text="@string/button_start_add"
+	        android:background="@drawable/rad_button" />
 	</LinearLayout>
 
 </LinearLayout>

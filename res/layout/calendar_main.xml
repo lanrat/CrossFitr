@@ -8,12 +8,15 @@
 
     <!-- crossfitr logo -->
 
-    <ImageView
+
+    <!--
+         <ImageView
         android:id="@+id/cal_header"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:layout_marginTop="-5dp"
         android:src="@drawable/main_header" />
+    -->
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,7 +29,7 @@
             android:id="@+id/preMonth"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/custom_leftarrow" >
         </ImageView>
 
